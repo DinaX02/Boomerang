@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Homepage = () => {
   return (
     <div>
-        <p>Homepage</p>
+        <p>Bem Vindos ao Boomerang</p>
     <Link to={"/search-page"}><button>Pesquisa</button></Link>
     </div>
   )
