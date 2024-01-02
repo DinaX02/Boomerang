@@ -1,0 +1,40 @@
+/* -----geral----- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* -----estilos Header----- */
+
+.header{
+    background-color: #00C17C;
+    color:white;
+    min-height: 67px;
+    display: flex;
+    align-items: center;
+}
+
+.header h3{
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #FFF;
+    /* font-family: Montserrat; */
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.header svg{
+    margin-left: 28px;
+    margin-right: 23px;
+    padding: 10px;
+}
+
+/* -----outros----- */
+
+
+/* -----@media----- */
+
+@media (max-width: 425px) {
+    .header h3 {
+        font-size: 16px;
+    }
+}
