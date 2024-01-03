@@ -24,7 +24,7 @@ exports[`snapshot 1`] = `
     />
   </svg>
   <h3>
-    Página Desconhecida
+    Página desconhecida
   </h3>
 </header>
 `;
