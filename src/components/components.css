@@ -28,6 +28,21 @@
     padding: 10px;
 }
 
+/* ----------menu mobile--------- */
+
+.notificacoes{
+    background-color: black;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.vetormenumobile{
+    fill: var(--ffffff, #FFF);
+filter: drop-shadow(-1.5px 0px 4px rgba(131, 170, 209, 0.12));
+position: fixed;
+bottom: 0;
+}
+
 /* -----outros----- */
 
 
