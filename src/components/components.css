@@ -1,6 +1,10 @@
 /* -----geral----- */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+body{
+background-color: #F8F8F8;
+}
+
 /* -----estilos Header----- */
 
 .header{
@@ -24,9 +28,92 @@
 
 .header svg{
     margin-left: 28px;
-    margin-right: 23px;
+    margin-right: 32px;
     padding: 10px;
 }
+
+/* -----Preview Card Component----- */
+
+.imgCardPreview{
+    width: 100px;
+    height: auto;
+}
+
+/* -----Navbar Web----- */
+
+.Navbar {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 2em;
+    padding-left: 36px;
+    position: relative;
+    background-color: #343541;
+  }
+  
+  
+  .Navbar a {
+    text-decoration: none !important;
+    color: white;
+  }
+  
+  .nav-logo {
+    display: flex;
+    color: #0c0909 !important;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .navbarLogoImg{
+width: 30px;
+height: auto;
+padding-right: 1em;
+  }
+
+  .Navbar > .nav-logo {
+    font-weight: 700;
+    font-size: 21px;
+    color: white;
+  }
+  
+  .Navbar > .nav-items > a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 15px;
+    position: relative;
+    opacity: 0.9;
+  }
+  
+  .Navbar > .nav-items > a:hover {
+    opacity: 1;
+  }
+  
+  .Navbar > .nav-items > a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #00C17C;
+    transition: all 0.45s;
+  }
+  
+  
+  
+  .Navbar > .nav-items > a:hover::before {
+    width: 100%;
+  }
+  
+  .Navbar > .nav-toggle {
+    display: none;
+  }
+
+  
+
+
 
 /* -----outros----- */
 
@@ -37,4 +124,94 @@
     .header h3 {
         font-size: 16px;
     }
-}
+} 
+
+@media (max-width: 836px) {
+    
+    .Navbar {
+      position: static;
+      justify-content: space-between;
+    }
+  
+    .Navbar > .nav-items {
+      color: #2e2e2e !important;
+      position: absolute;
+      top: 70px;
+      display: flex;
+      background-color:#F8F8F8;
+      flex-direction: column;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 70px);
+      transform: translateX(-100%);
+      transition: all 0.45s;
+      z-index: 5;
+      text-align: center;
+      justify-content: center;
+    }
+  
+    .Navbar > .nav-items > a {
+      color: #2e2e2e !important;  
+      margin-left: 36px;
+    }
+  
+    .Navbar > .nav-items > a::before {
+      background: transparent;
+    }
+  
+    .Navbar > .nav-items.open {
+      transform: translateX(0);
+    }
+  
+    .Navbar > .nav-toggle {
+      display: flex;
+      width: 50px;
+      height: 50px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-right: 0.4em;
+    }
+  
+    .nav-toggle > .bar {
+      position: relative;
+      width: 32px;
+      height: 2px;
+      background: white;
+    }
+  
+    .nav-toggle > .bar::before,
+    .nav-toggle > .bar::after {
+      content: "";
+      position: absolute;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.45s ease-in-out;
+    }
+  
+    .nav-toggle > .bar::before {
+      width: 25px;
+      transform: translateY(-8px);
+      right: 0;
+    }
+  
+    .nav-toggle > .bar::after {
+      width: 32px;
+      transform: translateY(8px);
+      right: 0;
+    }
+  
+    .nav-toggle.open > .bar {
+      background: transparent;
+    }
+  
+    .nav-toggle.open > .bar::before {
+      width: 32px;
+      transform: rotate(45deg);
+    }
+  
+    .nav-toggle.open > .bar::after {
+      transform: rotate(-45deg);
+    }
+  }
