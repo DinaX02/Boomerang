@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../components/Header/Header'
 import MenuMobile from '../components/MenuMobile'
 
-const Notificacoes = () => {
+const Notifications = () => {
   return (
     <div className='notificacoes'>
             <Header name="Notificações"></Header>
@@ -11,4 +11,4 @@ const Notificacoes = () => {
   )
 }
 
-export default Notificacoes
+export default Notifications
