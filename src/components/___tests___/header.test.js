@@ -13,6 +13,7 @@ test("verifica a quantidade de pageNames estao no JSON para utilizar no Header",
 
   for (let i in pageNames) {
     countPages++;
+    i++;
   }
 
   console.log(`Número de pageNames estao no JSON: ${countPages}`);
