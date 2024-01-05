@@ -8,6 +8,7 @@
     width: 100%;
     display: flex;
 }
+
 /*contentor do conteudo da modal*/
 .modalContent {
     background-color: #eFeFeF;
@@ -17,7 +18,8 @@
     padding-top: 16px;
     margin: auto;
     position: absolute;
-    top: 50%;font-weight: 300;
+    top: 50%;
+    font-weight: 300;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -33,7 +35,8 @@ hr.divisorModal {
 /*texto da modal*/
 .textoModal {
     font-size: 12px;
-    font-weight: 300;   /*Light*/
+    font-weight: 300;
+    /*Light*/
 }
 
 /*botao ok da modal*/
@@ -43,5 +46,19 @@ hr.divisorModal {
     width: 100%;
     padding: 15px 0;
     border: 1px transparent;
-    font-weight: 300;   /*Light*/
+    font-weight: 300;
+    /*Light*/
+}
+
+@media only screen and (min-width: 600px) {
+
+    /*texto da modal*/
+    .textoModal {
+        font-size: 16px;
+        font-weight: normal;
+    }
+
+    .btnOK {
+        font-size: 15px;
+    }
 }
