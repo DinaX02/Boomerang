@@ -14,11 +14,18 @@ const Modal = (props) => {
     OK
     */
     return (
-        <div className="fundoModal">
-            <Col xs={10} lg={5} className="modalComponent">
+        <div className="fundoModal"
+        style={
+            props.fecharModal
+            ? { display: "none"}
+            : {display: "block"}
+        }>
+            <Col xs={10} lg={5} className="modalContent">
                 <p className="textoModal">{props.message}</p>
                 <hr className="divisorModal"></hr>
-                <p className="btnOK">OK</p>   {/*Aplicar um onClick para fechar a modal (de true para false)*/}
+                <button className="btnOK" onClick={() => {
+                    props.setFecharModal(!props.fecharModal)
+                }}>OK</button>   {/*Aplicar um onClick para fechar a modal (de true para false)*/}
             </Col>
         </div>
     )
