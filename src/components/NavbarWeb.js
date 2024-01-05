@@ -17,6 +17,7 @@ const NavbarWeb = ()=> {
                  <Link to={"/fav-page"}>Favoritos</Link>
                  <Link to={"/notifications-page"}>Caixa de Entrada</Link>
                  <Link to={"/publicar-page"}>Publicar</Link>
+                 <Link to={"/profile-page"}>Perfil</Link>
                  <div className="space_search_bar">
         </div>
             </div>
