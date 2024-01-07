@@ -4,7 +4,6 @@ import SearchPage from "./pages/SearchPage";
 import Publicar from "./pages/Publicar";
 import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
-import FavoritePage from "./pages/FavoritePage";
 import '../src/components/components.css';
 import Notifications from "./pages/Notifications";
 
@@ -19,7 +18,6 @@ function App() {
         <Route path="/profile-page" element={<Profile/>}></Route>
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
-        <Route path="/fav-page" element={<FavoritePage/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>

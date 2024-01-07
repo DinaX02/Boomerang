@@ -21,7 +21,7 @@ test("verifica a quantidade de pageNames estao no JSON para utilizar no Header",
   expect(countPages).toBeGreaterThan(0);
 });
 
-test("verifica se existe um svg no componente Header", () => {
+test("verifica se existe um img no componente Header", () => {
   render(
     <MemoryRouter>
       <Header />
