@@ -7,7 +7,7 @@ const Homepage = () => {
     <div>
       <NavbarWeb/>
         <p>Bem Vindos ao Boomerang</p>
-    <Link to={"/search-page"}><button>Pesquisa</button></Link>
+        <Link to={"/search-page"}><button>Pesquisa</button></Link>
 
     </div>
   )
