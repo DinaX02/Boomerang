@@ -8,7 +8,7 @@ import NavbarWeb from '../components/NavbarWeb';
 const Publicar = () => {
   return (
 
-    <div>
+    <div className='publicarPage'>
       <NavbarWeb/>
         <Header name="Publicar"/>
         {/* <PreviewCard/> */}
