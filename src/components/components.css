@@ -1,5 +1,5 @@
 /* -----geral----- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway&display=swap');
 
 body{
 background-color: #F8F8F8;
@@ -314,6 +314,7 @@ background-color: #F8F8F8;
 
   
 /* ----- ProgressPublish ----- */
+
 .productForm {
   display: flex;
   flex-direction: column;
@@ -345,19 +346,31 @@ background-color: #F8F8F8;
  }
  
  .imagePreviewImg {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   margin-right: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-bottom: 0.8em;
  }
 
  .imagesPreviewContainer {
   display: flex;
+  max-width: 95%;
   overflow-x: auto;
+  overflow-y: hidden;
 }
  
+.imagesPreviewContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.imagesPreviewContainer::-webkit-scrollbar-thumb {
+  background-color: #00C17C;
+  border-radius: 4px;
+}
+
 .removeImageButton {
   position: absolute;
   top: 8px;
@@ -402,7 +415,7 @@ background-color: #F8F8F8;
 
 }
 
-.corAsteriscoObrigatorio{
+.colourGreenAsterisk{
   color: #00C17C;
 }
 
@@ -412,6 +425,20 @@ background-color: #F8F8F8;
   align-items: center;
   margin-top: 3em;
 }
+
+.countCharDescription{
+  font-size: 12px;
+  color: #888;
+  margin-left: 5px;
+}
+
+.addImgInputPublish{
+border: 1px solid #CACACA;
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+padding: 8px;
+border-radius: 5px;
+}
+
 /* -----outros----- */
 
 
@@ -419,7 +446,8 @@ background-color: #F8F8F8;
 /* -----Publicar Page----- */
 
 .publicarPage{
-min-height: 100vh;
+  height: calc(100vh- 67px);
+  overflow-x: hidden;
 }
 
 /* -----@media----- */
@@ -476,6 +504,12 @@ min-height: 100vh;
   .productForm {
     height: calc(100vh- 67px);
    }
+
+   .imagePreviewImg {
+    width: 120px;
+    height: 120px;
+  }
+
   }
 
 @media (max-width: 836px) {
