@@ -167,7 +167,7 @@ background-color: #F8F8F8;
   margin: 3em auto 2em;
   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
   align-items: center;
-  justify-content: center; /* Ajuste para centralizar horizontalmente */
+  justify-content: center;
 
   @media (max-width: 500px) {
     max-width: 80vw;
@@ -228,7 +228,7 @@ background-color: #F8F8F8;
   font-family: Montserrat;
   font-size: 0.8em;
   font-style: normal;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .totalPricePreview {
@@ -313,11 +313,113 @@ background-color: #F8F8F8;
   }
 
   
+/* ----- ProgressPublish ----- */
+.productForm {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+ }
+ 
+ .productForm label {
+  margin-top: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3em;
+ }
+ 
+ .productFormInput{
+  padding: 0.5rem;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+ }
+ 
+ .imagePreview {
+  position: relative;
+  margin-right: 0.5rem;
+  display: inline-block; 
+ }
+ 
+ .imagePreviewImg {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+ }
+
+ .imagesPreviewContainer {
+  display: flex;
+  overflow-x: auto;
+}
+ 
+.removeImageButton {
+  position: absolute;
+  top: 8px;
+  right: 17px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 50%;
+}
+
+ button[type="submit"] {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+ }
+ 
+ button[type="submit"]:hover {
+  background-color: #0056b3;
+ }
+
+ .imageUpload {
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-top: 1em;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+  height: 300px;
+}
 
 
+.imageUpload input[type="file"] {
+  margin-top: 0.5em; 
+  align-self: center;
 
+}
+
+.corAsteriscoObrigatorio{
+  color: #00C17C;
+}
+
+.btnProximoPublicar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+}
 /* -----outros----- */
 
+
+
+/* -----Publicar Page----- */
+
+.publicarPage{
+  display: flex;
+  justify-content: center;
+}
 
 /* -----@media----- */
 
