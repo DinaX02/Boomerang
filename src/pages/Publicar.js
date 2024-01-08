@@ -1,7 +1,9 @@
 import React from 'react'
 import Header from '../components/Header/Header';
-import PreviewCard from '../components/PreviewCard';
+// import PreviewCard from '../components/PreviewCard';
+import ProgressPublish from '../components/ProgressPublish';
 import NavbarWeb from '../components/NavbarWeb';
+
 
 const Publicar = () => {
   return (
@@ -9,7 +11,8 @@ const Publicar = () => {
     <div>
       <NavbarWeb/>
         <Header name="Publicar"/>
-        <PreviewCard/>
+        {/* <PreviewCard/> */}
+        <ProgressPublish/>  
     </div>
   )
 }
