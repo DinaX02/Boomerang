@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Header/Header'
-import MenuMobile from '../components/MenuMobile'
+import MenuMobile from '../components/MenuMobile.js'
 
 const Notifications = () => {
   return (
