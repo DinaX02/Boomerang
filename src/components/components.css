@@ -35,17 +35,56 @@ background-color: #F8F8F8;
 /* ----------menu mobile--------- */
 
 .notificacoes{
-    background-color: black;
-    min-height: 100vh;
+    background-color: #F8F8F8;
+    min-height: 130vh;
     display: flex;
     flex-direction: column;
 }
-.vetormenumobile{
-    fill: var(--ffffff, #FFF);
-filter: drop-shadow(-1.5px 0px 4px rgba(131, 170, 209, 0.12));
-position: fixed;
-bottom: 0;
+.menumobile{
+  height: 110px;
+  position: fixed;
+  bottom: -5px;
+  background-image: url("../assets/menumobile/menumobile.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  background-position: bottom center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
+
+.publicarbtn{
+  height: 110px;
+  position: fixed;
+  bottom: 15px;
+  transform: translate(calc(50vw - 50%));
+}
+
+.menumobilebtns img{
+  width: 26px;
+}
+
+.menumobilebtns{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+  padding-top: 10px;
+  justify-content: space-evenly;
+}
+
+.menumobile span{
+  width: 90px;
+}
+@media only screen and (min-width: 600px) {
+  .menumobile{
+    display: none;
+  }
+}
+
 /* -----Preview Card Component----- */
 
 .imgCardPreview {
