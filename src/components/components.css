@@ -260,6 +260,8 @@ background-color: #F8F8F8;
   width: 90%;
   max-width: 600px;
   margin: 0 auto;
+  justify-content: center;
+  height: calc(100vh - 70px - 67px);
  }
  
  .productForm label {
@@ -357,8 +359,7 @@ background-color: #F8F8F8;
 /* -----Publicar Page----- */
 
 .publicarPage{
-  display: flex;
-  justify-content: center;
+min-height: 100vh;
 }
 
 /* -----@media----- */
@@ -411,6 +412,10 @@ background-color: #F8F8F8;
     max-width: 90vw;
     padding: 10px;
   }
+
+  .productForm {
+    height: calc(100vh- 67px);
+   }
   }
 
 @media (max-width: 836px) {
