@@ -1,0 +1,16 @@
+/*botao do componente reutilizavel*/
+.btnComponent {
+    background-color: #343541;
+    color: white;
+    font-weight: bold;
+    width: 144px;
+    height: 36px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px transparent;
+}
+
+.btnComponent:active {
+    /* o !important garante que o active funciona mesmo com o style inline do componente Button*/
+    background-color: #00C17C !important;
+}
