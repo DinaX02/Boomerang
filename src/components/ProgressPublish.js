@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import EliminarImage from "../assets/eliminar.svg";
 import Button from "./Button";
 import "./components.css";
+import ProgressBar from "./ProgressBar";
 
 
-
-const ProgressPublish = () => {
+const ProgressPublish1 = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -13,7 +13,11 @@ const ProgressPublish = () => {
   const [countChar, setCountChar] = useState(0);
   const [paragraphAddFoto, setParagraphAddFoto] = useState(true);
 
+
+
   const limit_images = 5;
+
+  const isButtonDisable = !title || !description ||images.length === 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +50,7 @@ const ProgressPublish = () => {
   };
 
   return (
+
     <form className="productForm" onSubmit={handleSubmit}>
       <div className="imageUpload" htmlFor="images">
         <label htmlFor="images" className="addImgInputPublish">
@@ -109,14 +114,13 @@ const ProgressPublish = () => {
       />
 
       <label htmlFor="description">
-        {" "}
         <span className="colourGreenAsterisk">*</span> Campo Obrigatório
       </label>
       <div className="btnProximoPublicar">
-        <Button text="Próximo" />
+        <Button text="Próximo" disable={isButtonDisable}/>
       </div>
     </form>
   );
 };
 
-export default ProgressPublish;
+export default ProgressPublish1;
