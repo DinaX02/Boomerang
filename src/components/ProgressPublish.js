@@ -3,25 +3,31 @@ import EliminarImage from "../assets/eliminar.svg";
 import Button from "./Button";
 import "./components.css";
 
+
+
 const ProgressPublish = () => {
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
   const [countChar, setCountChar] = useState(0);
   const [paragraphAddFoto, setParagraphAddFoto] = useState(true);
 
+  const limit_images = 5;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Adicione lógica para enviar os dados, se necessário
   };
 
   const handleImageChange = (e) => {
-    if (e.target.files.length > 5) {
-      alert("Podes adicionar até 5 imagens");
+    const newImages = Array.from(e.target.files);
+
+    if (images.length + newImages.length > limit_images) {
+      alert(`Não pode adicionar mais de 5 imagens!`);
       return;
     }
 
-    setImages([...images, ...Array.from(e.target.files)]);
+    setImages([...images, ...newImages]);
     setParagraphAddFoto(false);
   };
 
@@ -43,7 +49,7 @@ const ProgressPublish = () => {
     <form className="productForm" onSubmit={handleSubmit}>
       <div className="imageUpload" htmlFor="images">
         <label htmlFor="images" className="addImgInputPublish">
-          <span className="colourGreenAsterisk">+</span> Adicionar Fotografias
+          <span className="colourGreenAsterisk">+</span> Adicionar Fotografias <span className="colourGreenAsterisk">*</span>
         </label>
         <input
           id="images"
