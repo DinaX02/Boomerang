@@ -17,5 +17,7 @@ const Button = (props) => {
     )
 }
 
+const ButtonStyle = styled.button`
+`
 
 export default Button

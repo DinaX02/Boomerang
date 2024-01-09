@@ -1,8 +1,9 @@
 import React from "react";
+import styled from "styled-components";
 import "./components.css";
 import "./modal.css";
 
-import Col from 'react-bootstrap/Col';
+// import Col from 'react-bootstrap/Col';
 
 //Componente reutilizavel - Modal
 const Modal = (props) => {
@@ -13,7 +14,7 @@ const Modal = (props) => {
                     ? { display: "none" }
                     : { display: "block" }
             }>
-            <Col xs={10} lg={5} className="modalContent">
+            <div className="modalContent">
                 <p className="textoModal">{props.message}</p>
                 <hr className="divisorModal"></hr>
                 <button
@@ -21,9 +22,12 @@ const Modal = (props) => {
                     onClick={() => {
                         props.setFecharModal(!props.fecharModal)
                     }}>OK</button>
-            </Col>
+            </div>
         </div>
     )
 }
+
+const ModalStyle = styled.div`
+`
 
 export default Modal
