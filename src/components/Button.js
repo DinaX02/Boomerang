@@ -12,7 +12,6 @@ const Button = (props) => {
                     ? { backgroundColor: "#cacaca" }
                     : { backgroundColor: "#343541" }
             }>
-            <span></span>
             {props.text}
         </button>
     )
