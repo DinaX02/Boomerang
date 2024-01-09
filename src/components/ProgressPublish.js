@@ -57,7 +57,7 @@ const ProgressPublish = () => {
           accept="image/*"
           multiple
           onChange={handleImageChange}
-          style={{ opacity: 0, position: "absolute", zIndex: -1 }}
+          style={{ opacity: 0, position: "absolute", zIndex: -1, maxWidth: "600px", width: "90%" }}
         />
 
         {paragraphAddFoto && (

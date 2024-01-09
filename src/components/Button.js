@@ -1,5 +1,6 @@
 import React from 'react'
 import "./button.css";
+import styled from "styled-components";
 
 //Componente reutilizavel - Botao
 const Button = (props) => {
@@ -11,9 +12,11 @@ const Button = (props) => {
                     ? { backgroundColor: "#cacaca" }
                     : { backgroundColor: "#343541" }
             }>
+            <span></span>
             {props.text}
-        </button> 
+        </button>
     )
 }
+
 
 export default Button

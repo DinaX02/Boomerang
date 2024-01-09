@@ -3,7 +3,6 @@ import Header from '../components/Header/Header';
 // import PreviewCard from '../components/PreviewCard';
 import ProgressPublish from '../components/ProgressPublish';
 import NavbarWeb from '../components/NavbarWeb';
-import MenuMobile from '../components/MenuMobile'
 
 
 const Publicar = () => {
@@ -13,8 +12,7 @@ const Publicar = () => {
       <NavbarWeb/>
         <Header name="Publicar"/>
         {/* <PreviewCard/> */}
-        <ProgressPublish/>  
-        <MenuMobile/>
+        <ProgressPublish/>
     </div>
   )
 }
