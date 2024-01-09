@@ -80,6 +80,10 @@ background-color: #F8F8F8;
   width: 90px;
 }
 @media only screen and (min-width: 600px) {
+  .NavbarWeb{
+display: flex;
+  }
+
   .menumobile{
     display: none;
   }
@@ -242,6 +246,7 @@ background-color: #F8F8F8;
 /* -----Navbar Web----- */
 
 .NavbarWeb {
+    display: none !important;
     height: 70px;
     display: flex;
     justify-content: space-between;
@@ -360,6 +365,7 @@ background-color: #F8F8F8;
   max-width: 95%;
   overflow-x: auto;
   overflow-y: hidden;
+  margin-top: 0.6em;
 }
  
 .imagesPreviewContainer::-webkit-scrollbar {
