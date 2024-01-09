@@ -36,7 +36,6 @@ const ArticleLink = styled(Link)`
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
   font-size: 12px;
   
-  
   p{
     margin: 0;
     font-weight: 400;
