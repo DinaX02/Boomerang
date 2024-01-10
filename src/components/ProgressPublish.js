@@ -1,49 +1,82 @@
-import React, { useState } from "react";
+import React from "react";
 import EliminarImage from "../assets/eliminar.svg";
 import Button from "./Button";
 import "./components.css";
+//import ProgressBar from "./ProgressBar";
+import { useSelector, useDispatch } from "react-redux";
+import { updateProgressPublish1 } from "../redux/publicarSlice";
+import { useNavigate } from "react-router-dom";
 
-const ProgressPublish = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [images, setImages] = useState([]);
-  const [countChar, setCountChar] = useState(0);
-  const [paragraphAddFoto, setParagraphAddFoto] = useState(true);
+const ProgressPublish1 = () => {
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Adicione lógica para enviar os dados, se necessário
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Dados da store relativos a etapa 1 de publicar
+  const { title, description, images, countChar, paragraphAddFoto } =
+    useSelector((state) => state.Publicar1.progressPublish1);
+
+  const handleGoToProgress2 = () => {
+    // console.log("cliquei no btn")
+    dispatch(
+      updateProgressPublish1({
+        title,
+        description,
+        images,
+        countChar,
+        paragraphAddFoto,
+      })
+    );
+    navigate("/progressPublish-2");
   };
 
+  const limit_images = 5;   // define o limite de img uploaded
+
+  const isButtonDisable = !title || !description || images.length === 0;
+
   const handleImageChange = (e) => {
-    if (e.target.files.length > 5) {
-      alert("Podes adicionar até 5 imagens");
+    const newImages = Array.from(e.target.files);
+  // verifica se o uplload das img nao excede o limite definido
+    if (images.length + newImages.length > limit_images) {
+      alert(`Não pode adicionar mais de 5 imagens!`);
       return;
     }
 
-    setImages([...images, ...Array.from(e.target.files)]);
-    setParagraphAddFoto(false);
+    // atualizar a store redux com as novas img uploaded
+    dispatch(
+      updateProgressPublish1({
+        images: [...images, ...newImages],
+        paragraphAddFoto: false,
+      })
+    );
   };
 
   const handleRemoveImage = (index) => {
     const newImages = [...images];
     newImages.splice(index, 1);
-    setImages(newImages);
+    // atualizar a store redux com as modificacoes feitas ao array das img
+    dispatch(updateProgressPublish1({ images: newImages }));
   };
 
   const handleDescriptionChange = (e) => {
-    const inputDescription = e.target.value;
+    const inputDescription = e.target.value; // verificar se a descricao esta dentro do limite definido
     if (inputDescription.length <= 150) {
-      setDescription(inputDescription);
-      setCountChar(inputDescription.length);
+      // atualizar a store redux com descriçao e no. de charc
+      dispatch(
+        updateProgressPublish1({
+          description: inputDescription,
+          countChar: inputDescription.length,
+        })
+      );
     }
   };
 
   return (
-    <form className="productForm" onSubmit={handleSubmit}>
+    <div className="productForm">
       <div className="imageUpload" htmlFor="images">
         <label htmlFor="images" className="addImgInputPublish">
           <span className="colourGreenAsterisk">+</span> Adicionar Fotografias
+          <span className="colourGreenAsterisk">*</span>
         </label>
         <input
           id="images"
@@ -51,12 +84,16 @@ const ProgressPublish = () => {
           accept="image/*"
           multiple
           onChange={handleImageChange}
-          style={{ opacity: 0, position: "absolute", zIndex: -1 }}
+          style={{
+            opacity: 0,
+            position: "absolute",
+            zIndex: -1,
+            maxWidth: "600px",
+            width: "90%",
+          }}
         />
 
-        {paragraphAddFoto && (
-          <p>Adiciona até 5 fotografias</p>
-        )}
+        {paragraphAddFoto && <p>Adiciona até 5 fotografias</p>}
 
         <div className="imagesPreviewContainer">
           {images.map((image, index) => (
@@ -87,7 +124,7 @@ const ProgressPublish = () => {
         id="title"
         placeholder="Ex: Casaco de Pele Preto"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => dispatch(updateProgressPublish1({ title: e.target.value, description, images, countChar, paragraphAddFoto }))}
       />
 
       <label htmlFor="description">
@@ -103,14 +140,14 @@ const ProgressPublish = () => {
       />
 
       <label htmlFor="description">
-        {" "}
         <span className="colourGreenAsterisk">*</span> Campo Obrigatório
       </label>
       <div className="btnProximoPublicar">
-        <Button text="Próximo" />
+        {/* <Button text="Próximo" onClick={handleGoToProgress2}disable={isButtonDisable} /> */}
+        <button onClick={handleGoToProgress2}>próximo</button>
       </div>
-    </form>
+    </div>
   );
 };
 
-export default ProgressPublish;
+export default ProgressPublish1;

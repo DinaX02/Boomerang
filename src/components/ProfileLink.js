@@ -6,8 +6,6 @@ import userMockupImage from "../assets/user_mockup_image.jpg";
 const ProfileLink = (props) => {
     return (
 
-        //TODO: alterar o link para o link do artigo//
-        //TODO: alterar imagens e informações para o artigo//
 
         <ProfileLinkStyle to={`/`}>
             <img src={userMockupImage} className={'profileLink'}/>
