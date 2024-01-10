@@ -9,8 +9,3 @@
     outline: none;
     border: 1px transparent;
 }
-
-.btnComponent:active {
-    /* o !important garante que o active funciona mesmo com o style inline do componente Button*/
-    background-color: #00C17C !important;
-}
