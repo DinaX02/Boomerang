@@ -20,9 +20,9 @@ background-color: #F8F8F8;
     margin-bottom: 0;
     color: #FFF;
     /* font-family: Montserrat; */
-    font-size: 19px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
 }
 
@@ -332,7 +332,7 @@ display: flex;
  
  .productForm label {
   margin-top: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.3em;
  }
  
