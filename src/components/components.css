@@ -20,9 +20,9 @@ background-color: #F8F8F8;
     margin-bottom: 0;
     color: #FFF;
     /* font-family: Montserrat; */
-    font-size: 19px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
 }
 
@@ -332,8 +332,9 @@ display: flex;
  
  .productForm label {
   margin-top: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.3em;
+  font-size: 14px;
  }
  
  .productFormInput{
@@ -430,6 +431,8 @@ display: flex;
 
 .colourGreenAsterisk{
   color: #00C17C;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .btnProximoPublicar{
@@ -438,6 +441,18 @@ display: flex;
   align-items: center;
   margin-top: 3em;
 }
+
+.containerDoisBtn{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  max-width: 600px;
+  margin-top: 20.2em;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: space-evenly;
+}
+
 
 .countCharDescription{
   font-size: 12px;
@@ -452,57 +467,45 @@ padding: 8px;
 border-radius: 5px;
 }
 
+.spaceTopComponent{
+margin-top: 2.5em;
+}
+
+/* -----ButtonForOpenBottomSheet----- */
+.containerBtnForOpenBottomSheet {
+  display: flex;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.btnForOpenBottomSheet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #000;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding: 12px 20px;
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; 
+  margin-bottom: 24px;
+}
+
+.dropdownIcon {
+  width: 16px;
+  height: auto;
+}
+
 /* -----progresssbar----- */
-.step-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-}
-
-.step-item:not(:first-child):before {
-  content: '';
-  background-color: #cbd5e0;
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  right: 50%;
-  top: 33%;
-  transform: translateY(-50%);
-}
-
-.step {
-  width: 10px;
-  height: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  position: relative;
-  background-color: #4a5568;
-  border-radius: 50%;
-  font-weight: bold;
-  color: white;
-}
-
-.active .step {
-  background-color: #3490dc;
-}
-
-.complete .step {
-  background-color: #38a169;
-}
-
-.complete p {
-  color: white;
-}
-
-.complete:not(:first-child):before,
-.active:not(:first-child):before {
-  background-color: #38a169; 
-}
 
 /* -----outros----- */
 
@@ -669,106 +672,124 @@ border-radius: 5px;
 
   /* -----Filtros----- */
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  z-index: 1; /* Para colocar por cima dos outros elementos */
-}
-.filterHeader{
-  display: flex;
-  padding: 25px 25px;
-  width: 100%;
-}
-.filterTitle{
-  width: 80%;
-}
-.filterTitle h2{
-  font-weight: 700;
-}
-.filterClose{
-  text-align: right;
-  width: 20%;
-}
-.filterClose button{
-  border: none;
-  background-color: transparent;
-}
-
-.filterButton{
-margin-left: 50px;
-background-color: #00C17C;
-  width: 50px;
-  height: 50px;
-  border-radius: 7px;
-  border: none;
-}
-
-.filterMenu {
-  background-color: white;
-  width: 100%;
-  height: 60vh;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items:baseline;
-}
-
-.accordionFilter{
-  width: 100%;
-
-}
-.accordionFilter hr{
- margin: 5px;
-
-}
-
-
-.accordionSeparador{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-}
-.accordionSeparador img{
-  width: 15px;
-  height: 15px;
-
-}
-
-.accordion {
-  background-color: white;
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 1; /* Para colocar por cima dos outros elementos */
+  }
+  .filterHeader{
+    display: flex;
+    padding: 35px 25px 10px 25px;
+    width: 100%;
+  }
+  .filterTitle{
+    width: 90%;
+  }
+  .filterTitle h2{
+    font-weight: 700;
+    font-size: 22px;
+  }
+  .filterClose{
+    text-align: right;
+    width: 10%;
+  }
+  .filterClose img{
+    width: 20px;
+    height: 20px;
+  }
+  .filterClose button{
+    border: none;
+    background-color: transparent;
+  }
   
-  width: 100%;
-  border: none;
-  text-align: left;
-  font-size: 16px;
-  font-weight: 600;
-  transition: 0.4s;
-}
-
-
-.panel {
-  padding: 5px 20px;
-  background-color: white;
-  overflow: hidden;
-  display: block;
-  transition: max-height 0.2s ease-out;
-}
-.panel label {
-  display: flex;
-  width: 100%;
-  padding: 5px 15px;
-  font-size: 16px;
-  align-items: center;
+  .filterButton{
+  margin-left: 50px;
+  background-color: #00C17C;
+    width: 50px;
+    height: 50px;
+    border-radius: 7px;
+    border: none;
+  }
   
-}
-
-.radioInput{
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-}
+  .filterMenu {
+    background-color: white;
+    width: 100%;
+    height: 70vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items:baseline;
+  }
+  
+  .accordionFilter{
+    width: 100%;
+  
+  }
+  .accordionFilter hr{
+   margin: 5px;
+  
+  }
+  
+  
+  .accordionSeparador{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  .accordionSeparador img{
+    width: 15px;
+    height: 15px;
+  
+  }
+  
+  .accordion {
+    background-color: white;
+    
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.4s;
+  }
+  
+  
+  .panel {
+    padding: 5px 20px;
+    background-color: white;
+    overflow: hidden;
+    display: block;
+    transition: max-height 0.2s ease-out;
+  }
+  .panel label {
+    display: flex;
+    width: 100%;
+    padding: 5px 15px;
+    font-size: 16px;
+    align-items: center;
+    
+  }
+  
+  .radioInput{
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }
+  
+  .filtroAplicar{
+    display: flex;
+    justify-content: center;
+  }
+  .filtroAplicar button{
+    padding: 9px 57px;
+    background-color: #343541;
+    border-radius: 7px;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+  }

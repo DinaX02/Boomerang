@@ -9,7 +9,7 @@ const Publicar = () => {
 
     <div>
       <NavbarWeb/>
-        <Header name="Publicar"/>
+        <Header name="Publicar / Etapa 1 de 5"/>
         {/* <PreviewCard/> */}
         <ProgressPublish1/>
     </div>
