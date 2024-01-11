@@ -5,6 +5,10 @@ import Publicar from "./pages/Publicar";
 import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import '../src/components/components.css';
+import ProgressPublish2 from "./components/ProgressPublish/ProgressPublish2";
+import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
+import ProgressPublish4 from "./components/ProgressPublish/ProgressPublish4";
+import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
 
 function App() {
@@ -16,6 +20,10 @@ function App() {
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
+        <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
+        <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
+        <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>
+        <Route path="/progressPublish-5" element={<ProgressPublish5/>}></Route>
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
       </Routes>

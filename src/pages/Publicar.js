@@ -1,18 +1,17 @@
 import React from 'react'
 import Header from '../components/Header/Header';
 // import PreviewCard from '../components/PreviewCard';
-import ProgressPublish from '../components/ProgressPublish';
+import ProgressPublish1 from '../components/ProgressPublish';
 import NavbarWeb from '../components/NavbarWeb';
-
 
 const Publicar = () => {
   return (
 
     <div>
       <NavbarWeb/>
-        <Header name="Publicar"/>
+        <Header name="Publicar / Etapa 1 de 5"/>
         {/* <PreviewCard/> */}
-        <ProgressPublish/>  
+        <ProgressPublish1/>
     </div>
   )
 }
