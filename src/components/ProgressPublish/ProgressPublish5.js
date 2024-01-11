@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
-import ButtonForOpenBottomSheet from "../ButtonForOpenBottomSheet";
-import ButtonWithMandatoryField from "../ButtonWithMandatoryField";
+import InputWithInfoIcon from "../InputWithInfoIcon";
+import InputWithEuroIcon from "../InputwithEuroIcon";
 import Header from "../Header/Header";
+
 import "../components.css";
 
 
@@ -20,13 +21,28 @@ const ContainerDoisBtn = styled.div`
   flex-direction: row;
   width: 90%;
   max-width: 600px;
-  margin-top: 17.4em;
+  margin-top: 20.9em;
   margin-right: auto;
   margin-left: auto;
   justify-content: space-evenly;
 `;
 
-const ProgressPublish2 = () => {
+const Container = styled.div`
+  display: flex;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
+const ParagraphIntroAdress = styled.p`
+color: #9F9F9F;
+
+@media (max-width: 500px) {
+  font-size: 14px;}
+
+`
+
+const ProgressPublish5 = () => {
   const navigate = useNavigate();
 
   const handleGoBackStepPublish = () => {
@@ -34,25 +50,23 @@ const ProgressPublish2 = () => {
   };
 
   const handleNextStepPublish = () => {
-    navigate("/progressPublish-3");
+    navigate("/"); // mudar para futuro overlay publicar concluído
   };
 
   return (
     <div>
-      <Header name="Publicar / Etapa 2 de 5" />
+      <Header name="Publicar / Etapa 5 de 5" />
       <SpaceTopComponent>
-        <ButtonForOpenBottomSheet btnName="Tamanho" />
-        <ButtonForOpenBottomSheet btnName="Cor" />
-        <ButtonForOpenBottomSheet btnName="Categorias " />
-        <ButtonWithMandatoryField btnName="Marca" />
-      </SpaceTopComponent>
-
+<Container>
+  <ParagraphIntroAdress>Escolhe a Morada de Retorno para garantir uma recuperação simples e eficiente da tua peça após o período de aluguer.</ParagraphIntroAdress>
+</Container>
       <ContainerDoisBtn>
         <Button text="Anterior" onClick={handleGoBackStepPublish} />
-        <Button text="Próximo" onClick={handleNextStepPublish} /> {/* falta aplicar a lógica de só ficar ativo se os botoes tiverem value atribuido */}
+        <Button text="Próximo" onClick={handleNextStepPublish} />
       </ContainerDoisBtn>
+      </SpaceTopComponent>
   </div>
   );
 };
 
-export default ProgressPublish2;
+export default ProgressPublish5;

@@ -143,8 +143,7 @@ const ProgressPublish1 = () => {
         <span className="colourGreenAsterisk">*</span> Campo Obrigatório
       </label>
       <div className="btnProximoPublicar">
-        {/* <Button text="Próximo" onClick={handleGoToProgress2}disable={isButtonDisable} /> */}
-        <button onClick={handleGoToProgress2}>próximo</button>
+        <Button text="Próximo" onClick={handleGoToProgress2}disable={isButtonDisable} />
       </div>
     </div>
   );

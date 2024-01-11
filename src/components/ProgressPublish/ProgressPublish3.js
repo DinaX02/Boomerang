@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
-import ButtonForOpenBottomSheet from "../ButtonForOpenBottomSheet";
-import ButtonWithMandatoryField from "../ButtonWithMandatoryField";
+import InputMeasuresNotMandatory from "../InputsMesuresNotMandatory";
+import ButtonWithInfoIcon from "../ButtonWithInfoIcon";
 import Header from "../Header/Header";
+
 import "../components.css";
 
 
@@ -20,13 +21,13 @@ const ContainerDoisBtn = styled.div`
   flex-direction: row;
   width: 90%;
   max-width: 600px;
-  margin-top: 17.4em;
+  margin-top: 9em;
   margin-right: auto;
   margin-left: auto;
   justify-content: space-evenly;
 `;
 
-const ProgressPublish2 = () => {
+const ProgressPublish3 = () => {
   const navigate = useNavigate();
 
   const handleGoBackStepPublish = () => {
@@ -34,25 +35,22 @@ const ProgressPublish2 = () => {
   };
 
   const handleNextStepPublish = () => {
-    navigate("/progressPublish-3");
+    navigate("/progressPublish-4");
   };
 
   return (
     <div>
-      <Header name="Publicar / Etapa 2 de 5" />
+      <Header name="Publicar / Etapa 3 de 5" />
       <SpaceTopComponent>
-        <ButtonForOpenBottomSheet btnName="Tamanho" />
-        <ButtonForOpenBottomSheet btnName="Cor" />
-        <ButtonForOpenBottomSheet btnName="Categorias " />
-        <ButtonWithMandatoryField btnName="Marca" />
+        <ButtonWithInfoIcon btnName="Selecionar Estado" infoName="Estado"/>
       </SpaceTopComponent>
-
+      <InputMeasuresNotMandatory/>
       <ContainerDoisBtn>
         <Button text="Anterior" onClick={handleGoBackStepPublish} />
-        <Button text="Próximo" onClick={handleNextStepPublish} /> {/* falta aplicar a lógica de só ficar ativo se os botoes tiverem value atribuido */}
+        <Button text="Próximo" onClick={handleNextStepPublish} />
       </ContainerDoisBtn>
   </div>
   );
 };
 
-export default ProgressPublish2;
+export default ProgressPublish3;

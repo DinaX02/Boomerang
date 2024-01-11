@@ -9,6 +9,8 @@ const PublishSlice = createSlice({
       images: [],
       countChar: 0,
       paragraphAddFoto: true,
+      estimatedValue:"",
+      rentalPricePerDay: "",
     },
     
   },
