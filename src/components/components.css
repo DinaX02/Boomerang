@@ -103,10 +103,11 @@ background-color: #F8F8F8;
   justify-content: space-between;
   width: 100%;
   padding: 15px;
-  padding-left: 50px;
+  padding-left: 35px;
 }
 
 .FormsButton{
+  margin: auto;
   width: 90%;
   height: 50px;
   display: flex;
@@ -144,6 +145,51 @@ background-color: #F8F8F8;
   font-size: 25px;
   color: #00C17C;
 }
+
+/* ---------Notificacoes------------ */
+
+.notification{
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
+  height: 130px;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+}
+
+.notificationimg{
+  width: 80px;
+  height: 80px;
+  border-radius: 200px;
+  margin-right: 20px;
+  margin-left: 20px;
+  background-size: cover;
+  background-position: center center;
+}
+
+.notification p{
+  max-width: 250px;
+  margin-bottom: 5px;
+}
+
+.discount{
+  height: 80px;
+  width: 80px;
+  border-radius: 200px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #00C17C;
+  font-size: 20px;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* -----Preview Card Component----- */
 

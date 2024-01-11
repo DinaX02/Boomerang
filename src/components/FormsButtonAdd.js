@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-const FormsButtonAdd = () => {
+const FormsButtonAdd = (props) => {
   return (
     <div>
       <button
         className="FormsButton"
       >
         <div className="FormsButtonOrg">
-          <p>Transportadora Eco-Friendly</p> <p className="adder">+</p>
+          <p>{props.name}</p> <p className="adder">+</p>
         </div>
       </button>
     </div>

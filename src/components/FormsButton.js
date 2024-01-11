@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import selected from "../assets/selected.svg";
 
-const FormsButton = () => {
+const FormsButton = (props) => {
   const [ticked, setTicked] = useState(false);
+
+  let valueFinal = "";
+
+  if (props.value){
+    valueFinal = ` | ${props.value} €`
+  }
 
   return (
     <div>
@@ -16,7 +22,7 @@ const FormsButton = () => {
           style={ticked ? { display: "block" } : { display: "none" }}
         />
         <div className="FormsButtonOrg">
-          <p>Transportadora Eco-Friendly</p> <p>| +5€</p>
+          <p>{props.name}</p> <p>{valueFinal}</p>
         </div>
       </button>
     </div>

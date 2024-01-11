@@ -1,11 +1,18 @@
 import React from 'react'
-import Header from '../components/Header/Header'
 import MenuMobile from '../components/MenuMobile.js'
+import Notification from '../components/Notification.js'
+import FormsButton from '../components/FormsButton.js'
+import FormsButtonAdd from '../components/FormsButtonAdd.js'
+
 
 const Notifications = () => {
+  
   return (
     <div className='notificacoes'>
-            <Header name="Notificações"></Header>
+      <br></br>
+            <Notification discount="7%" title="fhdalfkjdaf" sub="fdafdaljfasdkj"></Notification>
+            <FormsButton></FormsButton>
+            <FormsButtonAdd></FormsButtonAdd>
             <MenuMobile></MenuMobile>
     </div>
   )
