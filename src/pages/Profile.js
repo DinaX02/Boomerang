@@ -4,7 +4,7 @@ import styled from "styled-components";
 // import Modal from '../components/Modal'
 // import Button from '../components/Button';
 import LogoutIcon from '../assets/icons/logout.svg';
-import SettingsIcon from '../assets/icons/settings.svg';
+// import SettingsIcon from '../assets/icons/settings.svg';
 import UserUnknownIcon from '../assets/icons/user_unknown.svg';
 import EditarPerfilIcon from '../assets/icons/editar_perfil.svg';
 import FavoritosIcon from '../assets/icons/coracao.svg';
@@ -22,6 +22,27 @@ const Profile = () => {
     const hasFavoritos = true;
     const hasEncomendas = true;
     // const [fecharModal, setFecharModal] = useState(true);
+
+    const articleSections = [
+        // Array para a seção "Armário"
+        [
+            { image: articleMockupImage },
+            { image: articleMockupImage },
+            { image: articleMockupImage },
+        ],
+        // Array para a seção "Favoritos"
+        [
+            { image: articleMockupImage, icon: FavoritosIcon },
+            { image: articleMockupImage, icon: FavoritosIcon },
+            { image: articleMockupImage, icon: FavoritosIcon },
+        ],
+        // Array para a seção "Encomendas"
+        [
+            { image: articleMockupImage, icon: CertoIcon },
+            { image: articleMockupImage, icon: CertoIcon },
+            { image: articleMockupImage, icon: CertoIcon },
+        ],
+    ];
 
     return (
         <ProfileStyle>
@@ -54,9 +75,9 @@ const Profile = () => {
                     </div>
 
                     <div className='iconesDireita'>
-                        <Link to={'/settings-page'}>
+                        {/* <Link to={'/settings-page'}>
                             <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
-                        </Link>
+                        </Link> */}
                         <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" />
                     </div>
                 </div>
@@ -92,15 +113,12 @@ const Profile = () => {
                     </div>
                     {hasArmarioPecas ? (
                         <div className='articles'>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                            </div>
+                            {articleSections[0].map((article, index) => (
+                                <div className='pecaContainer' key={index}>
+                                    <img src={article.image} alt={`mockup_${index}`} />
+                                    {/* <img className="iconPeca" src={article.icon} alt={`icon_${index}`} /> */}
+                                </div>
+                            ))}
                         </div>
                     ) : (
                         <div className='emptyState'>
@@ -118,18 +136,12 @@ const Profile = () => {
                     </div>
                     {hasFavoritos ? (
                         <div className='articles'>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={FavoritosIcon} alt="icon_coracao" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={FavoritosIcon} alt="icon_coracao" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={FavoritosIcon} alt="icon_coracao" />
-                            </div>
+                            {articleSections[1].map((article, index) => (
+                                <div className='pecaContainer' key={index}>
+                                    <img src={article.image} alt={`image_${index}`} />
+                                    <img className="iconPeca" src={article.icon} alt={`heart_icon_${index}`} />
+                                </div>
+                            ))}
                         </div>
                     ) : (
                         <div className='emptyState'>
@@ -147,18 +159,12 @@ const Profile = () => {
                     </div>
                     {hasEncomendas ? (
                         <div className='articles'>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={CertoIcon} alt="icon_certo" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={CertoIcon} alt="icon_certo" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={CertoIcon} alt="icon_certo" />
-                            </div>
+                            {articleSections[2].map((article, index) => (
+                                <div className='pecaContainer' key={index}>
+                                    <img src={article.image} alt={`mockup_${index}`} />
+                                    <img className="iconPeca" src={article.icon} alt={`icon_${index}`} />
+                                </div>
+                            ))}
                         </div>
                     ) : (
                         <div className='emptyState'>
@@ -229,7 +235,7 @@ const ProfileStyle = styled.div`
 
 .logoutIcon {
     display: block;
-    margin-top: 8px;
+    // margin-top: 8px;
 }
 
 .detalhesCentraisPerfil {
@@ -357,12 +363,12 @@ hr.divisorPerfil {
 
 .emptyState {
     text-align: center;
-    padding: 15px 24px;
+    padding: 25px 24px;
 }
 
 .emptyStateText {
     font-size: 12px;
-    margin: 5px 0 0;
+    margin: 10px 0 0;
 }
 @media only screen and (min-width: 375px) {
     .articles {
@@ -414,6 +420,8 @@ hr.divisorPerfil {
         .articles .iconPeca {
             width: 30px;
         }
+        .nomeUtilizador {
+            font-size: 21px;
     }
 `
 
