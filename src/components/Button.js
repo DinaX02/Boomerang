@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import "./button.css";
 import styled from "styled-components";
 
 //Componente reutilizavel - Botao
@@ -23,7 +22,7 @@ const Button = (props) => {
         setIsPressed(false);
     }
     return (
-        <button
+        <ButtonStyle
             className='btnComponent'
             style={{
                 backgroundColor: isPressed ? "#00C17C" : (props.disable ? "#cacaca" : "#343541")
@@ -41,11 +40,21 @@ const Button = (props) => {
             onTouchEnd={handleTouchEnd}
         >
             {props.text}
-        </button>
+        </ButtonStyle>
     )
 }
 
 const ButtonStyle = styled.button`
+    background-color: #343541;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    width: 144px;
+    height: 36px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px transparent;
+    font-family: Montserrat;
 `
 
 export default Button
