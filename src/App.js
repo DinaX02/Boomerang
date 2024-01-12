@@ -10,6 +10,7 @@ import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
 import ProgressPublish4 from "./components/ProgressPublish/ProgressPublish4";
 import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
+        <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
         <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
         <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>
