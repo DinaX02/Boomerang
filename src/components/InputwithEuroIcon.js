@@ -38,6 +38,18 @@ const StyledInput = styled.input`
   cursor: pointer;
   outline: none;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Ocultar a seta para cima em navegadores Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+  
 `;
 
 const EuroSymbol = styled.span`
@@ -74,11 +86,6 @@ const InputWithEuroIcon = (props) => {
   const infoName = props.infoName;
   const inputPlaceholderr = props.inputPlaceholderr;
 
-  // const handleInputValueperDay = (event) => {
-  //   const onlyNumbers = event.target.value.replace(/\D/g, "");
-
-  //   event.target.value = onlyNumbers;
-  // };
   return (
     <Container>
       <ButtonWrapper>
@@ -88,8 +95,10 @@ const InputWithEuroIcon = (props) => {
         </InfoIconContainer>
         <InputContainer>
           <StyledInput
+            type="number"
             placeholder={inputPlaceholderr}
-            // onChange={handleInputValueperDay}
+            value={props.value}
+            onChange={props.onChange}
           />
           <EuroSymbol>€</EuroSymbol>
         </InputContainer>

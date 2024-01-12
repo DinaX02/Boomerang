@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
@@ -28,6 +28,7 @@ const ContainerDoisBtn = styled.div`
 `;
 
 const ProgressPublish3 = () => {
+
   const navigate = useNavigate();
 
   const handleGoBackStepPublish = () => {
