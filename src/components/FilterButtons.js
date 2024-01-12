@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import filtro from '../assets/Filter_button.png';
 import closeFilter from '../assets/eliminar.svg';
+import maisFilter from '../assets/Filter_mais.png';
+import menosFilter from '../assets/Filter_menos.png';
 
 const FilterButtons = () => {
     const [showFilters, setShowFilters] = useState(false);
@@ -17,8 +19,16 @@ const FilterButtons = () => {
     };
 
     const toggleAccordion = (filter) => {
+        const updatedAccordion = {
+            size: false,
+            color: false,
+            category: false,
+            brand: false,
+            order: false,
+        };
+
         setAccordion({
-            ...accordion,
+            ...updatedAccordion,
             [filter]: !accordion[filter],
         });
     };
@@ -46,17 +56,31 @@ const FilterButtons = () => {
                         <div className="accordionFilter">
                             <hr></hr>
                             <div>
-                                <div className="accordionSeparador">
-                                    <button class="accordion" onClick={() => toggleAccordion('size')}>
-                                        Tamanho
-                                    </button>
-                                    <img src={closeFilter} alt="fechar"></img>
-                                </div>
+                                {accordion.size ? (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('size')}>
+                                            Tamanho
+                                        </button>
+                                        <img src={menosFilter} alt="fechar"></img>
+                                    </div>
+                                ) : (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('size')}>
+                                            Tamanho
+                                        </button>
+                                        <img src={maisFilter} alt="fechar"></img>
+                                    </div>
+
+                                )}
                                 {accordion.size && (
                                     <div class="panel">
                                         {/* adicionar opções de tamanho */}
                                         <label>
 
+                                            <input type="radio" className="radioInput" name="size" value="XS" />
+                                            XS
+                                        </label>
+                                        <label>
                                             <input type="radio" className="radioInput" name="size" value="S" />
                                             S
                                         </label>
@@ -65,8 +89,17 @@ const FilterButtons = () => {
                                             M
                                         </label>
                                         <label>
+
                                             <input type="radio" className="radioInput" name="size" value="L" />
                                             L
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="size" value="XL" />
+                                            XL
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="size" value="XLL" />
+                                            XLL
                                         </label>
                                         {/* ... */}
                                     </div>
@@ -76,23 +109,68 @@ const FilterButtons = () => {
                             {/* Filtro de cor */}
                             <hr></hr>
                             <div>
-                                <div className="accordionSeparador">
-                                    <button class="accordion" onClick={() => toggleAccordion('color')}>
-                                        Cor
-                                    </button>
-                                    <img src={closeFilter} alt="fechar"></img>
-                                </div>
+
+                                {accordion.color ? (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('color')}>
+                                            Cor
+                                        </button>
+                                        <img src={menosFilter} alt="fechar"></img>
+                                    </div>
+                                ) : (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('color')}>
+                                            Cor
+                                        </button>
+                                        <img src={maisFilter} alt="fechar"></img>
+                                    </div>
+                                )}
+
                                 {accordion.color && (
                                     <div class="panel">
                                         {/* adicionar opções de tamanho */}
                                         <label>
 
-                                            <input type="radio" className="radioInput" name="size" value="Opção 1" />
-                                            Opção 1
+                                            <input type="radio" className="radioInput" name="cor" value="multicor" />
+                                            Multicor
                                         </label>
                                         <label>
-                                            <input type="radio" className="radioInput" name="size" value="Opção 2" />
-                                            Opção 2
+                                            <input type="radio" className="radioInput" name="cor" value="preto" />
+                                            Preto
+                                        </label>
+                                        <label>
+
+                                            <input type="radio" className="radioInput" name="cor" value="branco" />
+                                            Branco
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="cor" value="vermelho" />
+                                            Vermelho
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="cor" value="verde" />
+                                            Verde
+                                        </label>
+                                        <label>
+
+                                            <input type="radio" className="radioInput" name="cor" value="azul" />
+                                            Azul
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="cor" value="amarelo" />
+                                            Amarelo
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="cor" value="rosa" />
+                                            Rosa
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="cor" value="roxo" />
+                                            Roxo
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="cor" value="laranja" />
+                                            Laranja
                                         </label>
                                         {/* ... */}
                                     </div>
@@ -102,23 +180,37 @@ const FilterButtons = () => {
                             {/* Filtro de marca */}
                             <hr></hr>
                             <div>
-                                <div className="accordionSeparador">
-                                    <button class="accordion" onClick={() => toggleAccordion('category')}>
-                                        Categoria
-                                    </button>
-                                    <img src={closeFilter} alt="fechar"></img>
-                                </div>
+                                {accordion.category ? (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('category')}>
+                                            Categoria
+                                        </button>
+                                        <img src={menosFilter} alt="fechar"></img>
+                                    </div>
+                                ) : (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('category')}>
+                                            Categoria
+                                        </button>
+                                        <img src={maisFilter} alt="fechar"></img>
+                                    </div>
+                                )}
+
                                 {accordion.category && (
                                     <div class="panel">
                                         {/* adicionar opções de tamanho */}
                                         <label>
 
-                                            <input type="radio" className="radioInput" name="size" value="Opção 1" />
-                                            Opção 1
+                                            <input type="radio" className="radioInput" name="categoria" value="mulher" />
+                                            Mulher
                                         </label>
                                         <label>
-                                            <input type="radio" className="radioInput" name="size" value="Opção 2" />
-                                            Opção 2
+                                            <input type="radio" className="radioInput" name="categoria" value="homem" />
+                                            Homem
+                                        </label>
+                                        <label>
+                                            <input type="radio" className="radioInput" name="categoria" value="crianca" />
+                                            Criança
                                         </label>
                                         {/* ... */}
                                     </div>
@@ -126,12 +218,22 @@ const FilterButtons = () => {
                             </div>
                             <hr></hr>
                             <div>
-                                <div className="accordionSeparador">
-                                    <button class="accordion" onClick={() => toggleAccordion('brand')}>
-                                        marca
-                                    </button>
-                                    <img src={closeFilter} alt="fechar"></img>
-                                </div>
+                                {accordion.brand ? (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('brand')}>
+                                            marca
+                                        </button>
+                                        <img src={menosFilter} alt="fechar"></img>
+                                    </div>
+                                ) : (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('brand')}>
+                                            marca
+                                        </button>
+                                        <img src={maisFilter} alt="fechar"></img>
+                                    </div>
+                                )}
+
                                 {accordion.brand && (
                                     <div class="panel">
                                         {/* adicionar opções de tamanho */}
@@ -150,12 +252,21 @@ const FilterButtons = () => {
                             </div>
                             <hr></hr>
                             <div>
-                                <div className="accordionSeparador">
-                                    <button class="accordion" onClick={() => toggleAccordion('Order')}>
-                                        Ordenar por
-                                    </button>
-                                    <img src={closeFilter} alt="fechar"></img>
-                                </div>
+                                {accordion.Order ? (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('Order')}>
+                                            Ordenar por
+                                        </button>
+                                        <img src={menosFilter} alt="fechar"></img>
+                                    </div>
+                                ) : (
+                                    <div className="accordionSeparador">
+                                        <button class="accordion" onClick={() => toggleAccordion('Order')}>
+                                            Ordenar por
+                                        </button>
+                                        <img src={maisFilter} alt="fechar"></img>
+                                    </div>
+                                )}
                                 {accordion.Order && (
                                     <div class="panel">
                                         {/* adicionar opções de tamanho */}
@@ -186,7 +297,7 @@ const FilterButtons = () => {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="filtroAplicar">
                         <button>Aplicar</button>
                     </div>
                 </div>

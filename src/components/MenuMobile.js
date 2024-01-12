@@ -7,8 +7,10 @@ import profilebtn from "../assets/menumobile/profilebtn.svg";
 import homebtnG from "../assets/menumobile/homebtnG.svg";
 import searchbtnG from "../assets/menumobile/searchbtnG.svg";
 import notificationsbtnG from "../assets/menumobile/notificationsbtnG.svg";
-// import profilebtnG from "../assets/menumobile/profilebtnG.svg"
+import profilebtnG from "../assets/menumobile/profilebtnG.svg"
 import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import menumobile from "../assets/menumobile/menumobile.svg"
 
 const MenuMobile = () => {
   const location = useLocation();
@@ -19,7 +21,7 @@ const MenuMobile = () => {
   let profilebtnsrc = profilebtn;
 
   switch (page) {
-    case "/":
+    case "":
       homebtnsrc = homebtnG;
       break;
     case "search-page":
@@ -28,9 +30,9 @@ const MenuMobile = () => {
     case "notifications-page":
       notificationsbtnsrc = notificationsbtnG;
       break;
-    // case 'profile-page':
-    //    profilebtnsrc=profilebtnG;
-    // break
+    case 'profile-page':
+       profilebtnsrc=profilebtnG;
+    break
     default:
       homebtnsrc = homebtn;
       searchbtnsrc = searchbtn;
@@ -38,36 +40,79 @@ const MenuMobile = () => {
       profilebtnsrc = profilebtn;
   }
 
+  const MenuMobile = styled.div`
+  height: 110px;
+  position: fixed;
+  bottom: -5px;
+  background-image: url(${menumobile});
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-x: hidden;
+  background-position: bottom center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  span{
+    width: 90px;
+  }
+
+
+  @media only screen and (min-width: 600px) {
+    display: none;
+  }
+  `
+
+  const PublicarBtn = styled.img`
+  height: 110px;
+  position: fixed;
+  bottom: 15px;
+  transform: translate(calc(50vw - 50%));
+  `
+  
+  const MenuMobileBtns = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+  padding-top: 10px;
+  justify-content: space-evenly;
+
+  img {
+    width: 25px;
+  }
+  `
+
   return (
-    <div className="menumobile">
+    <MenuMobile>
       <Link to={"/publicar-page"}>
-        <img src={publicarbtn} className="publicarbtn" alt="publicar" />
+        <PublicarBtn src={publicarbtn} alt="publicar" />
       </Link>
 
-      <div className="menumobilebtns">
+      <MenuMobileBtns>
         <Link to={"/"}>
-          <img src={homebtnsrc} className="homebtn" alt="home" />
+          <img src={homebtnsrc} alt="home" />
         </Link>
         <Link to={"/search-page"}>
-          <img src={searchbtnsrc} className="searchbtn" alt="pesquisar" />
+          <img src={searchbtnsrc} alt="pesquisar" />
         </Link>
-      </div>
+      </MenuMobileBtns>
 
       <span></span>
 
-      <div className="menumobilebtns">
+      <MenuMobileBtns>
         <Link to={"/notifications-page"}>
           <img
             src={notificationsbtnsrc}
-            className="notificationsbtn"
             alt="notificações"
           />
         </Link>
-        <Link to={"#"}>
-          <img src={profilebtnsrc} className="profilebtn" alt="perfil" />
+        <Link to={"/profile-page"}>
+          <img src={profilebtnsrc} alt="perfil" />
         </Link>
-      </div>
-    </div>
+      </MenuMobileBtns>
+    </MenuMobile>
   );
 };
 
