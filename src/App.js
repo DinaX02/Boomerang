@@ -6,6 +6,8 @@ import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import '../src/components/components.css';
 import Notifications from "./pages/Notifications";
+import EditProfile from "./pages/EditProfile";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
+        <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
+        <Route path="/settings-page" element={<Settings/>}></Route>
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
       </Routes>
