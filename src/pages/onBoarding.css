@@ -1,0 +1,60 @@
+.onBoardingContainer {
+    text-align: center;
+    padding: 78px 24px 0;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h5 {
+        margin-bottom: 0;
+    }
+}
+
+.boomerang {
+    font-size: 36px;
+    font-weight: bold;
+    color: #00C17C;
+}
+
+.iconOnBoarding {
+    margin-top: 58px;
+    height: 134px;
+}
+
+.titulo {
+    font-size: 14px;
+    font-weight: 600;
+    color: #00C17C;
+    margin-top: 74px;
+}
+
+.semiTitulo {
+    font-size: 12px;
+    font-weight: 600;
+    color: #484954;
+    margin-top: 24px;
+    
+}
+
+.ignorar {
+    font-weight: normal;
+    font-size: 13px;
+    text-decoration: underline;
+    color: #484954;
+    display: block;
+    position: absolute;
+    bottom: 100px;
+}
+
+.btnComponent {
+    margin-top: 100px;
+}
+
+.controlsOnBoarding {
+    display: block;
+    margin: auto;
+    position: absolute;
+    bottom: 140px;
+}
