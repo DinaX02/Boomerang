@@ -8,22 +8,7 @@ import onBoarding2 from '../assets/onBoarding/onboarding_2.svg'
 import onBoarding3 from '../assets/onBoarding/onboarding_3.svg'
 import onBoarding4 from '../assets/onBoarding/onboarding_4.svg'
 import onBoarding5 from '../assets/onBoarding/onboarding_5.svg'
-import controls1 from '../assets/onBoarding/controls_1.svg'
-import controls2 from '../assets/onBoarding/controls_2.svg'
-import controls3 from '../assets/onBoarding/controls_3.svg'
-import controls4 from '../assets/onBoarding/controls_4.svg'
-import controls5 from '../assets/onBoarding/controls_5.svg'
-import ellipse from '../assets/onBoarding/ellipse.svg'
 import Button from '../components/Button'
-
-// const Ellipse = ({ active, index, onClick }) => {
-//     return (
-//       <StyledEllipse
-//         active={active}
-//         onClick={() => onClick(index)}
-//       />
-//     );
-//   };
 
 const OnBoarding = () => {
     const [page, setPage] = useState(0);
@@ -34,31 +19,26 @@ const OnBoarding = () => {
             icon: onBoarding1,
             titulo: "Adota um estilo responsável!",
             semiTitulo: "Aluga roupa e garante um crescimento da vida útil das tuas peças!"
-            // controls: controls1
         },
         {
             icon: onBoarding2,
             titulo: "Sabias que ...",
             semiTitulo: " ao reutilizar roupa em segunda mão, em vez de comprar uma nova, podes diminuir o desperdício em cerca de 50%?"
-            // controls: controls2
         },
         {
             icon: onBoarding3,
             titulo: "O teu armário consciente!",
             semiTitulo: "Adiciona as tuas peças favoritas e usa-as de forma mais acessível e sustentável."
-            // controls: controls3
         },
         {
             icon: onBoarding4,
             titulo: "Podes ganhar cupões de desconto!",
             semiTitulo: "Opta pelas opções sustentáveis e serás sempre recompensado."
-            // controls: controls4
         },
         {
             icon: onBoarding5,
             titulo: "Partilha com os teus amigos os teus melhores hábitos!",
             semiTitulo: "Ajuda a  fortalecer o compromisso coletivo com o consumo sustentável."
-            // controls: controls5
         },
     ]
 
@@ -123,12 +103,6 @@ const OnBoarding = () => {
             {/* <img className="controlsOnBoarding" src={array[page].controls} alt={`controls_${page}`} /> */}
             <div className="controlsOnBoarding">
                 {array.map((item, index) => (
-                    // <img 
-                    // key={index}
-                    // src={ellipse} 
-                    // alt={`controls_${index}`} 
-                    // style={{fill: page===index ? "#00C17C" : "#484954"}}
-                    // />
                     <div 
                     key={index} 
                     className="ellipse"
@@ -218,15 +192,5 @@ const OnBoardingStyle = styled.div`
         display: inline-block;
       }
 `;
-
-// const Ellipse = styled.div`
-//     width: 9px;
-//     height: 9px;
-//     background-color: ${(props) => (props.active ? '#00C17C' : '#484954')};
-//     border-radius: 50%;
-//     margin-right: 7px;
-//     margin-left: 7px;
-//     display: inline-block;
-// `;
 
 export default OnBoarding
