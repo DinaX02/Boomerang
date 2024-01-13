@@ -91,7 +91,7 @@ const ButtonWithInfoIcon = (props) => {
     (state) => state.Publicar1.progressPublish1.conditionOfClothing
   );
 
-  // console.log("opçao seleciona foi....", selectedOption);
+  // console.log("opçao seleciona foi....", selectedOption2);
 
   const handleIconClick = () => {
     setFecharModal(false);
