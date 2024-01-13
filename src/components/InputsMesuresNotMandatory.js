@@ -3,6 +3,8 @@ import styled from "styled-components";
 import InfoIconMesures from "../assets/infoIcon.svg";
 import Modal from "./Modal";
 import ImgMesuresModal from "../assets/overlay_dress_mesures.svg"
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProgressPublish1 } from '../redux/publicarSlice';
 
 const Container = styled.div`
   display: flex;
@@ -13,8 +15,8 @@ const Container = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: column; /* Alterado para column */
-  align-items: center; /* Adicionado para centralizar na coluna */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin-bottom: 24px;
 `;
@@ -63,13 +65,16 @@ const ContainerMesures = styled.div`
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
 
-  span:first-child {
-    align-self: flex-start;
+  span {
+    flex: 1;
   }
 
   div {
     display: flex;
     align-items: center;
+
+    span {
+      margin-left: 5px; 
   }
 `;
 
@@ -78,12 +83,39 @@ const StyledInput = styled.input`
   border-bottom: 1px solid #2e2e2e;
   text-align: center;
   width: 50px;
-  margin-right: 5px;
+  margin-right: 3em;
   outline: none;
+
+  @media (max-width: 400px) {
+    margin-right: 1em;}
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  
+    /* Ocultar a seta para cima em navegadores Firefox */
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
 `;
 
+const Divisor = styled.div`
+  height: 20px;
+  width: 1px;
+  background-color: #CACACA;
+  margin: 0 40px;
+`;
+
+
 const InputMeasuresNotMandatory = (props) => {
-  const btnName = props.btnName;
+  const dispatch = useDispatch();
+
+  const measureBusto = useSelector((state) => state.Publicar1.progressPublish1.measureBusto);
+  const measureCintura = useSelector((state) => state.Publicar1.progressPublish1.measureCintura);
+  const measureQuadril = useSelector((state) => state.Publicar1.progressPublish1.measureQuadril);
+  const measureComprimento = useSelector((state) => state.Publicar1.progressPublish1.measureComprimento);
 
   const [fecharModal, setFecharModal] = useState(true);
 
@@ -92,13 +124,10 @@ const InputMeasuresNotMandatory = (props) => {
     setFecharModal(false);
   };
 
-  const handleInputValueMeasure = (event) => {
-
-    const onlyNumbers = event.target.value.replace(/\D/g, '');
-
-    event.target.value = onlyNumbers;
+  const handleInputChange = (field, value) => {
+    // Atualizar o redux ao modificar qualquer valor dos inputs
+    dispatch(updateProgressPublish1({ [field]: value }));
   };
-
 
   return (
     <Container>
@@ -109,31 +138,55 @@ const InputMeasuresNotMandatory = (props) => {
               <ImgModalDress src={ImgMesuresModal}/>
           }
         />
-      <ButtonWrapper>
-      <InfoIconContainer><InfoSvg src={InfoIconMesures} onClick={handleIconClick}/> Medidas da peça</InfoIconContainer>
-      <ContainerMesures>
-        <span>Busto:</span>
-        <StyledInput placeholder="Ex: 84" onChange={handleInputValueMeasure}/>
-        <span>cm</span>
-      </ContainerMesures>
+     <ButtonWrapper>
+        <InfoIconContainer><InfoSvg src={InfoIconMesures} onClick={handleIconClick}/> Medidas da peça</InfoIconContainer>
+        <ContainerMesures>
+          <span>Busto</span>
+          <Divisor/>
+          <div>
+            <StyledInput placeholder="Ex: 84"
+            type="number"
+            value={measureBusto}
+            onChange={(e) => handleInputChange("measureBusto", e.target.value)}/>
+            <span>cm</span>
+          </div>
+        </ContainerMesures>
 
-      <ContainerMesures>
-        <span>Cintura:</span>
-        <StyledInput placeholder="Ex: 87" onChange={handleInputValueMeasure}/>
-        <span>cm</span>
-      </ContainerMesures>
+        <ContainerMesures>
+          <span>Cintura</span>
+          <Divisor/>
+          <div>
+            <StyledInput  placeholder="Ex: 87"
+            type="number"
+            value={measureCintura}
+            onChange={(e) => handleInputChange("measureCintura", e.target.value)}/>
+            <span>cm</span>
+          </div>
+        </ContainerMesures>
 
-      <ContainerMesures>
-        <span>Quadril:</span>
-        <StyledInput placeholder="Ex: 90" onChange={handleInputValueMeasure}/>
-        <span>cm</span>
-      </ContainerMesures>
+        <ContainerMesures>
+          <span>Quadril</span>
+          <Divisor/>
+          <div>
+            <StyledInput  placeholder="Ex: 90"
+            type="number"
+            value={measureQuadril}
+            onChange={(e) => handleInputChange("measureQuadril", e.target.value)}/>
+            <span>cm</span>
+          </div>
+        </ContainerMesures>
 
-      <ContainerMesures>
-        <span>Comprimento:</span>
-        <StyledInput placeholder="Ex: 130" onChange={handleInputValueMeasure}/>
-        <span>cm</span>
-      </ContainerMesures>
+        <ContainerMesures>
+          <span>Comprimento</span>
+          <Divisor/>
+          <div>
+            <StyledInput  placeholder="Ex: 130"
+            type="number"
+            value={measureComprimento}
+            onChange={(e) => handleInputChange("measureComprimento", e.target.value)}/>
+            <span>cm</span>
+          </div>
+        </ContainerMesures>
       </ButtonWrapper>
     </Container>
   );

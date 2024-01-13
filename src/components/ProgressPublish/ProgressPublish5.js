@@ -2,8 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
-import InputWithInfoIcon from "../InputWithInfoIcon";
-import InputWithEuroIcon from "../InputwithEuroIcon";
 import Header from "../Header/Header";
 
 import "../components.css";

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import InfoIconMesures from "../assets/infoIcon.svg";
 import DropdownIcon from "../assets/dropdownicon.svg";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -82,14 +83,24 @@ const MandatoryField = styled.span`
 `;
 
 const ButtonWithInfoIcon = (props) => {
-  const btnName = props.btnName;
-  const infoName = props.infoName;
+  const {infoName, onClick } = props;
 
   const [fecharModal, setFecharModal] = useState(true);
 
+  const selectedOption = useSelector(
+    (state) => state.Publicar1.progressPublish1.conditionOfClothing
+  );
+
+  // console.log("opçao seleciona foi....", selectedOption2);
+
   const handleIconClick = () => {
-    // console.log("abrir modal pls");
     setFecharModal(false);
+  };
+
+  const handleButtonClick = () => {
+    if (onClick) {
+      onClick();
+    }
   };
 
   return (
@@ -99,17 +110,17 @@ const ButtonWithInfoIcon = (props) => {
         setFecharModal={setFecharModal}
         message={
           <ParagraphMessageModal1p>
-            <strong>Muito Bom</strong>Uma peça pouco usada que pode ter ligeiras
+            <strong>Muito Bom</strong> Uma peça pouco usada que pode ter ligeiras
             imperfeições, mas que está em bom estado. Inclui fotografias e
             descrições de quaisquer defeitos no teu anúncio.
             <br></br>
             <br></br>
-            <strong>Bom</strong>Uma peça usada que pode apresentar imperfeições
+            <strong>Bom</strong> Uma peça usada que pode apresentar imperfeições
             e sinais de desgaste. Inclui fotografias e descrições de quaisquer
             defeitos no teu anúncio.
             <br></br>
             <br></br>
-            <strong>Satisfatório</strong>Uma peça usada com frequência, com
+            <strong>Satisfatório</strong> Uma peça usada com frequência, com
             imperfeições e sinais de desgaste. Inclui fotografias e descrições
             de quaisquer defeitos no teu anúncio.
           </ParagraphMessageModal1p>
@@ -120,9 +131,10 @@ const ButtonWithInfoIcon = (props) => {
           <InfoSvg src={InfoIconMesures} onClick={handleIconClick} />
           {infoName}
         </InfoIconContainer>
-        <StyledButton>
+        <StyledButton onClick={handleButtonClick}>
           <span>
-            {btnName} <Asterisk>*</Asterisk>
+           {selectedOption ? `Estado Selecionado: ${selectedOption}` : "Selecione Estado"}
+            <Asterisk>*</Asterisk>
           </span>
           <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
         </StyledButton>
