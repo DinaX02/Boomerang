@@ -13,8 +13,8 @@ const Container = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: column; /* Alterado para column */
-  align-items: center; /* Adicionado para centralizar na coluna */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin-bottom: 24px;
 `;
@@ -64,9 +64,16 @@ const StyledDropdownIcon = styled.img`
   height: auto;
 `;
 
-const ParagraphMessageModal1p = styled.p`
-text-align:left;
-`
+const ParagraphMessageModal1p = styled.span`
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 1rem;
+  justify-content: flex-start;
+  flex-direction: column;
+`;
+
 const MandatoryField = styled.span`
   margin-top: 1rem;
   font-weight: 500;
@@ -76,34 +83,38 @@ const MandatoryField = styled.span`
 
 const ButtonWithInfoIcon = (props) => {
   const btnName = props.btnName;
-  const infoName= props.infoName;
+  const infoName = props.infoName;
 
   const [fecharModal, setFecharModal] = useState(true);
 
   const handleIconClick = () => {
-    console.log("abrir modal pls");
+    // console.log("abrir modal pls");
     setFecharModal(false);
   };
 
   return (
     <Container>
-        <Modal
-          fecharModal={fecharModal}
-          setFecharModal={setFecharModal}
-          message={
-            <ParagraphMessageModal1p>
-              <strong>Muito Bom</strong> - Uma peça pouco usada que pode ter
-              ligeiras imperfeições, mas que está em bom estado. Inclui
-              fotografias e descrições de quaisquer defeitos no teu anúncio.<br></br><br></br>
-              <strong>Bom</strong> - Uma peça usada que pode apresentar
-              imperfeições e sinais de desgaste. Inclui fotografias e descrições
-              de quaisquer defeitos no teu anúncio.<br></br><br></br>
-              <strong>Satisfatório</strong> - Uma peça usada com frequência, com
-              imperfeições e sinais de desgaste. Inclui fotografias e descrições
-              de quaisquer defeitos no teu anúncio.
-            </ParagraphMessageModal1p>
-          }
-        />
+      <Modal
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        message={
+          <ParagraphMessageModal1p>
+            <strong>Muito Bom</strong>Uma peça pouco usada que pode ter ligeiras
+            imperfeições, mas que está em bom estado. Inclui fotografias e
+            descrições de quaisquer defeitos no teu anúncio.
+            <br></br>
+            <br></br>
+            <strong>Bom</strong>Uma peça usada que pode apresentar imperfeições
+            e sinais de desgaste. Inclui fotografias e descrições de quaisquer
+            defeitos no teu anúncio.
+            <br></br>
+            <br></br>
+            <strong>Satisfatório</strong>Uma peça usada com frequência, com
+            imperfeições e sinais de desgaste. Inclui fotografias e descrições
+            de quaisquer defeitos no teu anúncio.
+          </ParagraphMessageModal1p>
+        }
+      />
       <ButtonWrapper>
         <InfoIconContainer>
           <InfoSvg src={InfoIconMesures} onClick={handleIconClick} />
@@ -115,9 +126,10 @@ const ButtonWithInfoIcon = (props) => {
           </span>
           <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
         </StyledButton>
-        <MandatoryField><Asterisk>*</Asterisk> Campo Obrigatório</MandatoryField>
+        <MandatoryField>
+          <Asterisk>*</Asterisk> Campo Obrigatório
+        </MandatoryField>
       </ButtonWrapper>
-
     </Container>
   );
 };
