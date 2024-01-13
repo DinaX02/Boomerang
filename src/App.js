@@ -11,6 +11,7 @@ import ProgressPublish4 from "./components/ProgressPublish/ProgressPublish4";
 import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
+import OnBoarding from "./pages/OnBoarding";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
 <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
+        <Route path="/onBoarding" element={<OnBoarding/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>

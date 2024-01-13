@@ -38,7 +38,7 @@ const InfoSvg = styled.img`
   margin-right: 8px;
 `;
 
-const ParagraphMessageModal1p = styled.p`
+const ParagraphMessageModal1p = styled.span`
   text-align: center;
 `;
 const StyledInput = styled.input`
@@ -57,6 +57,19 @@ const StyledInput = styled.input`
   cursor: pointer;
   outline: none;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+  
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Ocultar a seta para cima em navegadores Firefox */
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
+
 `;
 
 const EuroSymbol = styled.span`
@@ -74,21 +87,14 @@ const InputContainer = styled.div`
 `;
 
 const InputWithInfoIcon = (props) => {
-  const btnName = props.btnName;
   const infoName = props.infoName;
   const inputPlaceholder = props.inputPlaceholder;
 
   const [fecharModal, setFecharModal] = useState(true);
 
   const handleIconClick = () => {
-    console.log("abrir modal pls");
+    // console.log("abrir modal pls");
     setFecharModal(false);
-  };
-
-  const handleInputValueEstimated = (event) => {
-    const onlyNumbers = event.target.value.replace(/\D/g, "");
-
-    event.target.value = onlyNumbers;
   };
 
   return (
@@ -111,8 +117,10 @@ const InputWithInfoIcon = (props) => {
         </InfoIconContainer>
         <InputContainer>
           <StyledInput
+          type="number"
             placeholder={inputPlaceholder}
-            onChange={handleInputValueEstimated}
+            value={props.value}
+            onChange={props.onChange}
           />
           <EuroSymbol>€</EuroSymbol>
         </InputContainer>

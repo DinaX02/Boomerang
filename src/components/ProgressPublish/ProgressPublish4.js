@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import Button from "../Button";
 import InputWithInfoIcon from "../InputWithInfoIcon";
@@ -29,58 +29,68 @@ const ContainerDoisBtn = styled.div`
 `;
 
 const ProgressPublish4 = () => {
-  
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
+  const {
+    estimatedValue,
+    rentalPricePerDay
+  } = useSelector((state) => state.Publicar1.progressPublish1);
+
+  // console.log("Valores atuais:", estimatedValue, rentalPricePerDay);
+
+  const isButtonDisable = !estimatedValue || rentalPricePerDay === '' || rentalPricePerDay === 0;
+  
   const handleGoBackStepPublish = () => {
     navigate(-1);
   };
 
   const handleNextStepPublish = () => {
+    dispatch(
+      updateProgressPublish1({
+        estimatedValue,
+        rentalPricePerDay
+      })
+    );
     navigate("/progressPublish-5");
   };
 
-  const handleEstimatedValue = (e) => {
-    const value = e.target.value;
-    console.log('Estimated Value:', value);
-    dispatch(updateProgressPublish1({ estimatedValue: value }));
-  };
-
-  const handleRentaPricePerDAY = (e) => {
-    const value = e.target.value;
-    console.log('Rental Price Per Day:', value);
-    dispatch(updateProgressPublish1({ rentalPricePerDay: value }));
-  };
-
-  const estimatedValueRedux = useSelector(
-    (state) => state.Publicar1.progressPublish1.estimatedValue
-  );
-
-  const rentalPricePerDayRedux = useSelector(
-    (state) => state.Publicar1.progressPublish1.rentalPricePerDay
-  );
 
   return (
     <div>
       <Header name="Publicar / Etapa 4 de 5" />
       <SpaceTopComponent>
-        <InputWithInfoIcon
+      <InputWithInfoIcon
           btnName="Valor estimado da peça"
           infoName="Valor estimado da peça"
           inputPlaceholder="Ex: 120"
-          onChange={handleEstimatedValue}
-          value={estimatedValueRedux}
+          value={estimatedValue}
+          onChange={(e) => {
+            dispatch(
+              updateProgressPublish1({
+                estimatedValue: e.target.value,
+                rentalPricePerDay,
+              })
+            );
+          }}
         />
-        <InputWithEuroIcon
+ <InputWithEuroIcon
           infoName="Preço do aluguer p/ dia"
           inputPlaceholderr="Ex: 10"
-          onChange={handleRentaPricePerDAY}
-          value={rentalPricePerDayRedux}
+          value={rentalPricePerDay}
+          onChange={(e) => {
+            dispatch(
+              updateProgressPublish1({
+                estimatedValue,
+                rentalPricePerDay: e.target.value,
+              })
+            );
+            }}
         />
         <ContainerDoisBtn>
           <Button text="Anterior" onClick={handleGoBackStepPublish} />
-          <Button text="Próximo" onClick={handleNextStepPublish} />
+          <Button text="Próximo" onClick={handleNextStepPublish} disable={isButtonDisable}/>
         </ContainerDoisBtn>
       </SpaceTopComponent>
     </div>

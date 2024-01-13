@@ -6,9 +6,8 @@ const PublishSlice = createSlice({
     progressPublish1: {
       title: "",
       description: "",
-      images: [],
+      imageUrls: [],
       countChar: 0,
-      paragraphAddFoto: true,
       estimatedValue:"",
       rentalPricePerDay: "",
     },
