@@ -13,8 +13,17 @@ import controls2 from '../assets/onBoarding/controls_2.svg'
 import controls3 from '../assets/onBoarding/controls_3.svg'
 import controls4 from '../assets/onBoarding/controls_4.svg'
 import controls5 from '../assets/onBoarding/controls_5.svg'
+import ellipse from '../assets/onBoarding/ellipse.svg'
 import Button from '../components/Button'
-// import './onBoarding.css';
+
+// const Ellipse = ({ active, index, onClick }) => {
+//     return (
+//       <StyledEllipse
+//         active={active}
+//         onClick={() => onClick(index)}
+//       />
+//     );
+//   };
 
 const OnBoarding = () => {
     const [page, setPage] = useState(0);
@@ -24,32 +33,32 @@ const OnBoarding = () => {
         {
             icon: onBoarding1,
             titulo: "Adota um estilo responsável!",
-            semiTitulo: "Aluga roupa e garante um crescimento da vida útil das tuas peças!",
-            controls: controls1
+            semiTitulo: "Aluga roupa e garante um crescimento da vida útil das tuas peças!"
+            // controls: controls1
         },
         {
             icon: onBoarding2,
             titulo: "Sabias que ...",
-            semiTitulo: " ao reutilizar roupa em segunda mão, em vez de comprar uma nova, podes diminuir o desperdício em cerca de 50%?",
-            controls: controls2
+            semiTitulo: " ao reutilizar roupa em segunda mão, em vez de comprar uma nova, podes diminuir o desperdício em cerca de 50%?"
+            // controls: controls2
         },
         {
             icon: onBoarding3,
             titulo: "O teu armário consciente!",
-            semiTitulo: "Adiciona as tuas peças favoritas e usa-as de forma mais acessível e sustentável.",
-            controls: controls3
+            semiTitulo: "Adiciona as tuas peças favoritas e usa-as de forma mais acessível e sustentável."
+            // controls: controls3
         },
         {
             icon: onBoarding4,
             titulo: "Podes ganhar cupões de desconto!",
-            semiTitulo: "Opta pelas opções sustentáveis e serás sempre recompensado.",
-            controls: controls4
+            semiTitulo: "Opta pelas opções sustentáveis e serás sempre recompensado."
+            // controls: controls4
         },
         {
             icon: onBoarding5,
             titulo: "Partilha com os teus amigos os teus melhores hábitos!",
-            semiTitulo: "Ajuda a  fortalecer o compromisso coletivo com o consumo sustentável.",
-            controls: controls5
+            semiTitulo: "Ajuda a  fortalecer o compromisso coletivo com o consumo sustentável."
+            // controls: controls5
         },
     ]
 
@@ -90,6 +99,11 @@ const OnBoarding = () => {
         // Navegar para uma rota específica quando o botão for clicado
         navigate('/');
     };
+
+    const handleEllipseClick = (index) => {
+        setPage(index);
+      };
+
     return (
         <OnBoardingStyle  {...handlers}>
             <h1 className='boomerang'>Boomerang</h1>
@@ -106,7 +120,25 @@ const OnBoarding = () => {
                     text="Terminar">
                 </Button>
             </div>
-            <img className="controlsOnBoarding" src={array[page].controls} alt={`controls_${page}`} />
+            {/* <img className="controlsOnBoarding" src={array[page].controls} alt={`controls_${page}`} /> */}
+            <div className="controlsOnBoarding">
+                {array.map((item, index) => (
+                    // <img 
+                    // key={index}
+                    // src={ellipse} 
+                    // alt={`controls_${index}`} 
+                    // style={{fill: page===index ? "#00C17C" : "#484954"}}
+                    // />
+                    <div 
+                    key={index} 
+                    className="ellipse"
+                    active={page === index} 
+                    onClick={() => handleEllipseClick(index)}
+                    style={{ backgroundColor: page === index ? '#00C17C' : '#484954' }}
+                    ></div>
+
+                ))}
+            </div>
             <Link to={'/'} className='ignorar'>Ignorar</Link>
         </OnBoardingStyle >
     )
@@ -160,7 +192,9 @@ const OnBoardingStyle = styled.div`
     }
 
     .btnComponent {
-        margin-top: 100px;
+        position: absolute;
+        bottom: 180px;
+        transform: translateX(-50%);
     }
 
     .controlsOnBoarding {
@@ -168,7 +202,31 @@ const OnBoardingStyle = styled.div`
         margin: auto;
         position: absolute;
         bottom: 140px;
+        img {
+            margin-right: 7px;
+            margin-left: 7px;
+        }
     }
+
+    .ellipse {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-right: 7px;
+        margin-left: 7px;
+        cursor: pointer;
+        display: inline-block;
+      }
 `;
+
+// const Ellipse = styled.div`
+//     width: 9px;
+//     height: 9px;
+//     background-color: ${(props) => (props.active ? '#00C17C' : '#484954')};
+//     border-radius: 50%;
+//     margin-right: 7px;
+//     margin-left: 7px;
+//     display: inline-block;
+// `;
 
 export default OnBoarding
