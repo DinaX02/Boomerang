@@ -5,7 +5,7 @@ import Button from "../Button";
 import InputMeasuresNotMandatory from "../InputsMesuresNotMandatory";
 import ButtonWithInfoIcon from "../ButtonWithInfoIcon";
 import Header from "../Header/Header";
-import BottomSheet from "../BottomSheetSizes";
+import BottomSheet from "../BottomSheetCondition";
 import Draggable from "react-draggable";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
@@ -74,6 +74,7 @@ const ProgressPublish3 = () => {
           bounds="parent"
           positionOffset={{ x: "0", y: "0" }}
           onStop={() => setBottomSheetOpen(false)}
+          nodeRef={bottomSheetRef}
         >
           <BottomSheet
             ref={bottomSheetRef}
