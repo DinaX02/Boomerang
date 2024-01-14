@@ -10,6 +10,8 @@ import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
 import ProgressPublish4 from "./components/ProgressPublish/ProgressPublish4";
 import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
+import EditProfile from "./pages/EditProfile";
+import OnBoarding from "./pages/OnBoarding";
 
 function App() {
   return (
