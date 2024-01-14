@@ -5,13 +5,11 @@ const FormsButtonAdd = (props) => {
 
 
   return (
-    <div>
       <FormsButton>
         <FormsButtonOrg>
           <p>{props.name}</p> <Adder>+</Adder>
         </FormsButtonOrg>
       </FormsButton>
-    </div>
   );
 };
 
@@ -31,9 +29,6 @@ border: 0;
 filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
 p{
   margin: 0;
-}
-span{
-  width: 20px;
 }
 @media only screen and (min-width: 600px) {
   width: 380px !important;

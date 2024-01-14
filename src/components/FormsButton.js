@@ -8,12 +8,12 @@ const FormsButton = (props) => {
   let valueFinal = "";
 
   if (props.value){
-    valueFinal = ` | ${props.value} €`
+    valueFinal = ` | ${props.value}`
   }
 
 
   return (
-      <FormsButtonDiv className={ticked ? "FormsButtonAdd" : ""}
+      <FormsButtonDiv style={{ background: ticked ? 'var(--notch, #343541)' : '#FFF', paddingLeft: ticked ? '15px' : '', color: ticked ? 'white' : ''} } className={ticked ? "FormsButtonAdd" : ""}
         onClick={() => setTicked(!ticked)}
       >
         <img
@@ -36,7 +36,6 @@ display: flex;
 flex-direction: row;
 align-items: center;
 border-radius: 5px;
-background: ${ticked ? 'var(--notch, #343541)' : '#FFF'};
 font-weight: 500;
 font-size: 94%;
 outline: 0;
@@ -45,9 +44,7 @@ filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
 p{
   margin: 0;
 }
-span{
-  width: 20px;
-}
+
 @media only screen and (min-width: 600px) {
   width: 380px !important;
 }
@@ -55,12 +52,10 @@ span{
 padding-left: 15px !important;
 }
 
-  padding-left: ${ticked ? '15px' : ''};
-  color: ${ticked ? 'white' : ''};
 
   img {
-    margin-right: ${ticked ? '-15px' : ''};
-    width: ${ticked ? '15px' : ''};
+    margin-right: -15px;
+    width: 15px;
   }
 }
 `
