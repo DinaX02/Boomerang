@@ -40,52 +40,9 @@ const MenuMobile = () => {
       profilebtnsrc = profilebtn;
   }
 
-  const MenuMobile = styled.div`
-  height: 110px;
-  position: fixed;
-  bottom: -5px;
-  background-image: url(${menumobile});
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow-x: hidden;
-  background-position: bottom center;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  span{
-    width: 90px;
-  }
-
-
-  @media only screen and (min-width: 600px) {
-    display: none;
-  }
-  `
-
-  const PublicarBtn = styled.img`
-  height: 110px;
-  position: fixed;
-  bottom: 15px;
-  transform: translate(calc(50vw - 50%));
-  `
-  
-  const MenuMobileBtns = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100%;
-  width: 50%;
-  padding-top: 10px;
-  justify-content: space-evenly;
-
-  img {
-    width: 25px;
-  }
-  `
 
   return (
-    <MenuMobile>
+    <MenuMobileDiv>
       <Link to={"/publicar-page"}>
         <PublicarBtn src={publicarbtn} alt="publicar" />
       </Link>
@@ -112,8 +69,53 @@ const MenuMobile = () => {
           <img src={profilebtnsrc} alt="perfil" />
         </Link>
       </MenuMobileBtns>
-    </MenuMobile>
+    </MenuMobileDiv>
   );
 };
+
+const MenuMobileDiv = styled.div`
+height: 110px;
+position: fixed;
+bottom: -5px;
+background-image: url(${menumobile});
+background-size: cover;
+background-repeat: no-repeat;
+overflow-x: hidden;
+background-position: bottom center;
+width: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+span{
+  width: 90px;
+}
+
+
+@media only screen and (min-width: 600px) {
+  display: none;
+}
+`
+
+const PublicarBtn = styled.img`
+height: 110px;
+position: fixed;
+bottom: 15px;
+transform: translate(calc(50vw - 50%));
+`
+
+const MenuMobileBtns = styled.div`
+display: flex;
+flex-direction: row;
+align-items: center;
+height: 100%;
+width: 50%;
+padding-top: 10px;
+justify-content: space-evenly;
+
+img {
+  width: 25px;
+}
+`
+
 
 export default MenuMobile;
