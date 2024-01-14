@@ -5,10 +5,11 @@ import Publicar from "./pages/Publicar";
 import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import '../src/components/components.css';
-import ProgressPublish2 from "./components/ProgressPublish/ProgressPublish2.js";
+import ProgressPublish2 from "./components/ProgressPublish/ProgressPublish2";
+import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
+import ProgressPublish4 from "./components/ProgressPublish/ProgressPublish4";
+import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
-import AlugarMorada from "./components/AlugarMorada";
-import AdicionarMorada from "./components/AdicionarMorada";
 
 function App() {
   return (
@@ -16,12 +17,12 @@ function App() {
 <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
+        <Route path="/onBoarding" element={<OnBoarding/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
+        <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
-        <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
-        <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
       </Routes>

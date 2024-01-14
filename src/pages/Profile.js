@@ -1,42 +1,62 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
-import Modal from '../components/Modal'
-import Button from '../components/Button';
+// import Modal from '../components/Modal'
+// import Button from '../components/Button';
 import LogoutIcon from '../assets/icons/logout.svg';
-import SettingsIcon from '../assets/icons/settings.svg';
+// import SettingsIcon from '../assets/icons/settings.svg';
 import UserUnknownIcon from '../assets/icons/user_unknown.svg';
 import EditarPerfilIcon from '../assets/icons/editar_perfil.svg';
-import EditarPecaIcon from '../assets/icons/editar_peca.svg';
 import FavoritosIcon from '../assets/icons/coracao.svg';
 import CertoIcon from '../assets/icons/certo.svg';
 import ClosetIcon from '../assets/icons/closet.svg';
 import FavoritosEmptyIcon from '../assets/icons/favoritos.svg';
 import EncomendasIcon from '../assets/icons/encomendas.svg';
-// import "./profile.css";
 import MenuMobile from '../components/MenuMobile';
 import articleMockupImage from "../assets/article_mockup_image.jpg"
 
-
 //Pagina do perfil
 const Profile = () => {
-    const [fecharModal, setFecharModal] = useState(true);
     const num = 20;
     const hasArmarioPecas = true;
     const hasFavoritos = true;
-    const hasEncomendas = true
+    const hasEncomendas = true;
+    // const [fecharModal, setFecharModal] = useState(true);
+
+    const articleSections = [
+        // Array para a seção "Armário"
+        [
+            { image: articleMockupImage },
+            { image: articleMockupImage },
+            { image: articleMockupImage },
+        ],
+        // Array para a seção "Favoritos"
+        [
+            { image: articleMockupImage, icon: FavoritosIcon },
+            { image: articleMockupImage, icon: FavoritosIcon },
+            { image: articleMockupImage, icon: FavoritosIcon },
+        ],
+        // Array para a seção "Encomendas"
+        [
+            { image: articleMockupImage, icon: CertoIcon },
+            { image: articleMockupImage, icon: CertoIcon },
+            { image: articleMockupImage, icon: CertoIcon },
+        ],
+    ];
+
     return (
         <ProfileStyle>
-            {/* <button onClick={() => {
-                setFecharModal(!fecharModal);
-            }}>Abrir modal</button>
-            <Button
-                onClick={() => {
+            {/* <Button
+                text={"Próximo"}
+                disable={true}
+                onClick={()=>{
                     setFecharModal(!fecharModal);
                 }}
-                text={"Próximo"}
-                disable={false}
             />
+            <button onClick={() => {
+                setFecharModal(!fecharModal);
+            }}>Abrir modal</button>
+            
             <Modal
                 fecharModal={fecharModal}
                 setFecharModal={setFecharModal}
@@ -46,24 +66,28 @@ const Profile = () => {
                 <div className='perfilIconsContainer'>
                     <div className='editarPerfil'>
                         <div className='containerUserEdit'>
-                            <img className="userUnknownIcon" src={UserUnknownIcon} alt="icon_user_unknown" />
-                            <img className="editarPerfilIcon" src={EditarPerfilIcon} alt="icon_editar_perfil" />
+                            <Link to={'/edit-profile-page'}>
+                                <img className="userUnknownIcon" src={UserUnknownIcon} alt="icon_user_unknown" />
+                                <img className="editarPerfilIcon" src={EditarPerfilIcon} alt="icon_editar_perfil" />
+                            </Link>
                         </div>
                         <span className='nomeUtilizador'>mariacarmo</span>
                     </div>
 
                     <div className='iconesDireita'>
-                        <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
+                        {/* <Link to={'/settings-page'}>
+                            <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
+                        </Link> */}
                         <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" />
                     </div>
                 </div>
                 <div className='detalhesCentraisPerfil'>
                     <div className='contagemContainer'>
-                        <div className='artigosContainer'>
+                        <div className='contagem'>
                             <span>25</span>
                             <p>Artigos</p>
                         </div>
-                        <div className='artigosEstrelas'>
+                        <div className='contagem'>
                             <span>4.8</span>
                             <p>Estrelas</p>
                         </div>
@@ -72,7 +96,6 @@ const Profile = () => {
                     <div className='editarBiografia'>
                         <div className='tituloBiografiaContainer'>
                             <span className='tituloBiografia'>Biografia</span>
-                            <img className='editarBiografiaIcon' src={EditarPerfilIcon} alt="icon_editar_perfil" />
                         </div>
                         <p className='textoBiografia'>Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia.</p>
                     </div>
@@ -90,18 +113,12 @@ const Profile = () => {
                     </div>
                     {hasArmarioPecas ? (
                         <div className='articles'>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={EditarPecaIcon} alt="icon_editar_peca" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={EditarPecaIcon} alt="icon_editar_peca" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={EditarPecaIcon} alt="icon_editar_peca" />
-                            </div>
+                            {articleSections[0].map((article, index) => (
+                                <div className='pecaContainer' key={index}>
+                                    <img src={article.image} alt={`mockup_${index}`} />
+                                    {/* <img className="iconPeca" src={article.icon} alt={`icon_${index}`} /> */}
+                                </div>
+                            ))}
                         </div>
                     ) : (
                         <div className='emptyState'>
@@ -114,24 +131,18 @@ const Profile = () => {
                     <div className='sectionTitulo'>
                         <span>Favoritos</span>
                         {hasFavoritos && (
-                        <Link to={'/profile-page'}>Ver mais ({num})</Link>
+                            <Link to={'/profile-page'}>Ver mais ({num})</Link>
                         )}
                     </div>
                     {hasFavoritos ? (
-                    <div className='articles'>
-                        <div className='pecaContainer'>
-                            <img src={articleMockupImage} alt={'mockup'} />
-                            <img className="iconPeca" src={FavoritosIcon} alt="icon_coracao" />
+                        <div className='articles'>
+                            {articleSections[1].map((article, index) => (
+                                <div className='pecaContainer' key={index}>
+                                    <img src={article.image} alt={`image_${index}`} />
+                                    <img className="iconPeca" src={article.icon} alt={`heart_icon_${index}`} />
+                                </div>
+                            ))}
                         </div>
-                        <div className='pecaContainer'>
-                            <img src={articleMockupImage} alt={'mockup'} />
-                            <img className="iconPeca" src={FavoritosIcon} alt="icon_coracao" />
-                        </div>
-                        <div className='pecaContainer'>
-                            <img src={articleMockupImage} alt={'mockup'} />
-                            <img className="iconPeca" src={FavoritosIcon} alt="icon_coracao" />
-                        </div>
-                    </div>
                     ) : (
                         <div className='emptyState'>
                             <img src={FavoritosEmptyIcon} alt={'closetIcon'} />
@@ -148,18 +159,12 @@ const Profile = () => {
                     </div>
                     {hasEncomendas ? (
                         <div className='articles'>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={CertoIcon} alt="icon_certo" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={CertoIcon} alt="icon_certo" />
-                            </div>
-                            <div className='pecaContainer'>
-                                <img src={articleMockupImage} alt={'mockup'} />
-                                <img className="iconPeca" src={CertoIcon} alt="icon_certo" />
-                            </div>
+                            {articleSections[2].map((article, index) => (
+                                <div className='pecaContainer' key={index}>
+                                    <img src={article.image} alt={`mockup_${index}`} />
+                                    <img className="iconPeca" src={article.icon} alt={`icon_${index}`} />
+                                </div>
+                            ))}
                         </div>
                     ) : (
                         <div className='emptyState'>
@@ -179,6 +184,8 @@ const ProfileStyle = styled.div`
     position: fixed;
     background-color: #f8f8f8;
     z-index: 100;
+    width: 100%;
+    padding: 0 24px;
 }
 
 .perfilIconsContainer {
@@ -218,7 +225,7 @@ const ProfileStyle = styled.div`
 .iconesDireita {
     position: relative;
     width: max-content;
-    margin-right: 24px;
+    // margin-right: 24px;
 }
 
 .settingsIcon {
@@ -228,14 +235,14 @@ const ProfileStyle = styled.div`
 
 .logoutIcon {
     display: block;
-    margin-top: 8px;
+    // margin-top: 8px;
 }
 
 .detalhesCentraisPerfil {
     background-color: white;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    margin: 0 24px;
+    // margin: 0 24px;
     /* top | left and right | bottom */
     padding: 18px 24px 12px;
 }
@@ -246,31 +253,19 @@ const ProfileStyle = styled.div`
     text-align: center;
 }
 
-.artigosContainer p {
+.contagem p {
     font-size: 10px;
     font-weight: 500;
     margin: 0;
 }
 
-.artigosEstrelas p {
-    font-size: 10px;
-    font-weight: 500;
-    margin: 0;
-}
-
-.artigosContainer span {
-    font-size: 20px;
-    font-weight: 600;
-
-}
-
-.artigosEstrelas span {
+.contagem span {
     font-size: 20px;
     font-weight: 600;
 }
 
 hr.divisorPerfil {
-    border-top: 0.5px solid #e4e4e4;
+    border-top: 0.5px solid #CACACA;
     border-radius: 5px;
     opacity: 1;
 }
@@ -283,6 +278,11 @@ hr.divisorPerfil {
 .editarBiografia {
     font-size: 12px;
     text-align: center;
+}
+
+.editarBiografiaIcon {
+    position: relative;
+    bottom: 3px;
 }
 
 .tituloBiografiaContainer {
@@ -299,20 +299,27 @@ hr.divisorPerfil {
     margin: 0;
 }
 
+.biografiaInput {
+    border: 0;
+    text-align: center;
+    width: 100%;
+}
+
 .divisorPerfil.fundo {
-    margin: 18px 24px 0;
+    margin: 18px 0 0;
+    width: 100%;
 }
 
 .sectionsContainer {
     padding-top: 335px;
     overflow-y: auto;
-    margin-bottom: 100px;
+    margin: 0 24px 100px;
 }
 
 .sectionTitulo {
     display: flex;
     justify-content: space-between;
-    padding: 0 24px;
+    // padding: 0 24px;
     font-size: 13px;
     font-weight: 500;
 
@@ -328,12 +335,12 @@ hr.divisorPerfil {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 15px 24px;
+    padding: 15px 0;
 }
 
 .articles img {
     width: 84px;
-    height: 100px;
+    // height: 100px;
     object-fit: cover;
     border-radius: 5px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
@@ -345,8 +352,8 @@ hr.divisorPerfil {
 
 .articles .iconPeca {
     position: absolute;
-    width: auto;
-    height: auto;
+    width: max-content;
+    // height: auto;
     object-fit: none;
     border-radius: 0;
     box-shadow: none;
@@ -356,13 +363,66 @@ hr.divisorPerfil {
 
 .emptyState {
     text-align: center;
-    padding: 15px 24px;
+    padding: 25px 24px;
 }
 
 .emptyStateText {
     font-size: 12px;
-    margin: 5px 0 0;
+    margin: 10px 0 0;
 }
+@media only screen and (min-width: 375px) {
+    .articles {
+        justify-content: normal;
+        gap: 20px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    width: 672px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .containerFixo {
+        width: 672px;
+    }
+    .sectionsContainer {
+        margin-bottom: 50px;
+    }
+}
+
+    @media only screen and (min-width: 600px) {
+        .contagem p {
+            font-size: 16px;
+        }
+        .contagem span {
+            font-size: 26px;
+        }
+
+        .sectionsContainer {
+            padding-top: 370px;
+        }
+        .editarBiografia {
+            font-size: 18px;
+        }
+        .sectionTitulo {
+            font-size: 19px;
+        
+            a {
+                font-size: 18px;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 1024px) {
+        .articles img{
+            width: 170px;
+        }
+        .articles .iconPeca {
+            width: 30px;
+        }
+        .nomeUtilizador {
+            font-size: 21px;
+    }
 `
 
 export default Profile
