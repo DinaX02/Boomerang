@@ -23,6 +23,9 @@ function App() {
         <Route path="/profile-page" element={<Profile/>}></Route>
         <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
+        <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
+        <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>
+        <Route path="/progressPublish-5" element={<ProgressPublish5/>}></Route>
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
       </Routes>
