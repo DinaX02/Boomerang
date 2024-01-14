@@ -69,18 +69,18 @@ const Button = styled.button`
 
 `;
 
-const BottomSheet = React.forwardRef(({ onClose, onSelectOption }, ref) => {
+const BottomSheetSizes = React.forwardRef(({ onClose, onSelectOptionSizes }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
 
 
-  const handleClose = () => {
-    setIsOpen(false);
-    onClose();
-  };
+  // const handleClose = () => {
+  //   setIsOpen(false);
+  //   onClose();
+  // };
 
 const handleOptionSelect = (option) => {
   console.log(`Opção selecionada: ${option}`);
-  onSelectOption(option);
+  onSelectOptionSizes(option);
 };
 
   const modalProps = useSpring({
@@ -93,19 +93,23 @@ const handleOptionSelect = (option) => {
       bounds={{ top: 0, bottom: window.innerHeight - 250 }}
       position={{ x: 0, y: isOpen ? 0 : window.innerHeight - 250 }}
       onStop={() => setIsOpen(false)}
+      nodeRef={ref}
     >
       <ModalContainer style={{ ...modalProps, transform: `translateY(${isOpen ? 0 : 100}%)` }} ref={ref}>
         <DragContainer>
         <DragHandle />
         </DragContainer>
         <ButtonContainer>
-          <Button onClick={() => handleOptionSelect("Muito Bom")}>Muito Bom</Button>
-          <Button onClick={() => handleOptionSelect("Bom")}>Bom</Button>
-          <Button onClick={() => handleOptionSelect("Satisfatório")}>Satisfatório</Button>
+          <Button onClick={() => handleOptionSelect("XS")}>XS</Button>
+          <Button onClick={() => handleOptionSelect("S")}>S</Button>
+          <Button onClick={() => handleOptionSelect("M")}>M</Button>
+          <Button onClick={() => handleOptionSelect("L")}>L</Button>
+          <Button onClick={() => handleOptionSelect("XL")}>XL</Button>
+          <Button onClick={() => handleOptionSelect("XXL")}>XXL</Button>
         </ButtonContainer>
       </ModalContainer>
     </Draggable>
   );
 });
 
-export default BottomSheet;
+export default BottomSheetSizes;
