@@ -12,6 +12,7 @@ import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
 import OnBoarding from "./pages/OnBoarding";
+import RentDate from "./pages/RentDate";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/progressPublish-5" element={<ProgressPublish5/>}></Route>
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
+        <Route path="/rentdate-page" element={<RentDate/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>
