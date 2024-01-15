@@ -8,7 +8,7 @@ const ModalContainer = styled(animated.div)`
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #fff;
+  background: #eee;
   padding-bottom: 16px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -62,14 +62,14 @@ const Button = styled.button`
   border-right: none;
   border-bottom: 1px solid #CACACA !important;
   text-align: center;
+  cursor: pointer !important;
 
-  &:active {
+  &:hover {
     background-color: #dcdcdc;
   }
-
 `;
 
-const BottomSheet = React.forwardRef(({ onClose, onSelectOption }, ref) => {
+const BottomSheet = React.forwardRef(({ onSelectOption }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
 
 
@@ -79,7 +79,7 @@ const BottomSheet = React.forwardRef(({ onClose, onSelectOption }, ref) => {
   // };
 
 const handleOptionSelect = (option) => {
-  console.log(`Opção selecionada: ${option}`);
+  // console.log(`Opção selecionada: ${option}`);
   onSelectOption(option);
 };
 
@@ -100,9 +100,9 @@ const handleOptionSelect = (option) => {
         <DragHandle />
         </DragContainer>
         <ButtonContainer>
-          <Button onClick={() => handleOptionSelect("Muito Bom")}>Muito Bom</Button>
-          <Button onClick={() => handleOptionSelect("Bom")}>Bom</Button>
-          <Button onClick={() => handleOptionSelect("Satisfatório")}>Satisfatório</Button>
+          <Button onTouchStart={() => handleOptionSelect("Muito Bom")}>Muito Bom</Button>
+          <Button onTouchStart={() => handleOptionSelect("Bom")}>Bom</Button>
+          <Button onTouchStart={() => handleOptionSelect("Satisfatório")}>Satisfatório</Button>
         </ButtonContainer>
       </ModalContainer>
     </Draggable>
