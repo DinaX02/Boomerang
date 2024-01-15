@@ -12,8 +12,8 @@ const Container = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: column; /* Alterado para column */
-  align-items: center; /* Adicionado para centralizar na coluna */
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin-bottom: 24px;
 `;

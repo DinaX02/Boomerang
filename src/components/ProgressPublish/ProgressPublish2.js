@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useState, useRef, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
 import ButtonForOpenBottomSheet from "../ButtonForOpenBottomSheet";
 import ButtonWithMandatoryField from "../ButtonWithMandatoryField";
 import Header from "../Header/Header";
-import "../components.css";
-
+import Draggable from "react-draggable";
+import BottomSheetSizes from "../BottomSheetSize";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProgressPublish1 } from "../../redux/publicarSlice";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -27,7 +29,20 @@ const ContainerDoisBtn = styled.div`
 `;
 
 const ProgressPublish2 = () => {
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+  const bottomSheetRef = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const selectedOption = useSelector(
+    (state) => state.Publicar1.progressPublish1.size
+  );
+
+  const [nextButtonDisabled, setNextButtonDisabled] = useState(!selectedOption);
+
+  const handleToggleBottomSheet = (selectedOption) => {
+    setBottomSheetOpen(!bottomSheetOpen);
+  };
 
   const handleGoBackStepPublish = () => {
     navigate(-1);
@@ -37,21 +52,46 @@ const ProgressPublish2 = () => {
     navigate("/progressPublish-3");
   };
 
+  const handleOptionSelect = (option) => {
+    dispatch(updateProgressPublish1({ size: option }));
+    setBottomSheetOpen(false);
+    setNextButtonDisabled(false);
+  };
+
+  useEffect(() => {
+    setNextButtonDisabled(!selectedOption);
+  }, [selectedOption]);
+
   return (
     <div>
       <Header name="Publicar / Etapa 2 de 5" />
+      {bottomSheetOpen && (
+        <Draggable
+          cancel=".no-drag"
+          bounds="parent"
+          positionOffset={{ x: "0", y: "0" }}
+          onStop={() => setBottomSheetOpen(false)}
+          nodeRef={bottomSheetRef}
+        >
+          <BottomSheetSizes
+            ref={bottomSheetRef}
+            onClose={() => setBottomSheetOpen(false)}
+            onSelectOptionSizes={handleOptionSelect}
+          />
+        </Draggable>
+      )}
       <SpaceTopComponent>
-        <ButtonForOpenBottomSheet btnName="Tamanho" />
+        <ButtonForOpenBottomSheet btnName="Tamanho" onClick={handleToggleBottomSheet} selectedOption={selectedOption}/>
         <ButtonForOpenBottomSheet btnName="Cor" />
-        <ButtonForOpenBottomSheet btnName="Categorias " />
+        <ButtonForOpenBottomSheet btnName="Categorias" />
         <ButtonWithMandatoryField btnName="Marca" />
       </SpaceTopComponent>
 
       <ContainerDoisBtn>
         <Button text="Anterior" onClick={handleGoBackStepPublish} />
-        <Button text="Próximo" onClick={handleNextStepPublish} /> {/* falta aplicar a lógica de só ficar ativo se os botoes tiverem value atribuido */}
+        <Button text="Próximo" onClick={handleNextStepPublish} disable={nextButtonDisabled} />
       </ContainerDoisBtn>
-  </div>
+    </div>
   );
 };
 
