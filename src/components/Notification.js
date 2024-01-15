@@ -7,8 +7,8 @@ const Notification = (props) => {
 
   const handleResize = () => {
 
-    if (window.innerWidth <= 450) {
-      setMaxDescriptionLength(25);
+    if (window.innerWidth <= 400) {
+      setMaxDescriptionLength(18);
     } else if (window.innerWidth <= 800) {
       setMaxDescriptionLength(50);
     } else{
@@ -49,19 +49,23 @@ const NotificationDiv = styled.div`
 border-radius: 5px;
 background: #fff;
 box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
-height: 110px;
+height: 105px;
 width: 90%;
 display: flex;
 flex-direction: row;
 align-items: center;
+font-size: 0.9rem;
+margin: 25px auto 0 auto;
 p{
   margin-bottom: 5px;
 }
 `
 
 const NotificationImg =styled.div`
-width: 80px;
-height: 80px;
+width: 70px;
+height: 70px;
+min-width: 70px;
+min-height: 70px;
 border-radius: 500px;
 margin-right: 20px;
 margin-left: 20px;
