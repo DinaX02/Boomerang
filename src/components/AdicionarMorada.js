@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
+
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -29,58 +31,91 @@ const ConfButton = styled.div`
 `;
 
 const AdicionarMorada = () => {
+    const [morada, setMorada] = useState('');
+    const [localidade, setLocalidade] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [codigoPostal, setCodigoPostal] = useState('');
+    const navigate = useNavigate();
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        if (!morada || !localidade || !cidade || !codigoPostal) {
+            // Lógica de tratamento de erro, se necessário
+            return;
+        }
+
+
+        // Armazene apenas a string da morada no localStorage
+        const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
+        storedMoradas.push(morada);
+        localStorage.setItem('moradas', JSON.stringify(storedMoradas));
+
+        // Navegue de volta para a página de alugar morada
+        navigate('/alugar-morada', { state: { moradas: storedMoradas } });
+    };
+
+
     return (
         <div>
             <NavbarWeb />
             <Header name="Adicionar Morada" />
             <MainContainer>
 
-                <form style={{marginTop: "100px"}}>
+                <form onSubmit={handleFormSubmit} style={{ marginTop: "100px" }}>
                     <AddMorada>
-                        <input type="text" name="Morada" placeholder="Adicionar Morada"
+                        <input type="text" name="Morada" value={morada} onChange={(e) => setMorada(e.target.value)}
+                            placeholder="Adicionar Morada"
                             style={{
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
                                 fontSize: "16px",
+                                outline: "none",
                             }}
                             required />
-                        <h3>*</h3>
+                        <span>*</span>
                     </AddMorada>
                     <AddMorada>
-                        <input type="text" name="localidade" placeholder="Localidade"
+                        <input type="text" name="localidade" value={localidade} onChange={(e) => setLocalidade(e.target.value)}
+                            placeholder="Localidade"
                             style={{
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
                                 fontSize: "16px",
+                                outline: "none",
                             }}
                             required />
-                        <h3>*</h3>
+                        <span>*</span>
                     </AddMorada>
                     <AddMorada>
-                        <input type="text" name="cidade" placeholder="Cidade"
+                        <input type="text" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}
+                            placeholder="Cidade"
                             style={{
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
                                 fontSize: "16px",
+                                outline: "none",
                             }}
                             required />
-                        <h3>*</h3>
+                        <span>*</span>
                     </AddMorada>
                     <AddMorada>
-                        <input type="text" name="codigoPost" placeholder="Código Postal"
+                        <input type="text" name="codigoPost" value={codigoPostal} onChange={(e) => setCodigoPostal(e.target.value)}
+                            placeholder="Código Postal"
                             style={{
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
                                 fontSize: "16px",
+                                outline: "none",
                             }}
                             required />
-                        <h3>*</h3>
+                        <span>*</span>
                     </AddMorada>
-                    <h6><span style={{color:"#65d9b0"}}>*</span> Campo Obrigatório</h6>
+                    <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
                         <input type="submit" value="Guardar" style={{
                             backgroundColor: "#343541",
