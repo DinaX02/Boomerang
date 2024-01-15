@@ -13,6 +13,7 @@ import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
 import OnBoarding from "./pages/OnBoarding";
 import RentDate from "./pages/RentDate";
+import Vouchers from "./pages/Vouchers";
 import AlugarMorada from "./components/AlugarMorada";
 import AdicionarMorada from "./components/AdicionarMorada";
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
         <Route path="/rentdate-page" element={<RentDate/>}></Route>
+        <Route path="/vouchers-page" element={<Vouchers/>}></Route>
         <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
         <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
         
