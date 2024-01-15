@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import imgDefaultPreview from '../assets/img_default_card_preview.svg';
-import artigosJSON from "./artigos.json";
+import artigosJSON from "../data/artigos.json";
 
 const PreviewCard = () => {
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);

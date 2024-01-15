@@ -1,5 +1,5 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {Link, useNavigate} from 'react-router-dom'
 import NavbarWeb from '../components/NavbarWeb'
 import Article from "../components/Article";
 import styled from "styled-components";
@@ -8,6 +8,21 @@ import userMockupImage from "../assets/user_mockup_image.jpg"
 import ProfileLink from "../components/ProfileLink";
 
 const Homepage = () => {
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (window.innerWidth < 600) {
+    if (localStorage.getItem("redirect")) {
+      return;
+    }else{
+      localStorage.setItem("redirect", true);
+      return navigate("/onBoarding");
+    }
+  }
+  });
+
+
     return (
         <div>
             <HomepageStyle>
