@@ -46,13 +46,14 @@ const StyledDropdownIcon = styled.img`
   height: auto;
 `;
 
-const ButtonForOpenBottomSheet = ({ btnName, onClick, selectedOption }) => {
+
+const ButtonForOpenBottomSheet = ({ btnName, onClick, selectedOption}) => {
 
   return (
     <Container>
       <ButtonWrapper>
         <StyledButton onClick={() => onClick(selectedOption)}>
-          <span>{btnName} <Asterisk>*</Asterisk></span>
+        <span>{btnName} {selectedOption ? `: ${selectedOption}` : ""} <Asterisk>*</Asterisk></span>
           <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
         </StyledButton>
       </ButtonWrapper>
