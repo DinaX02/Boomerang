@@ -4,8 +4,8 @@ import NavbarWeb from '../components/NavbarWeb'
 import Article from "../components/Article";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
-import userMockupImage from "../assets/user_mockup_image.jpg"
 import ProfileLink from "../components/ProfileLink";
+import Chip from "../components/chip";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -34,21 +34,25 @@ const Homepage = () => {
                         <div>Bem-Vinda</div>
                         <div>O teu guarda-roupa ilimitado começa aqui</div>
                     </div>
-                    <ProfileLink className={'profileLink'} description={false}/>
+                    <ProfileLink className={'profileLink'}/>
                 </div>
-                {/*
                 <div>
                     <div className={'sectionTitle'}><span>Categorias Populares</span><Link to={'/'}>Ver mais</Link></div>
+                    <div className={'articles'}>
+                        <Chip category={'Homem'}/>
+                        <Chip category={'Mulher'}/>
+                        <Chip category={'Gala'}/>
+                        <Chip category={'Cerimónia'}/>
+                    </div>
                 </div>
-                */}
                 <div>
                     <div className={'sectionTitle'}><span>Promotores Populares</span><Link to={'/'}>Ver mais</Link></div>
                     <div className={'articles'}>
-                        <ProfileLink className={'profileLink'} name={'Bernardo Silva'} description={true}/>
-                        <ProfileLink className={'profileLink'} name={'Joana Faria'} description={true}/>
-                        <ProfileLink className={'profileLink'} name={'Leandro Santos'} description={true}/>
-                        <ProfileLink className={'profileLink'} name={'Gisela Martins'} description={true}/>
-                        <ProfileLink className={'profileLink'} name={'Renata Batista'} description={true}/>
+                        <ProfileLink className={'profileLink'} name={'Bernardo Silva'} />
+                        <ProfileLink className={'profileLink'} name={'Joana Faria'} />
+                        <ProfileLink className={'profileLink'} name={'Leandro Santos'} />
+                        <ProfileLink className={'profileLink'} name={'Gisela Martins'} />
+                        <ProfileLink className={'profileLink'} name={'Renata Batista'} />
                     </div>
 
                 </div>

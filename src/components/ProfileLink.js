@@ -9,7 +9,7 @@ const ProfileLink = (props) => {
 
         <ProfileLinkStyle to={`/`}>
             <img src={userMockupImage} className={'profileLink'}/>
-            {props.description && <div className={'description'}>
+            {props.name && <div className={'description'}>
                 {props.name}
             </div>}
 
