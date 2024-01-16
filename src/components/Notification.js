@@ -48,14 +48,14 @@ const Notification = (props) => {
 const NotificationDiv = styled.div`
 border-radius: 5px;
 background: #fff;
-box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.09);
+box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.09);
 height: 105px;
-width: 90%;
+width: 100%;
 display: flex;
 flex-direction: row;
 align-items: center;
 font-size: 0.9rem;
-margin: 25px auto 0 auto;
+margin-top: 25px;
 p{
   margin-bottom: 5px;
 }
