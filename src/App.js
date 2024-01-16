@@ -16,6 +16,7 @@ import RentDate from "./pages/RentDate";
 import Vouchers from "./pages/Vouchers";
 import AlugarMorada from "./components/AlugarMorada";
 import AdicionarMorada from "./components/AdicionarMorada";
+import RentDetails from "./pages/RentDetails";
 import ArticlePage from "./pages/ArticlePage";
 import Chat from "./pages/Chat";
 
@@ -42,6 +43,9 @@ function App() {
         <Route path="/vouchers-page" element={<Vouchers/>}></Route>
         <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
         <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
+        <Route path="/rentdetails-page" element={<RentDetails/>}></Route>
+
+        
 
       </Routes>
 </BrowserRouter>
