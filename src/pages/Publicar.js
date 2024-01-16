@@ -1,24 +1,100 @@
-import React, {useState} from "react";
-import Header from "../components/Header/Header";
-import EliminarImage from "../assets/eliminar.svg";
-import Button from "../components/Button";
-import "../components/components.css";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProgressPublish1 } from "../redux/publicarSlice";
 import { useNavigate } from "react-router-dom";
 import CustomizedSteppers from "../components/ProgressBar";
+import ModalAlertaForPublish from "../components/ProgressPublish/ModalAlertaForPublish";
+import HeaderPublish from "../components/Header/HeaderPublicar";
+import EliminarImage from "../assets/eliminar.svg";
+import Button from "../components/Button";
+
+const ProductForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  justify-content: center;
+  height: calc(100vh - 70px - 67px);
+`;
+
+const Label = styled.label`
+  margin-top: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+  font-size: 14px;
+`;
+
+const ProductFormInput = styled.input`
+  padding: 0.5rem;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+`;
+
+const ImagePreviewContainer = styled.div`
+  display: flex;
+  max-width: 95%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 0.6em;
+`;
+
+const ImagePreview = styled.div`
+  position: relative;
+  margin-right: 0.5rem;
+  display: inline-block;
+`;
+
+const ImagePreviewImg = styled.img`
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  margin-right: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 0.8em;
+`;
+
+const RemoveImageButton = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 17px;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 20px;
+`;
+
+const BtnProximoPublicar = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+`;
+
+const AddImgInputPublish = styled.label`
+  border: 1px solid #cacaca;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: 5px;
+`;
 
 const Publicar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
-  // Dados da store relativos a etapa 1 de publicar
+
+   // Dados da store relativos a etapa 1 de publicar
   const { title, description, imageUrls, countChar } = useSelector(
     (state) => state.Publicar1.progressPublish1
   );
 
   const handleGoToProgress2 = () => {
-    // console.log("cliquei no btn")
+      // console.log("cliquei no btn")
     dispatch(
       updateProgressPublish1({
         title,
@@ -30,24 +106,26 @@ const Publicar = () => {
     navigate("/progressPublish-2");
   };
 
-  const handleStepChange = (newStep) => { // teste do stepper
+  const handleStepChange = (newStep) => {
     setActiveStep(newStep);
   };
 
-  const limit_images = 5; // define o limite de img uploaded
+  const limitImages = 5; // define o limite de img uploaded
 
-  const isButtonDisable = !title || !description || imageUrls.length === 0;
+  const isButtonDisabled = !title || !description || imageUrls.length === 0;
 
   const handleImageChange = (e) => {
     const newImages = Array.from(e.target.files);
     // verifica se o upload das img nao excede o limite definido
-    if (imageUrls.length + newImages.length > limit_images) {
+    if (imageUrls.length + newImages.length > limitImages) {
       alert(`Não pode adicionar mais de 5 imagens!`);
       return;
     }
 
     // atualizar a store redux com as novas img uploaded
-    const newImageUrls = newImages.map((image) => URL.createObjectURL(image));
+    const newImageUrls = newImages.map((image) =>
+      URL.createObjectURL(image)
+    );
 
     // atualizar a store redux com as modificacoes feitas ao array das img
     dispatch(
@@ -61,7 +139,6 @@ const Publicar = () => {
     const newImageUrls = [...imageUrls];
     newImageUrls.splice(index, 1);
 
-    // Atualizar a store redux com as modificações feitas ao array de URLs das imagens
     dispatch(updateProgressPublish1({ imageUrls: newImageUrls }));
   };
 
@@ -78,16 +155,31 @@ const Publicar = () => {
     }
   };
 
+  const [fecharModal, setFecharModal] = useState(true);
+
+  const alertHandler = () => {
+    alert ? setFecharModal(false) : navigate(-1);
+  };
+
   return (
     <div>
-      <Header name="Publicar / Etapa 1 de 5" />
-      <CustomizedSteppers  activeStep={activeStep} onStepChange={handleStepChange} />
-      <div className="productForm">
+      <HeaderPublish name="Publicar" alertHandler={alertHandler} />
+      <ModalAlertaForPublish
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        alert={alert}
+        message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+      />
+      <CustomizedSteppers
+        activeStep={activeStep}
+        onStepChange={handleStepChange}
+      />
+      <ProductForm>
         <div className="imageUpload" htmlFor="images">
-          <label htmlFor="images" className="addImgInputPublish">
+          <AddImgInputPublish htmlFor="images" className="addImgInputPublish">
             <span className="colourGreenAsterisk">+</span> Adicionar Fotografias
             <span className="colourGreenAsterisk">*</span>
-          </label>
+          </AddImgInputPublish>
           <input
             id="images"
             type="file"
@@ -102,33 +194,31 @@ const Publicar = () => {
               width: "90%",
             }}
           />
-
           <p>Adiciona até 5 fotografias</p>
 
-          <div className="imagesPreviewContainer">
+          <ImagePreviewContainer>
             {imageUrls.map((imageUrl, index) => (
-              <div key={index} className="imagePreview">
-                <img
+              <ImagePreview key={index} className="imagePreview">
+                <ImagePreviewImg
                   className="imagePreviewImg"
                   src={imageUrl}
                   alt={`Imagem da peça ${index}`}
                 />
-                <button
+                <RemoveImageButton
                   type="button"
-                  className="removeImageButton"
                   onClick={() => handleRemoveImage(index)}
                 >
                   <img src={EliminarImage} alt="eliminar_img" />
-                </button>
-              </div>
+                </RemoveImageButton>
+              </ImagePreview>
             ))}
-          </div>
+          </ImagePreviewContainer>
         </div>
 
-        <label htmlFor="title">
+        <Label htmlFor="title">
           Título <span className="colourGreenAsterisk">*</span>
-        </label>
-        <input
+        </Label>
+        <ProductFormInput
           className="productFormInput"
           type="text"
           id="title"
@@ -146,10 +236,10 @@ const Publicar = () => {
           }
         />
 
-        <label htmlFor="description">
+        <Label htmlFor="description">
           Descrição <span className="colourGreenAsterisk">*</span>
           <span className="countCharDescription">{countChar}/150</span>
-        </label>
+        </Label>
         <textarea
           className="productFormInput"
           id="description"
@@ -158,17 +248,17 @@ const Publicar = () => {
           onChange={(e) => handleDescriptionChange(e)}
         />
 
-        <label htmlFor="description">
+        <Label htmlFor="description">
           <span className="colourGreenAsterisk">*</span> Campo Obrigatório
-        </label>
-        <div className="btnProximoPublicar">
+        </Label>
+        <BtnProximoPublicar>
           <Button
             text="Próximo"
             onClick={handleGoToProgress2}
-            disable={isButtonDisable}
+            disable={isButtonDisabled}
           />
-        </div>
-      </div>
+        </BtnProximoPublicar>
+      </ProductForm>
     </div>
   );
 };

@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
 import ButtonForOpenBottomSheet from "../ButtonForOpenBottomSheet";
-import Header from "../Header/Header";
+import HeaderPublish from "../Header/HeaderPublicar";
 import Draggable from "react-draggable";
 import BottomSheetSizes from "../BottomSheetSize";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
 import BottomSheetColours from "../BottomSheetColours";
 import BottomSheetCategories from "../BottomSheetCategories";
+import ModalAlertaForPublish from "./ModalAlertaForPublish";
+import InputBrands from "../InputBrands";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -45,6 +47,8 @@ const ProgressPublish2 = () => {
   const [bottomSheetColoursOpen, setBottomSheetColoursOpen] = useState(false);
   const [bottomSheetCategoriesOpen, setBottomSheetCategoriesOpen] = useState(false);
   const bottomSheetRef = useRef(null);
+  const [fecharModal, setFecharModal] = useState(true); // alerta de voltar para a homepage (perder dados inseridos)
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -58,6 +62,10 @@ const ProgressPublish2 = () => {
 
   const selectedOptionCategories = useSelector(
     (state) => state.Publicar1.progressPublish1.categories
+  );
+
+  const selectedOptionMarcaValue = useSelector(
+    (state) => state.Publicar1.progressPublish1.marcas
   );
 
   const [nextButtonDisabled, setNextButtonDisabled] = useState(!selectedOption || !selectedOptionColours || !selectedOptionCategories);
@@ -110,6 +118,10 @@ const ProgressPublish2 = () => {
     );
   }, [selectedOption, selectedOptionColours, selectedOptionCategories]);
 
+  useEffect(() => {
+    console.log(selectedOptionMarcaValue);
+  }, [selectedOptionMarcaValue]);
+
   const handleGoBackStepPublish = () => {
     navigate(-1);
   };
@@ -134,10 +146,19 @@ const ProgressPublish2 = () => {
     setBottomSheetCategoriesOpen(false);
   };
 
+  const alertHandler = () => {
+    fecharModal ? setFecharModal(false) : navigate("/");
+  }
+
   return (
     <div>
-      <Header name="Publicar / Etapa 2 de 5" />
-
+      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <ModalAlertaForPublish
+          fecharModal={fecharModal}
+          setFecharModal={setFecharModal}
+          alert={alert}
+          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        />
       {/*  bottom sheet dos tamanhos */}
       {bottomSheetOpen && (
         <ModalOverlay className="modal-overlay">
@@ -208,6 +229,9 @@ const ProgressPublish2 = () => {
         />
         <ButtonForOpenBottomSheet btnName="Categorias" onClick={handleToggleBottomSheetCategories}
           selectedOption={selectedOptionCategories} />
+
+        <InputBrands selectedOptionMarcaValue={selectedOptionMarcaValue}/>
+
       </SpaceTopComponent>
       <ContainerDoisBtn>
         <Button text="Anterior" onClick={handleGoBackStepPublish} />
