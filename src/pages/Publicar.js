@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "../components/Header/Header";
 import EliminarImage from "../assets/eliminar.svg";
 import Button from "../components/Button";
@@ -6,11 +6,12 @@ import "../components/components.css";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProgressPublish1 } from "../redux/publicarSlice";
 import { useNavigate } from "react-router-dom";
+import CustomizedSteppers from "../components/ProgressBar";
 
 const Publicar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [activeStep, setActiveStep] = useState(0);
   // Dados da store relativos a etapa 1 de publicar
   const { title, description, imageUrls, countChar } = useSelector(
     (state) => state.Publicar1.progressPublish1
@@ -27,6 +28,10 @@ const Publicar = () => {
       })
     );
     navigate("/progressPublish-2");
+  };
+
+  const handleStepChange = (newStep) => { // teste do stepper
+    setActiveStep(newStep);
   };
 
   const limit_images = 5; // define o limite de img uploaded
@@ -76,6 +81,7 @@ const Publicar = () => {
   return (
     <div>
       <Header name="Publicar / Etapa 1 de 5" />
+      <CustomizedSteppers  activeStep={activeStep} onStepChange={handleStepChange} />
       <div className="productForm">
         <div className="imageUpload" htmlFor="images">
           <label htmlFor="images" className="addImgInputPublish">
