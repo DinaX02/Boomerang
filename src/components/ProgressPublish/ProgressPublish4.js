@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import Button from "../Button";
 import InputWithInfoIcon from "../InputWithInfoIcon";
 import InputWithEuroIcon from "../InputwithEuroIcon";
-import Header from "../Header/Header";
+import HeaderPublish from "../Header/HeaderPublicar";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
+import ModalAlertaForPublish from "./ModalAlertaForPublish";
 
 import "../components.css";
 
@@ -29,6 +30,7 @@ const ContainerDoisBtn = styled.div`
 `;
 
 const ProgressPublish4 = () => {
+  const [fecharModal, setFecharModal] = useState(true); // alerta de voltar para a homepage (perder dados inseridos)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,10 +58,19 @@ const ProgressPublish4 = () => {
     navigate("/progressPublish-5");
   };
 
+  const alertHandler = () => {
+    fecharModal ? setFecharModal(false) : navigate("/");
+  }
 
   return (
     <div>
-      <Header name="Publicar / Etapa 4 de 5" />
+      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <ModalAlertaForPublish
+          fecharModal={fecharModal}
+          setFecharModal={setFecharModal}
+          alert={alert}
+          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        />
       <SpaceTopComponent>
       <InputWithInfoIcon
           btnName="Valor estimado da peça"
