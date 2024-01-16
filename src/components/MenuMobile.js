@@ -74,7 +74,7 @@ const MenuMobile = () => {
 };
 
 const MenuMobileDiv = styled.div`
-height: 110px;
+height: 105px;
 position: fixed;
 bottom: -5px;
 background-image: url(${menumobile});
@@ -97,13 +97,16 @@ span{
 `
 
 const PublicarBtn = styled.img`
-height: 110px;
+height: 105px;
 position: fixed;
-bottom: 15px;
+bottom: 10px;
 transform: translate(calc(50vw - 50%));
 `
 
 const MenuMobileBtns = styled.div`
+  a{
+    transform: scale(0.9);
+  }
 display: flex;
 flex-direction: row;
 align-items: center;

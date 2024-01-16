@@ -91,17 +91,21 @@ const ButtonWithInfoIcon = (props) => {
     (state) => state.Publicar1.progressPublish1.conditionOfClothing
   );
 
-  // console.log("opçao seleciona foi....", selectedOption2);
+  // console.log("ButtonWithInfoIcon renderizado. selectedOption:", selectedOption);
 
   const handleIconClick = () => {
     setFecharModal(false);
   };
 
+  // console.log("Antes de chamar handleButtonClick");
   const handleButtonClick = () => {
+    // console.log("Dentro de handleButtonClick. Seleção atual:", selectedOption);
     if (onClick) {
       onClick();
     }
+    // console.log("Após onClick. Seleção atual:", selectedOption);
   };
+
 
   return (
     <Container>
@@ -133,7 +137,7 @@ const ButtonWithInfoIcon = (props) => {
         </InfoIconContainer>
         <StyledButton onClick={handleButtonClick}>
           <span>
-           {selectedOption ? `Estado Selecionado: ${selectedOption}` : "Selecione Estado"}
+           {selectedOption ? `Estado: ${selectedOption}` : "Selecione Estado"}
             <Asterisk>*</Asterisk>
           </span>
           <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
