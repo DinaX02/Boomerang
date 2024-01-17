@@ -377,7 +377,7 @@ hr.divisorPerfil {
     }
 }
 @media only screen and (min-width: 768px) {
-    width: 672px;
+    width: 600px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -423,6 +423,7 @@ hr.divisorPerfil {
         .nomeUtilizador {
             font-size: 21px;
     }
+}
 `
 
 export default Profile

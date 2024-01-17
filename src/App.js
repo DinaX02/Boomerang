@@ -13,6 +13,7 @@ import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
 import OnBoarding from "./pages/OnBoarding";
 import RentDate from "./pages/RentDate";
+import SignUpPage from "./pages/SignUpPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/onBoarding" element={<OnBoarding/>}></Route>
+        <Route path="/sign-up-page" element={<SignUpPage/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>

@@ -11,7 +11,7 @@ import Modal from '../components/Modal'
 const EditProfile = () => {
   const [email, setEmail] = useState("mariacarmo1985@gmail.com");
   const [username, setUsername] = useState("mariacarmo");
-  const [password, setPassword] = useState("********");
+  // const [password, setPassword] = useState("********");
   const [maskedPassword, setMaskedPassword] = useState("********");
   const [disableEmail, setDisableEmail] = useState(true);
   const [disableUsername, setDisableUsername] = useState(true);
@@ -177,8 +177,8 @@ const EditProfile = () => {
                 id="password"
                 value={maskedPassword}
                 onChange={(e) => {
-                  setPassword(e.target.value);
-                  setMaskedPassword('*'.repeat(password.length));
+                  // setPassword(e.target.value);
+                  setMaskedPassword('*'.repeat(e.target.value.length));
                 }}
                 disabled={disablePassword}
               />
@@ -203,8 +203,10 @@ const EditProfile = () => {
 }
 
 const EditProfileStyle = styled.div`
-          margin: 0 24px;
+          padding: 0 24px;
+          margin: auto; 
           display: flex;
+          max-width: 600px;
 
         .imagemPerfil {
           width: 84px;
@@ -284,10 +286,7 @@ const EditProfileStyle = styled.div`
         color: #888;
         margin-left: 9px;
       }
-      @media only screen and (min-width: 768px) {
-        width: 672px;
-        margin: auto; 
-      }
+      
       @media only screen and (min-width: 600px) {
         .input {
           font-size: 17px;

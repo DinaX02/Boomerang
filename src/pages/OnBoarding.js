@@ -106,7 +106,7 @@ const OnBoarding = () => {
                     <div 
                     key={index} 
                     className="ellipse"
-                    active={page === index} 
+                    // active={page === index} 
                     onClick={() => handleEllipseClick(index)}
                     style={{ backgroundColor: page === index ? '#00C17C' : '#484954' }}
                     ></div>
