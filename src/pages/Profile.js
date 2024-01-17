@@ -14,6 +14,7 @@ import FavoritosEmptyIcon from '../assets/icons/favoritos.svg';
 import EncomendasIcon from '../assets/icons/encomendas.svg';
 import MenuMobile from '../components/MenuMobile';
 import articleMockupImage from "../assets/article_mockup_image.jpg"
+import Article from "../components/Article";
 
 //Pagina do perfil
 const Profile = () => {
@@ -115,8 +116,7 @@ const Profile = () => {
                         <div className='articles'>
                             {articleSections[0].map((article, index) => (
                                 <div className='pecaContainer' key={index}>
-                                    <img src={article.image} alt={`mockup_${index}`} />
-                                    {/* <img className="iconPeca" src={article.icon} alt={`icon_${index}`} /> */}
+                                    <Article description={false} scale='0.8' />
                                 </div>
                             ))}
                         </div>
@@ -138,7 +138,7 @@ const Profile = () => {
                         <div className='articles'>
                             {articleSections[1].map((article, index) => (
                                 <div className='pecaContainer' key={index}>
-                                    <img src={article.image} alt={`image_${index}`} />
+                                    <Article description={false} scale='0.8' />
                                     <img className="iconPeca" src={article.icon} alt={`heart_icon_${index}`} />
                                 </div>
                             ))}
@@ -161,7 +161,7 @@ const Profile = () => {
                         <div className='articles'>
                             {articleSections[2].map((article, index) => (
                                 <div className='pecaContainer' key={index}>
-                                    <img src={article.image} alt={`mockup_${index}`} />
+                                    <Article description={false} scale='0.8' />
                                     <img className="iconPeca" src={article.icon} alt={`icon_${index}`} />
                                 </div>
                             ))}
@@ -339,11 +339,11 @@ hr.divisorPerfil {
 }
 
 .articles img {
-    width: 84px;
+    /* width: 84px;
     // height: 100px;
     object-fit: cover;
     border-radius: 5px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
 }
 
 .pecaContainer {
@@ -358,7 +358,8 @@ hr.divisorPerfil {
     border-radius: 0;
     box-shadow: none;
     right: 0;
-    padding: 3px;
+    padding: 20px 15px 0 0;
+    top: 0;
 }
 
 .emptyState {
@@ -373,7 +374,7 @@ hr.divisorPerfil {
 @media only screen and (min-width: 375px) {
     .articles {
         justify-content: normal;
-        gap: 20px;
+        /* gap: 5px; */
     }
 }
 @media only screen and (min-width: 768px) {
@@ -415,7 +416,7 @@ hr.divisorPerfil {
 
     @media only screen and (min-width: 1024px) {
         .articles img{
-            width: 170px;
+            /* width: 170px; */
         }
         .articles .iconPeca {
             width: 30px;

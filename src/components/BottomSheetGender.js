@@ -80,7 +80,6 @@ const BottomSheet = React.forwardRef((props, ref) => {
     });
 
     const handleOptionSelect = (option) => {
-        //   console.log(`Opção selecionada: ${option}`);
         props.onSelectOption(option);
     };
 
@@ -88,14 +87,11 @@ const BottomSheet = React.forwardRef((props, ref) => {
     //     opacity: isOpen ? 1 : 0,
     // });
 
+
     return (
         <Draggable
             axis="y"
-            // bounds={{ top: 0, bottom: window.innerHeight - 250 }}
-            // position={{ x: 0, y: isOpen ? 0 : window.innerHeight - 250 }}
-            // onStop={() => setIsOpen(false)}
-            onStart={() => setIsDragging(true)}
-            onStop={() => setIsDragging(false)}
+            bounds={{ top: 0, bottom: window.innerHeight - 250 }}
             nodeRef={ref}
         >
             <ModalContainer style={isDragging ? {} : springProps} ref={ref} >
@@ -103,10 +99,10 @@ const BottomSheet = React.forwardRef((props, ref) => {
                     <DragHandle />
                 </DragContainer>
                 <ButtonContainer>
-                    <Button onClick={() => handleOptionSelect("Masculino")} type="button">Masculino</Button>
-                    <Button onClick={() => handleOptionSelect("Feminino")} type="button">Feminino</Button>
-                    <Button onClick={() => handleOptionSelect("Outro")} type="button">Outro</Button>
-                    <Button onClick={() => handleOptionSelect("Prefiro não dizer")} type="button">Prefiro não dizer</Button>
+                    <Button onTouchStart={() => handleOptionSelect("Masculino")} type="button">Masculino</Button>
+                    <Button onTouchStart={() => handleOptionSelect("Feminino")} type="button">Feminino</Button>
+                    <Button onTouchStart={() => handleOptionSelect("Outro")} type="button">Outro</Button>
+                    <Button onTouchStart={() => handleOptionSelect("Prefiro não dizer")} type="button">Prefiro não dizer</Button>
                 </ButtonContainer>
             </ModalContainer>
         </Draggable>

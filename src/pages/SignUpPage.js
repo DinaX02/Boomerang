@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Header from '../components/Header/Header';
 import Input from '../components/Input';
 import Modal from '../components/Modal';
-import ButtonForOpenBottomSheet from "../components/ButtonForOpenBottomSheet";
+import ButtonForOpenBottomSheetSignUp from "../components/ButtonForOpenBottomSheetSignUp";
 import Button from '../components/Button';
 import BottomSheetGender from '../components/BottomSheetGender';
 
@@ -24,6 +24,9 @@ const SignUpPage = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [btnGeneroName, setBtnGeneroName] = useState('Género');
   const [opcaoSelecionada, setOpcaoSelecionada] = useState(false);
+  const [shown, setShown] = useState(false);
+  const [matchPassword, setMatchPassword] = useState(false);
+  const [erroObrigatorio, setErroObrigatorio] = useState(false);
   const bottomSheetRef = useRef(null);
 
   const navigate = useNavigate();
@@ -50,11 +53,28 @@ const SignUpPage = () => {
 
   const handlePassChange = (e) => {
     setInputPassValue(e.target.value);
+    if (e.target.value !== inputRepetirPassValue) {
+      setMatchPassword(false);
+      setErroObrigatorio(true);
+    }
+    else {
+      setMatchPassword(true);
+      setErroObrigatorio(false);
+    }
     setAlert(true);
   };
 
   const handleRepetirPassChange = (e) => {
     setInputRepetirPassValue(e.target.value);
+
+    if (inputPassValue !== e.target.value) {
+      setMatchPassword(false);
+      setErroObrigatorio(true);
+    }
+    else {
+      setMatchPassword(true);
+      setErroObrigatorio(false);
+    }
     setAlert(true);
   };
 
@@ -69,6 +89,7 @@ const SignUpPage = () => {
   const handleEntrarClick = () => {
     navigate('/');
   }
+
 
   useEffect(() => {
     // Verifica se todos os campos estão preenchidos
@@ -104,6 +125,10 @@ const SignUpPage = () => {
 
   const handleClickDrag = () => {
     setBottomSheetOpen(false);
+  }
+
+  const toggleEyeHandle = (id) => {
+    setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
   }
 
   return (
@@ -152,7 +177,7 @@ const SignUpPage = () => {
           />
 
         </Draggable>}
-        <ButtonForOpenBottomSheet
+        <ButtonForOpenBottomSheetSignUp
           btnName={btnGeneroName}
           onClick={handleToggleBottomSheet}
           type="button"
@@ -160,26 +185,41 @@ const SignUpPage = () => {
         />
 
         <Input
-          obrigatorio={true}
+          obrigatorio={false}
           placeholder="Palavra-passe"
           value={inputPassValue}
           onChange={handlePassChange}
-          type="password"
+          type={shown.password ? "text" : "password"}
+          shown={shown.password}
+          isPassword={true}
+          toggleEyeHandle={() => toggleEyeHandle("password")} // Passa o id correspondente
         />
 
         <Input
-          obrigatorio={true}
+          obrigatorio={false}
           placeholder="Repetir Palavra-passe"
           value={inputRepetirPassValue}
           onChange={handleRepetirPassChange}
-          type="password"
+          type={shown.repeatPassword ? "text" : "password"}
+          shown={shown.repeatPassword}
+          matchPassword={matchPassword}
+          erroObrigatorio={erroObrigatorio}
+          className={'icon'}
+          isPassword={true}
+          toggleEyeHandle={() => toggleEyeHandle("repeatPassword")} // Passa o id correspondente
         />
 
         <div className="termsContainer">
           <input type="checkbox" id="terms" name="terms" onChange={handleTermosChange} />
           <label className="termos" htmlFor='terms'> Aceito os <Link>termos</Link> e a <Link>política de privacidade</Link></label>
         </div>
-        <div className='campoObrigatorio'>
+        <div
+          className='campoObrigatorio'
+          style={
+            todosCamposPreenchidos   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
+              ? { visibility: "hidden" }
+              : { visibility: "visbile" }
+          }>
           <span className="colourGreenAsterisk">*</span> Campo Obrigatório
         </div>
       </form>
@@ -275,11 +315,11 @@ const RegistarStyle = styled.div`
  }
 
  .buttonOpenBottomSheetContainer button {
-  font-weight: 300;
+  color: gray;
  }
 
  .buttonOpenBottomSheetContainer button.opcaoSelecionada {
-    font-weight: 500;
+  color: black;
   }
 `
 
