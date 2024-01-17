@@ -8,6 +8,7 @@ import InputWithEuroIcon from "../InputwithEuroIcon";
 import HeaderPublish from "../Header/HeaderPublicar";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
+import CustomizedSteppers from "../ProgressBar";
 
 import "../components.css";
 
@@ -62,9 +63,18 @@ const ProgressPublish4 = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
   }
 
+  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step 
+  };
+
   return (
     <div>
       <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <CustomizedSteppers
+      activeStep={3}
+      onStepChange={handleChangeStepInProgressBar}
+      onNext={handleNextStepPublish}
+      onBack={handleGoBackStepPublish}
+      />
       <ModalAlertaForPublish
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}

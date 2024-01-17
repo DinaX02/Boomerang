@@ -12,6 +12,7 @@ import BottomSheetColours from "../BottomSheetColours";
 import BottomSheetCategories from "../BottomSheetCategories";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
 import InputBrands from "../InputBrands";
+import CustomizedSteppers from "../ProgressBar";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -47,7 +48,7 @@ const ProgressPublish2 = () => {
   const [bottomSheetColoursOpen, setBottomSheetColoursOpen] = useState(false);
   const [bottomSheetCategoriesOpen, setBottomSheetCategoriesOpen] = useState(false);
   const bottomSheetRef = useRef(null);
-  const [fecharModal, setFecharModal] = useState(true); // alerta de voltar para a homepage (perder dados inseridos)
+  const [fecharModal, setFecharModal] = useState(true); // fechar modal de alerta de voltar para a homepage (perder dados inseridos)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -119,7 +120,7 @@ const ProgressPublish2 = () => {
   }, [selectedOption, selectedOptionColours, selectedOptionCategories]);
 
   useEffect(() => {
-    console.log(selectedOptionMarcaValue);
+    // console.log(selectedOptionMarcaValue);
   }, [selectedOptionMarcaValue]);
 
   const handleGoBackStepPublish = () => {
@@ -150,9 +151,18 @@ const ProgressPublish2 = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
   }
 
+  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step
+  };
+
   return (
     <div>
       <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <CustomizedSteppers
+      activeStep={1}
+      onStepChange={handleChangeStepInProgressBar}
+      onNext={handleNextStepPublish}
+      onBack={handleGoBackStepPublish}
+      />
       <ModalAlertaForPublish
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}

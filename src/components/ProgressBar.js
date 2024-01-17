@@ -6,26 +6,27 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepConnector from '@mui/material/StepConnector';
-import { Button } from '@mui/material';
 import Check from '@mui/icons-material/Check';
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   '.MuiStepConnector-line': {
     borderColor: '#bdbdbd',
   },
+  marginTop: '1.5em',
 }));
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   display: 'flex',
   height: 22,
   alignItems: 'center',
+  marginTop: '1.5em',
 }));
 
 const QontoStepIconCircle = styled('div')(({ theme, ownerState }) => ({
   width: 18,
   height: 18,
   borderRadius: '50%',
-  backgroundColor: ownerState.completed ? '#4caf50' : '#bdbdbd',
+  backgroundColor: ownerState.completed ? '#00C17C' : '#bdbdbd',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -62,43 +63,16 @@ const CustomStepper = styled(Stepper)(({ theme }) => ({
 }));
 
 export default function CustomizedSteppers({ activeStep, onStepChange }) {
-  const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-  const [completedSteps, setCompletedSteps] = React.useState([]);
-
-  const handleNext = () => {
-    setCompletedSteps((prevCompletedSteps) => {
-      const updatedCompletedSteps = [...prevCompletedSteps, activeStep];
-      onStepChange((prevStep) => Math.min(prevStep + 1, steps.length - 1));
-      return updatedCompletedSteps;
-    });
-  };
-
-  const handleBack = () => {
-    setCompletedSteps((prevCompletedSteps) => {
-      const updatedCompletedSteps = prevCompletedSteps.filter((step) => step !== activeStep);
-      return updatedCompletedSteps;
-    });
-
-    onStepChange((prevStep) => Math.max(prevStep - 1, 0));
-  };
-
+  const steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
   return (
     <Stack sx={{ width: '100%' }} spacing={4}>
       <CustomStepper activeStep={activeStep} connector={<QontoConnector />}>
         {steps.map((label, index) => (
-          <Step key={label} completed={completedSteps.includes(index)}>
+          <Step key={label} completed={index < activeStep}>
             <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
           </Step>
         ))}
       </CustomStepper>
-      <Stack direction="row" justifyContent="flex-end" spacing={2}>
-        <Button onClick={handleBack} disabled={activeStep === 0}>
-          Anterior
-        </Button>
-        <Button onClick={handleNext} disabled={activeStep === steps.length - 1}>
-          Próximo
-        </Button>
-      </Stack>
     </Stack>
   );
 }
