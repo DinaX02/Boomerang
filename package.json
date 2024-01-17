@@ -41,7 +41,7 @@
       "react-app/jest"
     ],
     "rules": {
-      "no-restricted-globals": ["error", "window", "document", "navigator"]
+      "no-restricted-globals": ["self"]
     }
   },  
   "browserslist": {
