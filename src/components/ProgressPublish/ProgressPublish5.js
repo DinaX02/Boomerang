@@ -1,27 +1,34 @@
-import React, {useState} from "react";
+import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
 import HeaderPublish from "../Header/HeaderPublicar";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
 import CustomizedSteppers from "../ProgressBar";
+import ChooseAdressComponent from "../ChooseAdressComponent"
+import OverlayFinalPublish from "../OverlayFinalPublish";
+import iconOverlay from "../../assets/icons/tick_iconOverlayFInal.svg"
 
-const SpaceTopComponent = styled.div`
-  margin-top: 2.5em;
+const ContainerCentered = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-top: 2.5em;
+`;
+
+const SpaceTopComponent = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ContainerDoisBtn = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 600px;
-  margin-top: 20.9em;
-  margin-right: auto;
-  margin-left: auto;
-  justify-content: space-evenly;
+position: fixed;
+bottom: 3.5em;
+width: 100%;
+display: flex;
+justify-content: space-evenly;
+z-index: -1;
 `;
 
 const Container = styled.div`
@@ -32,57 +39,85 @@ const Container = styled.div`
 `;
 
 const ParagraphIntroAdress = styled.p`
-color: #9F9F9F;
+  color: #9f9f9f;
 
-@media (max-width: 500px) {
-  font-size: 14px;}
-
-`
+  @media (max-width: 500px) {
+    font-size: 14px;
+  }
+`;
 
 const ProgressPublish5 = () => {
-  const [fecharModal, setFecharModal] = useState(true); // alerta de voltar para a homepage (perder dados inseridos)
+  const [fecharModal, setFecharModal] = useState(true);
+  const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
+  const [showOverlayFinal, setShowOverlayFinal ]= useState(false);
+
+  const handleAddressSelect = () => {
+    console.log("handleAddressSelect estado");
+    setBtnPublicarEnabled(true);
+  };
+
+  useEffect(() => {
+    console.log("BtnPublicarEnabled:", BtnPublicarEnabled);
+  }, [BtnPublicarEnabled]);
+
   const navigate = useNavigate();
 
   const handleGoBackStepPublish = () => {
-    navigate(-1);
+    setBtnPublicarEnabled(true);
+    navigate("/progressPublish-4");
   };
 
   const handleNextStepPublish = () => {
-    navigate("/"); // mudar para futuro overlay publicar concluído
-  };
+    setShowOverlayFinal(true);
+    setTimeout(() => {
+      setShowOverlayFinal(false);
+      navigate("/");
+    }, 3000);
+  }
 
   const alertHandler = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
-  }
-
-  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step 
   };
+
+  const handleChangeStepInProgressBar = (newStep) => {};
 
   return (
     <div>
-      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <HeaderPublish name="Publicar" alertHandler={alertHandler} />
       <CustomizedSteppers
-      activeStep={4}
-      onStepChange={handleChangeStepInProgressBar}
-      onNext={handleNextStepPublish}
-      onBack={handleGoBackStepPublish}
+        activeStep={4}
+        onStepChange={handleChangeStepInProgressBar}
+        onNext={handleNextStepPublish}
+        onBack={handleGoBackStepPublish}
       />
       <ModalAlertaForPublish
-          fecharModal={fecharModal}
-          setFecharModal={setFecharModal}
-          alert={alert}
-          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
-        />
-      <SpaceTopComponent>
-<Container>
-  <ParagraphIntroAdress>Escolhe a Morada de Retorno para garantir uma recuperação simples e eficiente da tua peça após o período de aluguer.</ParagraphIntroAdress>
-</Container>
-      <ContainerDoisBtn>
-        <Button text="Anterior" onClick={handleGoBackStepPublish} />
-        <Button text="Próximo" onClick={handleNextStepPublish} />
-      </ContainerDoisBtn>
-      </SpaceTopComponent>
-  </div>
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        alert={alert}
+        message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+      />
+      <ContainerCentered>
+        <SpaceTopComponent>
+          <Container>
+            <ParagraphIntroAdress>
+              Escolhe a Morada de Retorno para garantir uma recuperação simples
+              e eficiente da tua peça após o período de aluguer.
+            </ParagraphIntroAdress>
+          </Container>
+          <ChooseAdressComponent onAddressSelect={handleAddressSelect}/>
+          <ContainerDoisBtn>
+            <Button text="Anterior" onClick={handleGoBackStepPublish} />
+            <Button text="Publicar" onClick={handleNextStepPublish}  disable={!BtnPublicarEnabled}/>
+          </ContainerDoisBtn>
+        </SpaceTopComponent>
+      </ContainerCentered>
+      {showOverlayFinal && (
+        <OverlayFinalPublish>
+          <img style={{marginTop: "1em"}} src={iconOverlay} alt="Icone de Publicar acabado" />
+          <p style={{marginTop: "1em", color:"white"}}>Publicado com sucesso!</p>
+        </OverlayFinalPublish>
+      )}
+    </div>
   );
 };
 

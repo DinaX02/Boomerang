@@ -7,6 +7,7 @@ import MenuMobile from "../components/MenuMobile";
 import ProfileLink from "../components/ProfileLink";
 import Button from '../components/Button';
 import Input from '../components/Input';
+import Chip from '../components/chip';
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -84,17 +85,15 @@ const Homepage = () => {
         {/*<NavbarWeb/>
         <p>Bem Vindos ao Boomerang</p>
     <Link to={"/search-page"}><button>Pesquisa</button></Link>*/}
-                
-        <div className={'top'}>
-          <div>
-            <div>Bem-Vinda</div>
-            <div>O teu guarda-roupa ilimitado começa aqui</div>
-          </div>
-          <ProfileLink className={'profileLink'} description={false} />
-        </div>
-        {/*
+                <div className={'top'}>
+                    <div>
+                        <div>Bem-Vinda</div>
+                        <div>O teu guarda-roupa ilimitado começa aqui</div>
+                    </div>
+                    <ProfileLink className={'profileLink'}/>
+                </div>
                 <div>
-                    <div className={'sectionTitle'}><span>Categorias Populares</span><Link to={'/'}>Ver mais</Link></div>
+                    <div className={'sectionTitle'}><span>Categorias Populares</span></div>
                     <div className={'articles'}>
                         <Chip category={'Homem'}/>
                         <Chip category={'Mulher'}/>
@@ -103,7 +102,7 @@ const Homepage = () => {
                     </div>
                 </div>
                 <div>
-                    <div className={'sectionTitle'}><span>Promotores Populares</span><Link to={'/'}>Ver mais</Link></div>
+                    <div className={'sectionTitle'}><span>Promotores Populares</span></div>
                     <div className={'articles'}>
                         <ProfileLink className={'profileLink'} name={'Bernardo Silva'} />
                         <ProfileLink className={'profileLink'} name={'Joana Faria'} />
@@ -111,94 +110,88 @@ const Homepage = () => {
                         <ProfileLink className={'profileLink'} name={'Gisela Martins'} />
                         <ProfileLink className={'profileLink'} name={'Renata Batista'} />
                     </div>
-                */}
-        <div>
-          <div className={'sectionTitle'}><span>Promotores Populares</span><Link to={'/'}>Ver mais</Link></div>
-          <div className={'articles'}>
-            <ProfileLink className={'profileLink'} name={'Bernardo Silva'} description={true} />
-            <ProfileLink className={'profileLink'} name={'Joana Faria'} description={true} />
-            <ProfileLink className={'profileLink'} name={'Leandro Santos'} description={true} />
-            <ProfileLink className={'profileLink'} name={'Gisela Martins'} description={true} />
-            <ProfileLink className={'profileLink'} name={'Renata Batista'} description={true} />
-          </div>
 
-        </div>
-        <div>
-          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/'}>Ver tudo</Link></div>
-          <div className={'articles'}>
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
+                </div>
+                <div>
+                    <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/'}>Ver tudo</Link></div>
+                    <div className={'articles'}>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article more={true}/>
+                    </div>
+                </div>
+                <div>
+                    <div className={'sectionTitle'}><span>Novidades</span><Link to={'/'}>Ver mais</Link></div>
+                    <div className={'articles'}>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article description={true}/>
+                        <Article more={true}/>
+                    </div>
+                </div>
+          <MenuMobile></MenuMobile>
+          {!fecharBottomSheet && <div className='fundoBlured'>
+              <div
+                  className='bottomSheetLoginRegistar'
+                  style={
+                      mostrarLogin
+                          ? { height: "354px" }
+                          : { height: "220px" }
+                  }>
+                  <div className='dragHandleContainer' onClick={dragClickHandle}>
+                      <div className='dragHandle' />
+                  </div>
+                  {!mostrarLogin && <div className='loginRegistarContainer' >
+                      <Button
+                          width="236px"
+                          onClick={handleEntrarClick}
+                          text="Entrar"></Button>
+                      <Button
+                          width="236px"
+                          onClick={handleCriarContaClick}
+                          text="Criar conta"></Button>
+                      <Link className='ignorar' onClick={clickContinuarHandle}>Continuar sem conta</Link>
+                  </div>}
+                  {mostrarLogin && <div className='loginContainer'>
+                      <form className='formLogin'>
+                          <Input
+                              erroObrigatorio={erroObrigatorio}
+                              placeholder="E-mail ou nome de utilizador"
+                              value={inputNomeValue}
+                              onChange={handleInputNomeChange}
+                          />
+                          <Input
+                              erroObrigatorio={erroObrigatorio}
+                              placeholder="Palavra-passe"
+                              value={maskedPassword}
+                              onChange={handleInputPassChange}
+                          />
+                      </form>
+                      <Link className='ignorar forgetPassword'>Esqueceste-te da palavra-passe?</Link>
+                      <Button
+                          width="236px"
+                          type="submit"
+                          onClick={handleEntrarClick}
+                          text="Entrar"></Button>
+                      <Link className='ignorar' to={'/sign-up-page'}>Criar conta</Link>
+                  </div>}
+              </div>
           </div>
+          }
+            </HomepageStyle>
         </div>
-        <div>
-          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/'}>Ver mais</Link></div>
-          <div className={'articles'}>
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-          </div>
-        </div>
-        <MenuMobile></MenuMobile>
-        {!fecharBottomSheet && <div className='fundoBlured'>
-          <div
-            className='bottomSheetLoginRegistar'
-            style={
-              mostrarLogin
-                ? { height: "354px" }
-                : { height: "220px" }
-            }>
-            <div className='dragHandleContainer' onClick={dragClickHandle}>
-              <div className='dragHandle' />
-            </div>
-            {!mostrarLogin && <div className='loginRegistarContainer' >
-              <Button
-                width="236px"
-                onClick={handleEntrarClick}
-                text="Entrar"></Button>
-              <Button
-                width="236px"
-                onClick={handleCriarContaClick}
-                text="Criar conta"></Button>
-              <Link className='ignorar' onClick={clickContinuarHandle}>Continuar sem conta</Link>
-            </div>}
-            {mostrarLogin && <div className='loginContainer'>
-              <form className='formLogin'>
-                <Input
-                  erroObrigatorio={erroObrigatorio}
-                  placeholder="E-mail ou nome de utilizador"
-                  value={inputNomeValue}
-                  onChange={handleInputNomeChange}
-                />
-                <Input
-                  erroObrigatorio={erroObrigatorio}
-                  placeholder="Palavra-passe"
-                  value={maskedPassword}
-                  onChange={handleInputPassChange}
-                />
-              </form>
-              <Link className='ignorar forgetPassword'>Esqueceste-te da palavra-passe?</Link>
-              <Button
-                width="236px"
-                type="submit"
-                onClick={handleEntrarClick}
-                text="Entrar"></Button>
-              <Link className='ignorar' to={'/sign-up-page'}>Criar conta</Link>
-            </div>}
-          </div>
-        </div>
-        }
-      </HomepageStyle>
-
-    </div>
-  )
+    )
 }
 
 const HomepageStyle = styled.div`
+  
+  padding-bottom: 115px;
+  
   ::-webkit-scrollbar {
     display: none;
   }
@@ -248,6 +241,7 @@ const HomepageStyle = styled.div`
     font-size: 14px;
     font-weight: 800;
     a{
+      font-size: 12px;
       font-weight: 600;
       text-decoration: none;
       color: #00C17C;
@@ -256,7 +250,7 @@ const HomepageStyle = styled.div`
 
   .bottomSheetLoginRegistar {
     background-color: #f8f8f8;
-    height: '220px';
+    height: 220px;
     width: 100vw;
     position: absolute;
     bottom: 0;

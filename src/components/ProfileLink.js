@@ -7,7 +7,7 @@ const ProfileLink = (props) => {
     return (
 
 
-        <ProfileLinkStyle to={`/profile`} style={{zoom: props.zoom}}>
+        <ProfileLinkStyle to={`/profile-page`} style={{zoom: props.zoom}}>
             <img src={userMockupImage} className={'profileLink'}/>
             {props.name && <div className={'description'}>
                 {props.name}

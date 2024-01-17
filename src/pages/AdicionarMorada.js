@@ -41,17 +41,13 @@ const AdicionarMorada = () => {
         event.preventDefault();
 
         if (!morada || !localidade || !cidade || !codigoPostal) {
-            // Lógica de tratamento de erro, se necessário
             return;
         }
 
-
-        // Armazene apenas a string da morada no localStorage
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
         storedMoradas.push(morada);
         localStorage.setItem('moradas', JSON.stringify(storedMoradas));
 
-        // Navegue de volta para a página de alugar morada
         navigate('/alugar-morada', { state: { moradas: storedMoradas } });
     };
 
@@ -70,7 +66,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -83,7 +79,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -96,7 +92,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -109,23 +105,24 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
                         <span>*</span>
                     </AddMorada>
-                    <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
+                    <h6 style={{fontSize:"14px", fontWeight:"500"}}><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-                        <input type="submit" value="Guardar" style={{
+                    <input type="submit" value="Guardar" style={{
                             backgroundColor: "#343541",
-                            width: "180px",
-                            height: "40px",
+                            width: "144px",
+                            height: "36px",
                             border: "none",
                             borderRadius: "5px",
                             color: "white",
-                            fontSize: "17px",
-                            fontWeight: "700",
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            outline: "none",
                         }} />
                     </ConfButton>
 
