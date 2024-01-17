@@ -4,8 +4,18 @@ import {Link} from "react-router-dom";
 import articleMockupImage from "../assets/article_mockup_image.jpg"
 
 const Article = (props) => {
-    return (
 
+    if (props.more) {
+        return (
+
+        <MoreLink to={`/article`}>
+            Ver Mais
+        </MoreLink>
+        )
+    }
+
+
+    return (
         //TODO: alterar o link para o link do artigo//
         //TODO: alterar imagens e informações para o artigo//
 
@@ -19,10 +29,19 @@ const Article = (props) => {
                 <p>Zara</p>
                 <p>Tamanho S</p>
             </div>}
-
         </ArticleLink>
     )
 }
+
+const MoreLink = styled(Link)`
+  width: 120px;
+  height: 208px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #00C17C;
+  justify-content: center;
+`
 
 const ArticleLink = styled(Link)`
   
