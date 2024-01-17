@@ -15,26 +15,36 @@ const RentDate = () => {
   };
 
   return (
-    <div>
+    <RentDateDiv>
       <Header name="Período de Aluguer" />
-      <RentDateDiv>
+      <div className="content">
         <PreviewCard />
+        <p className="info">Seleciona o primeiro e o último dia de aluguer</p>
         <Calendar
           onChange={handleDateChange}
           value={dateRange}
           selectRange={true}
-        />
+          />
         <Button text="Continuar"></Button>
-      </RentDateDiv>
-    </div>
+      </div>
+    </RentDateDiv>
   );
 };
 
 const RentDateDiv = styled.div`
+
+.content{
+  margin-top: -15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+  
+  .info{
+    margin-bottom: -18px;
+    margin-top: 10px;
+  }
 `;
 
 export default RentDate;
