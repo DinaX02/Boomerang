@@ -1,5 +1,5 @@
-import React, { useEffect }, { useState, useEffect } from 'react'
-import { Link, useNavigate, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import NavbarWeb from '../components/NavbarWeb'
 import Article from "../components/Article";
 import styled from "styled-components";
@@ -66,9 +66,6 @@ const Homepage = () => {
     setFecharBottomSheet(true);
   }
 
-  const navigate = useNavigate();
-
-
   useEffect(() => {
     if (window.innerWidth < 600) {
     if (localStorage.getItem("redirect")) {
@@ -87,13 +84,7 @@ const Homepage = () => {
         {/*<NavbarWeb/>
         <p>Bem Vindos ao Boomerang</p>
     <Link to={"/search-page"}><button>Pesquisa</button></Link>*/}
-                <div className={'top'}>
-                    <div>
-                        <div>Bem-Vinda</div>
-                        <div>O teu guarda-roupa ilimitado começa aqui</div>
-                    </div>
-                    <ProfileLink className={'profileLink'}/>
-                </div>
+                
         <div className={'top'}>
           <div>
             <div>Bem-Vinda</div>
