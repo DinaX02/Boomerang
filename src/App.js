@@ -14,6 +14,13 @@ import EditProfile from "./pages/EditProfile";
 import OnBoarding from "./pages/OnBoarding";
 import RentDate from "./pages/RentDate";
 import SignUpPage from "./pages/SignUpPage";
+import Vouchers from "./pages/Vouchers";
+import AlugarMorada from "./components/AlugarMorada";
+import AdicionarMorada from "./components/AdicionarMorada";
+import RentDetails from "./pages/RentDetails";
+import ArticlePage from "./pages/ArticlePage";
+import Chat from "./pages/Chat";
+import AlugarDetalhes from "./components/AlugarDetalhes";
 
 function App() {
   return (
@@ -26,6 +33,8 @@ function App() {
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
+        <Route path="/article" element={<ArticlePage/>}></Route>
+        <Route path="/chat" element={<Chat/>}></Route>
         <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
         <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
@@ -34,6 +43,14 @@ function App() {
         <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
         <Route path="/rentdate-page" element={<RentDate/>}></Route>
+        <Route path="/vouchers-page" element={<Vouchers/>}></Route>
+        <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
+        <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
+        <Route path="/rentdetails-page" element={<RentDetails/>}></Route>
+        <Route path="/alugar-detalhes" element={<AlugarDetalhes/>}></Route>
+
+        
+
       </Routes>
 </BrowserRouter>
     </div>

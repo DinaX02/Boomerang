@@ -11,6 +11,7 @@ const RentDate = () => {
 
   const handleDateChange = (value) => {
     setDateRange(value);
+    console.log(dateRange);
   };
 
   return (

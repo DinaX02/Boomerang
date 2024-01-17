@@ -7,9 +7,9 @@ const ProfileLink = (props) => {
     return (
 
 
-        <ProfileLinkStyle to={`/`}>
+        <ProfileLinkStyle to={`/profile`} style={{zoom: props.zoom}}>
             <img src={userMockupImage} className={'profileLink'}/>
-            {props.description && <div className={'description'}>
+            {props.name && <div className={'description'}>
                 {props.name}
             </div>}
 

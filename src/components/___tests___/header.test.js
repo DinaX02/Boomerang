@@ -1,5 +1,5 @@
 import { screen, render, cleanup } from "@testing-library/react";
-import pageNames from "../Header/headernames.json";
+import articlesData from "../../data/artigos.json";
 import Header from "../Header/Header";
 import { MemoryRouter } from "react-router-dom";
 import renderer from "react-test-renderer";
@@ -8,10 +8,10 @@ afterEach(() => {
   cleanup();
 });
 
-test("verifica a quantidade de pageNames estao no JSON para utilizar no Header", () => {
+test("verifica a quantidade de artigos que estao no JSON", () => {
   let countPages = 0;
 
-  for (let i in pageNames) {
+  for (let i in articlesData) {
     countPages++;
     i++;
   }
