@@ -123,9 +123,9 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
   const renderSubcategories = () => {
 
     const subcategories = {
-      Mulher: ["Cerimónia","T-Shirt", "Camisola de malha", "Vestido", "Casaco", "Calças", "Saia", "Camisolas desportivas"],
-      Homem: ["Gala","Cerimónia","T-Shirt", "Camisolas","Casaco", "Calças","Sapatos","Camisolas desportivas"],
-      Criança: ["0-6 meses", "0-18 meses","Bebé","1-6 anos menino", "1-6 anos menina", "6-14 anos menino", "6-14 anos menina","Sapatos"],
+      Mulher: ["Vestidos","Camisolas e Casacos","Calças","Calçado"],
+      Homem: ["Cerimónia","Camisolas e Casacos","Calças","Sapatos"],
+      Criança: ["0-6 meses", "0-18 meses","1-6 anos","6-14 anos"],
       Trajes: ["Rancho","Natal","Carnaval"],
     };
 

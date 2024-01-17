@@ -70,12 +70,17 @@ const RemoveImageButton = styled.button`
 `;
 
 const BtnProximoPublicar = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 3.5em;
-  align-self: center;
+display: flex;
+justify-content: center;
+align-items: center;
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+padding-left: 1em;
+padding-right: 1em;
+margin-bottom: 2em;
+padding-bottom:0.5em;
 `;
 
 const AddImgInputPublish = styled.label`
