@@ -83,6 +83,10 @@ const AddImgInputPublish = styled.label`
   border-radius: 5px;
 `;
 
+const DescriptionAddImage= styled.p`
+margin-top:0.5em
+`
+
 const Publicar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -194,7 +198,7 @@ const Publicar = () => {
               width: "90%",
             }}
           />
-          <p>Adiciona até 5 fotografias</p>
+          <DescriptionAddImage>Adiciona até 5 fotografias</DescriptionAddImage>
 
           <ImagePreviewContainer>
             {imageUrls.map((imageUrl, index) => (
