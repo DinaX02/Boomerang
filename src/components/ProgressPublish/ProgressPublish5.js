@@ -1,11 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
-import Header from "../Header/Header";
-
-import "../components.css";
-
+import HeaderPublish from "../Header/HeaderPublicar";
+import ModalAlertaForPublish from "./ModalAlertaForPublish";
+import CustomizedSteppers from "../ProgressBar";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -41,6 +40,7 @@ color: #9F9F9F;
 `
 
 const ProgressPublish5 = () => {
+  const [fecharModal, setFecharModal] = useState(true); // alerta de voltar para a homepage (perder dados inseridos)
   const navigate = useNavigate();
 
   const handleGoBackStepPublish = () => {
@@ -51,9 +51,28 @@ const ProgressPublish5 = () => {
     navigate("/"); // mudar para futuro overlay publicar concluído
   };
 
+  const alertHandler = () => {
+    fecharModal ? setFecharModal(false) : navigate("/");
+  }
+
+  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step 
+  };
+
   return (
     <div>
-      <Header name="Publicar / Etapa 5 de 5" />
+      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <CustomizedSteppers
+      activeStep={4}
+      onStepChange={handleChangeStepInProgressBar}
+      onNext={handleNextStepPublish}
+      onBack={handleGoBackStepPublish}
+      />
+      <ModalAlertaForPublish
+          fecharModal={fecharModal}
+          setFecharModal={setFecharModal}
+          alert={alert}
+          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        />
       <SpaceTopComponent>
 <Container>
   <ParagraphIntroAdress>Escolhe a Morada de Retorno para garantir uma recuperação simples e eficiente da tua peça após o período de aluguer.</ParagraphIntroAdress>

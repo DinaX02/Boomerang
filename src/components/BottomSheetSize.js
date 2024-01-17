@@ -81,12 +81,6 @@ const Button = styled.button`
 const BottomSheetSizes = React.forwardRef(({onSelectOptionSizes }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
 
-
-  // const handleClose = () => {
-  //   setIsOpen(false);
-  //   onClose();
-  // };
-
 const handleOptionSelect = (option) => {
   console.log(`Opção selecionada: ${option}`);
   onSelectOptionSizes(option);

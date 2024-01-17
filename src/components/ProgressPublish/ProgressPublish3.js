@@ -4,11 +4,13 @@ import styled from "styled-components";
 import Button from "../Button";
 import InputMeasuresNotMandatory from "../InputsMesuresNotMandatory";
 import ButtonWithInfoIcon from "../ButtonWithInfoIcon";
-import Header from "../Header/Header";
+import HeaderPublish from "../Header/HeaderPublicar";
 import BottomSheet from "../BottomSheetCondition";
 import Draggable from "react-draggable";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
+import ModalAlertaForPublish from "./ModalAlertaForPublish";
+import CustomizedSteppers from "../ProgressBar";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -31,6 +33,7 @@ const ContainerDoisBtn = styled.div`
 const ProgressPublish3 = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetRef = useRef(null);
+  const [fecharModal, setFecharModal] = useState(true); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,13 +64,31 @@ const ProgressPublish3 = () => {
   };
 
   useEffect(() => {
-    // Atualize nextButtonDisabled quando selectedOption mudar
     setNextButtonDisabled(!selectedOption);
   }, [selectedOption]);
 
+  const alertHandler = () => {
+    fecharModal ? setFecharModal(false) : navigate("/");
+  }
+
+  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step
+  };
+
   return (
     <div>
-      <Header name="Publicar / Etapa 3 de 5" />
+      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <CustomizedSteppers
+      activeStep={2}
+      onStepChange={handleChangeStepInProgressBar}
+      onNext={handleNextStepPublish}
+      onBack={handleGoBackStepPublish}
+      />
+      <ModalAlertaForPublish
+          fecharModal={fecharModal}
+          setFecharModal={setFecharModal}
+          alert={alert}
+          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        />
       {bottomSheetOpen && (
         <Draggable
           cancel=".no-drag"

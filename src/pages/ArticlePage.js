@@ -2,48 +2,122 @@ import React from 'react'
 import styled from "styled-components";
 import articleMockupImage from "../assets/article_mockup_image.jpg"
 import ProfileLink from "../components/ProfileLink";
-import Button from "../components/Button";
 import {useNavigate} from "react-router-dom";
+import arrowBack from "../assets/back_arrow.svg";
+import StarIcon from '@mui/icons-material/Star';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {IconButton} from "@mui/material";
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 const ArticlePage = () => {
-
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <ArticlePageStyle>
             <div className={'headerBoomerang'}>
-                <div onClick={() => {navigate(-1)}}>
-                    Voltar
+                <div onClick={() => {navigate(-1)}} className={'back'}>
+                    <img data-testid="svg-icon" src={arrowBack}  style={{ cursor: "pointer" }} alt="arrow go back" />
+                    <h3>Voltar</h3>
                 </div>
                 <div className={'icons'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="red">
-                        <path d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.28 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.78-3.4 6.75-8.55 12.54L12 21.35z"/>
-                    </svg>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="5" r="1"/>
-                        <circle cx="12" cy="12" r="1"/>
-                        <circle cx="12" cy="19" r="1"/>
-                    </svg>
-
+                    <IconButton
+                        id="article-menu-button"
+                        aria-controls={anchorEl ? 'article-menu' : undefined}
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                    >
+                        <MoreVertIcon style={{color: "white"}}/>
+                    </IconButton>
+                    <Menu
+                        className={'articleDropdown'}
+                        id="article-menu"
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                    >
+                        <MenuItem style={{fontSize: 14}} onClick={handleClose}>Denunciar</MenuItem>
+                        <MenuItem style={{fontSize: 14}} onClick={handleClose}>Editar artigo</MenuItem>
+                    </Menu>
                 </div>
             </div>
-            <img className={'carousel'} src={articleMockupImage}></img>
-            <div className={'articleHeader articleSection'}>
+            <img alt={'article'} className={'carousel'} src={articleMockupImage}></img>
+            <div className={'articleHeader'}>
                 <div className={'user'}>
-                    <ProfileLink/>
+                    <ProfileLink zoom={1.1}/>
                     <div>
                         <div>maria_carmo</div>
-                        <div>estrelas</div>
+                        <div className={'stars'}>
+                            <StarIcon />
+                            <StarIcon />
+                            <StarIcon />
+                            <StarIcon />
+                            <StarOutlineIcon />
+                        </div>
                     </div>
                 </div>
                 <div className={'articleButtons'}>
-                    <Button text={'Alugar'}/>
+                    <div>Alugar</div>
                     <div>Chat</div>
                 </div>
             </div>
             <div className={'articleSection'}>
-                <div>Vestido castanho</div>
-                <div>S / 36 / 8 . Muito bom . Shein</div>
+                <div className={'title'}>Título da Peça</div>
+                <div>Vestido Preto para Cerimónia</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Valor Estimado do Artigo</div>
+                <div>60€</div>
+                <div className={'title'}>Preço do Aluguer por dia</div>
+                <div>5€ / dia</div>
+                <div>Taxa de Proteção Obrigatória</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Descrição</div>
+                <div>Vestido usado apenas 1 vez num casamento. Está em ótimo estado. É muito leve e confortável.</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Tamanho</div>
+                <div>S</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Cor</div>
+                <div className={'articleColor'}><div style={{backgroundColor: 'black'}}/>Preto</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Categoria</div>
+                <div>Vestido</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Marca</div>
+                <div>Gucci</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Estado</div>
+                <div>Muito Bom</div>
+            </div>
+            <div className={'articleSection'}>
+                <div className={'title'}>Medidas da Peça</div>
+                <div>Cintura: 87 cm</div>
+                <div>Comprimento: 130 cm</div>
             </div>
 
         </ArticlePageStyle>
@@ -52,12 +126,26 @@ const ArticlePage = () => {
 
 const ArticlePageStyle = styled.div`
   
+  
   .headerBoomerang{
     padding: 0 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    .back{
+      display: flex;
+      align-items: center;
+      img{
+        margin-left: 0;
+      }
+    }
     .icons{
+      button{
+        padding: 0;
+      }
+      svg{
+        font-size: 30px;
+      }
       display: flex;
       gap: 20px;
     }
@@ -71,12 +159,19 @@ const ArticlePageStyle = styled.div`
   
   .articleHeader{
     display: flex;
+    align-items: center;
     gap: 10px;
+    padding: 25px 0;
+    margin: 0 25px;
     .user{
-      font-size: 12px;
+      align-items: center;
+      font-size: 13px;
       font-weight: 600;
       display: flex;
-      gap: 10px;
+      gap: 20px;
+      .stars svg{
+        font-size: 15px;
+      }
     }
     .articleButtons{
       flex: 1;
@@ -89,7 +184,20 @@ const ArticlePageStyle = styled.div`
     font-size: 13px;
     padding: 25px 0;
     margin: 0 25px;
-    border-bottom: 1px solid rgb(0,0,0,0.1);
+    border-top: 1px solid rgb(0,0,0,0.1);
+    .title{
+      font-weight: 800;
+    }
+    .articleColor{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      div{
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+      }
+    }
   }
   
 

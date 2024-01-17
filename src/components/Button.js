@@ -24,6 +24,8 @@ const Button = (props) => {
     return (
         <ButtonStyle
             className='btnComponent'
+            width={props.width || '144px'}
+            type={props.type || 'button'}
             style={{
                 backgroundColor: isPressed ? "#00C17C" : (props.disable ? "#cacaca" : "#343541")
             }}
@@ -49,7 +51,7 @@ const ButtonStyle = styled.button`
     color: white;
     font-weight: bold;
     font-size: 15px;
-    width: 144px;
+    width: ${props => props.width || '144px'};
     height: 36px;
     border-radius: 5px;
     outline: none;

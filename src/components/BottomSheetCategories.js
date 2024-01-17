@@ -104,7 +104,7 @@ const StyledDropdownIcon = styled.img`
 const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [touchStartY, setTouchStartY] = useState(0);
+  const [touchStart, setTouchStart] = useState(0); // posição inicial
 
   const categorySpringProps = useSpring({
     opacity: isOpen ? 1 : 0,
@@ -137,13 +137,13 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
   };
 
   const handleTouchStart = (e) => {
-    setTouchStartY(e.touches[0].clientY);
+    setTouchStart(e.touches[0].clientY);
   };
 
   const handleTouchMove = (e) => {
-    const deltaY = e.touches[0].clientY - touchStartY;
+    const swipeLateral = e.touches[0].clientY - touchStart;
 
-    if (deltaY < 0 && isOpen) {
+    if (swipeLateral < 0 && isOpen) {
       setIsOpen(false);
     }
   };
@@ -160,7 +160,7 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
         ref={ref}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
-        onTouchEnd={() => setTouchStartY(0)}
+        onTouchEnd={() => setTouchStart(0)}
       >
         <DragContainer>
           <DragHandle />
@@ -168,7 +168,7 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
         <animated.div style={categorySpringProps}>
           {!selectedCategory ? (
             <ButtonContainer>
-<CategoryButton onTouchStart={() => handleCategorySelect('Mulher')}>
+              <CategoryButton onTouchStart={() => handleCategorySelect('Mulher')}>
                 <span>Mulher</span>
                 <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
               </CategoryButton>

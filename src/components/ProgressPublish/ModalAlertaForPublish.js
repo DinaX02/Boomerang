@@ -1,11 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-// import Col from 'react-bootstrap/Col';
-
-//Componente reutilizavel - Modal
-const Modal = (props) => {
+import { useDispatch } from "react-redux";
+import { resetProgressPublish1 } from "../../redux/publicarSlice";
+const ModalAlertaForPublish = (props) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleSimClick = () => {
+        dispatch(resetProgressPublish1()); // limpar os dados do redux quando o utilizador clicar no "sim" do modal alert
+        navigate("/");
+    };
+
     return (
         <ModalStyle className="fundoModal"
             style={
@@ -29,9 +35,7 @@ const Modal = (props) => {
                 {props.alert && <div className="vl"></div>}
                 {props.alert && <button
                     className="btnOK alert sim"
-                    onClick={() => {
-                        navigate(-1); // voltar para trás
-                    }}
+                    onClick={handleSimClick}
                 >Sim</button>}
             </div>
         </ModalStyle>
@@ -49,7 +53,6 @@ const ModalStyle = styled.div`
     display: flex;
     flex-wrap: wrap;
     z-index: 2000;
-    backdrop-filter: blur(1.5px);
 
 /*contentor do conteudo da modal*/
 .modalContent {
@@ -131,4 +134,4 @@ hr.divisorModal {
   }
 `
 
-export default Modal
+export default ModalAlertaForPublish
