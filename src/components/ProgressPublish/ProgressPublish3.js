@@ -10,6 +10,7 @@ import Draggable from "react-draggable";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
+import CustomizedSteppers from "../ProgressBar";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -63,7 +64,6 @@ const ProgressPublish3 = () => {
   };
 
   useEffect(() => {
-    // Atualize nextButtonDisabled quando selectedOption mudar
     setNextButtonDisabled(!selectedOption);
   }, [selectedOption]);
 
@@ -71,9 +71,18 @@ const ProgressPublish3 = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
   }
 
+  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step
+  };
+
   return (
     <div>
       <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <CustomizedSteppers
+      activeStep={2}
+      onStepChange={handleChangeStepInProgressBar}
+      onNext={handleNextStepPublish}
+      onBack={handleGoBackStepPublish}
+      />
       <ModalAlertaForPublish
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}

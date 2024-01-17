@@ -4,8 +4,7 @@ import styled from "styled-components";
 import Button from "../Button";
 import HeaderPublish from "../Header/HeaderPublicar";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
-import "../components.css";
-
+import CustomizedSteppers from "../ProgressBar";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -56,9 +55,18 @@ const ProgressPublish5 = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
   }
 
+  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step 
+  };
+
   return (
     <div>
       <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <CustomizedSteppers
+      activeStep={4}
+      onStepChange={handleChangeStepInProgressBar}
+      onNext={handleNextStepPublish}
+      onBack={handleGoBackStepPublish}
+      />
       <ModalAlertaForPublish
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}
