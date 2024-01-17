@@ -68,6 +68,9 @@ const Chat = () => {
 const ChatStyle = styled.div`
 
   .headerBoomerang {
+    width: 100%;
+    position: fixed;
+    top: 0;
     padding: 0 25px;
     display: flex;
     align-items: center;
@@ -99,7 +102,7 @@ const ChatStyle = styled.div`
     flex-direction: column;
     flex: 1;
     overflow-y: auto;
-    padding: 25px;
+    padding: 80px 25px 90px 25px;
   }
   
   .inputBox{
