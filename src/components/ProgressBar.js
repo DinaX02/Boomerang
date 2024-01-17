@@ -12,14 +12,12 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
   '.MuiStepConnector-line': {
     borderColor: '#bdbdbd',
   },
-  marginTop: '1.5em',
 }));
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   display: 'flex',
   height: 22,
   alignItems: 'center',
-  marginTop: '1.5em',
 }));
 
 const QontoStepIconCircle = styled('div')(({ theme, ownerState }) => ({
@@ -65,8 +63,8 @@ const CustomStepper = styled(Stepper)(({ theme }) => ({
 export default function CustomizedSteppers({ activeStep, onStepChange }) {
   const steps = ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'];
   return (
-    <Stack sx={{ width: '100%' }} spacing={4}>
-      <CustomStepper activeStep={activeStep} connector={<QontoConnector />}>
+    <Stack sx={{ width: '100%',display: 'flex', justifyContent: 'center' }} spacing={4}>
+      <CustomStepper activeStep={activeStep} connector={<QontoConnector />} style={{ width: '90%', marginTop: '1.5em', alignSelf: 'center'}}>
         {steps.map((label, index) => (
           <Step key={label} completed={index < activeStep}>
             <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
