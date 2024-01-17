@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header/Header';
-import NavbarWeb from '../components/NavbarWeb';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-
+import Button from '../components/Button';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -58,7 +57,6 @@ const AdicionarMorada = () => {
 
     return (
         <div>
-            <NavbarWeb />
             <Header name="Adicionar Morada" />
             <MainContainer>
 
@@ -70,7 +68,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -83,7 +81,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -96,7 +94,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -109,7 +107,7 @@ const AdicionarMorada = () => {
                                 border: "none",
                                 width: "90%",
                                 textAlign: "left",
-                                fontSize: "16px",
+                                fontSize: "15px",
                                 outline: "none",
                             }}
                             required />
@@ -117,16 +115,7 @@ const AdicionarMorada = () => {
                     </AddMorada>
                     <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-                        <input type="submit" value="Guardar" style={{
-                            backgroundColor: "#343541",
-                            width: "180px",
-                            height: "40px",
-                            border: "none",
-                            borderRadius: "5px",
-                            color: "white",
-                            fontSize: "17px",
-                            fontWeight: "700",
-                        }} />
+               <Button text="Guardar"/>
                     </ConfButton>
 
 

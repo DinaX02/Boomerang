@@ -50,7 +50,7 @@ const ProgressPublish3 = () => {
   };
 
   const handleGoBackStepPublish = () => {
-    navigate(-1);
+    navigate("/progressPublish-2");
   };
 
   const handleNextStepPublish = () => {

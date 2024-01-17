@@ -3,7 +3,6 @@ import Homepage from "./pages/Homepage";
 import SearchPage from "./pages/SearchPage";
 import Publicar from "./pages/Publicar";
 import Profile from "./pages/Profile";
-import AboutPage from "./pages/AboutPage";
 import '../src/components/components.css';
 import ProgressPublish2 from "./components/ProgressPublish/ProgressPublish2";
 import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
@@ -15,11 +14,13 @@ import OnBoarding from "./pages/OnBoarding";
 import RentDate from "./pages/RentDate";
 import SignUpPage from "./pages/SignUpPage";
 import Vouchers from "./pages/Vouchers";
-import AlugarMorada from "./components/AlugarMorada";
-import AdicionarMorada from "./components/AdicionarMorada";
+import AlugarMorada from "./pages/AlugarMorada";
+import AdicionarMorada from "./pages/AdicionarMorada";
 import RentDetails from "./pages/RentDetails";
 import ArticlePage from "./pages/ArticlePage";
 import Chat from "./pages/Chat";
+import AddAdressComponent from "./components/AddAdressComponent"
+import ChooseAdressComponent from "./components/ChooseAdressComponent"
 import AlugarDetalhes from "./components/AlugarDetalhes";
 import DownloadPage from "./pages/DownloadPage";
 
@@ -43,13 +44,14 @@ function App() {
         <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
         <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>
         <Route path="/progressPublish-5" element={<ProgressPublish5/>}></Route>
-        <Route path="/about-page" element={<AboutPage/>}></Route>
         <Route path="/notifications-page" element={<Notifications/>}></Route>
         <Route path="/rentdate-page" element={<RentDate/>}></Route>
         <Route path="/vouchers-page" element={<Vouchers/>}></Route>
         <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
         <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
         <Route path="/rentdetails-page" element={<RentDetails/>}></Route>
+        <Route path="/add-adress-publish" element={<ChooseAdressComponent/>}></Route>
+        <Route path="/adress-publish" element={<AddAdressComponent/>}></Route>
         <Route path="/alugar-detalhes" element={<AlugarDetalhes/>}></Route>
         <Route path="/download-page" element={<DownloadPage/>}></Route>
 

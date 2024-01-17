@@ -69,79 +69,81 @@ const InputBrands = (props) => {
     (state) => state.Publicar1.progressPublish1.marcas
   );
 
-  const handleInputChange = (selectedItem) => {
-   dispatch(updateProgressPublish1({ marcas: selectedItem }));
+  const handleInputChange = (inputValue) => {
+    dispatch(updateProgressPublish1({ marcas: inputValue }));
   };
 
   return (
     <Container>
-    <ButtonWrapper>
-      <InfoIconContainer>Marca</InfoIconContainer>
-      <Downshift
-        onChange={(selectedItem) => handleInputChange(selectedItem)}
-        itemToString={(item) => (item ? item : "")}
-      >
-        {({
-          getInputProps,
-          getItemProps,
-          isOpen,
-          inputValue,
-          selectedItem,
-          highlightedIndex,
-        }) => (
-          <div>
-            <StyledInput
-              {...getInputProps({
-                placeholder: "Ex: Gucci",
-                value: inputValue || selectedOptionMarcaValue,
-              })}
-              style={{ width: '100%' }}
-            />
-            {isOpen && inputValue ? (
-              <div>
-                {Object.keys(suggestions.marcas).map((group) => (
-                  <div key={group}>
-                    {suggestions.marcas[group]
-                      .filter(
-                        (brand) =>
-                          !inputValue ||
-                          brand.toLowerCase().startsWith(inputValue.toLowerCase())
-                      )
-                      .slice(0, 10)
-                      .map((brand, index) => (
-                        <div
-                          {...getItemProps({
-                            key: brand,
-                            index,
-                            item: brand,
-                            style: {
-                              backgroundColor:
-                                highlightedIndex === index
-                                  ? "lightgray"
-                                  : "white",
-                              fontWeight:
-                                selectedItem === brand ? "600" : "normal",
-                              padding: '12px 20px',
-                              borderRadius: '0 0 5px 5px',
-                              marginTop: "0.3em",
-                            },
-                          })}
-                        >
-                          {brand}
-                        </div>
-                      ))}
-                  </div>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        )}
-      </Downshift>
-      <MandatoryField>
-        <Asterisk>*</Asterisk> Campo Obrigatório
-      </MandatoryField>
-    </ButtonWrapper>
-  </Container>
+      <ButtonWrapper>
+        <InfoIconContainer>Marca</InfoIconContainer>
+        <Downshift
+          onChange={(selectedItem) => handleInputChange(selectedItem)}
+          itemToString={(item) => (item ? item : "")}
+          inputValue={selectedOptionMarcaValue}
+        >
+          {({
+            getInputProps,
+            getItemProps,
+            isOpen,
+            inputValue,
+            selectedItem,
+            highlightedIndex,
+          }) => (
+            <div>
+              <StyledInput
+                {...getInputProps({
+                  placeholder: "Ex: Gucci",
+                  value: inputValue,
+                  onChange: (e) => handleInputChange(e.target.value),
+                })}
+                style={{ width: '100%' }}
+              />
+              {isOpen && inputValue ? (
+                <div>
+                  {Object.keys(suggestions.marcas).map((group) => (
+                    <div key={group}>
+                      {suggestions.marcas[group]
+                        .filter(
+                          (brand) =>
+                            !inputValue ||
+                            brand.toLowerCase().startsWith(inputValue.toLowerCase())
+                        )
+                        .slice(0, 10)
+                        .map((brand, index) => (
+                          <div
+                            {...getItemProps({
+                              key: brand,
+                              index,
+                              item: brand,
+                              style: {
+                                backgroundColor:
+                                  highlightedIndex === index
+                                    ? "lightgray"
+                                    : "white",
+                                fontWeight:
+                                  selectedItem === brand ? "600" : "normal",
+                                padding: '12px 20px',
+                                borderRadius: '0 0 5px 5px',
+                                marginTop: "0.3em",
+                              },
+                            })}
+                          >
+                            {brand}
+                          </div>
+                        ))}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          )}
+        </Downshift>
+        <MandatoryField>
+          <Asterisk>*</Asterisk> Campo Obrigatório
+        </MandatoryField>
+      </ButtonWrapper>
+    </Container>
   );
 };
 

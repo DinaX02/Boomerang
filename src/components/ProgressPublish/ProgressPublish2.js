@@ -120,11 +120,10 @@ const ProgressPublish2 = () => {
   }, [selectedOption, selectedOptionColours, selectedOptionCategories]);
 
   useEffect(() => {
-    // console.log(selectedOptionMarcaValue);
   }, [selectedOptionMarcaValue]);
 
   const handleGoBackStepPublish = () => {
-    navigate(-1);
+    navigate("/publicar-page");
   };
 
   const handleNextStepPublish = () => {
