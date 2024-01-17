@@ -6,13 +6,13 @@ import UserUnknownIcon from '../assets/icons/user_unknown.svg';
 import EditarPerfilIcon from '../assets/icons/editar_perfil.svg';
 import EditarInputIcon from '../assets/icons/editarInput.svg';
 import Header from '../components/Header/Header';
-import Modal from '../components/Modal'
+import Modal from '../components/Modal';
+import Input from '../components/Input';
 
 const EditProfile = () => {
   const [email, setEmail] = useState("mariacarmo1985@gmail.com");
   const [username, setUsername] = useState("mariacarmo");
-  // const [password, setPassword] = useState("********");
-  const [maskedPassword, setMaskedPassword] = useState("********");
+  const [password, setPassword] = useState("password_atual");
   const [disableEmail, setDisableEmail] = useState(true);
   const [disableUsername, setDisableUsername] = useState(true);
   const [disableBiografia, setDisableBiografia] = useState(true);
@@ -119,10 +119,17 @@ const EditProfile = () => {
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditEmailInput} />
                 </label>
               </div>
-              <input
+              {/* <input
                 className="input"
                 type="text"
                 id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={disableEmail}
+              /> */}
+              <Input
+                obrigatorio={true}
+                placeholder=""
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={disableEmail}
@@ -137,10 +144,17 @@ const EditProfile = () => {
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput} />
                 </label>
               </div>
-              <input
+              {/* <input
                 className="input"
                 type="text"
                 id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                disabled={disableUsername}
+              /> */}
+              <Input
+                obrigatorio={true}
+                placeholder=""
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 disabled={disableUsername}
@@ -171,15 +185,22 @@ const EditProfile = () => {
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditPasswordInput} />
                 </label>
               </div>
-              <input
+              {/* <input
                 className="input"
-                type="text"
+                type="password"
                 id="password"
-                value={maskedPassword}
+                value={password}
                 onChange={(e) => {
-                  // setPassword(e.target.value);
-                  setMaskedPassword('*'.repeat(e.target.value.length));
+                  setPassword(e.target.value);
                 }}
+                disabled={disablePassword}
+              /> */}
+              <Input
+                obrigatorio={true}
+                type="password"
+                placeholder=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 disabled={disablePassword}
               />
             </div>
@@ -203,7 +224,7 @@ const EditProfile = () => {
 }
 
 const EditProfileStyle = styled.div`
-          padding: 0 24px;
+          /* padding: 0 24px; */
           margin: auto; 
           display: flex;
           max-width: 600px;
@@ -245,6 +266,7 @@ const EditProfileStyle = styled.div`
         font-weight: 500;
  }
         .inputTitleContainer {
+          padding: 0 24px;
           margin-top: 1rem;
           display: block;
         }
@@ -277,7 +299,8 @@ const EditProfileStyle = styled.div`
  }
         .biografiaInput {
           border: none;
-          width: 100%;
+          width: calc(100% - 48px);
+          margin-left: 24px;
           font-size: 14px;
           padding-bottom: 0.5rem;
       }

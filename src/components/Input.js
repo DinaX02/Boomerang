@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import EyeOpenIcon from '../assets/icons/eye.svg'
+import EyeSlashIcon from '../assets/icons/eye-slash.svg'
 
 const Input = (props) => {
     const [campoPreenchido, setCampoPreenchido] = useState(false);
+    const [shown, setShown] = useState(false);
+
     useEffect(() => {
         if (props.value.trim() !== '') {
             setCampoPreenchido(true);
@@ -11,26 +15,45 @@ const Input = (props) => {
         }
     }, [props.value]);
 
+    const toggleEyeHandle = () => {
+        setShown(!shown);
+        // Chame a função passada de SignUpPage para alternar a visibilidade
+        if (props.toggleEyeHandle) {
+            props.toggleEyeHandle(props.id);
+        }
+    }
+
     return (
         <InputStyle className='inputAsteriskContainer'>
             <input
                 className='inputComponent'
-                type="text"
+                type={props.type || 'text'}
+                disabled={props.disabled}
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={props.onChange}
                 name='input'
                 style={
-                    props.erroObrigatorio && !campoPreenchido   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
+                    props.erroObrigatorio && !campoPreenchido || props.className == 'icon' && (!props.matchPassword && campoPreenchido)   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
                         ? { outline: "0.5px solid #c80000" }
-                        : { outline: "none" }
+                        : (props.matchPassword && campoPreenchido)
+                            ? { outline: "0.5px solid #00C17C" } // Quando a nova condição é verdadeira
+                            : { outline: "none" }
                 }
             ></input>
-            {props.obrigatorio && !campoPreenchido && <span className="colourGreenAsterisk">*</span>}
+            {props.isPassword && (
+                <img
+                    className={`sideIndication icon`}
+                    src={shown ? EyeSlashIcon : EyeOpenIcon}
+                    alt="Toggle Eye Icon"
+                    onTouchStart={toggleEyeHandle}
+                />
+            )}            
+            {props.obrigatorio && !campoPreenchido && <span className="colourGreenAsterisk sideIndication">*</span>}
             <p
                 className='textErroObrigatorio'
                 style={
-                    props.erroObrigatorio && !campoPreenchido   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
+                    (props.erroObrigatorio && !campoPreenchido && !props.isPassword) || ((props.erroObrigatorio && !campoPreenchido) && (props.isPassword && props.login))
                         ? { visibility: "visible" }
                         : { visibility: "hidden" }
                 }
@@ -44,10 +67,15 @@ const InputStyle = styled.div`
   text-align: center;
   position: relative;
 
- .colourGreenAsterisk {
+ .sideIndication {
   position: absolute;
   right: 40px;
   margin-top: 7px;
+ }
+
+ .icon {
+    margin-top: 17px;
+    opacity: 0.5;
  }
 
 .inputComponent {
@@ -61,12 +89,12 @@ const InputStyle = styled.div`
     font-size: 14px;
     font-weight: 500;
     margin: 0 0 5px;
-    
+    line-height: normal;
 }
 
 ::placeholder {
-        font-weight: 300;
-        color: black;
+        font-weight: 500;
+        /* color: black; */
 }
 
 .textErroObrigatorio {
