@@ -20,14 +20,12 @@ const SpaceTopComponent = styled.div`
 `;
 
 const ContainerDoisBtn = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  max-width: 600px;
-  margin-top: 9em;
-  margin-right: auto;
-  margin-left: auto;
-  justify-content: space-evenly;
+position: fixed;
+bottom: 3.5em;
+width: 100%;
+display: flex;
+justify-content: space-evenly;
+z-index: -1;
 `;
 
 const ProgressPublish3 = () => {
