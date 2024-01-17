@@ -12,26 +12,37 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Inicial
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm install
       - run: npx prettier . --write
       - run: npx prettier . --check
-      - run: npm run lint
 
   test:
     runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Jest + Lint
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
           cache: "npm"
       - run: npm install
       - run: npm test
       - run: npm run lint
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
+
+    needs: [setup-inicial, test]   #só corre em caso de sucesso do bob (continue-on-error está definido false por defeito)
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build e Deploy
+        uses: actions/setup-node@v3
+      - run: npm install     #instala dependências
+      - run:  npm run build  #build
+      - run: npx netlify-cli deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod  #deploy para netlify

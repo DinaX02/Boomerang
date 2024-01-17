@@ -13,6 +13,7 @@
     "bootstrap": "^5.3.2",
     "downshift": "^8.3.1",
     "lint": "^0.8.19",
+    "netlify-cli": "^17.14.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-calendar": "^4.8.0",
@@ -30,7 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ."
@@ -43,7 +44,7 @@
     "rules": {
       "no-restricted-globals": 1
     }
-  },  
+  },
   "browserslist": {
     "production": [
       ">0.2%",
