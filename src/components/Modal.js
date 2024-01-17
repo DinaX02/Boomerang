@@ -49,6 +49,7 @@ const ModalStyle = styled.div`
     display: flex;
     flex-wrap: wrap;
     z-index: 2000;
+    backdrop-filter: blur(1.5px);
 
 /*contentor do conteudo da modal*/
 .modalContent {

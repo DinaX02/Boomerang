@@ -14,6 +14,16 @@ const OnBoarding = () => {
     const [page, setPage] = useState(0);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (window.innerWidth < 600) {
+        if (localStorage.getItem("downloadRedirect")) {
+          return;
+        }else{
+          localStorage.setItem("downloadRedirect", true);
+          return navigate("/download-page");
+        }
+      }
+      });
     const array = [
         {
             icon: onBoarding1,
@@ -106,7 +116,7 @@ const OnBoarding = () => {
                     <div 
                     key={index} 
                     className="ellipse"
-                    active={page === index} 
+                    // active={page === index} 
                     onClick={() => handleEllipseClick(index)}
                     style={{ backgroundColor: page === index ? '#00C17C' : '#484954' }}
                     ></div>

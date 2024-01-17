@@ -13,20 +13,26 @@ import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
 import OnBoarding from "./pages/OnBoarding";
 import RentDate from "./pages/RentDate";
+import SignUpPage from "./pages/SignUpPage";
 import Vouchers from "./pages/Vouchers";
 import AlugarMorada from "./components/AlugarMorada";
 import AdicionarMorada from "./components/AdicionarMorada";
 import RentDetails from "./pages/RentDetails";
 import ArticlePage from "./pages/ArticlePage";
 import Chat from "./pages/Chat";
+import AlugarDetalhes from "./components/AlugarDetalhes";
+import DownloadPage from "./pages/DownloadPage";
 
 function App() {
+
+  
   return (
     <div className="App">
 <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage/>}></Route>
         <Route path="/onBoarding" element={<OnBoarding/>}></Route>
+        <Route path="/sign-up-page" element={<SignUpPage/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
@@ -44,6 +50,8 @@ function App() {
         <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
         <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
         <Route path="/rentdetails-page" element={<RentDetails/>}></Route>
+        <Route path="/alugar-detalhes" element={<AlugarDetalhes/>}></Route>
+        <Route path="/download-page" element={<DownloadPage/>}></Route>
 
         
 

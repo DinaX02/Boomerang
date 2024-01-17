@@ -50,7 +50,6 @@ border-radius: 5px;
 background: #fff;
 box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.09);
 height: 105px;
-width: 100%;
 display: flex;
 flex-direction: row;
 align-items: center;
