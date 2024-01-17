@@ -12,8 +12,8 @@ const ChatLink = (props) => {
         <ChatLinkStyle to={`/chat`} key={props.index}>
             <ProfileLink zoom={1.2}/>
             <div className={'chatLinkText'}>
-                <div>solange_nigga</div>
-                <div>Cyka Blyat for you, essa merda é cara que fode</div>
+                <div>solange_ng</div>
+                <div>Boa noite, em que posso ajudar?</div>
             </div>
         </ChatLinkStyle>
     )

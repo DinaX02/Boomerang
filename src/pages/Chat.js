@@ -9,8 +9,8 @@ import userMockupImage from "../assets/user_mockup_image.jpg";
 const Chat = () => {
     const navigate = useNavigate();
     const [messages, setMessages] = useState([
-        { text: 'Fazes mais barato?', sender: 'user' },
-        { text: 'STFU lil nigga!', sender: 'other_user' }
+        { text: 'Boa noite?', sender: 'user' },
+        { text: 'Boa noite, em que posso ajudar?', sender: 'other_user' }
     ]);
     const [newMessage, setNewMessage] = useState('');
     const messagesEndRef = useRef(null);
@@ -37,7 +37,7 @@ const Chat = () => {
                 </div>
                     <div className={'userDetails'}>
                         <img className={'userImage'} src={userMockupImage}/>
-                        <div>solange_nigga</div>
+                        <div>solange_ng</div>
                     </div>
             </div>
             <div className={'chatMessages'}>
