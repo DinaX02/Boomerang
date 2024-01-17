@@ -19,6 +19,7 @@ import AdicionarMorada from "./components/AdicionarMorada";
 import RentDetails from "./pages/RentDetails";
 import ArticlePage from "./pages/ArticlePage";
 import Chat from "./pages/Chat";
+import AlugarDetalhes from "./components/AlugarDetalhes";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
         <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
         <Route path="/rentdetails-page" element={<RentDetails/>}></Route>
+        <Route path="/alugar-detalhes" element={<AlugarDetalhes/>}></Route>
 
         
 
