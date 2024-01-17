@@ -35,9 +35,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if:  github.ref == 'refs/heads/master'
+    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
 
-    needs: [test]   #só corre em caso de sucesso do bob (continue-on-error está definido false por defeito)
+    needs: [setup-inicial, test]   #só corre em caso de sucesso do bob (continue-on-error está definido false por defeito)
     
     steps:
       - uses: actions/checkout@v3
