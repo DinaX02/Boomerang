@@ -7,7 +7,7 @@ import iconPontoRecolho from '../assets/icon_PontoRecolha.png';
 import dropPontoRecolha from '../assets/drop_PontoRecolha.png';
 import iconMoradaSelect from '../assets/icon_Morada_select.png';
 import styled from "styled-components";
-import PreviewCard from './PreviewCard';
+import PreviewCard from '../components/PreviewCard';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -134,7 +134,7 @@ const AlugarMorada = () => {
                 ))}
 
 
-                <Link to={"/adicionar-morada"}>
+                <Link to={"/adressData-publish"}>
                     <SelecionarMorada>
 
                         <button style={{

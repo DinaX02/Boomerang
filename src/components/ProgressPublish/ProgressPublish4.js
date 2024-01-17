@@ -46,7 +46,7 @@ const ProgressPublish4 = () => {
   const isButtonDisable = !estimatedValue || rentalPricePerDay === '' || rentalPricePerDay === 0;
   
   const handleGoBackStepPublish = () => {
-    navigate(-1);
+    navigate("/progressPublish-3");
   };
 
   const handleNextStepPublish = () => {

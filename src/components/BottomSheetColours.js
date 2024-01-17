@@ -104,7 +104,7 @@ const BottomSheetColours = React.forwardRef(
     const [isOpen, setIsOpen] = useState(true);
 
     const handleOptionSelectColours = (option) => {
-      console.log(`Opção selecionada: ${option}`);
+      // console.log(`Opção selecionada: ${option}`);
       onSelectOptionColours(option);
     };
 
