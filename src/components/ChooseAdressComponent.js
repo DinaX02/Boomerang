@@ -3,7 +3,7 @@ import { Link} from 'react-router-dom';
 import addMoradaIcon from '../assets/icon_AddMorada.png';
 import iconPontoRecolho from '../assets/icon_PontoRecolha.png';
 import dropPontoRecolha from '../assets/drop_PontoRecolha.png';
-import iconMoradaSelect from '../assets/icon_Morada_select.png';
+import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
 
 
@@ -81,7 +81,7 @@ const ConfirmButton = styled.div`
 
 
 
-const ChooseAdressComponent = () => {
+const ChooseAdressComponent = ({ onAddressSelect }) => {
     const [moradas, setMoradas] = useState([]);
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
 
@@ -90,14 +90,27 @@ const ChooseAdressComponent = () => {
         setMoradas(storedMoradas);
     }, []);
 
-
     const handleRemoverMorada = (index) => {
         const novasMoradas = [...moradas];
         novasMoradas.splice(index, 1);
         setMoradas(novasMoradas);
         localStorage.setItem('moradas', JSON.stringify(novasMoradas));
+
+        if (moradas[index] === moradaSelecionada) {
+            setMoradaSelecionada('');
+        }
+
+        onAddressSelect();
     };
 
+    const handleToggleMorada = (morada) => {
+        if (morada === moradaSelecionada) {
+            setMoradaSelecionada('');
+        } else {
+            setMoradaSelecionada(morada);
+        }
+        onAddressSelect();
+    };
 
     return (
         <div>
@@ -106,7 +119,9 @@ const ChooseAdressComponent = () => {
                     <MoradaSelecionada
                         key={index}
                         selecionada={morada === moradaSelecionada}
-                        onClick={() => setMoradaSelecionada(morada)}
+                        onClick={() => {
+                            handleToggleMorada(morada)
+                          }}
                     >
                         <ConteudoMorada>
                             <IconMoradaSelect

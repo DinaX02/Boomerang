@@ -16,7 +16,7 @@ const ProductForm = styled.div`
   max-width: 600px;
   margin: 0 auto;
   justify-content: center;
-  height: calc(100vh - 70px - 67px);
+  margin-top:2em;
 `;
 
 const Label = styled.label`
@@ -73,7 +73,9 @@ const BtnProximoPublicar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3em;
+  position: fixed;
+  bottom: 3.5em;
+  align-self: center;
 `;
 
 const AddImgInputPublish = styled.label`
@@ -85,6 +87,24 @@ const AddImgInputPublish = styled.label`
 
 const DescriptionAddImage= styled.p`
 margin-top:0.5em
+`
+const ImageUpload = styled.div`
+display: flex;
+flex-direction: column !important;
+align-items: center;
+justify-content: center;
+padding: 0.5rem;
+border-radius: 5px;
+/* margin-top: 1em; */
+box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+height: 300px;
+`
+const ProductFormInput2 = styled.textarea`
+padding: 0.5rem;
+box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+border-radius: 5px;
+outline: none;
+border: none;
 `
 
 const Publicar = () => {
@@ -179,7 +199,7 @@ const Publicar = () => {
         onStepChange={handleStepChange}
       />
       <ProductForm>
-        <div className="imageUpload" htmlFor="images">
+        <ImageUpload htmlFor="images">
           <AddImgInputPublish htmlFor="images" className="addImgInputPublish">
             <span className="colourGreenAsterisk">+</span> Adicionar Fotografias
             <span className="colourGreenAsterisk">*</span>
@@ -217,12 +237,12 @@ const Publicar = () => {
               </ImagePreview>
             ))}
           </ImagePreviewContainer>
-        </div>
+        </ImageUpload>
 
         <Label htmlFor="title">
           Título <span className="colourGreenAsterisk">*</span>
         </Label>
-        <ProductFormInput
+        <ProductFormInput2
           className="productFormInput"
           type="text"
           id="title"
@@ -244,7 +264,7 @@ const Publicar = () => {
           Descrição <span className="colourGreenAsterisk">*</span>
           <span className="countCharDescription">{countChar}/150</span>
         </Label>
-        <textarea
+        <ProductFormInput
           className="productFormInput"
           id="description"
           placeholder="Ex: Casaco de Pele em bom estado. Usada poucas vezes."

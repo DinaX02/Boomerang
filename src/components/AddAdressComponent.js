@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import styled from 'styled-components';
-import Button from './Button';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -38,22 +37,19 @@ const AddAdressComponent = () => {
   const navigate = useNavigate();
 
   const handleFormSubmit = (event) => {
-      event.preventDefault();
+    event.preventDefault();
 
-      if (!morada || !localidade || !cidade || !codigoPostal) {
-    
-          return;
-      }
+    if (!morada || !localidade || !cidade || !codigoPostal) {
+        return;
+    }
 
+    const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
+    storedMoradas.push(morada);
+    localStorage.setItem('moradas', JSON.stringify(storedMoradas));
 
-      // Armazene apenas a string da morada no localStorage
-      const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
-      storedMoradas.push(morada);
-      localStorage.setItem('moradas', JSON.stringify(storedMoradas));
+    navigate('/progressPublish-5', { state: { moradas: storedMoradas } });
+};
 
-      
-      navigate('/progressPublish-5', { state: { moradas: storedMoradas } });
-  };
 
   return (
       <div>
@@ -113,9 +109,19 @@ const AddAdressComponent = () => {
                           required />
                       <span>*</span>
                   </AddMorada>
-                  <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
+                  <h6 style={{fontSize:"14px", fontWeight:"500"}}><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                   <ConfButton>
-             <Button text="Guardar"/>
+             <input type="submit" value="Guardar" style={{
+                            backgroundColor: "#343541",
+                            width: "144px",
+                            height: "36px",
+                            border: "none",
+                            borderRadius: "5px",
+                            color: "white",
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            outline: "none",
+                        }} />
                   </ConfButton>
 
 
