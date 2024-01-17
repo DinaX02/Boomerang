@@ -1,17 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../assets/logo_boomerang_navbar.svg'
-import InstallButton from '../components/InstallButton'
-import { Link } from 'react-router-dom'
 
-const DownloadPage = () => {
+
+const Offline = () => {
 
   return (
     <DownloadDiv>
         <img src={logo} alt='Boomerang Logo'></img>
-        <h1>Instale a app para uma melhor experiência.</h1>
-        <InstallButton></InstallButton>
-        <Link to="/onBoarding">Ignorar mensagem</Link>
+        <h1>O Boomerang precisa de estar conectado à internet para funcionar.</h1>
     </DownloadDiv>
   )
 }
@@ -32,19 +29,9 @@ h1{
   font-size: 1.6rem !important;
   width: 80vw;
 }
-button{
-  margin-top: 20px;
-}
-
-a{
-    font-weight: 600 !important;
-    margin-top: 10px;
-    color: #2e2e2e !important;
-    font-size: 1rem;
-}
 img{
     margin: 20px;
     width: 80px;
 }
 `
-export default DownloadPage
+export default Offline

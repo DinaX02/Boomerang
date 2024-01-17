@@ -1,47 +1,39 @@
 import React, { useEffect, useState } from "react";
-import download from '../assets/download.svg'
-import styled from "styled-components";
+import Button from '../components/Button'
 
-
-const InstallPWA = () => {
+const InstallButton = () => {
   const [supportsPWA, setSupportsPWA] = useState(false);
   const [promptInstall, setPromptInstall] = useState(null);
 
   useEffect(() => {
-    const handler = e => {
+    const handler = (e) => {
       e.preventDefault();
       setSupportsPWA(true);
       setPromptInstall(e);
     };
+
     window.addEventListener("beforeinstallprompt", handler);
 
-    return () => window.removeEventListener("transitionend", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
-  const onClick = evt => {
-    evt.preventDefault();
-    if (!promptInstall) {
-      return;
+  const handleInstallClick = (e) => {
+
+    if (promptInstall) {
+      promptInstall.prompt();
     }
-    promptInstall.prompt();
   };
-  if (!supportsPWA) {
-    return null;
-  }
+
   return (
-    <Installimg src={download} alt="download app"
-    className="link-button"
-    id="setup_button"
-    aria-label="Instalar Boomerang"
-    title="Boomerang"
-    onClick={onClick}
-  />
-      
+    <Button
+      className="download-button"
+      onClick={handleInstallClick}
+      disabled={!supportsPWA}
+      text="Download App"
+    >
+      Install PWA
+    </Button>
   );
 };
 
-const Installimg= styled.img`
-width: 50px !important;
-`
-
-export default InstallPWA;
+export default InstallButton;

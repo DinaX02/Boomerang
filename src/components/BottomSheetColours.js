@@ -22,7 +22,7 @@ const ModalContainer = styled(animated.div)`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   cursor: grab;
-  max-height: 250px;
+  max-height: 405px;
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -151,15 +151,6 @@ const BottomSheetColours = React.forwardRef(
             </Button>
             <Button onTouchStart={() => handleOptionSelectColours("Amarelo")}>
               <img src={AmareloSvg} alt="amarelo_img" /> Amarelo
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Rosa")}>
-              <img src={RosaSvg} alt="roxa_img" /> Rosa
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Roxo")}>
-              <img src={RoxoSvg} alt="roxo_img" /> Roxo
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Laranja")}>
-              <img src={LaranjaSvg} alt="laranja_img" /> Laranja
             </Button>
           </ButtonContainer>
         </ModalContainer>
