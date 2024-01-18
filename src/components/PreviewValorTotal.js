@@ -4,10 +4,12 @@ import artigosJSON from "../data/artigos.json";
 import styled from 'styled-components';
 import iconInfo from '../assets/icon_info_detalhes.png';
 import { useNavigate } from 'react-router-dom';
+import {useSelector} from "react-redux";
 
 const PreviewValorTotal = (props) => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
     const navigate= useNavigate();
+    const list = useSelector((state) => state.Rent.progressRentList);
 
     const handleResize = () => {
 
@@ -61,10 +63,10 @@ const PreviewValorTotal = (props) => {
                 <ServiceConatiner>
                     <TextInner>
                         <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Preço diário</p>
-                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ /dia x "n" dias</p>
+                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ / dia x {props.days} dias</p>
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "bold" }}>{artigosJSON[props.id-1].dailyRentalPrice}€</p>
+                        <p style={{ margin: "0", fontWeight: "bold" }}>{props.valor}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <ServiceConatiner>
@@ -72,16 +74,27 @@ const PreviewValorTotal = (props) => {
                         <div style={{ display: "flex", alignItems: "center" }}>
                             <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icon"></img>
                         </div>
-                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ x 0.05 + 2€</p>
+                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ x 5% + 2€</p>
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "bold" }}>{artigosJSON[props.id-1].dailyRentalPrice}€</p>
+                        <p style={{ margin: "0", fontWeight: "bold" }}>{props.taxa}€</p>
+                    </PriceInner>
+                </ServiceConatiner>
+                <ServiceConatiner>
+                    <TextInner>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Extras</p>
+                        </div>
+                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€</p>
+                    </TextInner>
+                    <PriceInner>
+                        <p style={{ margin: "0", fontWeight: "bold" }}>{props.extras}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <div style={{ textAlign: "center" }}>
                     <button className='btncupao' onClick={vouchers}>+ Inserir cupão</button>
                     <p style={{ margin: "5px 0 0 0", fontWeight: "bold" }}>Total:</p>
-                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c" }}>{artigosJSON[props.id-1].dailyRentalPrice}€</p>
+                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c" }}>{props.total}€</p>
                 </div>
 
 
