@@ -9,7 +9,7 @@ const DownloadPage = () => {
   return (
     <DownloadDiv>
         <img src={logo} alt='Boomerang Logo'></img>
-        <h1>Instale a app para uma melhor experiência.</h1>
+        <h1>Instala a app para uma melhor experiência.</h1>
         <InstallButton></InstallButton>
         <Link to="/onBoarding">Ignorar mensagem</Link>
     </DownloadDiv>

@@ -10,6 +10,8 @@ import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProgressRent } from '../redux/rentSlice';
 
 const MainContainer = styled.div`
   margin: -45px 0 0 0;
@@ -89,6 +91,8 @@ const ConfirmButton = styled.div`
 const MetodoPagamento = () => {
     const [pagamentos, setPagamentos] = useState([]);
     const [pagamentoSelecionado, setPagamentoSelecionado] = useState('');
+    const dispatch = useDispatch();
+    const list = useSelector((state) => state.Rent.progressRentList);
 
     const navigate = useNavigate();
 
@@ -113,6 +117,13 @@ const MetodoPagamento = () => {
     };
 
     const handleNextStep = () => {
+        dispatch(updateProgressRent({ index: 0, updatedData: {pagamento: pagamentoSelecionado} }));
+        const rentals= localStorage.getItem("rentals");
+        if(rentals){
+            localStorage.setItem("rentals", {rentals, ...list})
+        }else{
+            localStorage.setItem("rentals", list)
+        }
         navigate("/alugar-progresso");
       };
 

@@ -1,8 +1,9 @@
-import React from 'react';
-import Header from '../components/Header/Header';
+import React from "react";
+import Header from "../components/Header/Header";
 import styled from "styled-components";
-import Button from '../components/Button';
-import IconProgresso from '../assets/icon_progresso.png';
+import Button from "../components/Button";
+import IconProgresso from "../assets/icon_progresso.png";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`
   margin: 50px 0 0 0;
@@ -14,53 +15,46 @@ const MainContainer = styled.div`
   align-items: center;
   text-align: center;
 
-  .conteudo{
+  .conteudo {
     width: 100%;
     display: block;
     text-align: center;
-
   }
-  .conteudo img{
+  .conteudo img {
     margin-bottom: 20px;
   }
-  .conteudo h2{
+  .conteudo h2 {
     font-weight: bold;
     font-size: 22px;
   }
-  .conteudo p{
+  .conteudo p {
     font-size: 16px;
     margin: 0;
     line-height: 22px;
   }
 `;
 
-
-
 const AlugarProgresso = () => {
-
-
-
-    return (
-        <div>
-            <Header name=" " />
-            <MainContainer>
-                <div className='conteudo'>
-                    <img src={IconProgresso} alt="icon"></img>
-                    <h2>Está quase.</h2>
-                    <p>Só falta o responsável aceitar o pedido de aluguer. Irás receber uma notificação assim que recebermos resposta.</p>
-
-
-
-
-
-
-                </div>
-                <div>
-                    <Button text="Concluir" />
-                </div>
-            </MainContainer>
+  const navigate = useNavigate();
+  
+  return (
+    <div>
+      <Header name=" " />
+      <MainContainer>
+        <div className="conteudo">
+          <img src={IconProgresso} alt="icon"></img>
+          <h2>Está quase.</h2>
+          <p>
+            Só falta o responsável aceitar o pedido de aluguer. Irás receber uma
+            notificação assim que recebermos resposta.
+          </p>
         </div>
-    );
+        <div>
+          <Button text="Concluir" onClick={() => navigate("/")}/>
+        </div>
+      </MainContainer>
+    </div>
+  );
 };
 
 export default AlugarProgresso;

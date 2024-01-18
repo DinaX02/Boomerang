@@ -3,13 +3,12 @@ import MenuMobile from "../components/MenuMobile.js";
 import Notification from "../components/Notification.js";
 import styled from "styled-components";
 import notificationsJSON from "../data/notifications.json";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TabsComponent from "../components/TabsComponent";
 import ChatLink from "../components/ChatLink";
 import nothingimg from "../assets/menumobile/notificationsbtn.svg";
 
 const Notifications = () => {
-  const navigate = useNavigate();
 
   return (
       <div>
@@ -45,7 +44,7 @@ const Notifications = () => {
           ) : (
             <div className="nothing">
               <img src={nothingimg} alt="sem notificações"></img>
-              <h1>Ainda não tem notificações</h1>
+              <h1>Ainda não tens notificações</h1>
             </div>
           )
         }
