@@ -27,6 +27,7 @@ import AlugarValorTotal from "./pages/AlugarValorTotal";
 import MetodoPagamento from "./pages/MetodoPagamento";
 import AddMetPagamento from "./pages/AddMetPagamento";
 import AlugarProgresso from "./pages/AlugarProgresso";
+import Results from "./pages/Results";
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
         <Route path="/profile-page" element={<Profile/>}></Route>
         <Route path="/article/:id" element={<ArticlePage/>}></Route>
         <Route path="/chat" element={<Chat/>}></Route>
+        <Route path="/results" element={<Results />} />
         <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
         <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>

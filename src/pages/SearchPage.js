@@ -1,14 +1,141 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import FilterButtons from '../components/FilterButtons'
+import React, { useRef, useState } from 'react';
+import styled from 'styled-components';
+import TabsComponent from '../components/TabsComponent';
+import Chip from '../components/chip';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuMobile from "../components/MenuMobile";
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const SearchPage = () => {
-  return (
-    <div>SearchPage
-         <Link to={"/"}><button>Back To Homepage</button></Link>
-         <FilterButtons/>
-    </div>
-  )
-}
+    const navigate = useNavigate(); // Use useNavigate hook
+    const [searchInput, setSearchInput] = useState('');
 
-export default SearchPage
+    const categories = [
+        'Calças', 'Casacos', 'Sapatos', 'Acessórios', 'Roupas Íntimas', 'Bonés', 'Meias',
+        'Vestidos',
+    ];
+
+    const brands = [
+        'Nike', 'Gucci', 'H&M', 'Tommy Hilfiger', 'Calvin Klein', 'Versace',
+        'Ralph Lauren', 'Chanel', 'Vans', 'Balenciaga', 'Louis Vuitton', 'Converse',
+    ];
+
+    const inputRefs = useRef({
+        category: null,
+        brand: null,
+    });
+
+    const resetInputs = (tabIndex) => {
+        if (tabIndex === 1) {
+            inputRefs.current.article.value = '';
+        } else if (tabIndex === 2) {
+            inputRefs.current.member.value = '';
+        }
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault()
+        const searchUrl = `/results?query=${encodeURIComponent(searchInput)}`;
+        navigate(searchUrl);
+    };
+
+    return (
+        <div>
+            <SearchStyle>
+                <TabsComponent
+                    title1={'Artigos'}
+                    firstComponent={
+                        <div>
+                            <form className={'searchInput'} onSubmit={handleSearch}>
+                                <SearchIcon />
+                                <input
+                                    placeholder="Procura artigos"
+                                    maxLength='64'
+                                    ref={(ref) => (inputRefs.current.article = ref)}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                />
+                            </form>
+                            <div className={'sectionTitle'}>Categorias Populares</div>
+                            <div className={'chips'}>
+                                {categories.map((category, index) => (
+                                    <Chip key={index} category={category} />
+                                ))}
+                            </div>
+                            <div className={'sectionTitle'}>Marcas Populares</div>
+                            <div className={'chips'}>
+                                {brands.map((brand, index) => (
+                                    <Chip key={index} category={brand} />
+                                ))}
+                            </div>
+                        </div>
+                    }
+                    title2={'Membros'}
+                    secondComponent={
+                        <form className={'searchInput'} onSubmit={handleSearch}>
+                            <SearchIcon />
+                            <input
+                                placeholder="Procura membros"
+                                maxLength='64'
+                                ref={(ref) => (inputRefs.current.member = ref)}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                            />
+                        </form>
+                    }
+                    onTabChange={resetInputs}
+                />
+            </SearchStyle>
+            <MenuMobile />
+        </div>
+    );
+};
+
+const SearchStyle = styled.div`
+  .sectionTitle {
+    margin: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .searchInput{
+    height: 50px;
+    border: 1px solid rgb(0,0,0,0.1);
+    padding: 8px;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    
+    input{
+      max-width: calc(100% - 20px);
+      font-size: 14px;
+      font-weight: 500;
+      flex: 1;
+      padding: 8px;
+      border: none;
+      &:focus{
+        outline: none;
+      }
+      &:placeholder-shown{
+        text-overflow: ellipsis;
+      }
+    }
+    svg{
+      margin: 5px;
+      color: #00C17C;
+      font-size: 30px;
+    }
+    
+  }
+`
+
+
+
+export default SearchPage;

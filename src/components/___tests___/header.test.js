@@ -1,5 +1,6 @@
 import { screen, render, cleanup } from "@testing-library/react";
 import articlesData from "../../data/artigos.json";
+import brandData from "../../data/marcasRoupa.json";
 import Header from "../Header/Header";
 import { MemoryRouter } from "react-router-dom";
 import renderer from "react-test-renderer";
@@ -19,6 +20,19 @@ test("verifica a quantidade de artigos que estao no JSON", () => {
   console.log(`Número de pageNames estao no JSON: ${countPages}`);
 
   expect(countPages).toBeGreaterThan(0);
+});
+
+test("verifica a quantidade de marcas presentes no JSON", () => {
+  let countBrands = 0;
+
+  for (let i in brandData) {
+    countBrands++;
+    i++;
+  }
+
+  console.log(`Número de pageNames estao no JSON: ${countBrands}`);
+
+  expect(countBrands).toBeGreaterThan(0);
 });
 
 test("verifica se existe um img no componente Header", () => {

@@ -7,6 +7,7 @@ const TabsComponent = (props) => {
 
     useEffect(() => {
         localStorage.setItem('activeTab', activeTab.toString());
+        if (props.onTabChange){props.onTabChange(activeTab);} // Call the function when the tab changes
     }, [activeTab]);
 
     const handleTabClick = (index) => {
