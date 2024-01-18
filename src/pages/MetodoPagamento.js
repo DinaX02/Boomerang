@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
 import { Link} from 'react-router-dom';
-import addMoradaIcon from '../assets/icon_AddMorada.png';
+import addPagamentoIcon from '../assets/icon_AddMorada.png';
 import iconPontoRecolho from '../assets/icon_PontoRecolha.png';
 import dropPontoRecolha from '../assets/drop_PontoRecolha.png';
-import iconMoradaSelect from '../assets/icon_Morada_select.png';
+import iconPagamentoSelect from '../assets/icon_Morada_select.png';
 import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
-
 
 const MainContainer = styled.div`
   margin: -45px 0 0 0;
@@ -21,7 +20,7 @@ const MainContainer = styled.div`
 
   
 
-const MoradaSelecionada = styled.div`
+const PagamentoSelecionado = styled.div`
   background-color: ${props => (props.selecionada ? '#343541' : '#ffffff')};
   border-radius: 5px;
   width: 100%;
@@ -36,7 +35,7 @@ const MoradaSelecionada = styled.div`
 
 `;
 
-const ConteudoMorada = styled.div`
+const ConteudoPagamento = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
@@ -51,14 +50,14 @@ const BotaoRemover = styled.button`
   cursor: pointer;
 `;
 
-const IconMoradaSelect = styled.img`
+const IconPagamentoSelect = styled.img`
   width: 12px;
   visibility: ${props => (props.selecionada ? 'block' : 'hidden')};
   margin: 0px 10px 0px 5px;
 `;
 
 
-const SelecionarMorada = styled.div`
+const SelecionarPagamento = styled.div`
   background-color: white;
   border-radius: 5px;
   box-shadow: -1px 4px 7px -1px rgb(0 0 0 / 15%);;
@@ -87,64 +86,71 @@ const ConfirmButton = styled.div`
 
 
 
-const AlugarMorada = () => {
-    const [moradas, setMoradas] = useState([]);
-    const [moradaSelecionada, setMoradaSelecionada] = useState('');
-
-    useEffect(() => {
-        const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
-        setMoradas(storedMoradas);
-    }, []);
-
-
-    const handleRemoverMorada = (index) => {
-        const novasMoradas = [...moradas];
-        novasMoradas.splice(index, 1);
-        setMoradas(novasMoradas);
-        localStorage.setItem('moradas', JSON.stringify(novasMoradas));
-    };
+const MetodoPagamento = () => {
+    const [pagamentos, setPagamentos] = useState([]);
+    const [pagamentoSelecionado, setPagamentoSelecionado] = useState('');
 
     const navigate = useNavigate();
 
-    const handleNextStep = () => {
-      navigate("/metodo-pagamento");
+    useEffect(() => {
+        const storedPagamentos = JSON.parse(localStorage.getItem('cartoes')) || [];
+        setPagamentos(storedPagamentos);
+    }, []);
+
+    const formatarPagamento = (pagamento) => {
+        const ultimosDigitos = pagamento.slice(-3);
+        const censurado = '*';
+        return `${censurado}${ultimosDigitos}`;
     };
+
+
+
+    const handleRemoverPagamento = (index) => {
+        const novosPagamentos = [...pagamentos];
+        novosPagamentos.splice(index, 1);
+        setPagamentos(novosPagamentos);
+        localStorage.setItem('cartoes', JSON.stringify(novosPagamentos));
+    };
+
+    const handleNextStep = () => {
+        navigate("/alugar-progresso");
+      };
 
 
     return (
         <div>
             <NavbarWeb />
-            <Header name="Morada" />
+            <Header name="Método de pagamento" />
             <MainContainer>
                 <PreviewCard/>
 
 
-                {moradas.map((morada, index) => (
-                    <MoradaSelecionada
+                {pagamentos.map((pagamento, index) => (
+                    <PagamentoSelecionado
                         key={index}
-                        selecionada={morada === moradaSelecionada}
-                        onClick={() => setMoradaSelecionada(morada)}
+                        selecionada={pagamento === pagamentoSelecionado}
+                        onClick={() => setPagamentoSelecionado(pagamento)}
                     >
-                        <ConteudoMorada>
-                            <IconMoradaSelect
-                                src={iconMoradaSelect}
+                        <ConteudoPagamento>
+                            <IconPagamentoSelect
+                                src={iconPagamentoSelect}
                                 alt="icon"
-                                selecionada={morada === moradaSelecionada}
+                                selecionada={pagamento === pagamentoSelecionado}
                             />
-                            {morada}
-                        </ConteudoMorada>
+                            <p style={{margin:"0"}}>Visa({formatarPagamento(pagamento)})</p>
+                        </ConteudoPagamento>
                         <BotaoRemover
-                            onClick={() => handleRemoverMorada(index)}
-                            selecionada={morada === moradaSelecionada}
+                            onClick={() => handleRemoverPagamento(index)}
+                            selecionada={pagamento === pagamentoSelecionado}
                         >
                             X
                         </BotaoRemover>
-                    </MoradaSelecionada>
+                    </PagamentoSelecionado>
                 ))}
 
 
-                <Link to={"/adicionar-morada"}>
-                    <SelecionarMorada>
+                <Link to={"/adicionar-pagamento"}>
+                    <SelecionarPagamento>
 
                         <button style={{
                             backgroundColor: "transparent",
@@ -154,13 +160,13 @@ const AlugarMorada = () => {
                             fontSize: "16px",
                             fontWeight: "500",
 
-                        }}>Adicionar Morada</button>
+                        }}>Adicionar Pagamento</button>
                         <img style={{
                             width: "20px",
 
 
-                        }} src={addMoradaIcon} alt="Adicioanr Morada"></img>
-                    </SelecionarMorada>
+                        }} src={addPagamentoIcon} alt="Adicioanar Pagamento"></img>
+                    </SelecionarPagamento>
                 </Link>
                 <hr></hr>
                 <PontoRecolha>
@@ -185,7 +191,7 @@ const AlugarMorada = () => {
                         float: "right",
                         marginTop: "9px",
 
-                    }} src={dropPontoRecolha} alt="Adicioanr Morada"></img>
+                    }} src={dropPontoRecolha} alt="Adicioanr Pagamento"></img>
                 </PontoRecolha>
                 <ConfirmButton>
                 <Button onClick={handleNextStep} text="Confirmar"/>
@@ -196,4 +202,4 @@ const AlugarMorada = () => {
     )
 }
 
-export default AlugarMorada
+export default MetodoPagamento

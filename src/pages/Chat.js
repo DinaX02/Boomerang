@@ -52,6 +52,7 @@ const Chat = () => {
                 <form className={'chatInput'} onSubmit={handleSendMessage}>
                     <input
                         type='text'
+                        maxlength="256"
                         placeholder="Escreve uma mensagem..."
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
@@ -122,12 +123,16 @@ const ChatStyle = styled.div`
       
 
       input {
+        max-width: calc(100% - 100px);
         font-size: 14px;
         flex: 1;
         padding: 8px;
         border: none;
         &:focus{
           outline: none;
+        }
+        &:placeholder-shown{
+          text-overflow: ellipsis;
         }
       }
 
@@ -150,6 +155,7 @@ const ChatStyle = styled.div`
 `;
 
 const Message = styled.div`
+  word-break: break-word;
   font-size: 14px;
     background-color: ${(props) => (props.sender === 'user' ? '#00c17c' : 'white')};
     color: ${(props) => (props.sender === 'user' ? '#fff' : '#000')};

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../components/Header/Header';
-import NavbarWeb from '../components/NavbarWeb';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-
+import Button from '../components/Button';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -41,20 +40,23 @@ const AdicionarMorada = () => {
         event.preventDefault();
 
         if (!morada || !localidade || !cidade || !codigoPostal) {
+            // Lógica de tratamento de erro, se necessário
             return;
         }
 
+
+        // Armazene apenas a string da morada no localStorage
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
         storedMoradas.push(morada);
         localStorage.setItem('moradas', JSON.stringify(storedMoradas));
 
+        // Navegue de volta para a página de alugar morada
         navigate('/alugar-morada', { state: { moradas: storedMoradas } });
     };
 
 
     return (
         <div>
-            <NavbarWeb />
             <Header name="Adicionar Morada" />
             <MainContainer>
 
@@ -111,19 +113,9 @@ const AdicionarMorada = () => {
                             required />
                         <span>*</span>
                     </AddMorada>
-                    <h6 style={{fontSize:"14px", fontWeight:"500"}}><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
+                    <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-                    <input type="submit" value="Guardar" style={{
-                            backgroundColor: "#343541",
-                            width: "144px",
-                            height: "36px",
-                            border: "none",
-                            borderRadius: "5px",
-                            color: "white",
-                            fontSize: "15px",
-                            fontWeight: "bold",
-                            outline: "none",
-                        }} />
+               <Button type="submit" text="Guardar"/>
                     </ConfButton>
 
 

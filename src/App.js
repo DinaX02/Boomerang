@@ -21,8 +21,12 @@ import ArticlePage from "./pages/ArticlePage";
 import Chat from "./pages/Chat";
 import AddAdressComponent from "./components/AddAdressComponent"
 import ChooseAdressComponent from "./components/ChooseAdressComponent"
-import AlugarDetalhes from "./components/AlugarDetalhes";
+import AlugarDetalhes from "./pages/AlugarDetalhes";
 import DownloadPage from "./pages/DownloadPage";
+import AlugarValorTotal from "./pages/AlugarValorTotal";
+import MetodoPagamento from "./pages/MetodoPagamento";
+import AddMetPagamento from "./pages/AddMetPagamento";
+import AlugarProgresso from "./pages/AlugarProgresso";
 
 function App() {
 
@@ -55,7 +59,10 @@ function App() {
         <Route path="/adress-publish" element={<AddAdressComponent/>}></Route>
         <Route path="/alugar-detalhes" element={<AlugarDetalhes/>}></Route>
         <Route path="/download-page" element={<DownloadPage/>}></Route>
-
+        <Route path="/valor-total" element={<AlugarValorTotal/>}></Route>
+        <Route path="/metodo-pagamento" element={<MetodoPagamento/>}></Route>
+        <Route path="/adicionar-pagamento" element={<AddMetPagamento/>}></Route>
+        <Route path="/alugar-progresso" element={<AlugarProgresso/>}></Route>
         
 
       </Routes>

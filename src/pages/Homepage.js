@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import NavbarWeb from '../components/NavbarWeb'
 import Article from "../components/Article";
@@ -10,13 +10,16 @@ import LoginRegistar from '../components/LoginRegistar';
 
 const Homepage = () => {
   const navigate = useNavigate();
+  // const [showLoginRegistar, setShowLoginRegistar] = useState(true);
 
   useEffect(() => {
     if (window.innerWidth < 600) {
-      if (localStorage.getItem("redirect")) {
+
+      if (localStorage.getItem("redirect")) {//entrado antes
         return;
       } else {
         localStorage.setItem("redirect", true);
+        // setShowLoginRegistar(false);
         return navigate("/onBoarding");
       }
     }
@@ -78,7 +81,7 @@ const Homepage = () => {
           </div>
         </div>
         <MenuMobile></MenuMobile>
-        <LoginRegistar></LoginRegistar>
+        {!localStorage.getItem("login") && <LoginRegistar></LoginRegistar>}
       </HomepageStyle>
     </div>
   )
