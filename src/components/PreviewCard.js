@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import imgDefaultPreview from '../assets/img_default_card_preview.svg';
 import artigosJSON from "../data/artigos.json";
 
-const PreviewCard = () => {
+const PreviewCard = (props) => {
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
 
   const handleResize = () => {
@@ -15,6 +15,8 @@ const PreviewCard = () => {
   };
 
   useEffect(() => {
+
+    
 
     window.addEventListener('resize', handleResize);
 
@@ -31,8 +33,8 @@ const PreviewCard = () => {
       : text;
   };
 
-  const imageArtigo = artigosJSON.images.length > 0
-    ? artigosJSON.images[0]
+  const imageArtigo = artigosJSON[props.id-1].images.length > 0
+    ? artigosJSON[props.id-1].images[0]
     : imgDefaultPreview;
 
   return (
@@ -40,15 +42,15 @@ const PreviewCard = () => {
       <div className='imgCardPreview' style={{backgroundImage:`url(${imageArtigo})`}}>
       </div>
       <div className="textContainerPreview">
-        <h2 className="titlePreview">{artigosJSON.title}</h2>
+        <h2 className="titlePreview">{artigosJSON[props.id-1].title}</h2>
         <p className="descriptionPreview">
-          {descriptionSizeControl(artigosJSON.description)}
+          {descriptionSizeControl(artigosJSON[props.id-1].description)}
         </p>
       </div>
       <div className="priceContainerPreview">
-        <p className="priceLabelPreview">{artigosJSON.dailyRentalPrice}€ / dia</p>
+        <p className="priceLabelPreview">{artigosJSON[props.id-1].dailyRentalPrice}€ / dia</p>
         <p className="totalPreview">Total:</p>
-        <p className="totalPricePreview">25€{/*alterar quando for feita a pagina do tempo de aluguer*/}</p>
+        <p className="totalPricePreview">{props.valor}</p>
       </div>
     </div>
   );

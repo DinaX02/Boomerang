@@ -3,30 +3,38 @@ import Header from '../components/Header/Header'
 import PreviewCard from '../components/PreviewCard'
 import MenuMobile from '../components/MenuMobile'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 const RentDetails = () => {
+  const list = useSelector((state) => state.Rent.progressRentList);
+
+  const lavagens = [
+'Lavandaria Sustentável', 'Lavagem feita pelo utilizador'
+];
+const transportes = [
+'Transportadora Eco-Friendly', 'Transporte a cargo do utilizador'
+];
+
   return (
     <div>
         <Header name="Detalhes do Aluguer"/>
-        <PreviewCard/>
+        <PreviewCard id={list[0].article_id}/>
         <RentDetailsDiv>
         <Titles>Estado do Aluguer:</Titles>
-        <Info>Aceite</Info>
+        <Info>Aguarda Confirmação</Info>
         <hr></hr>
         <Titles>Data:</Titles>
-        <Info>3 janeiro - 5 janeiro</Info>
+        <Info>{list[0].date[0]} - {list[0].date[1]}</Info>
         <hr></hr>
-        <Titles><i>Tracking</i> da encomenda:</Titles>
-        <Info>A cargo do utilizador</Info>
-        <hr></hr>
-        <Titles>Opções sustentáveis:</Titles>
-        <Info><li>Lavandaria Sustentável</li></Info>
+        <Titles>Detalhes:</Titles>
+        <Info><li>{lavagens[list[0].detalhes[0]]}</li>
+        <li>{transportes[list[0].detalhes[1]]}</li></Info>
         <hr></hr>
         <Titles>Morada:</Titles>
-        <Info>Rua Mário Sacramento, nº76</Info>
+        <Info>{list[0].morada}</Info>
         <hr></hr>
         <Titles>Método de Pagamento:</Titles>
-        <Info>Mb Way</Info>
+        <Info>{list[0].pagamento}</Info>
         </RentDetailsDiv>
         <MenuMobile/>
     </div>

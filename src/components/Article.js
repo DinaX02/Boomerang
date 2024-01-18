@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import articleMockupImage from "../assets/article_mockup_image.jpg"
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const Article = (props) => {
 
@@ -14,20 +14,20 @@ const Article = (props) => {
         )
     }
 
-
+    
     return (
         //TODO: alterar o link para o link do artigo//
         //TODO: alterar imagens e informações para o artigo//
 
-        <ArticleLink style={{transform: `scale(${props.scale})`}} to={`/article`} key={props.key}>
-            <img src={articleMockupImage} alt={'mockup'}/>
+        <ArticleLink style={{transform: `scale(${props.scale})`}} to={`/article/${props.id}`}>
+            <img src={props.image} alt={'mockup'}/>
             {props.description && <div style={{display: props.description ? "block" : "none"}} className={'description'}>
                 <div className={'priceRow'}>
-                    <div>4€ / dia</div>
-                    <div>heart</div>
+                    <div>{props.price}€ / dia</div>
+                    <div><FavoriteBorderIcon style={{color: "lightgray"}}/></div>
                 </div>
-                <p>Zara</p>
-                <p>Tamanho S</p>
+                <p>{props.brand}</p>
+                <p>Tamanho {props.size}</p>
             </div>}
         </ArticleLink>
     )

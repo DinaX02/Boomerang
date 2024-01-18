@@ -7,7 +7,7 @@ import PreviewCard from '../components/PreviewCard';
 import iconFolha from '../assets/icon_folha-detalhes.png';
 import iconInfo from '../assets/icon_info_detalhes.png';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
 
 const MainContainer = styled.div`
@@ -88,6 +88,7 @@ const AlugarDetalhes = () => {
     const [lavagemSelecionada, setLavagemSelecionada] = useState(null);
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
     const dispatch = useDispatch();
+    const list = useSelector((state) => state.Rent.progressRentList);
 
     const navigate = useNavigate();
 
@@ -122,7 +123,7 @@ const AlugarDetalhes = () => {
             <Header name="Detalhes de Aluguer" />
             <MainContainer>
 
-                <PreviewCard />
+            <PreviewCard id={list[0].article_id} />
                 <div style={{ paddingTop: "25px" }}>
 
                     {lavagens.map((lavagem, index) => (

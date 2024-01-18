@@ -10,7 +10,7 @@ import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
 
 
@@ -93,6 +93,8 @@ const AlugarMorada = () => {
     const [moradas, setMoradas] = useState([]);
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
     const dispatch = useDispatch();
+    const list = useSelector((state) => state.Rent.progressRentList);
+
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -120,7 +122,7 @@ const AlugarMorada = () => {
             <NavbarWeb />
             <Header name="Morada" />
             <MainContainer>
-                <PreviewCard/>
+            <PreviewCard id={list[0].article_id} />
 
 
                 {moradas.map((morada, index) => (

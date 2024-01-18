@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import articleMockupImage from "../assets/article_mockup_image.jpg"
 import ProfileLink from "../components/ProfileLink";
@@ -10,10 +10,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {IconButton} from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
-const ArticlePage = () => {
+import Button
+ from '../components/Button';
+import { useParams } from 'react-router-dom';
+import artigosJSON from '../data/artigos.json'
+ 
+const ArticlePage = (props) => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { id } = useParams();
+    const [item, setItem] = useState({});
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -22,6 +28,15 @@ const ArticlePage = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+  useEffect(() =>{
+    artigosJSON.forEach(artigo => {
+      if(artigo.id===parseInt(id)){
+        setItem(artigo);
+      }
+    });
+  }, [item, id])
+    
 
     return (
         <ArticlePageStyle>
@@ -75,19 +90,19 @@ const ArticlePage = () => {
                     </div>
                 </div>
                 <div className={'articleButtons'}>
-                    <div>Alugar</div>
-                    <div>Chat</div>
+                    <Button text="Alugar" onClick={() => navigate(`/rentdate-page/${item.id}`)}></Button>
+                    <Button text="Chat" onClick={() => navigate(`/chat`)}></Button>
                 </div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Título da Peça</div>
-                <div>Vestido Preto para Cerimónia</div>
+                <div>{item.title}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Valor Estimado do Artigo</div>
                 <div>60€</div>
                 <div className={'title'}>Preço do Aluguer por dia</div>
-                <div>5€ / dia</div>
+                <div>{item.dailyRentalPrice}€ / dia</div>
                 <div>Taxa de Proteção Obrigatória</div>
             </div>
             <div className={'articleSection'}>

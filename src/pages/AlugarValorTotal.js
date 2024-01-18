@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import PreviewValorTotal from '../components/PreviewValorTotal';
+import { useSelector } from 'react-redux';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -21,6 +22,8 @@ const ConfButton = styled.div`
 `;
 
 const AlugarValorTotal = () => {
+  const list = useSelector((state) => state.Rent.progressRentList);
+
 
   const navigate = useNavigate();
 
@@ -32,7 +35,7 @@ const AlugarValorTotal = () => {
         <div>
             <Header name="Valor Total" />
             <MainContainer>
-                <PreviewValorTotal/>
+                <PreviewValorTotal id={list[0].article_id}/>
 
                     <ConfButton>
                <Button onClick={handleNextStep} text="Continuar"/>
