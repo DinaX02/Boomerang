@@ -6,7 +6,7 @@ import "react-calendar/dist/Calendar.css";
 import Button from "../components/Button";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { addProgressRent } from "../redux/RentSlice";
+import { addProgressRent } from "../redux/rentSlice";
 import { useNavigate } from "react-router-dom";
 
 const RentDate = () => {

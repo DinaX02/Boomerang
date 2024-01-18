@@ -11,7 +11,7 @@ import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProgressRent } from '../redux/RentSlice';
+import { updateProgressRent } from '../redux/rentSlice';
 
 const MainContainer = styled.div`
   margin: -45px 0 0 0;
