@@ -20,7 +20,7 @@ const RentDetails = () => {
         <Info>A cargo do utilizador</Info>
         <hr></hr>
         <Titles>Opções sustentáveis:</Titles>
-        <Info><ul><li>Lavandaria Sustentável</li></ul></Info>
+        <Info><li>Lavandaria Sustentável</li></Info>
         <hr></hr>
         <Titles>Morada:</Titles>
         <Info>Rua Mário Sacramento, nº76</Info>
@@ -44,24 +44,20 @@ hr{
     margin-top: 5px;
 }
 
-padding-bottom: 120px;
+padding-bottom: 100px;
 `
 
 
 const Info = styled.p`
-font-size: 1rem;
-font-style: normal;
+font-size: 0.8rem;
 font-weight: 500;
 line-height: 20px;
-letter-spacing: -0.24px;
 `
 
 const Titles = styled.h2`
-font-size: 1.2rem;
-font-style: normal;
+font-size: 1rem;
 font-weight: 600;
-line-height: 20px;
-letter-spacing: -0.24px;
+line-height: 15px;
 `
 
 export default RentDetails

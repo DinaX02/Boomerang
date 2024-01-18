@@ -1,0 +1,66 @@
+import React from 'react';
+import Header from '../components/Header/Header';
+import styled from "styled-components";
+import Button from '../components/Button';
+import IconProgresso from '../assets/icon_progresso.png';
+
+const MainContainer = styled.div`
+  margin: 50px 0 0 0;
+  width: 100%;
+  height: 80vh;
+  padding: 25px 30px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .conteudo{
+    width: 100%;
+    display: block;
+    text-align: center;
+
+  }
+  .conteudo img{
+    margin-bottom: 20px;
+  }
+  .conteudo h2{
+    font-weight: bold;
+    font-size: 22px;
+  }
+  .conteudo p{
+    font-size: 16px;
+    margin: 0;
+    line-height: 22px;
+  }
+`;
+
+
+
+const AlugarProgresso = () => {
+
+
+
+    return (
+        <div>
+            <Header name=" " />
+            <MainContainer>
+                <div className='conteudo'>
+                    <img src={IconProgresso} alt="icon"></img>
+                    <h2>Está quase.</h2>
+                    <p>Só falta o responsável aceitar o pedido de aluguer. Irás receber uma notificação assim que recebermos resposta.</p>
+
+
+
+
+
+
+                </div>
+                <div>
+                    <Button text="Concluir" />
+                </div>
+            </MainContainer>
+        </div>
+    );
+};
+
+export default AlugarProgresso;

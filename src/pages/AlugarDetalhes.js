@@ -3,9 +3,10 @@ import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
 import iconMoradaSelect from '../assets/icon_Morada_select.png';
 import styled from 'styled-components';
-import PreviewCard from './PreviewCard';
+import PreviewCard from '../components/PreviewCard';
 import iconFolha from '../assets/icon_folha-detalhes.png';
 import iconInfo from '../assets/icon_info_detalhes.png';
+import { useNavigate } from 'react-router-dom';
 
 const MainContainer = styled.div`
   margin: -45px 0 0 0;
@@ -85,6 +86,8 @@ const AlugarDetalhes = () => {
     const [lavagemSelecionada, setLavagemSelecionada] = useState(null);
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
 
+    const navigate = useNavigate();
+
     const lavagens = [
         { nome: 'Lavandaria Sustentável', valor: 5 },
         { nome: 'Lavagem feita pelo utilizador', valor: 0 },
@@ -102,6 +105,10 @@ const AlugarDetalhes = () => {
     };
 
     const isContinuarDisabled = lavagemSelecionada === null || transporteSelecionado === null;
+
+    const handleNextStep = () => {
+        navigate("/valor-total");
+      };
 
     return (
         <div>
@@ -173,15 +180,18 @@ const AlugarDetalhes = () => {
                 <ConfirmButton>
                     <button
                         disabled={isContinuarDisabled}
+                        onClick={handleNextStep}
                         style={{
                             backgroundColor: isContinuarDisabled ? '#999999' : '#343541',
                             color: 'white',
                             border: 'none',
-                            width: '180px',
-                            height: '40px',
+                            width: '144px',
+                            height: '36px',
                             borderRadius: '5px',
-                            fontSize: '17px',
-                            fontWeight: '700',
+                            outline: "none",
+                            fontSize: '15px',
+                            fontWeight: 'bold',
+                            fontFamily: "Montserrat",
                         }}
                     >
                         Continuar

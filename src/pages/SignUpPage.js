@@ -192,6 +192,7 @@ const SignUpPage = () => {
           type={shown.password ? "text" : "password"}
           shown={shown.password}
           isPassword={true}
+          matchPassword={matchPassword}
           toggleEyeHandle={() => toggleEyeHandle("password")} // Passa o id correspondente
         />
 
@@ -204,7 +205,6 @@ const SignUpPage = () => {
           shown={shown.repeatPassword}
           matchPassword={matchPassword}
           erroObrigatorio={erroObrigatorio}
-          className={'icon'}
           isPassword={true}
           toggleEyeHandle={() => toggleEyeHandle("repeatPassword")} // Passa o id correspondente
         />

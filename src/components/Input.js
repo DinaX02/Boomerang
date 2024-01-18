@@ -34,7 +34,7 @@ const Input = (props) => {
                 onChange={props.onChange}
                 name='input'
                 style={
-                    props.erroObrigatorio && !campoPreenchido || props.className == 'icon' && (!props.matchPassword && campoPreenchido)   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
+                    (props.erroObrigatorio && !campoPreenchido) || (props.isPassword && (!props.matchPassword && campoPreenchido))
                         ? { outline: "0.5px solid #c80000" }
                         : (props.matchPassword && campoPreenchido)
                             ? { outline: "0.5px solid #00C17C" } // Quando a nova condição é verdadeira

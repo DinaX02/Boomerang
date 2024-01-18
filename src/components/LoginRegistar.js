@@ -28,9 +28,23 @@ const LoginRegistar = () => {
 
         // Atualiza o estado de todosCamposPreenchidos
         setTodosCamposPreenchidos(camposPreenchidos);
+
+        const handleBodyScroll = () => {
+            // Desativa o scroll quando fecharBottomSheet é falso
+            document.body.style.overflow = !fecharBottomSheet ? 'hidden' : 'auto';
+        };
+
+        // Adiciona o evento de scroll ao montar o componente
+        handleBodyScroll();
+
+        // Remove o evento de scroll ao desmontar o componente
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
     }, [
         inputNomeValue,
-        inputPassValue
+        inputPassValue,
+        fecharBottomSheet
     ]);
 
     const handleEntrarClick = () => {
@@ -48,6 +62,7 @@ const LoginRegistar = () => {
 
     const dragClickHandle = () => {
         setFecharBottomSheet(true);
+        localStorage.setItem('login', true);
     }
 
 
@@ -85,7 +100,7 @@ const LoginRegistar = () => {
                     }>
                     <div className='dragHandleContainer'>
                         {/* <div className='dragHandle' /> */}
-                        <img src={CloseIcon} alt='close icon' className='closeIcon' onClick={dragClickHandle}/>
+                        <img src={CloseIcon} alt='close icon' className='closeIcon' onClick={dragClickHandle} />
                     </div>
                     {!mostrarLogin && <div className='loginRegistarContainer' >
                         <Button
