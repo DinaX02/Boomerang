@@ -1,4 +1,4 @@
-const cacheName = 'Boomerang-cache';
+const cacheName = 'Boomerang-cache-v2';
 const cacheFiles = [
   '/',
   './index.html',

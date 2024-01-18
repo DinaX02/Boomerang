@@ -3,9 +3,11 @@ import imgDefaultPreview from '../assets/img_default_card_preview.svg';
 import artigosJSON from "../data/artigos.json";
 import styled from 'styled-components';
 import iconInfo from '../assets/icon_info_detalhes.png';
+import { useNavigate } from 'react-router-dom';
 
 const PreviewValorTotal = () => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
+    const navigate= useNavigate();
 
     const handleResize = () => {
 
@@ -33,9 +35,14 @@ const PreviewValorTotal = () => {
             : text;
     };
 
+    const vouchers = () => {
+        navigate("/vouchers-page");
+    }
+
     const imageArtigo = artigosJSON.images.length > 0
         ? artigosJSON.images[0]
         : imgDefaultPreview;
+
 
     return (
         <MainContainer>
@@ -72,7 +79,7 @@ const PreviewValorTotal = () => {
                     </PriceInner>
                 </ServiceConatiner>
                 <div style={{ textAlign: "center" }}>
-                    <button className='btncupao'>+ Inserir cupão</button>
+                    <button className='btncupao' onClick={vouchers}>+ Inserir cupão</button>
                     <p style={{ margin: "5px 0 0 0", fontWeight: "bold" }}>Total:</p>
                     <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c" }}>{artigosJSON.dailyRentalPrice}€</p>
                 </div>
