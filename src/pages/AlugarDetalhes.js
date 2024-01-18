@@ -7,6 +7,8 @@ import PreviewCard from '../components/PreviewCard';
 import iconFolha from '../assets/icon_folha-detalhes.png';
 import iconInfo from '../assets/icon_info_detalhes.png';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateProgressRent } from '../redux/RentSlice';
 
 const MainContainer = styled.div`
   margin: -45px 0 0 0;
@@ -85,6 +87,7 @@ visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
 const AlugarDetalhes = () => {
     const [lavagemSelecionada, setLavagemSelecionada] = useState(null);
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -107,8 +110,11 @@ const AlugarDetalhes = () => {
     const isContinuarDisabled = lavagemSelecionada === null || transporteSelecionado === null;
 
     const handleNextStep = () => {
+        const detalhes = {detalhes: [lavagemSelecionada, transporteSelecionado ]};
+        dispatch(updateProgressRent({ index: 0, updatedData: detalhes }));
         navigate("/valor-total");
-      };
+    };
+    
 
     return (
         <div>

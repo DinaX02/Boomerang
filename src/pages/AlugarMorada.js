@@ -10,6 +10,8 @@ import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateProgressRent } from '../redux/RentSlice';
 
 
 const MainContainer = styled.div`
@@ -90,6 +92,7 @@ const ConfirmButton = styled.div`
 const AlugarMorada = () => {
     const [moradas, setMoradas] = useState([]);
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -107,6 +110,7 @@ const AlugarMorada = () => {
     const navigate = useNavigate();
 
     const handleNextStep = () => {
+    dispatch(updateProgressRent({ index: 0, updatedData: {morada: moradaSelecionada} }));
       navigate("/metodo-pagamento");
     };
 

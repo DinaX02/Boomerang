@@ -35,7 +35,7 @@ let nothingCounter=false;
               <div>
               <div className="nothing">
               <img src={nothingimg} alt="sem notificações"></img>
-              <h1>Ainda não tem cupões</h1>
+              <h1>Ainda não tens cupões</h1>
             </div>        </div>
       )}
       </VouchersDiv>
