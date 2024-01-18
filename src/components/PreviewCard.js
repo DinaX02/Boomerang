@@ -50,7 +50,7 @@ const PreviewCard = (props) => {
       <div className="priceContainerPreview">
         <p className="priceLabelPreview">{artigosJSON[props.id-1].dailyRentalPrice}€ / dia</p>
         <p className="totalPreview">Total:</p>
-        <p className="totalPricePreview">{props.valor}</p>
+        <p className="totalPricePreview">{props.valor}€</p>
       </div>
     </div>
   );

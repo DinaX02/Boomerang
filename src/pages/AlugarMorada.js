@@ -122,7 +122,7 @@ const AlugarMorada = () => {
             <NavbarWeb />
             <Header name="Morada" />
             <MainContainer>
-            <PreviewCard id={list[0].article_id} />
+            <PreviewCard id={list.article_id} valor={list.total}/>
 
 
                 {moradas.map((morada, index) => (

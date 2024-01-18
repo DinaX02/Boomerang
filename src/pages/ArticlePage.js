@@ -70,11 +70,14 @@ const ArticlePage = (props) => {
                         }}
                     >
                         <MenuItem style={{fontSize: 14}} onClick={handleClose}>Denunciar</MenuItem>
+                        {/*
                         <MenuItem style={{fontSize: 14}} onClick={handleClose}>Editar artigo</MenuItem>
+                        */}
                     </Menu>
                 </div>
             </div>
-            <img alt={'article'} className={'carousel'} src={articleMockupImage}></img>
+            {item.images && item.images.length > 0 && <img alt={'article'} className={'carousel'} src={item.images[0]}/>}
+
             <div className={'articleHeader'}>
                 <div className={'user'}>
                     <ProfileLink zoom={1.1}/>
@@ -107,15 +110,15 @@ const ArticlePage = (props) => {
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Descrição</div>
-                <div>Vestido usado apenas 1 vez num casamento. Está em ótimo estado. É muito leve e confortável.</div>
+                <div>{item.description}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Tamanho</div>
-                <div>S</div>
+                <div>{item.size}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Cor</div>
-                <div className={'articleColor'}><div style={{backgroundColor: 'black'}}/>Preto</div>
+                <div className={'articleColor'}><div style={{backgroundColor: item.color}}/>{item.color}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Categoria</div>
@@ -123,16 +126,19 @@ const ArticlePage = (props) => {
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Marca</div>
-                <div>Gucci</div>
+                <div>{item.brand}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Estado</div>
-                <div>Muito Bom</div>
+                <div>{item.condition}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Medidas da Peça</div>
-                <div>Cintura: 87 cm</div>
-                <div>Comprimento: 130 cm</div>
+                {Object.entries(item.measurements).map(([propertyName, propertyValue]) => (
+                    <div key={propertyName}>
+                        {propertyName}: {propertyValue}
+                    </div>
+                ))}
             </div>
 
         </ArticlePageStyle>
@@ -143,6 +149,10 @@ const ArticlePageStyle = styled.div`
   
   
   .headerBoomerang{
+    z-index: 100;
+    top: 0;
+    position: fixed;
+    width: 100%;
     padding: 0 25px;
     display: flex;
     justify-content: space-between;
@@ -170,6 +180,7 @@ const ArticlePageStyle = styled.div`
       height: 40vh;
       object-fit: cover;
       width: 100%;
+      margin-top: 60px;
     }
   
   .articleHeader{
@@ -189,8 +200,21 @@ const ArticlePageStyle = styled.div`
       }
     }
     .articleButtons{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
       flex: 1;
       text-align: center;
+      button{
+        border: 1px solid rgb(0,0,0,0.1);
+        background-color: white !important;
+        color: #2e2e2e;
+        &:first-child{
+          background-color: #00C17C !important;
+          color: white;
+        }
+      }
     }
   }
   

@@ -18,23 +18,23 @@ const transportes = [
   return (
     <div>
         <Header name="Detalhes do Aluguer"/>
-        <PreviewCard id={list[0].article_id}/>
+        <PreviewCard id={list.article_id} valor={list.total}/>
         <RentDetailsDiv>
         <Titles>Estado do Aluguer:</Titles>
         <Info>Aguarda Confirmação</Info>
         <hr></hr>
         <Titles>Data:</Titles>
-        <Info>{list[0].date[0]} - {list[0].date[1]}</Info>
+        <Info>{list.date[0]} - {list.date[1]}</Info>
         <hr></hr>
         <Titles>Detalhes:</Titles>
-        <Info><li>{lavagens[list[0].detalhes[0]]}</li>
-        <li>{transportes[list[0].detalhes[1]]}</li></Info>
+        <Info><li>{lavagens[list.detalhes[0]]}</li>
+        <li>{transportes[list.detalhes[1]]}</li></Info>
         <hr></hr>
         <Titles>Morada:</Titles>
-        <Info>{list[0].morada}</Info>
+        <Info>{list.morada}</Info>
         <hr></hr>
         <Titles>Método de Pagamento:</Titles>
-        <Info>{list[0].pagamento}</Info>
+        <Info>{list.pagamento}</Info>
         </RentDetailsDiv>
         <MenuMobile/>
     </div>

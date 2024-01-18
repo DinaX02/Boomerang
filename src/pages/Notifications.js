@@ -22,7 +22,7 @@ const Notifications = () => {
 <div>
               <Link className={"vouchers"} to={"/rentdetails-page"}>
                     <Notification
-                    image={artigosJSON[list[0].article_id-1].images[0]}
+                    image={artigosJSON[list.article_id-1].images[0]}
                       title={"Alugou o seu primeiro item!"}
                       sub={"Estamos a espera que seja confirmado."}
                     ></Notification>
