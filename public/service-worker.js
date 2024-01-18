@@ -3,7 +3,7 @@ const cacheFiles = [
   '/',
   './index.html',
   './manifest.json',
-  '../src/pages/Offline.js'
+  './Offline.html'
 ];
 
 self.addEventListener('install', event => {
@@ -18,7 +18,7 @@ self.addEventListener('fetch', event => {
     caches.match(event.request)
       .then(response => {
         return response || fetch(event.request)
-          .catch(() => caches.match('/offline.html'));
+          .catch(() => caches.match('./Offline.html'));
       })
   );
 });
