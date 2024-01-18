@@ -9,9 +9,6 @@ import VermelhoSvg from "../assets/cores/vermelho.svg";
 import VerdeSvg from "../assets/cores/verde.svg";
 import AzulSvg from "../assets/cores/azul.svg";
 import AmareloSvg from "../assets/cores/amarelo.svg";
-import RosaSvg from "../assets/cores/rosa.svg";
-import RoxoSvg from "../assets/cores/roxo.svg";
-import LaranjaSvg from "../assets/cores/laranja.svg";
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
