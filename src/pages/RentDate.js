@@ -7,12 +7,16 @@ import Button from "../components/Button";
 import styled from "styled-components";
 
 const RentDate = () => {
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]); // Initial date range
+  const [dateRange, setDateRange] = useState([new Date(), new Date()]); 
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   const handleDateChange = (value) => {
     setDateRange(value);
-    console.log(dateRange);
+    let formattedDates = value.map(date => date.toLocaleDateString('pt-PT'));
+    setButtonDisable(true);
   };
+
+
 
   return (
     <RentDateDiv>
@@ -25,7 +29,7 @@ const RentDate = () => {
           value={dateRange}
           selectRange={true}
           />
-        <Button text="Continuar"></Button>
+        <Button text="Continuar" disable={!buttonDisable}></Button>
       </div>
     </RentDateDiv>
   );
