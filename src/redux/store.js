@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import PublishSlice from "./publicarSlice";
-import RentSlice from "./RentSlice";
+import RentSlice from "./RentSlice.js";
 
 const store = configureStore({
   reducer: {
