@@ -2,13 +2,15 @@ import React from "react";
 import MenuMobile from "../components/MenuMobile.js";
 import Notification from "../components/Notification.js";
 import styled from "styled-components";
-import notificationsJSON from "../data/notifications.json";
 import { Link } from "react-router-dom";
 import TabsComponent from "../components/TabsComponent";
 import ChatLink from "../components/ChatLink";
-import nothingimg from "../assets/menumobile/notificationsbtn.svg";
+import { useSelector } from "react-redux";
+import nothingimg from "../assets/menumobile/notificationsbtn.svg"
+import artigosJSON from "../data/artigos.json"
 
 const Notifications = () => {
+  const list = useSelector((state) => state.Rent.progressRentList);
 
   return (
       <div>
@@ -16,32 +18,27 @@ const Notifications = () => {
       <TabsComponent
         title1={"Notificações"}
         firstComponent={
-          notificationsJSON.length > 0 ? (
-            notificationsJSON.map((notification, index) => {
-              if (notification.discount) {
-                return (
-                  <Link className={"vouchers"} to={"/vouchers-page"}>
+          list != "" ? 
+<div>
+              <Link className={"vouchers"} to={"/rentdetails-page"}>
                     <Notification
-                      key={index}
-                      discount={notification.discount}
-                      title={notification.title}
-                      sub={notification.sub}
+                    image={artigosJSON[list[0].article_id-1].images[0]}
+                      title={"Alugou o seu primeiro item!"}
+                      sub={"Estamos a espera que seja confirmado."}
                     ></Notification>
                   </Link>
-                );
-              } else if (notification.image) {
-                return (
-                  <Notification
-                    key={index}
-                    image={notification.image}
-                    title={notification.title}
-                    sub={notification.sub}
-                  ></Notification>
-                );
-              }
-              return "";
-            })
-          ) : (
+
+                  <Link className={"vouchers expirado"} to={"/vouchers-page"}>
+                    <Notification
+                      discount={"7%"}
+                      title={"Desconto Expirado"}
+                      sub={"Validade até: 10/01/2024"}
+                    ></Notification>
+                  </Link>
+</div>
+                 
+              
+           : (
             <div className="nothing">
               <img src={nothingimg} alt="sem notificações"></img>
               <h1>Ainda não tens notificações</h1>

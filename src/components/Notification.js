@@ -35,7 +35,7 @@ const Notification = (props) => {
 
   return (
     <NotificationDiv>
-      <NotificationImg alt='notificação' style={{ background: props.image ? `url(${props.image})` : '#00C17C' }}>{props.discount}</NotificationImg>
+      <NotificationImg alt='notificação' style={{ background: props.image ? `url(${props.image})` : '#2e2e2e' }}>{props.discount}</NotificationImg>
       <div>
       <p><b>{descriptionSizeControl(props.title)}</b></p>
       <p>{descriptionSizeControl(props.sub)}</p>
@@ -55,6 +55,7 @@ flex-direction: row;
 align-items: center;
 font-size: 0.9rem;
 margin-top: 25px;
+width: 90vw !important;
 p{
   margin-bottom: 5px;
 }

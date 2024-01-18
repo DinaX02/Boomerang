@@ -3,46 +3,40 @@ import Header from "../components/Header/Header";
 import Notification from "../components/Notification";
 import MenuMobile from "../components/MenuMobile";
 import styled from "styled-components";
-import notificationsJSON from "../data/notifications.json";
 import nothingimg from "../assets/menumobile/notificationsbtn.svg";
+import { useSelector } from "react-redux";
 
 const Vouchers = () => {
-let nothingCounter=false;
+  const list = useSelector((state) => state.Rent.progressRentList);
 
 
   return (
     <div>
       <Header name="Cupões" />
       <VouchersDiv>
-        {notificationsJSON.map((discount, index) => {
-          if (discount.discount) {
-            nothingCounter=true;
-            return (
-            <div className="widthCorrection">
-              <Notification
-                key={index}
-                discount={discount.discount}
-                title={discount.title}
-                sub={discount.sub}
-              ></Notification>
-              </div>
-            );
-          }
-          return "";
-        })    
-        }
-        {!nothingCounter && (
-              <div>
-              <div className="nothing">
-              <img src={nothingimg} alt="sem notificações"></img>
-              <h1>Ainda não tens cupões</h1>
-            </div>        </div>
-      )}
+        {
+      list!=="" ? 
+      <Notification
+      discount={"7%"}
+      title={"Desconto Expirado"}
+      sub={"Validade até: 10/01/2024"}
+    ></Notification>
+
+                 
+              
+           : (
+            <div>
+<div className="nothing">
+<img src={nothingimg} alt="sem notificações"></img>
+<h1>Ainda não tens cupões</h1>
+</div>        </div>
+          )}
       </VouchersDiv>
       <MenuMobile></MenuMobile>
     </div>
   );
 };
+
 
 const VouchersDiv = styled.div`
   display: flex;
@@ -50,8 +44,9 @@ const VouchersDiv = styled.div`
   align-items: center;
 
 .widthCorrection{
-  width: 90%;
+  width: 90vw !important;
 }
+
 
 .nothing {
     margin-top: 180px;

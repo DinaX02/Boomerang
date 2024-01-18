@@ -133,7 +133,7 @@ const MetodoPagamento = () => {
             <NavbarWeb />
             <Header name="Método de pagamento" />
             <MainContainer>
-                <PreviewCard/>
+            <PreviewCard id={list[0].article_id} />
 
 
                 {pagamentos.map((pagamento, index) => (

@@ -1,12 +1,12 @@
 import React, { useEffect} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import NavbarWeb from '../components/NavbarWeb'
 import Article from "../components/Article";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
 import ProfileLink from "../components/ProfileLink";
 import Chip from '../components/chip';
 import LoginRegistar from '../components/LoginRegistar';
+import artigosJSON from '../data/artigos.json';
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -61,22 +61,19 @@ const Homepage = () => {
         <div>
           <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/'}>Ver tudo</Link></div>
           <div className={'articles'}>
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
+          {artigosJSON.slice(0,5).map((artigo) =>{
+             return <Article key={artigo.id} id={artigo.id}  description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size}/>
+          })}
             <Article more={true} />
           </div>
         </div>
         <div>
           <div className={'sectionTitle'}><span>Novidades</span><Link to={'/'}>Ver mais</Link></div>
           <div className={'articles'}>
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
-            <Article description={true} />
+          {artigosJSON.slice(6,11).map((artigo) =>{
+            console.log(artigo.id);
+             return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size}/>
+          })}
             <Article more={true} />
           </div>
         </div>

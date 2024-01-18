@@ -8,12 +8,14 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addProgressRent } from "../redux/rentSlice";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const RentDate = () => {
   const [dateRange, setDateRange] = useState([new Date(), new Date()]); 
   const [buttonDisable, setButtonDisable] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleDateChange = (value) => {
     setDateRange(value);
@@ -22,7 +24,7 @@ const RentDate = () => {
 
   const sendDates = () => {
     const formattedDates = dateRange.map(date => date.toLocaleDateString('pt-PT'));
-    const rentData = { date: formattedDates };
+    const rentData = {article_id: id, date: formattedDates };
     dispatch(addProgressRent(rentData));
     navigate("/alugar-detalhes");
   };
@@ -31,7 +33,7 @@ const RentDate = () => {
     <RentDateDiv>
       <Header name="Período de Aluguer"/>
       <div className="content">
-        <PreviewCard />
+        <PreviewCard id={id} />
         <p className="info">Seleciona o primeiro e o último dia de aluguer</p>
         <Calendar
           onChange={handleDateChange}

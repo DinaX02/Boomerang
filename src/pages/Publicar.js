@@ -251,7 +251,7 @@ const Publicar = () => {
           className="productFormInput"
           type="text"
           id="title"
-          placeholder="Ex: Casaco de Pele Preto"
+          placeholder="Ex: Casaco de Pele Preto" style={{fontSize:"15px"}}
           value={title}
           onChange={(e) =>
             dispatch(
@@ -272,9 +272,10 @@ const Publicar = () => {
         <ProductFormInput
           className="productFormInput"
           id="description"
-          placeholder="Ex: Casaco de Pele em bom estado. Usada poucas vezes."
+          placeholder="Ex: Casaco de Pele em bom estado." style={{fontSize:"15px"}}
           value={description}
           onChange={(e) => handleDescriptionChange(e)}
+          data-testid="description-input"
         />
 
         <Label htmlFor="description">
