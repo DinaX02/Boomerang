@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 // import Modal from '../components/Modal'
 // import Button from '../components/Button';
@@ -18,6 +18,7 @@ import Article from "../components/Article";
 
 //Pagina do perfil
 const Profile = () => {
+    const navigate = useNavigate();
     const num = 20;
     const hasArmarioPecas = true;
     const hasFavoritos = true;
@@ -44,6 +45,11 @@ const Profile = () => {
             { image: articleMockupImage, icon: CertoIcon },
         ],
     ];
+
+    const handleClickLogout = () => {
+        localStorage.removeItem('login');
+        navigate('/');
+    }
 
     return (
         <ProfileStyle>
@@ -79,7 +85,7 @@ const Profile = () => {
                         {/* <Link to={'/settings-page'}>
                             <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
                         </Link> */}
-                        <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" />
+                        <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" onClick={handleClickLogout} />
                     </div>
                 </div>
                 <div className='detalhesCentraisPerfil'>
@@ -181,7 +187,7 @@ const Profile = () => {
 
 const ProfileStyle = styled.div`
 .containerFixo {
-    position: fixed;
+    position: relative;
     background-color: #f8f8f8;
     z-index: 100;
     width: 100%;
@@ -311,7 +317,7 @@ hr.divisorPerfil {
 }
 
 .sectionsContainer {
-    padding-top: 335px;
+    padding-top: 18px;
     overflow-y: auto;
     margin: 0 24px 100px;
 }
