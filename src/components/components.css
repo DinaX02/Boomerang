@@ -409,7 +409,7 @@ margin-top: 2.5em;
 /* -----Publicar Page----- */
 
 .publicarPage{
-  height: calc(100vh- 67px);
+  height: calc(100vh - 67px);
   overflow-x: hidden;
 }
 
@@ -465,7 +465,7 @@ margin-top: 2.5em;
   }
 
   .productForm {
-    height: calc(100vh- 67px);
+    height: calc(100vh - 67px);
    }
 
    .imagePreviewImg {
@@ -602,7 +602,6 @@ margin-top: 2.5em;
   }
   
   .filterButton{
-  margin-left: 50px;
   background-color: #00C17C;
     width: 50px;
     height: 50px;

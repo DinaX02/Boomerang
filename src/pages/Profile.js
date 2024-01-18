@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 // import Modal from '../components/Modal'
 // import Button from '../components/Button';
@@ -18,11 +18,12 @@ import Article from "../components/Article";
 
 //Pagina do perfil
 const Profile = () => {
-  const num = 20;
-  const hasArmarioPecas = true;
-  const hasFavoritos = true;
-  const hasEncomendas = true;
-  // const [fecharModal, setFecharModal] = useState(true);
+    const navigate = useNavigate();
+    const num = 20;
+    const hasArmarioPecas = true;
+    const hasFavoritos = true;
+    const hasEncomendas = true;
+    // const [fecharModal, setFecharModal] = useState(true);
 
   const articleSections = [
     // Array para a seção "Armário"
@@ -44,6 +45,11 @@ const Profile = () => {
       { image: articleMockupImage, icon: CertoIcon },
     ],
   ];
+
+    const handleClickLogout = () => {
+        localStorage.removeItem('login');
+        navigate('/');
+    }
 
   return (
     <ProfileStyle>
@@ -87,33 +93,30 @@ const Profile = () => {
             {/* <Link to={'/settings-page'}>
                             <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
                         </Link> */}
-            <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" />
-          </div>
-        </div>
-        <div className="detalhesCentraisPerfil">
-          <div className="contagemContainer">
-            <div className="contagem">
-              <span>25</span>
-              <p>Artigos</p>
+                        <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" onClick={handleClickLogout}/>
+                    </div>
+                </div>
+                <div className='detalhesCentraisPerfil'>
+                    <div className='contagemContainer'>
+                        <div className='contagem'>
+                            <span>25</span>
+                            <p>Artigos</p>
+                        </div>
+                        <div className='contagem'>
+                            <span>4.8</span>
+                            <p>Estrelas</p>
+                        </div>
+                    </div>
+                    <hr className='divisorPerfil'></hr>
+                    <div className='editarBiografia'>
+                        <div className='tituloBiografiaContainer'>
+                            <span className='tituloBiografia'>Biografia</span>
+                        </div>
+                        <p className='textoBiografia'>Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia.</p>
+                    </div>
+                </div>
+                <hr className='divisorPerfil fundo'></hr>
             </div>
-            <div className="contagem">
-              <span>4.8</span>
-              <p>Estrelas</p>
-            </div>
-          </div>
-          <hr className="divisorPerfil"></hr>
-          <div className="editarBiografia">
-            <div className="tituloBiografiaContainer">
-              <span className="tituloBiografia">Biografia</span>
-            </div>
-            <p className="textoBiografia">
-              Sou apaixonada por moda e tenho sempre em conta opções mais
-              sustentáveis no meu dia-a-dia.
-            </p>
-          </div>
-        </div>
-        <hr className="divisorPerfil fundo"></hr>
-      </div>
 
       <div className="sectionsContainer">
         <div className="sectionArmario">
@@ -203,14 +206,16 @@ const Profile = () => {
 };
 
 const ProfileStyle = styled.div`
+.containerFixo {
   ::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
 
   .containerFixo {
-    position: fixed;
+    position: relative;
     background-color: #f8f8f8;
     z-index: 100;
     width: 100%;
@@ -339,8 +344,8 @@ const ProfileStyle = styled.div`
     width: 100%;
   }
 
-  .sectionsContainer {
-    padding-top: 335px;
+.sectionsContainer {
+    padding-top: 18px;
     overflow-y: auto;
     margin: 0 24px 100px;
   }
