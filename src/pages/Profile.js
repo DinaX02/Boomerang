@@ -14,12 +14,23 @@ import FavoritosEmptyIcon from "../assets/icons/favoritos.svg";
 import EncomendasIcon from "../assets/icons/encomendas.svg";
 import MenuMobile from "../components/MenuMobile";
 import articleMockupImage from "../assets/article_mockup_image.jpg";
-import Article from "../components/Article";
+import casaco1 from "../assets/casaco_preto_1.png"
+import vestido1 from "../assets/vestido_preto_1.png"
+import vestidoImportant from "../assets/user_mockup_image.jpg"
+import casaco2 from "../assets/casaco_preto_2.png"
+import casaco3 from "../assets/casaco_preto_3.png"
+import vestidopreto3 from "../assets/vestido_preto_3.png"
+import camisolaVerde from "../assets/camisolaverdeImg.JPG"
+import coletePreto from "../assets/coleteImgEncomenda.JPG"
+import casacoCastanho from "../assets/casacoCastanho.JPG"
+import camisolaAzul from "../assets/camisolaMalhaAzul.JPG"
 
 //Pagina do perfil
 const Profile = () => {
     const navigate = useNavigate();
-    const num = 20;
+    const numArmario = 3;
+    const numFav = 3;
+    const numEncomendas = 5;
     const hasArmarioPecas = true;
     const hasFavoritos = true;
     const hasEncomendas = true;
@@ -28,21 +39,23 @@ const Profile = () => {
   const articleSections = [
     // Array para a seção "Armário"
     [
+        { image: vestidoImportant },
         { image: articleMockupImage },
-        { image: articleMockupImage },
-        { image: articleMockupImage },
+        { image: vestido1},
     ],
     // Array para a seção "Favoritos"
     [
-      { image: articleMockupImage, icon: FavoritosIcon },
-      { image: articleMockupImage, icon: FavoritosIcon },
-      { image: articleMockupImage, icon: FavoritosIcon },
+      { image: casaco1, icon: FavoritosIcon },
+      { image: casaco2, icon: FavoritosIcon },
+      { image: vestidopreto3, icon: FavoritosIcon },
     ],
     // Array para a seção "Encomendas"
     [
-      { image: articleMockupImage, icon: CertoIcon },
-      { image: articleMockupImage, icon: CertoIcon },
-      { image: articleMockupImage, icon: CertoIcon },
+      { image: casaco3, icon: CertoIcon },
+      { image: coletePreto, icon: CertoIcon },
+      { image: casacoCastanho, icon: CertoIcon },
+      { image: camisolaVerde, icon: CertoIcon },
+      { image: camisolaAzul, icon: CertoIcon },
     ],
   ];
 
@@ -117,22 +130,30 @@ const Profile = () => {
                 </div>
                 <hr className='divisorPerfil fundo'></hr>
             </div>
-
-      <div className="sectionsContainer">
+            <div className="sectionsContainer">
         <div className="sectionArmario">
           <div className="sectionTitulo">
             <span>Armário</span>
             {hasArmarioPecas && (
-              <Link to={"/profile-page"}>Ver mais ({num})</Link>
+              <Link to={"/profile-page"}>Total ({numArmario})</Link>
             )}
           </div>
           {hasArmarioPecas ? (
             <div className="articles">
-              {articleSections[0].map((article, index) => (
-                <div className="pecaContainer" key={index}>
-                  <Article description={false} scale="0.8" />
-                </div>
-              ))}
+    {articleSections[0].map((article, index) => (
+  <div className="pecaContainer" key={index} style={{ width: '113.55px', height: '144px' }}>
+    <img
+      src={article.image}
+      alt={`article_image_${index}`}
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        borderRadius: '5px',
+      }}
+    />
+  </div>
+))}
             </div>
           ) : (
             <div className="emptyState">
@@ -143,21 +164,33 @@ const Profile = () => {
             </div>
           )}
         </div>
+
         <div className="sectionFavoritos">
           <div className="sectionTitulo">
             <span>Favoritos</span>
-            {hasFavoritos && <Link to={"/profile-page"}>Ver mais ({num})</Link>}
+            {hasFavoritos && <Link to={"/profile-page"}>Total ({numFav})</Link>}
           </div>
           {hasFavoritos ? (
             <div className="articles">
               {articleSections[1].map((article, index) => (
-                <div className="pecaContainer" key={index}>
-                  <Article description={false} scale="0.8" />
-                  <img
-                    className="iconPeca"
-                    src={article.icon}
-                    alt={`heart_icon_${index}`}
-                  />
+                <div className="pecaContainer" key={index} style={{ width: '113.55px', height: '144px' }}>
+                  {article.image ? (
+                                   <img src={article.image} style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    borderRadius: '5px',
+                                  }}/>
+                  ) : (
+                    <span>Imagem não disponível</span>
+                  )}
+                  {article.icon && (
+                    <img
+                      className="iconPeca"
+                      src={article.icon}
+                      alt={`heart_icon_${index}`}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -170,23 +203,35 @@ const Profile = () => {
             </div>
           )}
         </div>
+
         <div className="sectionEncomendas">
           <div className="sectionTitulo">
             <span>Encomendas</span>
             {hasEncomendas && (
-              <Link to={"/profile-page"}>Ver mais ({num})</Link>
+              <Link to={"/profile-page"}>Total ({numEncomendas})</Link>
             )}
           </div>
           {hasEncomendas ? (
             <div className="articles">
               {articleSections[2].map((article, index) => (
-                <div className="pecaContainer" key={index}>
-                  <Article description={false} scale="0.8" />
-                  <img
-                    className="iconPeca"
-                    src={article.icon}
-                    alt={`icon_${index}`}
-                  />
+                <div className="pecaContainer" key={index} style={{ width: '113.55px', height: '144px' }}>
+                  {article.image ? (
+                                     <img src={article.image} style={{
+                                      width: "100%",
+                                      height: "144px",
+                                      objectFit: "cover",
+                                      borderRadius: "5px",
+                                    }}/>
+                  ) : (
+                    <span>Imagem não disponível</span>
+                  )}
+                  {article.icon && (
+                    <img
+                      className="iconPeca"
+                      src={article.icon}
+                      alt={`icon_${index}`}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -200,6 +245,7 @@ const Profile = () => {
           )}
         </div>
       </div>
+
       <MenuMobile></MenuMobile>
     </ProfileStyle>
   );
@@ -347,7 +393,14 @@ const ProfileStyle = styled.div`
 .sectionsContainer {
     padding-top: 18px;
     overflow-y: auto;
-    margin: 0 24px 100px;
+    margin: 1em 24px 100px;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
   }
 
   .sectionTitulo {
@@ -366,10 +419,15 @@ const ProfileStyle = styled.div`
   }
 
   .articles {
-    margin: 5px 0;
-    display: flex;
-    gap: 5px;
-    overflow: scroll;
+      margin-top: 0.6em;
+      margin-bottom: 0.6em;
+      padding: 10px 0px;
+      display: flex;
+      gap: 10px;
+      overflow: scroll;
+      *{
+        flex-shrink: 0;
+    }
   }
 
   .articles img {
@@ -392,7 +450,7 @@ const ProfileStyle = styled.div`
     border-radius: 0;
     box-shadow: none;
     right: 0;
-    padding: 20px 15px 0 0;
+    padding: 7px 11px 0 0;
     top: 0;
   }
 
@@ -434,7 +492,7 @@ const ProfileStyle = styled.div`
     }
 
     .sectionsContainer {
-      padding-top: 370px;
+      padding-top: 2em;
     }
     .editarBiografia {
       font-size: 18px;
