@@ -8,6 +8,8 @@ import CustomizedSteppers from "../ProgressBar";
 import ChooseAdressComponent from "../ChooseAdressComponent"
 import OverlayFinalPublish from "../OverlayFinalPublish";
 import iconOverlay from "../../assets/icons/tick_iconOverlayFInal.svg"
+import { useDispatch, useSelector } from "react-redux";
+import {resetProgressPublish1} from "../../redux/publicarSlice";
 
 const ContainerCentered = styled.div`
   display: flex;
@@ -51,6 +53,10 @@ const ProgressPublish5 = () => {
   const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
   const [showOverlayFinal, setShowOverlayFinal ]= useState(false);
 
+  const progressPublish1=useSelector((state) => state.Publicar1.progressPublish1);
+
+  const dispatch = useDispatch();
+
   const handleAddressSelect = () => {
     console.log("handleAddressSelect estado");
     setBtnPublicarEnabled(true);
@@ -70,6 +76,10 @@ const ProgressPublish5 = () => {
   const handleNextStepPublish = () => {
     setShowOverlayFinal(true);
     setTimeout(() => {
+      localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
+
+      dispatch(resetProgressPublish1());
+
       setShowOverlayFinal(false);
       navigate("/");
     }, 3000);
