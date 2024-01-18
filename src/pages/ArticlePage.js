@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
-import articleMockupImage from "../assets/article_mockup_image.jpg"
 import ProfileLink from "../components/ProfileLink";
 import {useNavigate} from "react-router-dom";
 import arrowBack from "../assets/back_arrow.svg";
@@ -14,6 +13,7 @@ import Button
  from '../components/Button';
 import { useParams } from 'react-router-dom';
 import artigosJSON from '../data/artigos.json'
+import mockupprofile from '../assets/user_mockup_image.jpg'
  
 const ArticlePage = (props) => {
     const navigate = useNavigate();
@@ -80,7 +80,7 @@ const ArticlePage = (props) => {
 
             <div className={'articleHeader'}>
                 <div className={'user'}>
-                    <ProfileLink zoom={1.1}/>
+                    <ProfileLink zoom={1.1} image={mockupprofile}/>
                     <div>
                         <div>maria_carmo</div>
                         <div className={'stars'}>
@@ -134,11 +134,12 @@ const ArticlePage = (props) => {
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Medidas da Peça</div>
-                {Object.entries(item.measurements).map(([propertyName, propertyValue]) => (
-                    <div key={propertyName}>
-                        {propertyName}: {propertyValue}
-                    </div>
-                ))}
+                {item.measurements && Object.entries(item.measurements).map(([propertyName, propertyValue]) => (
+    <div key={propertyName}>
+        {propertyName}: {propertyValue}
+    </div>
+))}
+
             </div>
 
         </ArticlePageStyle>

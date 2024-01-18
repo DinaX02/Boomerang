@@ -175,7 +175,7 @@ const Profile = () => {
               {articleSections[1].map((article, index) => (
                 <div className="pecaContainer" key={index} style={{ width: '113.55px', height: '144px' }}>
                   {article.image ? (
-                                   <img src={article.image} style={{
+                                   <img src={article.image} alt="article" style={{
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'cover',
@@ -216,7 +216,7 @@ const Profile = () => {
               {articleSections[2].map((article, index) => (
                 <div className="pecaContainer" key={index} style={{ width: '113.55px', height: '144px' }}>
                   {article.image ? (
-                                     <img src={article.image} style={{
+                                     <img src={article.image} alt="article" style={{
                                       width: "100%",
                                       height: "144px",
                                       objectFit: "cover",

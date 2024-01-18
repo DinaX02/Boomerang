@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import ProfileLink from "./ProfileLink";
+import mockupprofile from "../assets/user_mockup_image.jpg"
 
 const ChatLink = (props) => {
     return (
@@ -10,9 +11,9 @@ const ChatLink = (props) => {
         //TODO: alterar imagens e informações para o artigo//
 
         <ChatLinkStyle to={`/chat`} key={props.index}>
-            <ProfileLink zoom={1.2}/>
+            <ProfileLink zoom={1.2} image={mockupprofile}/>
             <div className={'chatLinkText'}>
-                <div>solange_ng</div>
+                <div>maria_carmo</div>
                 <div>Boa noite, em que posso ajudar?</div>
             </div>
         </ChatLinkStyle>
