@@ -93,7 +93,7 @@ const Profile = () => {
             {/* <Link to={'/settings-page'}>
                             <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
                         </Link> */}
-                        <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" />
+                        <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" onClick={handleClickLogout}/>
                     </div>
                 </div>
                 <div className='detalhesCentraisPerfil'>
@@ -207,15 +207,15 @@ const Profile = () => {
 
 const ProfileStyle = styled.div`
 .containerFixo {
-    position: relative;
   ::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
 
   .containerFixo {
-    position: fixed;
+    position: relative;
     background-color: #f8f8f8;
     z-index: 100;
     width: 100%;
