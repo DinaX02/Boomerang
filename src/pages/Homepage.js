@@ -12,7 +12,7 @@ import person2 from '../assets/homepage_people/person2.jpg'
 import person3 from '../assets/homepage_people/person3.jpg'
 import person4 from '../assets/homepage_people/person4.jpg'
 import person5 from '../assets/homepage_people/person5.jpg'
-import mockupprofile from '../assets/user_mockup_image.jpg'
+import mockupprofile from '../assets/perfil/user_mockup_image.jpg'
 
 
 const Homepage = () => {

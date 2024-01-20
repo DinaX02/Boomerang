@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import imgDefaultPreview from '../assets/img_default_card_preview.svg';
+import imgDefaultPreview from '../assets/icons/img_default_card_preview.svg';
 import artigosJSON from "../data/artigos.json";
 import styled from 'styled-components';
-import iconInfo from '../assets/infoIcon.svg';
+import iconInfo from '../assets/icons/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import Modal from "./Modal";
 import {useSelector} from "react-redux";

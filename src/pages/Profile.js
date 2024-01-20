@@ -13,17 +13,17 @@ import ClosetIcon from "../assets/icons/closet.svg";
 import FavoritosEmptyIcon from "../assets/icons/favoritos.svg";
 import EncomendasIcon from "../assets/icons/encomendas.svg";
 import MenuMobile from "../components/MenuMobile";
-import articleMockupImage from "../assets/article_mockup_image.jpg";
-import casaco1 from "../assets/casaco_preto_1.png"
-import vestido1 from "../assets/vestido_preto_1.png"
-import vestidoImportant from "../assets/user_mockup_image.jpg"
-import casaco2 from "../assets/casaco_preto_2.png"
-import casaco3 from "../assets/casaco_preto_3.png"
-import vestidopreto3 from "../assets/vestido_preto_3.png"
-import camisolaVerde from "../assets/camisolaverdeImg.JPG"
-import coletePreto from "../assets/coleteImgEncomenda.JPG"
-import casacoCastanho from "../assets/casacoCastanho.JPG"
-import camisolaAzul from "../assets/camisolaMalhaAzul.JPG"
+import articleMockupImage from "../assets/perfil/article_mockup_image.jpg";
+import casaco1 from "../assets/perfil/casaco_preto_1.png"
+import vestido1 from "../assets/perfil/vestido_preto_1.png"
+import vestidoImportant from "../assets/perfil/user_mockup_image.jpg"
+import casaco2 from "../assets/perfil/casaco_preto_2.png"
+import casaco3 from "../assets/perfil/casaco_preto_3.png"
+import vestidopreto3 from "../assets/perfil/vestido_preto_3.png"
+import camisolaVerde from "../assets/perfil/camisolaverdeImg.JPG"
+import coletePreto from "../assets/perfil/coleteImgEncomenda.JPG"
+import casacoCastanho from "../assets/perfil/casacoCastanho.JPG"
+import camisolaAzul from "../assets/perfil/camisolaMalhaAzul.JPG"
 
 //Pagina do perfil
 const Profile = () => {

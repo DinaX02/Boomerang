@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
 import { Link} from 'react-router-dom';
-import addPagamentoIcon from '../assets/icon_AddMorada.png';
+import addPagamentoIcon from '../assets/icons/icon_AddMorada.png';
 import iconPagamentoSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';

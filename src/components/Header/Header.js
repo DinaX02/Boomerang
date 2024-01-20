@@ -1,5 +1,5 @@
 import React from "react";
-import arrowBack from "../../assets/back_arrow.svg"
+import arrowBack from "../../assets/icons/back_arrow.svg"
 import "./../components.css";
 import { useNavigate } from "react-router-dom";
 

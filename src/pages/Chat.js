@@ -3,8 +3,8 @@ import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import SendRoundedIcon from '@mui/icons-material/SendRounded';
 import PhotoCameraBackRoundedIcon from '@mui/icons-material/PhotoCameraBackRounded';
-import arrowBack from "../assets/back_arrow.svg";
-import userMockupImage from "../assets/user_mockup_image.jpg";
+import arrowBack from "../assets/icons/back_arrow.svg";
+import userMockupImage from "../assets/perfil/user_mockup_image.jpg";
 
 const Chat = () => {
     const navigate = useNavigate();

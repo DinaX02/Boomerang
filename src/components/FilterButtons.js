@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import filtro from '../assets/Filter_button.png';
-import closeFilter from '../assets/eliminar.svg';
-import maisFilter from '../assets/Filter_mais.png';
-import menosFilter from '../assets/Filter_menos.png';
+import filtro from '../assets/icons/Filter_button.png';
+import closeFilter from '../assets/icons/eliminar.svg';
+import maisFilter from '../assets/icons/Filter_mais.png';
+import menosFilter from '../assets/icons/Filter_menos.png';
 
 const FilterButtons = () => {
     const [showFilters, setShowFilters] = useState(false);

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import ProfileLink from "./ProfileLink";
-import mockupprofile from "../assets/user_mockup_image.jpg"
+import mockupprofile from "../assets/perfil/user_mockup_image.jpg"
 
 const ChatLink = (props) => {
     return (

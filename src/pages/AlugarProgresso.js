@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header/Header";
 import styled from "styled-components";
 import Button from "../components/Button";
-import IconProgresso from "../assets/icon_progresso.png";
+import IconProgresso from "../assets/icons/icon_progresso.png";
 import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.div`

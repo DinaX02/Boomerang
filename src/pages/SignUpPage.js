@@ -8,7 +8,7 @@ import Input from '../components/Input';
 import Modal from '../components/Modal';
 import ButtonForOpenBottomSheetSignUp from "../components/ButtonForOpenBottomSheetSignUp";
 import Button from '../components/Button';
-import BottomSheetGender from '../components/BottomSheetGender';
+import BottomSheetGender from '../components/BottomSheets/BottomSheetGender';
 
 const SignUpPage = () => {
   const [inputNomeValue, setInputNomeValue] = useState('');

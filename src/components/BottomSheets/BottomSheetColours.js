@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import Draggable from "react-draggable";
 import styled from "styled-components";
-import MulticorSvg from "../assets/cores/multicolor.svg";
-import PretoSvg from "../assets/cores/preto.svg";
-import BrancoSvg from "../assets/cores/branco.svg";
-import VermelhoSvg from "../assets/cores/vermelho.svg";
-import VerdeSvg from "../assets/cores/verde.svg";
-import AzulSvg from "../assets/cores/azul.svg";
-import AmareloSvg from "../assets/cores/amarelo.svg";
+import MulticorSvg from "../../assets/cores/multicolor.svg";
+import PretoSvg from "../../assets/cores/preto.svg";
+import BrancoSvg from "../../assets/cores/branco.svg";
+import VermelhoSvg from "../../assets/cores/vermelho.svg";
+import VerdeSvg from "../../assets/cores/verde.svg";
+import AzulSvg from "../../assets/cores/azul.svg";
+import AmareloSvg from "../../assets/cores/amarelo.svg";
 
 const ModalContainer = styled(animated.div)`
   position: fixed;

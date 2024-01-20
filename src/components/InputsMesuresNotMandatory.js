@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
-import InfoIconMesures from "../assets/infoIcon.svg";
+import InfoIconMesures from "../assets/icons/infoIcon.svg";
 import Modal from "./Modal";
-import ImgMesuresModal from "../assets/overlay_dress_mesures.svg"
+import ImgMesuresModal from "../assets/icons/overlay_dress_mesures.svg"
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressPublish1 } from '../redux/publicarSlice';
 

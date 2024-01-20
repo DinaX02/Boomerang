@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import imgDefaultPreview from '../assets/img_default_card_preview.svg';
+import imgDefaultPreview from '../assets/icons/img_default_card_preview.svg';
 import artigosJSON from "../data/artigos.json";
 
 const PreviewCard = (props) => {
