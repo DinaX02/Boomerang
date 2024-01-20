@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from '../assets/logo_boomerang_navbar.svg'
+import logo from '../assets/icons/logo_boomerang_navbar.svg'
 import InstallButton from '../components/InstallButton'
 import { Link } from 'react-router-dom'
 

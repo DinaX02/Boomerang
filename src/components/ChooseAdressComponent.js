@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link} from 'react-router-dom';
-import addMoradaIcon from '../assets/icon_AddMorada.png';
-import iconPontoRecolho from '../assets/icon_PontoRecolha.png';
-import dropPontoRecolha from '../assets/drop_PontoRecolha.png';
+import addMoradaIcon from '../assets/icons/icon_AddMorada.png';
+import iconPontoRecolho from '../assets/icons/icon_PontoRecolha.png';
+import dropPontoRecolha from '../assets/icons/drop_PontoRecolha.png';
 import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
 

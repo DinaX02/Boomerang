@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import Draggable from "react-draggable";
 import styled from "styled-components";
-import DropdownIcon from "../assets/icons/SwipeIcon.svg"
+import DropdownIcon from "../../assets/icons/SwipeIcon.svg"
 
 const ModalContainer = styled(animated.div)`
   position: fixed;

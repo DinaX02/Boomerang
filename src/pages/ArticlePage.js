@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import ProfileLink from "../components/ProfileLink";
 import {useNavigate} from "react-router-dom";
-import arrowBack from "../assets/back_arrow.svg";
+import arrowBack from "../assets/icons/back_arrow.svg";
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -13,8 +13,8 @@ import Button
  from '../components/Button';
 import { useParams } from 'react-router-dom';
 import artigosJSON from '../data/artigos.json'
-import mockupprofile from '../assets/user_mockup_image.jpg'
-import InfoIconTaxa from "../assets/infoIcon.svg"
+import mockupprofile from '../assets/perfil/user_mockup_image.jpg'
+import InfoIconTaxa from "../assets/icons/infoIcon.svg"
 import Modal from "../components/Modal"
  
 const ArticlePage = (props) => {

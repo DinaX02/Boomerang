@@ -5,7 +5,7 @@ import Button from "../Button";
 import InputMeasuresNotMandatory from "../InputsMesuresNotMandatory";
 import ButtonWithInfoIcon from "../ButtonWithInfoIcon";
 import HeaderPublish from "../Header/HeaderPublicar";
-import BottomSheet from "../BottomSheetCondition";
+import BottomSheet from "../BottomSheets/BottomSheetCondition";
 import Draggable from "react-draggable";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";

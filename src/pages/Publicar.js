@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CustomizedSteppers from "../components/ProgressBar";
 import ModalAlertaForPublish from "../components/ProgressPublish/ModalAlertaForPublish";
 import HeaderPublish from "../components/Header/HeaderPublicar";
-import EliminarImage from "../assets/eliminar.svg";
+import EliminarImage from "../assets/icons/eliminar.svg";
 import Button from "../components/Button";
 
 const ProductForm = styled.div`

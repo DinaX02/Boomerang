@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import InfoIconMesures from "../assets/infoIcon.svg";
+import InfoIconMesures from "../assets/icons/infoIcon.svg";
 import Modal from "./Modal";
 
 const Container = styled.div`

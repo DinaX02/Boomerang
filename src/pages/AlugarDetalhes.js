@@ -4,7 +4,7 @@ import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from 'styled-components';
 import PreviewCard from '../components/PreviewCard';
 import iconFolha from '../assets/icons/fa-solid_leaf.svg';
-import iconInfo from '../assets/infoIcon.svg';
+import iconInfo from '../assets/icons/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';

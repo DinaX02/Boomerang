@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import InfoIconMesures from "../assets/infoIcon.svg";
-import DropdownIcon from "../assets/dropdownicon.svg";
+import InfoIconMesures from "../assets/icons/infoIcon.svg";
+import DropdownIcon from "../assets/icons/dropdownicon.svg";
 import Modal from "./Modal";
 import { useSelector } from "react-redux";
 
