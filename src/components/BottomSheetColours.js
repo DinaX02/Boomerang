@@ -19,7 +19,7 @@ const ModalContainer = styled(animated.div)`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   cursor: grab;
-  max-height: 405px;
+  max-height: 415px;
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

@@ -109,7 +109,7 @@ const InputBrands = (props) => {
                             !inputValue ||
                             brand.toLowerCase().startsWith(inputValue.toLowerCase())
                         )
-                        .slice(0, 10)
+                        .slice(0, 5)
                         .map((brand, index) => (
                           <div
                             {...getItemProps({

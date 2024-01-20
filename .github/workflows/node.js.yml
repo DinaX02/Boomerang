@@ -1,10 +1,10 @@
 name: Node.js CI
 
 on:
-  # push:
-  #   branches: ['**']
-  pull_request:
-    branches: ["master", "new-feature"]
+  push:
+    branches: ['**']
+  # pull_request:
+  #   branches: ["master", "new-feature"]
 
 jobs:
   setup-inicial:
@@ -35,9 +35,9 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'master'
+    if:  github.ref == 'refs/heads/master' 
 
-    needs: [setup-inicial, test]   #só corre em caso de sucesso do bob (continue-on-error está definido false por defeito)
+    needs: [setup-inicial, test]
     
     steps:
       - uses: actions/checkout@v3
