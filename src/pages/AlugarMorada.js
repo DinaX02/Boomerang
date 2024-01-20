@@ -5,7 +5,7 @@ import { Link} from 'react-router-dom';
 import addMoradaIcon from '../assets/icon_AddMorada.png';
 import iconPontoRecolho from '../assets/icon_PontoRecolha.png';
 import dropPontoRecolha from '../assets/drop_PontoRecolha.png';
-import iconMoradaSelect from '../assets/icon_Morada_select.png';
+import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 // import Modal from '../components/Modal'
@@ -64,24 +64,13 @@ const Profile = () => {
         navigate('/');
     }
 
+    useEffect(() => {
+      // dar reset ao scroll quando se entrar aqui :)
+      window.scrollTo(0, 0);
+    }, []);
+
   return (
     <ProfileStyle>
-      {/* <Button
-                text={"Próximo"}
-                disable={true}
-                onClick={()=>{
-                    setFecharModal(!fecharModal);
-                }}
-            />
-            <button onClick={() => {
-                setFecharModal(!fecharModal);
-            }}>Abrir modal</button>
-            
-            <Modal
-                fecharModal={fecharModal}
-                setFecharModal={setFecharModal}
-                message="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in"
-            /> */}
       <div className="containerFixo">
         <div className="perfilIconsContainer">
           <div className="editarPerfil">
