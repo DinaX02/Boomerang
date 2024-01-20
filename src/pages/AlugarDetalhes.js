@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Header from '../components/Header/Header';
-import NavbarWeb from '../components/NavbarWeb';
 import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from 'styled-components';
 import PreviewCard from '../components/PreviewCard';
@@ -9,6 +8,7 @@ import iconInfo from '../assets/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
+import Modal from '../components/Modal';
 
 const MainContainer = styled.div`
   margin: -45px 0 0 0;
@@ -84,14 +84,30 @@ visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
 
 `;
 
+const ParagraphMessageModal1p = styled.span`
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 1rem;
+`;
+
 const AlugarDetalhes = () => {
     const [lavagemSelecionada, setLavagemSelecionada] = useState(null);
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
+    const [fecharModal, setFecharModal] = useState(true);
+    const [fecharModal2, setFecharModal2] = useState(true); 
     console.log("lista",list)
 
     const navigate = useNavigate();
+
+    const handleIconClick = () => {
+        setFecharModal(false);
+      };
+
+    const handleIconClick2 = () => {
+        setFecharModal2(false);
+      };
 
     const lavagens = [
         { nome: 'Lavandaria Sustentável', valor: 5 },
@@ -120,10 +136,28 @@ const AlugarDetalhes = () => {
 
     return (
         <div>
-            <NavbarWeb />
             <Header name="Detalhes de Aluguer" />
             <MainContainer>
-
+            <Modal
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        message={
+          <ParagraphMessageModal1p>
+<strong>Vale de 1 lavagem</strong> numa lavandaria parceira com consumo energético reduzido.
+Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo aluguer.
+          </ParagraphMessageModal1p>
+        }
+      />
+                  <Modal
+        fecharModal={fecharModal2}
+        setFecharModal={setFecharModal2}
+        message={
+          <ParagraphMessageModal1p>
+        Transportadora parceira com consumo energético reduzido. Inclui <strong><i>tracking</i></strong> da encomenda.
+        Com esta opção tens direito a um <strong>cupão de 7%</strong>  no teu próximo aluguer
+          </ParagraphMessageModal1p>
+        }
+      />
             <PreviewCard id={list.article_id} valor={list.total}/>
                 <div style={{ paddingTop: "25px" }}>
 
@@ -145,7 +179,7 @@ const AlugarDetalhes = () => {
                                 <button style={{
                                     backgroundColor: "transparent",
                                     border: "none",
-                                }}><img style={{
+                                }}><img  onClick={handleIconClick} style={{
                                     width: "17px",
                                 }} src={iconInfo} alt="icon"></img></button>
                             </ButtonInfo>
@@ -179,7 +213,7 @@ const AlugarDetalhes = () => {
                                     border: "none",
                                 }}><img style={{
                                     width: "17px",
-                                }} src={iconInfo} alt="icon"></img></button>
+                                }} src={iconInfo} alt="icon" onClick={handleIconClick2}></img></button>
                             </ButtonInfo>
                         </MainSelection>
                     ))}
