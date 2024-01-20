@@ -14,12 +14,15 @@ import Button
 import { useParams } from 'react-router-dom';
 import artigosJSON from '../data/artigos.json'
 import mockupprofile from '../assets/user_mockup_image.jpg'
+import InfoIconTaxa from "../assets/infoIcon.svg"
+import Modal from "../components/Modal"
  
 const ArticlePage = (props) => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const { id } = useParams();
     const [item, setItem] = useState({});
+    const [fecharModal, setFecharModal] = useState(true); 
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -37,6 +40,9 @@ const ArticlePage = (props) => {
     });
   }, [item, id])
     
+   const handleIconClick = () => {
+        setFecharModal(false);
+      };
 
   useEffect(() => {
     // dar reset ao scroll quando se entrar aqui :)
@@ -45,6 +51,15 @@ const ArticlePage = (props) => {
 
     return (
         <ArticlePageStyle>
+           <Modal
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        message={
+          <ParagraphMessageModal1p>
+Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.
+          </ParagraphMessageModal1p>
+        }
+      />
             <div className={'headerBoomerang'}>
                 <div onClick={() => {navigate(-1)}} className={'back'}>
                     <img data-testid="svg-icon" src={arrowBack}  style={{ cursor: "pointer" }} alt="arrow go back" />
@@ -108,10 +123,10 @@ const ArticlePage = (props) => {
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Valor Estimado do Artigo</div>
-                <div>60€</div>
+                <div style={{marginBottom: "1.5em"}}>60€</div>
                 <div className={'title'}>Preço do Aluguer por dia</div>
                 <div>{item.dailyRentalPrice}€ / dia</div>
-                <div>Taxa de Proteção Obrigatória</div>
+                <div style={{marginTop: "1.5em", fontWeight: "bold", display:"flex", alignItems:"center"}}>Taxa de Proteção Obrigatória <img style={{marginLeft: "0.5em"}} src={InfoIconTaxa} alt='infoICon' onClick={handleIconClick}/></div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Descrição</div>
@@ -247,4 +262,10 @@ const ArticlePageStyle = styled.div`
   
 
 `
+const ParagraphMessageModal1p = styled.span`
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 1rem;
+`;
+
 export default ArticlePage
