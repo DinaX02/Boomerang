@@ -11,7 +11,7 @@ const DownloadPage = () => {
         <img src={logo} alt='Boomerang Logo'></img>
         <h1>Instala a app para uma melhor experiência.</h1>
         <InstallButton></InstallButton>
-        <Link to="/onBoarding">Ignorar mensagem</Link>
+        <Link to="/onBoarding">Explorar sem instalar</Link>
     </DownloadDiv>
   )
 }
@@ -30,10 +30,12 @@ margin-top: -70px;
 h1{
   font-weight: 600 !important;
   font-size: 1.6rem !important;
+    margin-bottom: 20px; 
   width: 80vw;
 }
 button{
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 a{

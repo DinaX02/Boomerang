@@ -1,5 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Button from '../components/Button'
+import styled from "styled-components";
+
+const ButtonInstallPwa = styled.button`
+    background-color: #343541 !important;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    width: auto;
+    height: 36px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px transparent;
+    font-family: Montserrat;
+`
 
 const InstallButton = () => {
   const [supportsPWA, setSupportsPWA] = useState(false);
@@ -25,14 +38,13 @@ const InstallButton = () => {
   };
 
   return (
-    <Button
+    <ButtonInstallPwa
       className="download-button"
       onClick={handleInstallClick}
       disabled={!supportsPWA}
-      text="Download App"
     >
-      Install PWA
-    </Button>
+      Download App
+    </ButtonInstallPwa>
   );
 };
 
