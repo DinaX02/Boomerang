@@ -1,14 +1,13 @@
 import React from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import userMockupImage from "../assets/user_mockup_image.jpg";
 
 const ProfileLink = (props) => {
     return (
 
 
         <ProfileLinkStyle to={`/profile-page`} style={{zoom: props.zoom}}>
-            <img src={userMockupImage} className={'profileLink'}/>
+            <img src={props.image} className={'profileLink'}/>
             {props.name && <div className={'description'}>
                 {props.name}
             </div>}

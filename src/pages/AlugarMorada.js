@@ -94,6 +94,7 @@ const AlugarMorada = () => {
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
+    const [buttonDisable, setButtonDisable] = useState(false);
 
 
     useEffect(() => {
@@ -122,14 +123,14 @@ const AlugarMorada = () => {
             <NavbarWeb />
             <Header name="Morada" />
             <MainContainer>
-            <PreviewCard id={list[0].article_id} />
+            <PreviewCard id={list.article_id} valor={list.total}/>
 
 
                 {moradas.map((morada, index) => (
                     <MoradaSelecionada
                         key={index}
                         selecionada={morada === moradaSelecionada}
-                        onClick={() => setMoradaSelecionada(morada)}
+                        onClick={() => {setMoradaSelecionada(morada); setButtonDisable(true)}}
                     >
                         <ConteudoMorada>
                             <IconMoradaSelect
@@ -191,10 +192,10 @@ const AlugarMorada = () => {
                         float: "right",
                         marginTop: "9px",
 
-                    }} src={dropPontoRecolha} alt="Adicioanr Morada"></img>
+                    }} src={dropPontoRecolha} alt="Adicionar Morada"></img>
                 </PontoRecolha>
                 <ConfirmButton>
-                <Button onClick={handleNextStep} text="Confirmar"/>
+                <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar"/>
                 </ConfirmButton>
 
             </MainContainer>

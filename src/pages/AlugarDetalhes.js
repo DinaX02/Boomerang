@@ -89,6 +89,7 @@ const AlugarDetalhes = () => {
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
+    console.log("lista",list)
 
     const navigate = useNavigate();
 
@@ -123,7 +124,7 @@ const AlugarDetalhes = () => {
             <Header name="Detalhes de Aluguer" />
             <MainContainer>
 
-            <PreviewCard id={list[0].article_id} />
+            <PreviewCard id={list.article_id} valor={list.total}/>
                 <div style={{ paddingTop: "25px" }}>
 
                     {lavagens.map((lavagem, index) => (

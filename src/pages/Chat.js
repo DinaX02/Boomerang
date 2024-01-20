@@ -37,7 +37,7 @@ const Chat = () => {
                 </div>
                     <div className={'userDetails'}>
                         <img className={'userImage'} src={userMockupImage}/>
-                        <div>solange_ng</div>
+                        <div>maria_carmo</div>
                     </div>
             </div>
             <div className={'chatMessages'}>
@@ -52,7 +52,7 @@ const Chat = () => {
                 <form className={'chatInput'} onSubmit={handleSendMessage}>
                     <input
                         type='text'
-                        maxlength="256"
+                        maxLength="256"
                         placeholder="Escreve uma mensagem..."
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}

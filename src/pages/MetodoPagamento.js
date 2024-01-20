@@ -93,6 +93,7 @@ const MetodoPagamento = () => {
     const [pagamentoSelecionado, setPagamentoSelecionado] = useState('');
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
+    const [buttonDisable, setButtonDisable] = useState(false);
 
     const navigate = useNavigate();
 
@@ -133,14 +134,14 @@ const MetodoPagamento = () => {
             <NavbarWeb />
             <Header name="Método de pagamento" />
             <MainContainer>
-            <PreviewCard id={list[0].article_id} />
+            <PreviewCard id={list.article_id} valor={list.total}/>
 
 
                 {pagamentos.map((pagamento, index) => (
                     <PagamentoSelecionado
                         key={index}
                         selecionada={pagamento === pagamentoSelecionado}
-                        onClick={() => setPagamentoSelecionado(pagamento)}
+                        onClick={() => {setPagamentoSelecionado(pagamento); ; setButtonDisable(true)}}
                     >
                         <ConteudoPagamento>
                             <IconPagamentoSelect
@@ -205,7 +206,7 @@ const MetodoPagamento = () => {
                     }} src={dropPontoRecolha} alt="Adicioanr Pagamento"></img>
                 </PontoRecolha>
                 <ConfirmButton>
-                <Button onClick={handleNextStep} text="Confirmar"/>
+                <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar"/>
                 </ConfirmButton>
 
             </MainContainer>

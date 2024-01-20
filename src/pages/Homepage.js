@@ -7,6 +7,13 @@ import ProfileLink from "../components/ProfileLink";
 import Chip from '../components/chip';
 import LoginRegistar from '../components/LoginRegistar';
 import artigosJSON from '../data/artigos.json';
+import person1 from '../assets/homepage_people/person1.jpg'
+import person2 from '../assets/homepage_people/person2.jpg'
+import person3 from '../assets/homepage_people/person3.jpg'
+import person4 from '../assets/homepage_people/person4.jpg'
+import person5 from '../assets/homepage_people/person5.jpg'
+import mockupprofile from '../assets/user_mockup_image.jpg'
+
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -36,7 +43,7 @@ const Homepage = () => {
             <div>Bem-Vinda</div>
             <div>O teu guarda-roupa ilimitado começa aqui</div>
           </div>
-          <ProfileLink className={'profileLink'} />
+          <ProfileLink className={'profileLink'} image={mockupprofile}/>
         </div>
         <div>
           <div className={'sectionTitle'}><span>Categorias Populares</span></div>
@@ -50,11 +57,11 @@ const Homepage = () => {
         <div>
           <div className={'sectionTitle'}><span>Promotores Populares</span></div>
           <div className={'articles'}>
-            <ProfileLink className={'profileLink'} name={'Bernardo Silva'} />
-            <ProfileLink className={'profileLink'} name={'Joana Faria'} />
-            <ProfileLink className={'profileLink'} name={'Leandro Santos'} />
-            <ProfileLink className={'profileLink'} name={'Gisela Martins'} />
-            <ProfileLink className={'profileLink'} name={'Renata Batista'} />
+            <ProfileLink className={'profileLink'} name={'Bernardo Silva'} image={person1}/>
+            <ProfileLink className={'profileLink'} name={'Joana Faria'}  image={person2}/>
+            <ProfileLink className={'profileLink'} name={'Leandro Santos'}  image={person3}/>
+            <ProfileLink className={'profileLink'} name={'Gisela Martins'}  image={person4}/>
+            <ProfileLink className={'profileLink'} name={'Renata Batista'}  image={person5}/>
           </div>
 
         </div>
