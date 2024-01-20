@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
-import iconMoradaSelect from '../assets/icon_Morada_select.png';
+import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from 'styled-components';
 import PreviewCard from '../components/PreviewCard';
-import iconFolha from '../assets/icon_folha-detalhes.png';
-import iconInfo from '../assets/icon_info_detalhes.png';
+import iconFolha from '../assets/icons/fa-solid_leaf.svg';
+import iconInfo from '../assets/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
@@ -155,7 +155,7 @@ const AlugarDetalhes = () => {
 
                 </div>
 
-                <hr />
+                <hr style={{ width: "90%" }}/>
 
                 <div style={{ paddingTop: "0px" }}>
 

@@ -38,6 +38,11 @@ const ArticlePage = (props) => {
   }, [item, id])
     
 
+  useEffect(() => {
+    // dar reset ao scroll quando se entrar aqui :)
+    window.scrollTo(0, 0);
+  }, []);
+
     return (
         <ArticlePageStyle>
             <div className={'headerBoomerang'}>

@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react';
 import imgDefaultPreview from '../assets/img_default_card_preview.svg';
 import artigosJSON from "../data/artigos.json";
 import styled from 'styled-components';
-import iconInfo from '../assets/icon_info_detalhes.png';
+import iconInfo from '../assets/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
+import Modal from "./Modal";
 import {useSelector} from "react-redux";
 
 const PreviewValorTotal = (props) => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
     const navigate= useNavigate();
     const list = useSelector((state) => state.Rent.progressRentList);
+    const [fecharModal, setFecharModal] = useState(true); 
+
+    const handleIconClick = () => {
+        setFecharModal(false);
+      };
 
     const handleResize = () => {
 
@@ -48,6 +54,15 @@ const PreviewValorTotal = (props) => {
 
     return (
         <MainContainer>
+            <Modal
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        message={
+          <ParagraphMessageModal1p>
+Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.
+          </ParagraphMessageModal1p>
+        }
+      />
             <FirstContainer>
                 <div className='imgCardPreview' style={{ backgroundImage: `url(${imageArtigo})` }}>
                 </div>
@@ -72,7 +87,7 @@ const PreviewValorTotal = (props) => {
                 <ServiceConatiner>
                     <TextInner>
                         <div style={{ display: "flex", alignItems: "center" }}>
-                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icon"></img>
+                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icon" onClick={handleIconClick}/>
                         </div>
                         <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ x 5% + 2€</p>
                     </TextInner>
@@ -102,6 +117,12 @@ const PreviewValorTotal = (props) => {
         </MainContainer>
     );
 };
+
+const ParagraphMessageModal1p = styled.span`
+  font-weight: 400;
+  font-size: 14px;
+  margin-bottom: 1rem;
+`;
 
 const MainContainer = styled.div`
   margin: 0 auto;
