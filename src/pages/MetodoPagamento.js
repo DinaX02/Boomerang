@@ -3,8 +3,6 @@ import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
 import { Link} from 'react-router-dom';
 import addPagamentoIcon from '../assets/icon_AddMorada.png';
-import iconPontoRecolho from '../assets/icon_PontoRecolha.png';
-import dropPontoRecolha from '../assets/drop_PontoRecolha.png';
 import iconPagamentoSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
@@ -68,16 +66,7 @@ const SelecionarPagamento = styled.div`
   padding: 10px 0px 10px 30px;
   margin-bottom: 30px;
 `;
-const PontoRecolha = styled.div`
-background-color: white;
-border-radius: 5px;
-box-shadow: -1px 4px 7px -1px rgb(0 0 0 / 15%);;
-width: 100%;
-height: 45px;
-padding: 10px 10px 10px 30px;
-margin-top: 30px;
 
-`;
 const ConfirmButton = styled.div`
     width: 100%;
     display: flex;
@@ -180,31 +169,6 @@ const MetodoPagamento = () => {
                         }} src={addPagamentoIcon} alt="Adicioanar Pagamento"></img>
                     </SelecionarPagamento>
                 </Link>
-                <hr></hr>
-                <PontoRecolha>
-
-                    <button style={{
-                        backgroundColor: "transparent",
-                        border: "none",
-                        color: "#cbcbcb",
-                        textAlign: "left",
-                        fontSize: "16px",
-                        fontWeight: "500",
-
-                    }}>Ponto de Recolha</button>
-
-                    <img style={{
-                        width: "18px",
-                        marginBottom: "1px",
-
-                    }} src={iconPontoRecolho} alt="icon"></img>
-                    <img style={{
-                        width: "25px",
-                        float: "right",
-                        marginTop: "9px",
-
-                    }} src={dropPontoRecolha} alt="Adicioanr Pagamento"></img>
-                </PontoRecolha>
                 <ConfirmButton>
                 <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar"/>
                 </ConfirmButton>
