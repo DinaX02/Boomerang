@@ -3,6 +3,7 @@ import filtro from '../assets/icons/Filter_button.png';
 import closeFilter from '../assets/icons/eliminar.svg';
 import maisFilter from '../assets/icons/Filter_mais.png';
 import menosFilter from '../assets/icons/Filter_menos.png';
+import Button from "./Button";
 
 const FilterButtons = () => {
     const [showFilters, setShowFilters] = useState(false);
@@ -24,7 +25,6 @@ const FilterButtons = () => {
             color: false,
             category: false,
             brand: false,
-            order: false,
         };
 
         setAccordion({
@@ -106,7 +106,6 @@ const FilterButtons = () => {
                                 )}
                             </div>
 
-                            {/* Filtro de cor */}
                             <hr></hr>
                             <div>
 
@@ -128,7 +127,6 @@ const FilterButtons = () => {
 
                                 {accordion.color && (
                                     <div class="panel">
-                                        {/* adicionar opções de tamanho */}
                                         <label>
 
                                             <input type="radio" className="radioInput" name="cor" value="multicor" />
@@ -177,7 +175,6 @@ const FilterButtons = () => {
                                 )}
                             </div>
 
-                            {/* Filtro de marca */}
                             <hr></hr>
                             <div>
                                 {accordion.category ? (
@@ -198,7 +195,6 @@ const FilterButtons = () => {
 
                                 {accordion.category && (
                                     <div class="panel">
-                                        {/* adicionar opções de tamanho */}
                                         <label>
 
                                             <input type="radio" className="radioInput" name="categoria" value="mulher" />
@@ -236,61 +232,16 @@ const FilterButtons = () => {
 
                                 {accordion.brand && (
                                     <div class="panel">
-                                        {/* adicionar opções de tamanho */}
                                         <label>
 
                                             <input type="radio" className="radioInput" name="size" value="Opção 1" />
-                                            Opção 1
+                                            Marca 1
                                         </label>
                                         <label>
                                             <input type="radio" className="radioInput" name="size" value="Opção 2" />
-                                            Opção 2
+                                            Marca 2
                                         </label>
-                                        {/* ... */}
                                     </div>
-                                )}
-                            </div>
-                            <hr></hr>
-                            <div>
-                                {accordion.Order ? (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('Order')}>
-                                            Ordenar por
-                                        </button>
-                                        <img src={menosFilter} alt="fechar"></img>
-                                    </div>
-                                ) : (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('Order')}>
-                                            Ordenar por
-                                        </button>
-                                        <img src={maisFilter} alt="fechar"></img>
-                                    </div>
-                                )}
-                                {accordion.Order && (
-                                    <div class="panel">
-                                        {/* adicionar opções de tamanho */}
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="size" value="preçoBpA" />
-                                            Preço: baixo para alto
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="preçoApB" />
-                                            Preço: alto para baixo
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="recente" />
-                                            Mais Recente
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="antigo" />
-                                            Mais antigo
-                                        </label>
-                                        {/* ... */}
-
-                                    </div>
-
                                 )}
                             </div>
                             <hr></hr>
@@ -298,13 +249,10 @@ const FilterButtons = () => {
                     </div>
 
                     <div className="filtroAplicar">
-                        <button>Aplicar</button>
+                        <Button text='Aplicar'/>
                     </div>
                 </div>
             )}
-
-            {/* Lista de produtos */}
-            {/* ... */}
         </div>
     );
 };
