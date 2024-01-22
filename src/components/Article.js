@@ -20,7 +20,7 @@ const Article = (props) => {
         //TODO: alterar imagens e informações para o artigo//
 
         <ArticleLink style={{transform: `scale(${props.scale})`}} to={`/article/${props.id}`}>
-            <img src={props.image} alt={'mockup'}/>
+            <img src={props.image} alt={'article'}/>
             {props.description && <div style={{display: props.description ? "block" : "none"}} className={'description'}>
                 <div className={'priceRow'}>
                     <div>{props.price}€ / dia</div>

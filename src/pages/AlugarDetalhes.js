@@ -123,7 +123,6 @@ const AlugarDetalhes = () => {
                 Transporte a cargo do utilizador, o mesmo deve deslocar-se para efetuar a devolução da peça.
             </ParagraphMessageModal>
         ),
-        // Add more messages for the other options if needed
     ];
 
     const handleIconClick = (index) => {
@@ -140,7 +139,6 @@ const AlugarDetalhes = () => {
             case 3:
                 setFecharModal4(false);
                 break;
-            // code block
         }
     };
 
