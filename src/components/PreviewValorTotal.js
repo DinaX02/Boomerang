@@ -100,7 +100,7 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
                         <div style={{ display: "flex", alignItems: "center" }}>
                             <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Extras</p>
                         </div>
-                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€</p>
+                        <p style={{ margin: "0", fontWeight: "500" }}>{props.extras}€</p>
                     </TextInner>
                     <PriceInner>
                         <p style={{ margin: "0", fontWeight: "bold" }}>{props.extras}€</p>

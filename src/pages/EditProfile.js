@@ -231,6 +231,8 @@ const EditProfileStyle = styled.div`
 
         .imagemPerfil {
           width: 84px;
+          height: 84px;
+          object-fit: cover;
           border-radius: 50%;
           // border: 2px solid #343541;
 }

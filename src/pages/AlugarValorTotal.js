@@ -41,7 +41,7 @@ const AlugarValorTotal = () => {
     const total = valor + taxa + extras;
 
 
-        console.log("dias", daysDifference)
+        console.log(extras)
 
 
   console.log("lista updated",list)

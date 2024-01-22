@@ -16,13 +16,38 @@ import artigosJSON from '../data/artigos.json'
 import mockupprofile from '../assets/perfil/user_mockup_image.jpg'
 import InfoIconTaxa from "../assets/icons/infoIcon.svg"
 import Modal from "../components/Modal"
+import Vermelho from "../assets/cores/vermelho.svg";
+import Azul from "../assets/cores/azul.svg";
+import Amarelo from "../assets/cores/amarelo.svg";
+import Rosa from "../assets/cores/rosa.svg";
+import Verde from "../assets/cores/verde.svg";
+import Roxo from "../assets/cores/roxo.svg";
+import Preto from "../assets/cores/preto.svg";
+import Multicolor from "../assets/cores/multicolor.svg";
+import Laranja from "../assets/cores/laranja.svg";
+import Branco from "../assets/cores/branco.svg";
  
 const ArticlePage = (props) => {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const { id } = useParams();
     const [item, setItem] = useState({});
-    const [fecharModal, setFecharModal] = useState(true); 
+    const [fecharModal, setFecharModal] = useState(true);
+
+    const colorImages = {
+        Vermelho,
+        Azul,
+        Amarelo,
+        Rosa,
+        Verde,
+        Roxo,
+        Preto,
+        Multicolor,
+        Laranja,
+        Branco,
+    };
+
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -36,6 +61,7 @@ const ArticlePage = (props) => {
     artigosJSON.forEach(artigo => {
       if(artigo.id===parseInt(id)){
         setItem(artigo);
+        setTimeout(()=>{console.log('Image Path:', colorImages[item.color])},1000)
       }
     });
   }, [item, id])
@@ -138,7 +164,7 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Cor</div>
-                <div className={'articleColor'}><div style={{backgroundColor: item.color}}/>{item.color}</div>
+                <div className={'articleColor'}><img src={colorImages[item.color]}/>{item.color}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Categoria</div>
@@ -253,9 +279,6 @@ const ArticlePageStyle = styled.div`
       align-items: center;
       gap: 10px;
       div{
-        height: 10px;
-        width: 10px;
-        border-radius: 50%;
       }
     }
   }
