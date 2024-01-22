@@ -15,11 +15,12 @@
     "category": "Vestido",
     "condition": "Muito Bom",
     "measurements": {
-      "bust": "90 cm",
-      "waist": "70 cm",
-      "hips": "95 cm",
-      "length": "140 cm"
-    }
+      "busto": "90 cm",
+      "cintura": "70 cm",
+      "quadril": "95 cm",
+      "comprimento": "140 cm"
+    },
+    "estimatedValue": 70
   },
   {
     "id": 2,
@@ -37,11 +38,12 @@
     "category": "Mulher",
     "condition": "Satisfatório",
     "measurements": {
-      "bust": "85 cm",
-      "waist": "65 cm",
-      "hips": "90 cm",
-      "length": "130 cm"
-    }
+      "busto": "85 cm",
+      "cintura": "65 cm",
+      "quadril": "90 cm",
+      "comprimento": "130 cm"
+    },
+    "estimatedValue": 120
   },
   {
     "id": 3,
@@ -55,15 +57,16 @@
     "brand": "Dior",
     "dailyRentalPrice": 6,
     "size": "S",
-    "color": "Floral",
+    "color": "Multicolor",
     "category": "Mulher",
     "condition": "Bom",
     "measurements": {
-      "bust": "88 cm",
-      "waist": "68 cm",
-      "hips": "92 cm",
-      "length": "135 cm"
-    }
+      "busto": "88 cm",
+      "cintura": "68 cm",
+      "quadril": "92 cm",
+      "comprimento": "135 cm"
+    },
+    "estimatedValue": 160
   },
   {
     "id": 4,
@@ -76,15 +79,16 @@
     "brand": "Chanel",
     "dailyRentalPrice": 8,
     "size": "M",
-    "color": "Xadrez",
+    "color": "Multicolor",
     "category": "Mulher",
     "condition": "Muito Bom",
     "measurements": {
-      "bust": "95 cm",
-      "waist": "75 cm",
-      "hips": "100 cm",
-      "length": "70 cm"
-    }
+      "busto": "95 cm",
+      "cintura": "75 cm",
+      "quadril": "100 cm",
+      "comprimento": "70 cm"
+    },
+    "estimatedValue": 55
   },
   {
     "id": 5,
@@ -101,32 +105,34 @@
     "category": "Homem",
     "condition": "Satisfatório",
     "measurements": {
-      "chest": "100 cm",
-      "waist": "90 cm",
-      "hips": "105 cm",
-      "length": "150 cm"
-    }
+      "tronco": "100 cm",
+      "cintura": "90 cm",
+      "quadril": "105 cm",
+      "comprimento": "150 cm"
+    },
+    "estimatedValue": 95
   },
   {
     "id": 6,
     "images": [
-      "https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-elegant-suit-fashion-male-posing-studio-near-blue-wall-looking-camera_158538-21044.jpg?w=740&t=st=1705535779~exp=1705536379~hmac=0ff754fe9921cf2be000d404aa362de733587552aa45536d2922c75291ffa247",
-      "https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-modern-man-dressed-elegant-suit-fashion-male-posing-studio-near-blue-wall_158538-21040.jpg?w=740&t=st=1705535776~exp=1705536376~hmac=04de5cd8c5983ec3b0d669149a3af0a069a7690b1579fe45b1b50b28c4912864"
+      "https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-quadrilter-lambersexual-modelsexy-modern-man-dressed-elegant-suit-fashion-male-posing-studio-near-blue-wall-looking-camera_158538-21044.jpg?w=740&t=st=1705535779~exp=1705536379~hmac=0ff754fe9921cf2be000d404aa362de733587552aa45536d2922c75291ffa247",
+      "https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-quadrilter-lambersexual-modelsexy-modern-man-dressed-elegant-suit-fashion-male-posing-studio-near-blue-wall_158538-21040.jpg?w=740&t=st=1705535776~exp=1705536376~hmac=04de5cd8c5983ec3b0d669149a3af0a069a7690b1579fe45b1b50b28c4912864"
     ],
     "title": "Fato Cinza Claro para Escritório",
     "description": "Fato cinza claro perfeito para o ambiente de escritório. Em bom estado e muito elegante.",
     "brand": "Hugo Boss",
     "dailyRentalPrice": 8,
     "size": "M",
-    "color": "Cinza Claro",
+    "color": "Branco",
     "category": "Homem",
     "condition": "Bom",
     "measurements": {
-      "chest": "95 cm",
-      "waist": "80 cm",
-      "hips": "100 cm",
-      "length": "145 cm"
-    }
+      "tronco": "95 cm",
+      "cintura": "80 cm",
+      "quadril": "100 cm",
+      "comprimento": "145 cm"
+    },
+    "estimatedValue": 100
   },
   {
     "id": 7,
@@ -145,11 +151,12 @@
     "category": "Criança",
     "condition": "Muito Bom",
     "measurements": {
-      "chest": "60 cm",
-      "waist": "50 cm",
-      "hips": "65 cm",
-      "length": "80 cm"
-    }
+      "tronco": "60 cm",
+      "cintura": "50 cm",
+      "quadril": "65 cm",
+      "comprimento": "80 cm"
+    },
+    "estimatedValue": 80
   },
   {
     "id": 8,
@@ -167,11 +174,12 @@
     "category": "Criança",
     "condition": "Bom",
     "measurements": {
-      "chest": "65 cm",
-      "waist": "55 cm",
-      "hips": "70 cm",
-      "length": "50 cm"
-    }
+      "tronco": "65 cm",
+      "cintura": "55 cm",
+      "quadril": "70 cm",
+      "comprimento": "50 cm"
+    },
+    "estimatedValue": 75
   },
   {
     "id": 9,
@@ -190,11 +198,12 @@
     "category": "Mulher",
     "condition": "Satisfatório",
     "measurements": {
-      "bust": "88 cm",
-      "waist": "75 cm",
-      "hips": "92 cm",
-      "length": "145 cm"
-    }
+      "busto": "88 cm",
+      "cintura": "75 cm",
+      "quadril": "92 cm",
+      "comprimento": "145 cm"
+    },
+    "estimatedValue": 105
   },
   {
     "id": 10,
@@ -212,11 +221,12 @@
     "category": "Mulher",
     "condition": "Bom",
     "measurements": {
-      "bust": "95 cm",
-      "waist": "80 cm",
-      "hips": "100 cm",
-      "length": "65 cm"
-    }
+      "busto": "95 cm",
+      "cintura": "80 cm",
+      "quadril": "100 cm",
+      "comprimento": "65 cm"
+    },
+    "estimatedValue": 65
   },
   {
     "id": 11,
@@ -230,13 +240,14 @@
     "brand": "Levi's",
     "dailyRentalPrice": 4,
     "size": "S",
-    "color": "Bege",
+    "color": "Branco",
     "category": "Homem",
     "condition": "Satisfatório",
     "measurements": {
-      "waist": "78 cm",
+      "cintura": "78 cm",
       "inseam": "82 cm"
-    }
+    },
+    "estimatedValue": 120
   },
   {
     "id": 12,
@@ -254,11 +265,12 @@
     "category": "Mulher",
     "condition": "Muito Bom",
     "measurements": {
-      "bust": "92 cm",
-      "waist": "75 cm",
-      "hips": "98 cm",
-      "length": "145 cm"
-    }
+      "busto": "92 cm",
+      "cintura": "75 cm",
+      "quadril": "98 cm",
+      "comprimento": "145 cm"
+    },
+    "estimatedValue": 50
   },
   {
     "id": 13,
@@ -275,10 +287,11 @@
     "category": "Criança",
     "condition": "Satisfatório",
     "measurements": {
-      "chest": "75 cm",
-      "waist": "62 cm",
-      "length": "90 cm"
-    }
+      "tronco": "75 cm",
+      "cintura": "62 cm",
+      "comprimento": "90 cm"
+    },
+    "estimatedValue": 60
   },
   {
     "id": 14,
@@ -296,9 +309,10 @@
     "category": "Homem",
     "condition": "Bom",
     "measurements": {
-      "waist": "85 cm",
+      "cintura": "85 cm",
       "inseam": "78 cm"
-    }
+    },
+    "estimatedValue": 70
   },
   {
     "id": 15,
@@ -316,10 +330,11 @@
     "category": "Mulher: Camisolas e Casacos",
     "condition": "Muito Bom",
     "measurements": {
-      "bust": "95 cm",
-      "waist": "75 cm",
-      "hips": "100 cm",
-      "length": "65 cm"
-    }
+      "busto": "95 cm",
+      "cintura": "75 cm",
+      "quadril": "100 cm",
+      "comprimento": "65 cm"
+    },
+    "estimatedValue": 85
   }
 ]

@@ -25,6 +25,7 @@ const ProfileLinkStyle = styled(Link)`
   text-decoration: none;
   color: black;
   img{
+    object-fit: cover;
     width: 50px;
     height: 50px;
     border-radius: 50%;
