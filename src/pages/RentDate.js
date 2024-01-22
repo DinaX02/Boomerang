@@ -64,7 +64,7 @@ const RentDate = () => {
 
 const RentDateDiv = styled.div`
   .content {
-    margin-top: -15px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,7 +74,7 @@ const RentDateDiv = styled.div`
   .info {
     font-size: 16px;
     margin-bottom: -18px;
-    margin-top: 10px;
+    margin-top: 50px;
 
     @media only screen and (max-width: 400px) {
     font-size: 14px;

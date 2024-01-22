@@ -15,10 +15,9 @@ import { updateProgressRent } from '../redux/rentSlice';
 
 
 const MainContainer = styled.div`
-  margin: -45px 0 0 0;
+  padding: 25px;
   width: 100%;
   height: 80vh;
-  padding: 25px 30px;
 `;
 
   
@@ -124,6 +123,7 @@ const AlugarMorada = () => {
             <Header name="Morada" />
             <MainContainer>
             <PreviewCard id={list.article_id} valor={list.total}/>
+                <div style={{paddingTop: '25px'}}>
 
 
                 {moradas.map((morada, index) => (
@@ -148,7 +148,7 @@ const AlugarMorada = () => {
                         </BotaoRemover>
                     </MoradaSelecionada>
                 ))}
-
+        </div>
 
                 <Link to={"/adicionar-morada"}>
                     <SelecionarMorada>

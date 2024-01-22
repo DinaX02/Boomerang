@@ -11,10 +11,9 @@ import { updateProgressRent } from '../redux/rentSlice';
 import Modal from '../components/Modal';
 
 const MainContainer = styled.div`
-  margin: -45px 0 0 0;
+  padding: 25px;
   width: 100%;
   height: 80vh;
-  padding: 25px 30px;
 `;
 
 const ConfirmButton = styled.div`
@@ -24,7 +23,6 @@ const ConfirmButton = styled.div`
   align-content: center;
   margin-top: 60px;
 `;
-
 
 const LavagemSelecionada = styled.div`
   background-color: ${props => (props.selecionada ? '#343541' : '#ffffff')};
@@ -41,10 +39,9 @@ const LavagemSelecionada = styled.div`
 `;
 
 const MainSelection = styled.div`
-width: 100%;
+  width: 100%;
   display:flex;
   align-items: center;
-  
 `;
 
 const ButtonInfo = styled.div`
@@ -77,14 +74,14 @@ const ValorLavagem = styled.div`
   align-items: center;
   border-color: ${props => (props.selecionada ? 'ffffff' : '#e4e4e4')};
 `;
-const IconFolha = styled.img`
-width: 12px;
-visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
-  margin: 0px 10px 0px 5px;
 
+const IconFolha = styled.img`
+  width: 12px;
+  visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
+  margin: 0px 10px 0px 5px;
 `;
 
-const ParagraphMessageModal1p = styled.span`
+const ParagraphMessageModal = styled.span`
   font-weight: 400;
   font-size: 14px;
   margin-bottom: 1rem;
@@ -93,34 +90,74 @@ const ParagraphMessageModal1p = styled.span`
 const AlugarDetalhes = () => {
     const [lavagemSelecionada, setLavagemSelecionada] = useState(null);
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
-    const dispatch = useDispatch();
-    const list = useSelector((state) => state.Rent.progressRentList);
     const [fecharModal, setFecharModal] = useState(true);
-    const [fecharModal2, setFecharModal2] = useState(true); 
-    console.log("lista",list)
+    const [fecharModal2, setFecharModal2] = useState(true);
+    const [fecharModal3, setFecharModal3] = useState(true);
+    const [fecharModal4, setFecharModal4] = useState(true);
 
     const navigate = useNavigate();
 
-    const handleIconClick = () => {
-        setFecharModal(false);
-      };
+    const dispatch = useDispatch();
+    const list = useSelector((state) => state.Rent.progressRentList);
 
-    const handleIconClick2 = () => {
-        setFecharModal2(false);
-      };
+    const modalMessages = [
+        (
+            <ParagraphMessageModal>
+                <strong>Vale de 1 lavagem</strong> numa lavandaria parceira com consumo energético reduzido.
+                Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo aluguer.
+            </ParagraphMessageModal>
+        ),
+        (
+            <ParagraphMessageModal>
+                Lavagem a cargo do utilizador, o mesmo deve lavar a peça antes da devolução.
+            </ParagraphMessageModal>
+        ),
+        (
+            <ParagraphMessageModal>
+                Transportadora parceira com consumo energético reduzido. Inclui <strong><i>tracking</i></strong> da encomenda.
+                Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo aluguer
+            </ParagraphMessageModal>
+        ),
+        (
+            <ParagraphMessageModal>
+                Transporte a cargo do utilizador, o mesmo deve deslocar-se para efetuar a devolução da peça.
+            </ParagraphMessageModal>
+        ),
+        // Add more messages for the other options if needed
+    ];
+
+    const handleIconClick = (index) => {
+        switch(index) {
+            case 0:
+                setFecharModal(false);
+                break;
+            case 1:
+                setFecharModal2(false);
+                break;
+            case 2:
+                setFecharModal3(false);
+                break;
+            case 3:
+                setFecharModal4(false);
+                break;
+            // code block
+        }
+    };
 
     const lavagens = [
-        { nome: 'Lavandaria Sustentável', valor: 5 },
-        { nome: 'Lavagem feita pelo utilizador', valor: 0 },
+        { nome: 'Lavandaria Sustentável', valor: 5, modalIndex: 0 },
+        { nome: 'Lavagem feita pelo utilizador', valor: 0, modalIndex: 1 },
     ];
+
     const transportes = [
-        { nome: 'Transportadora Eco-Friendly', valor: 5 },
-        { nome: 'Transporte a cargo do utilizador', valor: 0 },
+        { nome: 'Transportadora Eco-Friendly', valor: 5, modalIndex: 2 },
+        { nome: 'Transporte a cargo do utilizador', valor: 0, modalIndex: 3 },
     ];
 
     const handleLavagemClick = index => {
         setLavagemSelecionada(index);
     };
+
     const handleTransporteClick = index => {
         setTransporteSelecionado(index);
     };
@@ -128,43 +165,40 @@ const AlugarDetalhes = () => {
     const isContinuarDisabled = lavagemSelecionada === null || transporteSelecionado === null;
 
     const handleNextStep = () => {
-        const detalhes = {detalhes: [lavagemSelecionada, transporteSelecionado ]};
+        const detalhes = { detalhes: [lavagemSelecionada, transporteSelecionado] };
         dispatch(updateProgressRent({ index: 0, updatedData: detalhes }));
         navigate("/valor-total");
     };
-    
 
     return (
         <div>
             <Header name="Detalhes de Aluguer" />
             <MainContainer>
-            <Modal
-        fecharModal={fecharModal}
-        setFecharModal={setFecharModal}
-        message={
-          <ParagraphMessageModal1p>
-<strong>Vale de 1 lavagem</strong> numa lavandaria parceira com consumo energético reduzido.
-Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo aluguer.
-          </ParagraphMessageModal1p>
-        }
-      />
-                  <Modal
-        fecharModal={fecharModal2}
-        setFecharModal={setFecharModal2}
-        message={
-          <ParagraphMessageModal1p>
-        Transportadora parceira com consumo energético reduzido. Inclui <strong><i>tracking</i></strong> da encomenda.
-        Com esta opção tens direito a um <strong>cupão de 7%</strong>  no teu próximo aluguer
-          </ParagraphMessageModal1p>
-        }
-      />
-            <PreviewCard id={list.article_id} valor={list.total}/>
+                <Modal
+                    fecharModal={fecharModal}
+                    setFecharModal={setFecharModal}
+                    message={modalMessages[0]}
+                />
+                <Modal
+                    fecharModal={fecharModal2}
+                    setFecharModal={setFecharModal2}
+                    message={modalMessages[1]}
+                />
+                <Modal
+                    fecharModal={fecharModal3}
+                    setFecharModal={setFecharModal3}
+                    message={modalMessages[2]}
+                />
+                <Modal
+                    fecharModal={fecharModal4}
+                    setFecharModal={setFecharModal4}
+                    message={modalMessages[3]}
+                />
+                <PreviewCard id={list.article_id} valor={list.total} />
                 <div style={{ paddingTop: "25px" }}>
-
                     {lavagens.map((lavagem, index) => (
-                        <MainSelection>
+                        <MainSelection key={index}>
                             <LavagemSelecionada
-                                key={index}
                                 selecionada={lavagemSelecionada === index}
                                 onClick={() => handleLavagemClick(index)}
                             >
@@ -176,27 +210,25 @@ Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
                             <ButtonInfo>
-                                <button style={{
-                                    backgroundColor: "transparent",
-                                    border: "none",
-                                }}><img  onClick={handleIconClick} style={{
-                                    width: "17px",
-                                }} src={iconInfo} alt="icon"></img></button>
+                                <button
+                                    style={{ backgroundColor: "transparent", border: "none" }}
+                                    onClick={() => handleIconClick(lavagem.modalIndex)}
+                                >
+                                    <img
+                                        style={{ width: "17px" }}
+                                        src={iconInfo}
+                                        alt="icon"
+                                    ></img>
+                                </button>
                             </ButtonInfo>
                         </MainSelection>
-
                     ))}
-
                 </div>
-
-                <hr style={{ width: "90%" }}/>
-
+                <hr style={{ width: "90%" }} />
                 <div style={{ paddingTop: "0px" }}>
-
                     {transportes.map((transporte, index) => (
-                        <MainSelection>
+                        <MainSelection key={index}>
                             <LavagemSelecionada
-                                key={index}
                                 selecionada={transporteSelecionado === index}
                                 onClick={() => handleTransporteClick(index)}
                             >
@@ -208,17 +240,20 @@ Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
                             <ButtonInfo>
-                                <button style={{
-                                    backgroundColor: "transparent",
-                                    border: "none",
-                                }}><img style={{
-                                    width: "17px",
-                                }} src={iconInfo} alt="icon" onClick={handleIconClick2}></img></button>
+                                <button
+                                    style={{ backgroundColor: "transparent", border: "none" }}
+                                    onClick={() => handleIconClick(transporte.modalIndex)}
+                                >
+                                    <img
+                                        style={{ width: "17px" }}
+                                        src={iconInfo}
+                                        alt="icon"
+                                    ></img>
+                                </button>
                             </ButtonInfo>
                         </MainSelection>
                     ))}
                 </div>
-
                 <ConfirmButton>
                     <button
                         disabled={isContinuarDisabled}

@@ -12,7 +12,7 @@ const MainContainer = styled.div`
   margin: 0 auto;
   width: 100%;
   height: 80vh;
-  padding: 55px 20px;
+  padding: 25px;
 `;
 
 
