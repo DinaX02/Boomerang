@@ -9,8 +9,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {IconButton} from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import Button
- from '../components/Button';
+import Button from '../components/Button';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 import { useParams } from 'react-router-dom';
 import artigosJSON from '../data/artigos.json'
 import mockupprofile from '../assets/perfil/user_mockup_image.jpg'
@@ -122,7 +123,43 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
                     </Menu>
                 </div>
             </div>
-            {item.images && item.images.length > 0 && <img alt={'article'} className={'carousel'} src={item.images[0]}/>}
+            {item.images && item.images.length > 0 &&
+                <div className={'carousel'}>
+                    <Carousel
+                        showStatus={false}
+                        showThumbs={false}
+                        showArrows={false}
+                    >
+                        {item.images.map((image, index) => (<div style={{ position: 'relative', zIndex: '-1', height: '40vh' }}>
+                                <div
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        background: `url(${image})`,
+                                        backgroundSize: '100% 100%',
+                                        backgroundPosition: 'center',
+                                        filter: 'blur(15px)',
+                                    }}
+                                ></div>
+                                <img
+                                    style={{
+                                        objectFit: 'contain',
+                                        height: '100%',
+                                        width: '100%',
+                                        position: 'relative',
+                                        zIndex: '1',
+                                    }}
+                                    src={image}
+                                    alt={`image-${index}`}
+                                />
+                            </div>
+                        ))}
+                    </Carousel>
+                </div>
+                }
 
             <div className={'articleHeader'}>
                 <div className={'user'}>
