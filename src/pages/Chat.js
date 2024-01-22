@@ -36,7 +36,7 @@ const Chat = () => {
                     <img data-testid="svg-icon" src={arrowBack}  style={{ cursor: "pointer" }} alt="arrow go back" />
                 </div>
                     <div className={'userDetails'}>
-                        <img className={'userImage'} src={userMockupImage} alt='user mockup'/>
+                        <img className={'userImage'} src={userMockupImage} alt='chat user profile image'/>
                         <div>maria_carmo</div>
                     </div>
             </div>
