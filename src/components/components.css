@@ -63,7 +63,6 @@ display: flex;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  margin: 3em auto 2em;
   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: center;

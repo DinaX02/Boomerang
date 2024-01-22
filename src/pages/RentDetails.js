@@ -18,7 +18,9 @@ const transportes = [
   return (
     <div>
         <Header name="Detalhes do Aluguer"/>
+        <div style={{padding: '25px 25px 0 25px'}}>
         <PreviewCard id={list.article_id} valor={list.total}/>
+        </div>
         <RentDetailsDiv>
         <Titles>Estado do Aluguer:</Titles>
         <Info>Aguarda Confirmação</Info>

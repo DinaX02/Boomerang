@@ -12,10 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
 
 const MainContainer = styled.div`
-  margin: -45px 0 0 0;
   width: 100%;
   height: 80vh;
-  padding: 25px 30px;
+  padding: 25px;
 `;
 
   
@@ -124,7 +123,7 @@ const MetodoPagamento = () => {
             <Header name="Método de pagamento" />
             <MainContainer>
             <PreviewCard id={list.article_id} valor={list.total}/>
-
+                <div style={{paddingTop: '25px'}}>
 
                 {pagamentos.map((pagamento, index) => (
                     <PagamentoSelecionado
@@ -148,6 +147,7 @@ const MetodoPagamento = () => {
                         </BotaoRemover>
                     </PagamentoSelecionado>
                 ))}
+                </div>
 
 
                 <Link to={"/adicionar-pagamento"}>
