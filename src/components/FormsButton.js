@@ -57,7 +57,6 @@ padding-left: 15px !important;
     margin-right: -15px;
     width: 15px;
   }
-}
 `
 
 const FormsButtonOrg = styled.div`

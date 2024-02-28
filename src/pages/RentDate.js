@@ -32,6 +32,10 @@ const RentDate = () => {
     setTotal(newTotal);
   }, [dateRange, progressRentList, id]);
 
+  const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    return date;
+  }
 
   const handleDateChange = (value) => {
     setDateRange(value);
@@ -55,6 +59,7 @@ const RentDate = () => {
               onChange={handleDateChange}
               value={dateRange}
               selectRange={true}
+              minDate={formatDate(Date())}
           />
           <Button text="Continuar" disable={!buttonDisable} onClick={sendDates}></Button>
         </div>
