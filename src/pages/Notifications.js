@@ -41,7 +41,7 @@ const Notifications = () => {
            : (
             <div className="nothing">
               <img src={nothingimg} alt="sem notificações"></img>
-              <h1>Ainda não tens notificações</h1>
+              <p className="noNotificationsText">Ainda não tens notificações</p>
             </div>
           )
         }
@@ -87,6 +87,12 @@ const NotificationsPage = styled.div`
     display: flex;
     flex-direction: column;
     gap: 25px;
+  }
+
+  .noNotificationsText{
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 1.5em;
   }
   
 `;
