@@ -105,7 +105,7 @@ transform: translate(calc(50vw - 50%));
 
 const MenuMobileBtns = styled.div`
   a{
-    transform: scale(0.9);
+    transform: scale(1.2);
   }
 display: flex;
 flex-direction: row;
@@ -115,9 +115,6 @@ width: 50%;
 padding-top: 10px;
 justify-content: space-evenly;
 
-img {
-  width: 25px;
-}
 `
 
 
