@@ -27,7 +27,8 @@ const RentDate = () => {
     const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
     const dailyRentalPrice = artigosJSON[id-1].dailyRentalPrice
     const valor = dailyRentalPrice * daysDifference;
-    const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2));
+    // const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2));
+    const taxa = 0;
     const newTotal = valor + taxa;
     setTotal(newTotal);
   }, [dateRange, progressRentList, id]);
