@@ -421,10 +421,9 @@ const ProfileStyle = styled.div`
     border: none;
     background-color: #C6F6E5;
     font-size: 13px;
-  }
-  
-  .btnAddFriends a {
-    text-decoration: none !important;
+
+    &:active {
+      background-color: #A4E9D8; }
   }
 
 .containerBtn {
