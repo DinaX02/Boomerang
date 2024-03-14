@@ -15,7 +15,7 @@ import Article from "../components/Article"; // Import the component
 import noResultsIcon from "../assets/icons/noResultsIcon.svg";
 
 
-const Results = () => {
+const VerTudo = () => {
     const navigate = useNavigate();
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
@@ -135,16 +135,16 @@ const Results = () => {
 
                 {sortArtigos().length !== 0 ? (
                     <div className={'resultsArticles'}>
-                    {sortArtigos().slice(0, 10).map((artigo) => {
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}/>;
-                    })}
-                </div>
-                
+                        {sortArtigos().slice(0, 10).map((artigo) => {
+                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} />;
+                        })}
+                    </div>
+
                 ) : (
                     <div className='zeroResults'>
-                    <img src={noResultsIcon} alt="search icon for no results" />
-                    <p>Nenhum resultado encontrado</p>
-                </div>
+                        <img src={noResultsIcon} alt="search icon for no results" />
+                        <p>Nenhum resultado encontrado</p>
+                    </div>
                 )}
             </div>
             <MenuMobile />
@@ -245,4 +245,4 @@ const ResultsStyle = styled.div`
   
 `;
 
-export default Results;
+export default VerTudo;
