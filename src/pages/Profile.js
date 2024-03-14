@@ -91,14 +91,18 @@ const Profile = () => {
             <span className="nomeUtilizador">mariacarmo</span>
           </div>
 
-          <div className="iconesDireita">
+          <div className="iconesDireita">           
             {/* <Link to={'/settings-page'}>
                             <img className="settingsIcon" src={SettingsIcon} alt="icon_settings" />
                         </Link> */}
                         <img className="logoutIcon" src={LogoutIcon} alt="icon_logout" onClick={handleClickLogout}/>
                     </div>
                 </div>
+
+               <Link to={"/convidar-amigos"}><div className='containerBtn'><button className='btnAddFriends'>Convidar amigos</button></div></Link> 
+
                 <div className='detalhesCentraisPerfil'>
+              
                     <div className='contagemContainer'>
                         <div className='contagem'>
                             <span>25</span>
@@ -297,6 +301,10 @@ const ProfileStyle = styled.div`
     // margin-right: 24px;
   }
 
+  .containerFixo a {
+    text-decoration: none !important;
+  }
+
   .settingsIcon {
     display: block;
     margin-bottom: 8px;
@@ -406,7 +414,24 @@ const ProfileStyle = styled.div`
       color: #00c17c;
     }
   }
+  
+  .btnAddFriends {
+    border-radius: 20px;
+    padding: 0.8em;
+    border: none;
+    background-color: #C6F6E5;
+    font-size: 13px;
+  }
+  
+  .btnAddFriends a {
+    text-decoration: none !important;
+  }
 
+.containerBtn {
+  display:flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
   .articles {
       margin-top: 0.6em;
       margin-bottom: 0.6em;
