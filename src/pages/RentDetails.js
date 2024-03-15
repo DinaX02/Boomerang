@@ -4,6 +4,7 @@ import PreviewCard from '../components/PreviewCard'
 import MenuMobile from '../components/MenuMobile'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const RentDetails = () => {
   const list = useSelector((state) => state.Rent.progressRentList);
@@ -37,6 +38,9 @@ const transportes = [
         <hr></hr>
         <Titles>Método de Pagamento:</Titles>
         <Info>{list.pagamento}</Info>
+
+        <Link to={"/avaliar-aluguer"}><button>Avaliar Aluguer</button></Link>
+
         </RentDetailsDiv>
         <MenuMobile/>
     </div>
