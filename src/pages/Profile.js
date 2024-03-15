@@ -99,7 +99,7 @@ const Profile = () => {
                     </div>
                 </div>
 
-               <Link to={"/recompensas"}><div className='containerBtn'><button className='btnAddFriends'>Convidar amigos</button></div></Link> 
+               <Link to={"/convidar-amigos"}><div className='containerBtn'><button className='btnAddFriends'>Convidar amigos</button></div></Link> 
 
                 <div className='detalhesCentraisPerfil'>
               
