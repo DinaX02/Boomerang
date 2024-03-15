@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ExitPage from "../assets/icons/eliminar.svg"
 import GreenStar from "../assets/icons/green_star.svg"
 import AddFriendsIcon from "../assets/icons/Add_friends_icon.svg"
@@ -149,14 +149,14 @@ const RecompensasParaAddAmigos = () => {
 <p className='tituloGreenContainer'>Convida amigos</p>
 <p className='paraghContainerGreen'>Traz os teus amigos para a Boomerang!</p>
 <ConvidarBtnEIconAdd>
-<button className='btnAddFriend'>Convidar Amigos</button>
+<Link to={"/convidar-amigos"}><button className='btnAddFriend'>Convidar Amigos</button></Link>
 <img src={AddFriendsIcon} alt='icone adicionar amigos'/></ConvidarBtnEIconAdd>
     </ContainerAddAmigos>
 
     <ContainerCampanhasTemporarias>
   <img src={IconCampanhasTemporarias} alt='icone campanhas temporarias' />
 <p className='tituloWhiteContainer'>Campanhas Temporárias</p>
-<button className='btnIrCampanhas'>Ir</button>
+<Link to={"/convidar-amigos"}><button className='btnIrCampanhas'>Ir</button></Link>
     </ContainerCampanhasTemporarias>
 
     </ContainerGeral>
