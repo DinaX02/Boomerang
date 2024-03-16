@@ -1,18 +1,26 @@
 import React, {useState} from 'react'
 import Header from '../components/Header/Header'
 import PreviewCard from '../components/PreviewCard'
-import MenuMobile from '../components/MenuMobile'
+// import MenuMobile from '../components/MenuMobile'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+// import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import Button from "../components/Button"
 import AvaliacaoDefault from "../assets/icons/estrela_avaliar_default.svg"
 import AvaliacaoSelected from "../assets/icons/estrela_avaliar_selected.svg"
 import InfoIcon from "../assets/icons/infoIcon.svg"
+import iconOverlay from "../assets/icons/tick_iconOverlayFInal.svg"
+import OverlayFinalPublish from '../components/OverlayFinalPublish'
 
 const AvaliarAluguerPage = () => {
   const list = useSelector((state) => state.Rent.progressRentList);
+  const navigate = useNavigate();
 
     // Estado inicial
     const [selectedStars, setSelectedStars] = useState([false, false, false, false, false]);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [showOverlayAvaliar, setShowOverlayAvaliar ]= useState(false);
 
     // mudar a star de default para selected e vice-versa
     const handleStarClick = (index) => {
@@ -20,8 +28,18 @@ const AvaliarAluguerPage = () => {
         i <= index ? true : false
       );
       setSelectedStars(newSelectedStars);
+      setIsButtonDisabled(false);
     };
 
+
+    const handleAvaliar = () => {
+      setShowOverlayAvaliar(true);
+      setTimeout(() => {
+  
+        setShowOverlayAvaliar(false);
+        navigate("/");
+      }, 2000);
+    }
   return (
     <div>
       <Header name="Avaliar Aluguer"/>
@@ -42,19 +60,28 @@ const AvaliarAluguerPage = () => {
       </div>
 
       <div className='containerContactarPromotor'>
-<button>Contactar mariacarmo</button>
+      <button>Contactar mariacarmo</button> 
 
-<div className='helpersLinks'><img src={InfoIcon}/><p>O que fazer caso a peça não chegar a tempo</p></div>
-<div className='helpersLinks'><img src={InfoIcon}/><p>Perguntas Frequentes</p></div>
+{/* <div className='helpersLinks'><img src={InfoIcon}/><p>O que fazer caso a peça não chegar a tempo</p></div> */}
+<div style={{marginTop: "1em"}} className='helpersLinks'><img src={InfoIcon} alt='icon de informação'/><p>Perguntas Frequentes</p></div>
 
 <p>Outras opções</p>
 
-<div className='helpersLinks'><img src={InfoIcon}/><p>Ajuda</p></div>
-<div className='helpersLinks'><img src={InfoIcon}/><p>Contactar Suporte</p></div>
+<div className='helpersLinks'><img src={InfoIcon} alt='icon de informação'/><p>Ajuda</p></div>
+<div className='helpersLinks'><img src={InfoIcon} alt='icon de informação'/><p>Contactar Suporte</p></div>
 
       </div>
+
+      <ContainerBtnConcluir><Button text="Concluir" onClick={handleAvaliar} disable={isButtonDisabled}/></ContainerBtnConcluir>
+     
       </ContainerAvaliarPage>
-      <MenuMobile/>
+      {showOverlayAvaliar && (
+        <OverlayFinalPublish>
+          <img style={{marginTop: "1em"}} src={iconOverlay} alt="Icone de Publicar acabado" />
+          <p style={{marginTop: "1em", color:"white"}}>Aluguer Avaliado com sucesso!</p>
+        </OverlayFinalPublish>
+      )}
+      {/* <MenuMobile/> */}
     </div>
   )
 }
@@ -76,7 +103,7 @@ h1{
 }
 
 p{
-  font-size: 14px;
+  font-size: 14px;  
 }
 
 .containerAvaliacaoEstrelas{
@@ -85,7 +112,7 @@ flex-direction: row;
 justify-content: space-evenly;
 text-align: right;
 margin-top: 1.5em;
-margin-bottom: 3.5em;
+margin-bottom: 2.2em;
 }
 
 .containerAvaliacaoEstrelas img {
@@ -100,7 +127,7 @@ margin-bottom: 3.5em;
   background-color:#FFF;
   border-radius:8px;
   padding: 1em;
-  margin-top: 2.4em;
+  // margin-top: 2.4em;
   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
   
   button{
@@ -111,11 +138,11 @@ margin-bottom: 3.5em;
     font-weight: bold;
     color:#00C17C;
     font-size: 14px;
-    // width: 80%;
+    width: 100%;
     margin-bottom: 1em;
 
     &:active {
-      background-color: #DADADA;
+      background-color: #F8F8F8;
   }
 }
 
@@ -134,4 +161,11 @@ margin-bottom: 3.5em;
   }
 }
 
+`
+
+const ContainerBtnConcluir= styled.div`
+
+display:flex;
+justify-content: center;
+margin-top: 2.7em;
 `
