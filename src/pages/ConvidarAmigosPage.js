@@ -3,7 +3,7 @@ import Header from "../components/Header/Header"
 import styled from 'styled-components'
 import QRCode from 'qrcode.react';
 import IconWhatsapp from "../assets/icons/icon_whatsapp.svg"
-import IconInstagram from "../assets/icons/icon_instagram.svg"
+// import IconInstagram from "../assets/icons/icon_instagram.svg"
 import IconTwitter from "../assets/icons/icon_twitter.svg"
 import IconFacebook from "../assets/icons/icon-facebook.svg"
 

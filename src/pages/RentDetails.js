@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header/Header'
 import PreviewCard from '../components/PreviewCard'
-import MenuMobile from '../components/MenuMobile'
+// import MenuMobile from '../components/MenuMobile'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -23,6 +23,7 @@ const transportes = [
         <PreviewCard id={list.article_id} valor={list.total}/>
         </div>
         <RentDetailsDiv>
+        <Link to={"/avaliar-aluguer"}><AvaliarBtn>Avaliar Aluguer</AvaliarBtn></Link>
         <Titles>Estado do Aluguer:</Titles>
         <Info>Aguarda Confirmação</Info>
         <hr></hr>
@@ -39,17 +40,17 @@ const transportes = [
         <Titles>Método de Pagamento:</Titles>
         <Info>{list.pagamento}</Info>
 
-        <Link to={"/avaliar-aluguer"}><button>Avaliar Aluguer</button></Link>
+        
 
         </RentDetailsDiv>
-        <MenuMobile/>
+        {/* <MenuMobile/> */}
     </div>
   )
 }
 
 const RentDetailsDiv= styled.div`
 width: 85vw;
-margin: 40px auto 0 auto;
+margin: 30px auto 0 auto;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -60,7 +61,22 @@ hr{
 
 padding-bottom: 100px;
 `
+const AvaliarBtn = styled.button`
 
+  border: 2px solid #00C17C;
+  border-radius: 5px;
+  background-color:#FFF;
+  padding: 0.6em;
+  font-weight: bold;
+  color:#00C17C;
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 2.5em;
+
+  &:active {
+    background-color: #F8F8F8;
+}
+`
 
 const Info = styled.p`
 font-size: 0.8rem;
