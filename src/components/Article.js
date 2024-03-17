@@ -1,36 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react';
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '../assets/icons/favoriteIcon.svg'
+import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
+
 
 const Article = (props) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [strokeFavorite, setStrokeFavorite] = useState('black');
+  const [fillFavorite, setFillFavorite] = useState('none');
 
-    if (props.more) {
-        return (
-
-        <MoreLink to={`/article`}>
-            Ver Mais
-        </MoreLink>
-        )
+  const favoriteHandler = () => {
+    setIsFavorite(!isFavorite);
+    if (!isFavorite) {
+      setStrokeFavorite('none');
+      setFillFavorite('#C80000');
     }
+    else {
+      setStrokeFavorite('black');
+      setFillFavorite('none');
+    }
+  }
 
-    
+  if (props.more) {
     return (
-        //TODO: alterar o link para o link do artigo//
-        //TODO: alterar imagens e informações para o artigo//
 
-        <ArticleLink style={{zoom: `${props.scale}`}} to={`/article/${props.id}`}>
-            <img src={props.image} alt={'article'}/>
-            {props.description && <div style={{display: props.description ? "block" : "none"}} className={'description'}>
-                <div className={'priceRow'}>
-                    <div>{props.price}€ / dia</div>
-                    <div><FavoriteBorderIcon style={{color: "lightgray"}}/></div>
-                </div>
-                <p>{props.brand}</p>
-                <p>Tamanho {props.size}</p>
-            </div>}
-        </ArticleLink>
+      <MoreLink to={`/ver-tudo`}>
+        Ver Tudo
+      </MoreLink>
     )
+  }
+
+
+
+  return (
+    //TODO: alterar o link para o link do artigo//
+    //TODO: alterar imagens e informações para o artigo//
+
+    <ArticleStyled style={{ zoom: `${props.scale}`, width: `${props.width}` }}>
+      <Link to={`/article/${props.id}`}> <img className='imgArticle' src={props.image} alt={'article'} /></Link>
+      {props.description && <div style={{ display: props.description ? "block" : "none" }} className={'description'}>
+        <div className={'priceRow'}>
+          <div>{props.price}€ / dia</div>
+          {/* <div><FavoriteBorderIcon style={{color: "lightgray", scale: '0.7'}}/></div> */}
+          <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{zoom: '1.1'}}/>
+        </div>
+        <p>{props.brand}</p>
+        <p>Tamanho {props.size}</p>
+      </div>}
+    </ArticleStyled>
+  )
 }
 
 const MoreLink = styled(Link)`
@@ -43,7 +63,7 @@ const MoreLink = styled(Link)`
   justify-content: center;
 `
 
-const ArticleLink = styled(Link)`
+const ArticleStyled = styled.div`
   
   font-weight: 600;
   width: 120px;
@@ -64,6 +84,7 @@ const ArticleLink = styled(Link)`
   
   .description{
     padding: 5px;
+    text-align: left;
   }
   
   .priceRow{
@@ -71,7 +92,7 @@ const ArticleLink = styled(Link)`
     justify-content: space-between;
   }
 
-  img {
+  .imgArticle {
     width: 100%;
     height: 144px;
     object-fit: cover;
@@ -79,6 +100,5 @@ const ArticleLink = styled(Link)`
   }
     
 `
-
 
 export default Article;
