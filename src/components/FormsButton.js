@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import selected from "../assets/selected.svg";
+import selected from "../assets/icons/selected.svg";
 import styled from "styled-components";
 
 const FormsButton = (props) => {

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import SearchPage from "./pages/SearchPage";
 import Publicar from "./pages/Publicar";
-import Profile from "./pages/Profile";
+import Profile from "./pages/Profile_v2";
 import '../src/components/components.css';
 import ProgressPublish2 from "./components/ProgressPublish/ProgressPublish2";
 import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
