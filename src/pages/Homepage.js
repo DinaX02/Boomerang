@@ -66,7 +66,7 @@ const Homepage = () => {
 
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/'}>Ver tudo</Link></div>
+          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'}>Ver tudo</Link></div>
           <div className={'articles'}>
           {artigosJSON.slice(0,5).map((artigo) =>{
              return <Article key={artigo.id} id={artigo.id}  description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size}/>
@@ -75,7 +75,7 @@ const Homepage = () => {
           </div>
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/'}>Ver mais</Link></div>
+          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'}>Ver tudo</Link></div>
           <div className={'articles'}>
           {artigosJSON.slice(6,11).map((artigo) =>{
             console.log(artigo.id);
