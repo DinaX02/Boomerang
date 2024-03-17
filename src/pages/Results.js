@@ -13,7 +13,9 @@ import { MenuList } from "@mui/material";
 import artigosJSON from "../data/artigos.json";
 import Article from "../components/Article"; // Import the component
 import noResultsIcon from "../assets/icons/noResultsIcon.svg";
-
+import mosaicoIcon from "../assets/icons/mosaico.svg";
+import ordenarIcon from "../assets/icons/ordenar.svg";
+import galeriaIcon from "../assets/icons/galeria.svg";
 
 const Results = () => {
     const navigate = useNavigate();
@@ -23,6 +25,8 @@ const Results = () => {
     const [searchInput, setSearchInput] = useState(initialQuery || '');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [sortingCriteria, setSortingCriteria] = useState('mostRecent');
+    const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
+    const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
 
     useEffect(() => {
         setSearchInput(initialQuery || '');
@@ -56,6 +60,32 @@ const Results = () => {
         handleClose();
     };
 
+    const handleViewOption = () => {
+        // setViewOption(option);
+        // handleClose();
+        if(viewOption==='mosaico'){
+            setSingleColumnGrid(true);
+            setViewOption('galeria');
+        }
+        else{
+            setSingleColumnGrid(false);
+            setViewOption('mosaico');
+        }
+    };
+
+    const getViewIcon = () => {
+        switch (viewOption) {
+            // case 'lista':
+            //     return listaIcon;
+            case 'galeria':
+                return galeriaIcon;
+            case 'mosaico':
+                return mosaicoIcon;
+            default:
+                return mosaicoIcon;
+        }
+    };
+
     const sortArtigos = () => {
         if (sortingCriteria === 'lowToHigh') {
             return artigosJSON.slice(0, 10).sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
@@ -86,8 +116,8 @@ const Results = () => {
             </div>
             <div className={'resultsContent'}>
                 <div className={'sectionTitle'}>
-                    <div>Resultados</div>
-                    <div>
+                    <div className='resultadosTitle'>Resultados</div>
+                    {/* <div>
                         <div
                             id="article-menu-button"
                             aria-controls={anchorEl ? 'article-menu' : undefined}
@@ -130,13 +160,103 @@ const Results = () => {
                                 </Grow>
                             )}
                         </Popper>
+                    </div> */}
+                    <div>
+                        <img
+                            src={ordenarIcon}
+                            alt="ordenar icon"
+                            id="article-menu-button"
+                            aria-controls={anchorEl ? 'article-menu' : undefined}
+                            // aria-haspopup="true"
+                            onClick={handleClick}
+                            style={{ cursor: 'pointer', height: '18px', display: 'flex', marginRight: '20px' }}
+                        ></img>
+
+                        <Popper
+                            open={Boolean(anchorEl)}
+                            anchorEl={anchorEl}
+                            role={undefined}
+                            placement="bottom-start"
+                            transition
+                            disablePortal
+                            style={{ width: '180px' }}
+                        >
+                            {({ TransitionProps, placement }) => (
+                                <Grow
+                                    {...TransitionProps}
+                                    style={{
+                                        transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                    }}
+                                >
+                                    <Paper>
+                                        <ClickAwayListener onClickAway={handleClose}>
+                                            <MenuList
+                                                autoFocusItem={Boolean(anchorEl)}
+                                                id="composition-menu"
+                                                aria-labelledby="composition-button"
+                                                onKeyDown={handleListKeyDown}
+                                            >
+                                                <MenuItem className={sortingCriteria === 'mostRecent' ? 'selected' : ''} onClick={() => handleSort('mostRecent')}>Mais recente</MenuItem>
+                                                <MenuItem className={sortingCriteria === 'oldest' ? 'selected' : ''} onClick={() => handleSort('oldest')}>Mais antigo</MenuItem>
+                                                <MenuItem className={sortingCriteria === 'lowToHigh' ? 'selected' : ''} onClick={() => handleSort('lowToHigh')}>Preço: baixo para alto</MenuItem>
+                                                <MenuItem className={sortingCriteria === 'highToLow' ? 'selected' : ''} onClick={() => handleSort('highToLow')}>Preço: alto para baixo</MenuItem>
+                                            </MenuList>
+                                        </ClickAwayListener>
+                                    </Paper>
+                                </Grow>
+                            )}
+                        </Popper>
+                    </div>
+                    <div>
+                        <img
+                            src={getViewIcon()}
+                            alt="view icon"
+                            id="view-menu-button"
+                            // aria-controls={anchorElView ? 'view-menu' : undefined}
+                            // aria-haspopup="true"
+                            onClick={handleViewOption}
+                            style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
+                        />
+                        {/* <Popper
+                            open={Boolean(anchorElView)}
+                            anchorEl={anchorElView}
+                            role={undefined}
+                            placement="bottom-start"
+                            transition
+                            disablePortal
+                            style={{ width: '120px' }}
+                        >
+                            {({ TransitionProps, placement }) => (
+                                <Grow
+                                    {...TransitionProps}
+                                    style={{
+                                        transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                    }}
+                                >
+                                    <Paper>
+                                        <ClickAwayListener onClickAway={handleClose}>
+                                            <MenuList
+                                                autoFocusItem={Boolean(anchorElView)}
+                                                id="view-menu"
+                                                aria-labelledby="view-button"
+                                                onKeyDown={handleListKeyDown}
+                                            >
+                                                <MenuItem className={viewOption === 'lista' ? 'selected' : ''} onClick={() => handleViewOption('lista')}>Lista</MenuItem>
+                                                <MenuItem className={viewOption === 'galeria' ? 'selected' : ''} onClick={() => handleViewOption('galeria')}>Galeria</MenuItem>
+                                                <MenuItem className={viewOption === 'mosaico' ? 'selected' : ''} onClick={() => handleViewOption('mosaico')}>Mosaico</MenuItem>
+                                            </MenuList>
+                                        </ClickAwayListener>
+                                    </Paper>
+                                </Grow>
+                            )}
+                        </Popper> */}
                     </div>
                 </div>
 
                 {sortArtigos().length !== 0 ? (
-                    <div className={'resultsArticles'}>
+                    <div className={'resultsArticles'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
                     {sortArtigos().slice(0, 10).map((artigo) => {
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}/>;
+                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}  width={singleColumnGrid ? '100%' : '120px'}/>;
                     })}
                 </div>
                 
@@ -159,18 +279,27 @@ const ResultsStyle = styled.div`
     text-align: center;
     .resultsArticles {
       padding-top: 25px;
-      gap: 20px 10px;
+      /* gap: 20px 10px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
-      justify-items: center;
+      justify-items: center; */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 25px 25px;
+      flex-direction: row;
     }
   }
 
   .sectionTitle {
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     font-size: 14px;
     font-weight: 800;
+    .resultadosTitle {
+        flex-grow: 10;
+        text-align: left;
+    }
     .ordenar{
       font-weight: 600;
     }

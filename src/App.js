@@ -31,6 +31,7 @@ import Results from "./pages/Results";
 import RecompensasParaAddAmigos from "./pages/RecompensasParaAddAmigos";
 import ConvidarAmigosPage from "./pages/ConvidarAmigosPage";
 import AvaliarAluguerPage from "./pages/AvaliarAluguerPage";
+import VerTudo from "./pages/VerTudo";
 
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
         <Route path="/metodo-pagamento" element={<MetodoPagamento/>}></Route>
         <Route path="/adicionar-pagamento" element={<AddMetPagamento/>}></Route>
         <Route path="/alugar-progresso" element={<AlugarProgresso/>}></Route>
+        <Route path="/ver-tudo" element={<VerTudo/>}></Route>
         <Route path="/recompensas" element={<RecompensasParaAddAmigos/>}></Route>
         <Route path="/convidar-amigos" element={<ConvidarAmigosPage/>}></Route>
         <Route path="/avaliar-aluguer" element={<AvaliarAluguerPage/>}></Route>
