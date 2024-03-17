@@ -105,7 +105,7 @@ const ConvidarAmigosPage = () => {
       <Header name="Convidar Amigos"/>
       <ContainerGeral>
       <TituloPagina>Convida Amigos</TituloPagina>
-      <p style={{fontSize: "13px"}}>Partilha com os teus amigos e começa a ganhar !</p>
+      <p style={{fontSize: "13px"}}>Agora já consegues convidar os teus amigos para a Boomerang!</p>
       
       <ContainerAddAmigos>
 <p className='tituloGreenContainer'>Partilha QrCode</p>
@@ -116,7 +116,7 @@ const ConvidarAmigosPage = () => {
     </ContainerAddAmigos>
 
         <ContainerAddAmigos>
-          <p className='tituloshare'>Outras opções para partilhar código </p>
+          <p className='tituloshare'>Outras opções de partilha</p>
           <div className='containerShareRedes'>
             <img src={IconWhatsapp} alt='icon partilhar whatsapp' onClick={shareOnWhatsapp}/>
             {/* <img src={IconInstagram} alt='icon partilhar Instagram' onClick={shareOnInstagram}/> */}
