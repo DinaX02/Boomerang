@@ -121,6 +121,8 @@ const HomepageStyle = styled.div`
     }
 
     .profileLink {
+      margin-left: 10px;
+      margin-top: 10px;
       height: 50px;
       width: 50px;
       border-radius: 100%;
