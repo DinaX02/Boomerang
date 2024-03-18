@@ -2,6 +2,17 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
+import mariacarmo from "../assets/icons/user_unknown.svg"
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
+import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
+import Sobrenos from '../assets/icons/sobrenos.svg';
 import mariacarmo from "../assets/perfil/user_mockup_image.jpg";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
@@ -234,41 +245,42 @@ const ProfileStyle = styled.div`
   //     background-color: #00C17C;
   //   }
 
-  .namediv {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 25px;
-    height: 90px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
-    display: flex;
-    flex-direction: row;
-    background-color: white;
-    border-radius: 5px;
-    align-items: center;
+.namediv{
+  margin-left: 20px;
+margin-right: 20px;
+  margin-top: 25px;
+  height: 90px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 5px;
+  align-items: center;
+
+}
+.profileimg{
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  border: 2px black solid;
+  background-image: url(${mariacarmo});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  margin-right: 18px;
+  margin-left: 15px;
+}
+.profiletext{
+  .username{
+    font-weight: bold;
   }
-  .profileimg {
-    height: 50px;
-    width: 50px;
-    border-radius: 100%;
-    border: 2px black solid;
-    background-image: url(${mariacarmo});
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top center;
-    margin-right: 18px;
-    margin-left: 15px;
+  p{
+    margin: 0;
   }
-  .profiletext {
-    .username {
-      font-weight: bold;
-    }
-    p {
-      margin: 0;
-    }
-    text-align: left;
-    width: 55%;
-    margin-right: 30px;
-  }
+  text-align: left;
+  width: 55%;
+  margin-right: 30px;
+}
 
   .title {
     margin-top: 35px;
