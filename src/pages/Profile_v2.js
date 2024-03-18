@@ -13,17 +13,6 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
 import Sobrenos from '../assets/icons/sobrenos.svg';
-import mariacarmo from "../assets/perfil/user_mockup_image.jpg";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
-import CheckroomOutlinedIcon from "@mui/icons-material/CheckroomOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import PrivacyTipOutlinedIcon from "@mui/icons-material/PrivacyTipOutlined";
-import Sobrenos from "../assets/icons/sobrenos.svg";
 import Button from "../components/Button";
 
 const Profile = () => {
