@@ -5,14 +5,20 @@ import maisFilter from '../assets/icons/mostrar_mais_icon.svg';
 import menosFilter from '../assets/icons/Filter_menos.png';
 import Button from "./Button";
 
-const FilterButtons = () => {
+const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
     const [showFilters, setShowFilters] = useState(false);
     const [accordion, setAccordion] = useState({
         size: false,
         color: false,
         category: false,
         brand: false,
-        order: false,
+    });
+
+    const [selectedFilters, setSelectedFilters] = useState({
+        size: null,
+        color: null,
+        category: null,
+        brand: null,
     });
 
     const toggleFilters = () => {
@@ -20,22 +26,29 @@ const FilterButtons = () => {
     };
 
     const toggleAccordion = (filter) => {
-        const updatedAccordion = {
-            size: false,
-            color: false,
-            category: false,
-            brand: false,
-        };
-
         setAccordion({
-            ...updatedAccordion,
+            ...accordion,
             [filter]: !accordion[filter],
         });
     };
 
+    const handleApplyFilters = () => {
+        // Apply selected filters
+        console.log(selectedFilters)
+        handleActiveFilters(selectedFilters)
+        applyFilters(selectedFilters);
+        toggleFilters(); // Close the filter overlay
+    };
 
+    const handleSelectFilter = (filterType, value) => {
+        const newValue = selectedFilters[filterType] === value ? null : value;
 
-
+        setSelectedFilters({
+            ...selectedFilters,
+            [filterType]: newValue,
+        });
+        console.log(selectedFilters[filterType])
+    };
 
     return (
         <div>
@@ -45,211 +58,117 @@ const FilterButtons = () => {
                 <div className="overlay">
                     <div className="filterHeader">
                         <div className="filterTitle">
-                            <h2>Filtragem e Ordenação</h2>
+                            <h2>Filtros</h2>
                         </div>
                         <div className="filterClose">
                             <button onClick={toggleFilters}><img src={closeFilter} alt="fechar"></img></button>
                         </div>
                     </div>
                     <div className="filterMenu">
-                        {/* Filtro de tamanho */}
                         <div className="accordionFilter">
                             <hr></hr>
-                            <div>
-                                {accordion.size ? (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('size')}>
-                                            Tamanho
-                                        </button>
-                                        <img src={menosFilter} alt="fechar"></img>
-                                    </div>
-                                ) : (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('size')}>
-                                            Tamanho
-                                        </button>
-                                        <img src={maisFilter} alt="fechar"></img>
-                                    </div>
-
-                                )}
-                                {accordion.size && (
-                                    <div class="panel">
-                                        {/* adicionar opções de tamanho */}
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="size" value="XS" />
-                                            XS
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="S" />
-                                            S
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="M" />
-                                            M
-                                        </label>
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="size" value="L" />
-                                            L
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="XL" />
-                                            XL
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="XLL" />
-                                            XLL
-                                        </label>
-                                        {/* ... */}
-                                    </div>
-                                )}
+                            <div className="accordionSeparador">
+                                <button className="accordion" onClick={() => toggleAccordion('size')}>
+                                    Tamanho
+                                </button>
+                                <img src={accordion.size ? menosFilter : maisFilter} alt="toggle"></img>
                             </div>
+                            {accordion.size && (
+                                <div className="panel">
+                                    <label>
+                                        <input type="radio" className="radioInput" name="size" value="XS" onChange={() => handleSelectFilter('size', 'XS')} checked={selectedFilters['size'] === 'XS'} />
+                                        XS
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="size" value="S" onChange={() => handleSelectFilter('size', 'S')} checked={selectedFilters['size'] === 'S'} />
+                                        S
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="size" value="M" onChange={() => handleSelectFilter('size', 'M')} checked={selectedFilters['size'] === 'M'} />
+                                        M
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="size" value="L" onChange={() => handleSelectFilter('size', 'L')} checked={selectedFilters['size'] === 'L'} />
+                                        L
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="size" value="XL" onChange={() => handleSelectFilter('size', 'XL')} checked={selectedFilters['size'] === 'XL'} />
+                                        XL
+                                    </label>
+                                </div>
+                            )}
 
                             <hr></hr>
-                            <div>
-
-                                {accordion.color ? (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('color')}>
-                                            Cor
-                                        </button>
-                                        <img src={menosFilter} alt="fechar"></img>
-                                    </div>
-                                ) : (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('color')}>
-                                            Cor
-                                        </button>
-                                        <img src={maisFilter} alt="fechar"></img>
-                                    </div>
-                                )}
-
-                                {accordion.color && (
-                                    <div class="panel">
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="cor" value="multicor" />
-                                            Multicor
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="preto" />
-                                            Preto
-                                        </label>
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="cor" value="branco" />
-                                            Branco
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="vermelho" />
-                                            Vermelho
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="verde" />
-                                            Verde
-                                        </label>
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="cor" value="azul" />
-                                            Azul
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="amarelo" />
-                                            Amarelo
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="rosa" />
-                                            Rosa
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="roxo" />
-                                            Roxo
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="cor" value="laranja" />
-                                            Laranja
-                                        </label>
-                                        {/* ... */}
-                                    </div>
-                                )}
+                            <div className="accordionSeparador">
+                                <button className="accordion" onClick={() => toggleAccordion('color')}>
+                                    Cor
+                                </button>
+                                <img src={accordion.color ? menosFilter : maisFilter} alt="toggle"></img>
                             </div>
+                            {accordion.color && (
+                                <div className="panel">
+                                    <label>
+                                        <input type="radio" className="radioInput" name="color" value="multicor" onChange={() => handleSelectFilter('color', 'multicor')} checked={selectedFilters['color'] === 'multicor'} />
+                                        Multicor
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="color" value="preto" onChange={() => handleSelectFilter('color', 'preto')} checked={selectedFilters['color'] === 'preto'} />
+                                        Preto
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="color" value="branco" onChange={() => handleSelectFilter('color', 'branco')} checked={selectedFilters['color'] === 'branco'} />
+                                        Branco
+                                    </label>
+                                </div>
+                            )}
 
                             <hr></hr>
-                            <div>
-                                {accordion.category ? (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('category')}>
-                                            Categoria
-                                        </button>
-                                        <img src={menosFilter} alt="fechar"></img>
-                                    </div>
-                                ) : (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('category')}>
-                                            Categoria
-                                        </button>
-                                        <img src={maisFilter} alt="fechar"></img>
-                                    </div>
-                                )}
-
-                                {accordion.category && (
-                                    <div class="panel">
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="categoria" value="mulher" />
-                                            Mulher
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="categoria" value="homem" />
-                                            Homem
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="categoria" value="crianca" />
-                                            Criança
-                                        </label>
-                                        {/* ... */}
-                                    </div>
-                                )}
+                            <div className="accordionSeparador">
+                                <button className="accordion" onClick={() => toggleAccordion('category')}>
+                                    Categoria
+                                </button>
+                                <img src={accordion.category ? menosFilter : maisFilter} alt="toggle"></img>
                             </div>
+                            {accordion.category && (
+                                <div className="panel">
+                                    <label>
+                                        <input type="radio" className="radioInput" name="category" value="mulher" onChange={() => handleSelectFilter('category', 'mulher')} checked={selectedFilters['category'] === 'mulher'} />
+                                        Mulher
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="category" value="homem" onChange={() => handleSelectFilter('category', 'homem')} checked={selectedFilters['category'] === 'homem'} />
+                                        Homem
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="category" value="crianca" onChange={() => handleSelectFilter('category', 'crianca')} checked={selectedFilters['category'] === 'crianca'} />
+                                        Criança
+                                    </label>
+                                </div>
+                            )}
+
                             <hr></hr>
-                            <div>
-                                {accordion.brand ? (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('brand')}>
-                                            marca
-                                        </button>
-                                        <img src={menosFilter} alt="fechar"></img>
-                                    </div>
-                                ) : (
-                                    <div className="accordionSeparador">
-                                        <button class="accordion" onClick={() => toggleAccordion('brand')}>
-                                            marca
-                                        </button>
-                                        <img src={maisFilter} alt="fechar"></img>
-                                    </div>
-                                )}
-
-                                {accordion.brand && (
-                                    <div class="panel">
-                                        <label>
-
-                                            <input type="radio" className="radioInput" name="size" value="Opção 1" />
-                                            Marca 1
-                                        </label>
-                                        <label>
-                                            <input type="radio" className="radioInput" name="size" value="Opção 2" />
-                                            Marca 2
-                                        </label>
-                                    </div>
-                                )}
+                            <div className="accordionSeparador">
+                                <button className="accordion" onClick={() => toggleAccordion('brand')}>
+                                    Marca
+                                </button>
+                                <img src={accordion.brand ? menosFilter : maisFilter} alt="toggle"></img>
                             </div>
-                            <hr></hr>
+                            {accordion.brand && (
+                                <div className="panel">
+                                    <label>
+                                        <input type="radio" className="radioInput" name="brand" value="marca1" onChange={() => handleSelectFilter('brand', 'marca1')} checked={selectedFilters['brand'] === 'marca1'} />
+                                        Marca 1
+                                    </label>
+                                    <label>
+                                        <input type="radio" className="radioInput" name="brand" value="marca2" onChange={() => handleSelectFilter('brand', 'marca2')} checked={selectedFilters['brand'] === 'marca2'} />
+                                        Marca 2
+                                    </label>
+                                </div>
+                            )}
                         </div>
                     </div>
-
                     <div className="filtroAplicar">
-                        <Button text='Aplicar'/>
+                        <Button text='Aplicar' onClick={handleApplyFilters} />
                     </div>
                 </div>
             )}

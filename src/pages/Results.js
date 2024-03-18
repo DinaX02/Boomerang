@@ -16,6 +16,8 @@ import noResultsIcon from "../assets/icons/noResultsIcon.svg";
 import mosaicoIcon from "../assets/icons/mosaico.svg";
 import ordenarIcon from "../assets/icons/ordenar.svg";
 import galeriaIcon from "../assets/icons/galeria.svg";
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 const Results = () => {
     const navigate = useNavigate();
@@ -27,15 +29,47 @@ const Results = () => {
     const [sortingCriteria, setSortingCriteria] = useState('mostRecent');
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
     const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
+    const [filteredArticles, setFilteredArticles] = useState([]);
+    const [activeFilters, setActiveFilters] = useState({});
+    const shouldRenderStack = Object.values(activeFilters).some(value => value !== null);
 
     useEffect(() => {
         setSearchInput(initialQuery || '');
+        filterArticles(initialQuery);
     }, [initialQuery]);
+
+    const filterArticles = (query) => {
+        if (query) {
+            const filtered = artigosJSON.filter(artigo =>
+                artigo.title.toLowerCase().includes(query.toLowerCase()) ||
+                artigo.description.toLowerCase().includes(query.toLowerCase()) ||
+                artigo.brand.toLowerCase().includes(query.toLowerCase())
+            );
+            setFilteredArticles(filtered);
+        } else {
+            setFilteredArticles(artigosJSON);
+        }
+    };
+
+    const applyFilters = (selectedFilters) => {
+        // Filter articles based on the selected filters
+        let filteredArticles = artigosJSON.filter((artigo) => {
+            // Check if each article matches all selected filters
+            return (
+                (selectedFilters.size === null || artigo.size === selectedFilters.size) &&
+                (selectedFilters.color === null || artigo.color === selectedFilters.color) &&
+                (selectedFilters.category === null || artigo.category.toLowerCase() === selectedFilters.category) &&
+                (selectedFilters.brand === null || artigo.brand === selectedFilters.brand)
+            );
+        });
+        setFilteredArticles(filteredArticles);
+    };
 
     const handleSearch = (e) => {
         e.preventDefault();
         const searchUrl = `/results?query=${encodeURIComponent(searchInput)}`;
         navigate(searchUrl);
+        filterArticles(searchInput);
     };
 
     const handleClick = (event) => {
@@ -44,6 +78,16 @@ const Results = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleDelete = (key) => {
+        activeFilters[key] = null;
+        applyFilters(activeFilters);
+        console.log('delete')
+    };
+
+    const handleActiveFilters = (activeFilters) => {
+        setActiveFilters(activeFilters);
     };
 
     const handleListKeyDown = (event) => {
@@ -88,13 +132,13 @@ const Results = () => {
 
     const sortArtigos = () => {
         if (sortingCriteria === 'lowToHigh') {
-            return artigosJSON.slice(0, 10).sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
+            return filteredArticles.slice(0, 10).sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
         } else if (sortingCriteria === 'highToLow') {
-            return artigosJSON.slice(0, 10).sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
+            return filteredArticles.slice(0, 10).sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
         } else if (sortingCriteria === 'mostRecent') {
-            return artigosJSON.slice(0, 10).sort((a, b) => a.id - b.id);
+            return filteredArticles.slice(0, 10).sort((a, b) => a.id - b.id);
         } else if (sortingCriteria === 'oldest') {
-            return artigosJSON.slice(0, 10).sort((a, b) => b.id - a.id);
+            return filteredArticles.slice(0, 10).sort((a, b) => b.id - a.id);
         } else {
             return artigosJSON;
         }
@@ -103,18 +147,18 @@ const Results = () => {
     return (
         <ResultsStyle>
             <div className={'resultsHeader'}>
-                <form className={'searchInput'} onSubmit={handleSearch}>
-                    <SearchIcon />
-                    <input
-                        placeholder="Procura artigos"
-                        maxLength='64'
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                    />
-                </form>
-                <FilterButtons />
-            </div>
-            <div className={'resultsContent'}>
+                <div className={'search'}>
+                    <form className={'searchInput'} onSubmit={handleSearch}>
+                        <SearchIcon />
+                        <input
+                            placeholder="Procura artigos"
+                            maxLength='64'
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                        />
+                    </form>
+                    <FilterButtons applyFilters={applyFilters} handleActiveFilters={handleActiveFilters}/>
+                </div>
                 <div className={'sectionTitle'}>
                     <div className='resultadosTitle'>Resultados</div>
                     {/* <div>
@@ -252,19 +296,38 @@ const Results = () => {
                         </Popper> */}
                     </div>
                 </div>
+                {shouldRenderStack && (
+                    <Stack style={{paddingTop: '10px'}} direction="row" spacing={1}>
+                        {Object.keys(activeFilters).map(key => {
+                            if (activeFilters[key] !== null) {
+                                return (
+                                    <Chip
+                                        key={key}
+                                        label={activeFilters[key]}
+                                        onDelete={() => handleDelete(key)}
+                                    />
+                                );
+                            } else {
+                                return null;
+                            }
+                        })}
+                    </Stack>
+                )}
+            </div>
+            <div className={'resultsContent'}>
 
                 {sortArtigos().length !== 0 ? (
                     <div className={'resultsArticles'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                    {sortArtigos().slice(0, 10).map((artigo) => {
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}  width={singleColumnGrid ? '100%' : '120px'}/>;
-                    })}
-                </div>
-                
+                        {sortArtigos().slice(0, 10).map((artigo) => {
+                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}  width={singleColumnGrid ? '100%' : '120px'}/>;
+                        })}
+                    </div>
+
                 ) : (
                     <div className='zeroResults'>
-                    <img src={noResultsIcon} alt="search icon for no results" />
-                    <p>Nenhum resultado encontrado</p>
-                </div>
+                        <img src={noResultsIcon} alt="search icon for no results" />
+                        <p>Nenhum resultado encontrado</p>
+                    </div>
                 )}
             </div>
             <MenuMobile />
@@ -273,12 +336,12 @@ const Results = () => {
 };
 
 const ResultsStyle = styled.div`
-  
+
+
   .resultsContent{
-    padding: 100px 25px 115px 25px;
+    padding: 0 25px 115px 25px;
     text-align: center;
     .resultsArticles {
-      padding-top: 25px;
       /* gap: 20px 10px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
@@ -291,38 +354,45 @@ const ResultsStyle = styled.div`
     }
   }
 
-  .sectionTitle {
-    display: flex;
-    justify-content: right;
-    font-size: 14px;
-    font-weight: 800;
-    .resultadosTitle {
-        flex-grow: 10;
-        text-align: left;
-    }
-    .ordenar{
-      font-weight: 600;
-    }
-    .selected{
-      font-weight: 800;
-    }
-    li:not(.selected){
-      opacity: 0.7;
-    }
-  }
   .description {
     text-align: left;
   }
-  
+
   .resultsHeader{
     z-index: 10;
-    padding: 25px 25px 10px 25px;
+    padding: 25px 25px 15px 25px;
     width: 100%;
-    display: flex;
-    gap: 10px;
-    position: fixed;
+    position: sticky;
+    top: 0;
     background-color: #f8f8f8;
-    
+
+    .search{
+      width: 100%;
+      display: flex;
+      gap: 10px;
+    }
+
+    .sectionTitle {
+      margin-top: 25px;
+      display: flex;
+      justify-content: right;
+      font-size: 14px;
+      font-weight: 800;
+      .resultadosTitle {
+        flex-grow: 10;
+        text-align: left;
+      }
+      .ordenar{
+        font-weight: 600;
+      }
+      .selected{
+        font-weight: 800;
+      }
+      li:not(.selected){
+        opacity: 0.7;
+      }
+    }
+
     .searchInput{
       max-width: calc(100% - 60px);
       height: 50px;
@@ -355,9 +425,9 @@ const ResultsStyle = styled.div`
       }
 
     }
-    
+
   }
-  
+
   .zeroResults{
     position: absolute;
     top: 50%;
@@ -366,12 +436,12 @@ const ResultsStyle = styled.div`
     text-align: center;
 
     P{
-        width: max-content;
-        margin-top: 1em;
-        font-weight: 500;
+      width: max-content;
+      margin-top: 1em;
+      font-weight: 500;
     }
   }
-  
+
 `;
 
 export default Results;
