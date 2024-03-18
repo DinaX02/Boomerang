@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
-import mariacarmo from "../assets/perfil/user_mockup_image.jpg"
+import mariacarmo from "../assets/icons/user_unknown.svg"
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
@@ -203,11 +203,11 @@ margin-right: 20px;
   height: 50px;
   width: 50px;
   border-radius: 100%;
-  border: 2px black solid;
+  border: 1px black solid;
   background-image: url(${mariacarmo});
-  background-size: cover;
+  background-size: auto;
   background-repeat: no-repeat;
-  background-position: top center;
+  background-position: bottom center;
   margin-right: 18px;
   margin-left: 15px;
 }

@@ -29,7 +29,7 @@ const ProfileLinkStyle = styled(Link)`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: solid 2px #2e2e2e;
+    border: solid 1px #2e2e2e;
   }
   .description{
     margin-top: 5px;

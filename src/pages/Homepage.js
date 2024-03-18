@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Article from "../components/Article";
 import styled from "styled-components";
@@ -12,7 +12,7 @@ import person2 from '../assets/homepage_people/person2.jpg'
 import person3 from '../assets/homepage_people/person3.jpg'
 import person4 from '../assets/homepage_people/person4.jpg'
 import person5 from '../assets/homepage_people/person5.jpg'
-import mockupprofile from '../assets/perfil/user_mockup_image.jpg'
+import mockupprofile from '../assets/icons/user_unknown.svg'
 
 
 const Homepage = () => {
@@ -40,10 +40,11 @@ const Homepage = () => {
     <Link to={"/search-page"}><button>Pesquisa</button></Link>*/}
         <div className={'top'}>
           <div>
-            <div>Bem-Vinda</div>
+            <div>Bem-Vindo</div>
             <div>O teu guarda-roupa ilimitado começa aqui</div>
           </div>
-          <ProfileLink className={'profileLink'} image={mockupprofile}/>
+          {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
+          <div className={'profileLink'} ></div>
         </div>
         <div>
           <div className={'sectionTitle'}><span>Categorias Populares</span></div>
@@ -57,30 +58,30 @@ const Homepage = () => {
         <div>
           <div className={'sectionTitle'}><span>Promotores Populares</span></div>
           <div className={'articles'}>
-            <ProfileLink className={'profileLink'} name={'Bernardo Silva'} image={person1}/>
-            <ProfileLink className={'profileLink'} name={'Joana Faria'}  image={person2}/>
-            <ProfileLink className={'profileLink'} name={'Leandro Santos'}  image={person3}/>
-            <ProfileLink className={'profileLink'} name={'Gisela Martins'}  image={person4}/>
-            <ProfileLink className={'profileLink'} name={'Renata Batista'}  image={person5}/>
+            <ProfileLink className={'profileLink'} name={'Bernardo Silva'} image={person1} />
+            <ProfileLink className={'profileLink'} name={'Joana Faria'} image={person2} />
+            <ProfileLink className={'profileLink'} name={'Leandro Santos'} image={person3} />
+            <ProfileLink className={'profileLink'} name={'Gisela Martins'} image={person4} />
+            <ProfileLink className={'profileLink'} name={'Renata Batista'} image={person5} />
           </div>
 
         </div>
         <div>
           <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'}>Ver tudo</Link></div>
           <div className={'articles'}>
-          {artigosJSON.slice(0,5).map((artigo) =>{
-             return <Article key={artigo.id} id={artigo.id}  description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size}/>
-          })}
+            {artigosJSON.slice(0, 5).map((artigo) => {
+              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} />
+            })}
             <Article more={true} />
           </div>
         </div>
         <div>
           <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'}>Ver tudo</Link></div>
           <div className={'articles'}>
-          {artigosJSON.slice(6,11).map((artigo) =>{
-            console.log(artigo.id);
-             return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size}/>
-          })}
+            {artigosJSON.slice(6, 11).map((artigo) => {
+              console.log(artigo.id);
+              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} />
+            })}
             <Article more={true} />
           </div>
         </div>
@@ -120,8 +121,14 @@ const HomepageStyle = styled.div`
     }
 
     .profileLink {
-      margin-top: 10px;
-      margin-left: 10px;
+      height: 50px;
+      width: 50px;
+      border-radius: 100%;
+      border: 1px black solid;
+      background-image: url(${mockupprofile});
+      background-size: auto;
+      background-repeat: no-repeat;
+      background-position: bottom center;
     }
   }
   
