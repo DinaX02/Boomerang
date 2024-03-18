@@ -132,7 +132,7 @@ const ButtonWithInfoIcon = (props) => {
       />
       <ButtonWrapper>
         <InfoIconContainer>
-          <InfoSvg src={InfoIconMesures} onClick={handleIconClick} />
+          <InfoSvg src={InfoIconMesures} onClick={handleIconClick} alt="icon de mais informação"/>
           {infoName}
         </InfoIconContainer>
         <StyledButton onClick={handleButtonClick}>

@@ -111,7 +111,7 @@ const InputWithInfoIcon = (props) => {
       />
       <ButtonWrapper>
         <InfoIconContainer>
-          <InfoSvg src={InfoIconMesures} onClick={handleIconClick} />
+          <InfoSvg src={InfoIconMesures} onClick={handleIconClick} alt="icon de informação"/>
           {infoName}
           <Asterisk>*</Asterisk>
         </InfoIconContainer>
