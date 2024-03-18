@@ -47,45 +47,45 @@ const Profile = () => {
       <div className='icondiv'>
         <Link to={"/convidar-amigos"}>
         <div className='iconitem'>
-        <PersonAddOutlinedIcon  className='icon'></PersonAddOutlinedIcon>
+        <PersonAddOutlinedIcon  alt="convidar amigos" className='icon'></PersonAddOutlinedIcon>
         <div className='profiletext'>
         <p>Convidar Amigos</p>
         </div>
-        <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+        <ArrowForwardIosRoundedIcon alt="avançar" className='seta'></ArrowForwardIosRoundedIcon>
         </div>
         </Link>
         <hr></hr>
         <div className='iconitem'>
-        <CheckroomOutlinedIcon  className='icon'></CheckroomOutlinedIcon>
+        <CheckroomOutlinedIcon alt="armário"  className='icon'></CheckroomOutlinedIcon>
         <div className='profiletext'>
         <p>Armário</p>
         </div>
-        <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+        <ArrowForwardIosRoundedIcon alt="avançar" className='seta'></ArrowForwardIosRoundedIcon>
         </div>
         <hr></hr>
         <div className='iconitem'>
-        <FavoriteBorderOutlinedIcon  className='icon'></FavoriteBorderOutlinedIcon>
+        <FavoriteBorderOutlinedIcon alt="favoritos"  className='icon'></FavoriteBorderOutlinedIcon>
         <div className='profiletext'>
         <p>Favoritos</p>
         </div>
-        <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+        <ArrowForwardIosRoundedIcon alt="avançar" className='seta'></ArrowForwardIosRoundedIcon>
         </div>
         <hr></hr>
         <div className='iconitem'>
-        <ShoppingBasketOutlinedIcon  className='icon'></ShoppingBasketOutlinedIcon>
+        <ShoppingBasketOutlinedIcon alt="histórico de encomendas"   className='icon'></ShoppingBasketOutlinedIcon>
         <div className='profiletext'>
         <p>Histórico de encomendas</p>
         </div>
-        <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+        <ArrowForwardIosRoundedIcon alt="avançar" className='seta'></ArrowForwardIosRoundedIcon>
         </div>
         <hr></hr>
         <Link to={"/vouchers-page"}>
         <div className='iconitem'>
-        <LocalOfferOutlinedIcon  className='icon'></LocalOfferOutlinedIcon>
+        <LocalOfferOutlinedIcon  alt="cupões" className='icon'></LocalOfferOutlinedIcon>
         <div className='profiletext'>
         <p>Cupões</p>
         </div>
-        <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+        <ArrowForwardIosRoundedIcon alt="avançar" className='seta'></ArrowForwardIosRoundedIcon>
         </div>
         </Link>
       </div>
@@ -93,39 +93,39 @@ const Profile = () => {
 
 <div className='icondiv'>
   <div className='iconitem'>
-  <SettingsOutlinedIcon  className='icon'></SettingsOutlinedIcon>
+  <SettingsOutlinedIcon alt="definições"  className='icon'></SettingsOutlinedIcon>
   <div className='profiletext'>
   <p>Definições</p>
   </div>
-  <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+  <ArrowForwardIosRoundedIcon alt="avançar"  className='seta'></ArrowForwardIosRoundedIcon>
   </div>
   <hr></hr>
   <div className='iconitem'>
-  <DescriptionOutlinedIcon  className='icon'></DescriptionOutlinedIcon>
+  <DescriptionOutlinedIcon alt="termos e condições" className='icon'></DescriptionOutlinedIcon>
   <div className='profiletext'>
   <p>Termos e Condições</p>
   </div>
-  <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+  <ArrowForwardIosRoundedIcon  alt="avançar"  className='seta'></ArrowForwardIosRoundedIcon>
   </div>
   <hr></hr>
   <div className='iconitem'>
-  <PrivacyTipOutlinedIcon  className='icon'></PrivacyTipOutlinedIcon>
+  <PrivacyTipOutlinedIcon  alt="política de privacidade"  className='icon'></PrivacyTipOutlinedIcon>
   <div className='profiletext'>
   <p>Política de Privacidade</p>
   </div>
-  <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+  <ArrowForwardIosRoundedIcon alt="avançar"  className='seta'></ArrowForwardIosRoundedIcon>
   </div>
   <hr></hr>
   <div className='iconitem'>
-  <img src={Sobrenos}  className='icon'></img>
+  <img src={Sobrenos}  alt="sobre nós"  className='icon'></img>
   <div className='profiletext'>
   <p>Sobre Nós</p>
   </div>
-  <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
+  <ArrowForwardIosRoundedIcon alt="avançar" className='seta'></ArrowForwardIosRoundedIcon>
   </div>
 </div>
 <div className='sair' onClick={handleClickLogout}>
-  Sair
+  Terminar Sessão
 </div>
 
 
@@ -168,13 +168,17 @@ a{
 .sair{
   background-color: #343541;
   color: white;
-padding: 10px 30px 10px 30px;
 font-weight: bold;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
   border-radius: 10px;
   font-size: 14px;
-  margin: 20px auto 0 auto;
-
+  margin: 20px 20px 0 0;
+  display: flex;
+  align-self: flex-end;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 30px 0 30px;
 }
 
 .sair:active{
