@@ -79,7 +79,7 @@ const ArticleStyled = styled.div`
   p{
     margin: 0;
     font-weight: 400;
-    color: #818181;
+    color: #545454;
   }
   
   .description{
