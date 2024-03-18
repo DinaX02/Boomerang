@@ -45,6 +45,7 @@ const Profile = () => {
       <p className='title'>Atividade</p>
 
       <div className='icondiv'>
+        <Link to={"/convidar-amigos"}>
         <div className='iconitem'>
         <PersonAddOutlinedIcon  className='icon'></PersonAddOutlinedIcon>
         <div className='profiletext'>
@@ -52,6 +53,7 @@ const Profile = () => {
         </div>
         <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
         </div>
+        </Link>
         <hr></hr>
         <div className='iconitem'>
         <CheckroomOutlinedIcon  className='icon'></CheckroomOutlinedIcon>
@@ -77,6 +79,7 @@ const Profile = () => {
         <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
         </div>
         <hr></hr>
+        <Link to={"/vouchers-page"}>
         <div className='iconitem'>
         <LocalOfferOutlinedIcon  className='icon'></LocalOfferOutlinedIcon>
         <div className='profiletext'>
@@ -84,6 +87,7 @@ const Profile = () => {
         </div>
         <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
         </div>
+        </Link>
       </div>
       <p className='title'>Definições</p>
 
@@ -120,7 +124,7 @@ const Profile = () => {
   <ArrowForwardIosRoundedIcon className='seta'></ArrowForwardIosRoundedIcon>
   </div>
 </div>
-<div className='sair'>
+<div className='sair' onClick={handleClickLogout}>
   Sair
 </div>
 
@@ -137,6 +141,12 @@ justify-content: center;
 flex-direction: column;
 overflow-y: scroll;
 padding-bottom: 120px;
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
 .setaprofile{
   width: 20px;
 }
@@ -164,7 +174,12 @@ font-weight: bold;
   border-radius: 10px;
   font-size: 14px;
   margin: 20px auto 0 auto;
+
 }
+
+.sair:active{
+    background-color: #00C17C;
+  }
 
 .namediv{
   margin-left: 20px;
