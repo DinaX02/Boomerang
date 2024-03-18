@@ -13,6 +13,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
 import Sobrenos from '../assets/icons/sobrenos.svg';
+import Button from "../components/Button";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -125,7 +126,7 @@ const Profile = () => {
   </div>
 </div>
 <div className='sair' onClick={handleClickLogout}>
-  Terminar Sessão
+  <Button text="Terminar Sessão"/>
 </div>
 
 
@@ -166,24 +167,24 @@ a{
 }
 
 .sair{
-  background-color: #343541;
-  color: white;
-font-weight: bold;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
-  border-radius: 10px;
-  font-size: 14px;
+//   background-color: #343541;
+//   color: white;
+// font-weight: bold;
+//   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
+//   border-radius: 10px;
+//   font-size: 14px;
   margin: 20px 20px 0 0;
   display: flex;
   align-self: flex-end;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  padding: 0 30px 0 30px;
+  // height: 40px;
+  // padding: 0 30px 0 30px;
 }
 
-.sair:active{
-    background-color: #00C17C;
-  }
+// .sair:active{
+//     background-color: #00C17C;
+//   }
 
 .namediv{
   margin-left: 20px;
@@ -194,7 +195,7 @@ margin-right: 20px;
   display: flex;
   flex-direction: row;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   align-items: center;
 
 }
@@ -237,7 +238,7 @@ padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   justify-content: center;
   font-size: 12px;
 }
