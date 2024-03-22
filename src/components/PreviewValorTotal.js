@@ -5,17 +5,17 @@ import styled from 'styled-components';
 import iconInfo from '../assets/icons/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import Modal from "./Modal";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const PreviewValorTotal = (props) => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
-    const navigate= useNavigate();
+    const navigate = useNavigate();
     const list = useSelector((state) => state.Rent.progressRentList);
-    const [fecharModal, setFecharModal] = useState(true); 
+    const [fecharModal, setFecharModal] = useState(true);
 
     const handleIconClick = () => {
         setFecharModal(false);
-      };
+    };
 
     const handleResize = () => {
 
@@ -48,29 +48,29 @@ const PreviewValorTotal = (props) => {
     }
 
     const imageArtigo = !artigosJSON.images
-        ? artigosJSON[props.id-1].images[0]
+        ? artigosJSON[props.id - 1].images[0]
         : imgDefaultPreview;
 
 
     return (
         <MainContainer>
             <Modal
-        fecharModal={fecharModal}
-        setFecharModal={setFecharModal}
-        message={
-          <ParagraphMessageModal1p>
-Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.
-          </ParagraphMessageModal1p>
-        }
-      />
+                fecharModal={fecharModal}
+                setFecharModal={setFecharModal}
+                message={
+                    <ParagraphMessageModal1p>
+                        Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.
+                    </ParagraphMessageModal1p>
+                }
+            />
             <FirstContainer>
                 <div className='imgCardPreview' style={{ backgroundImage: `url(${imageArtigo})` }}>
                 </div>
 
                 <div className="textContainerPreview">
-                    <h2 className="titlePreview">{artigosJSON[props.id-1].title}</h2>
+                    <h2 className="titlePreview">{artigosJSON[props.id - 1].title}</h2>
                     <p className="descriptionPreview">
-                        {descriptionSizeControl(artigosJSON[props.id-1].description)}
+                        {descriptionSizeControl(artigosJSON[props.id - 1].description)}
                     </p>
                 </div>
             </FirstContainer>
@@ -78,21 +78,21 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
                 <ServiceConatiner>
                     <TextInner>
                         <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Preço diário</p>
-                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ / dia x {props.days} dias</p>
+                        <p style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ / dia x {props.days} dias</p>
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "bold" }}>{props.valor}€</p>
+                        <p style={{ margin: "0", fontWeight: "600" }}>{props.valor}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <ServiceConatiner>
                     <TextInner>
                         <div style={{ display: "flex", alignItems: "center" }}>
-                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icon" onClick={handleIconClick}/>
+                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icon" onClick={handleIconClick} />
                         </div>
-                        <p style={{ margin: "0", fontWeight: "500" }}>{artigosJSON[props.id-1].dailyRentalPrice}€ x 5% + 2€</p>
+                        <p style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ x 5% + 2€</p>
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "bold" }}>{props.taxa}€</p>
+                        <p style={{ margin: "0", fontWeight: "600" }}>{props.taxa}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <ServiceConatiner>
@@ -100,16 +100,18 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
                         <div style={{ display: "flex", alignItems: "center" }}>
                             <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Extras</p>
                         </div>
-                        <p style={{ margin: "0", fontWeight: "500" }}>{props.extras}€</p>
+                        {props.OpExtras.map((option) => (
+                                <p style={{ margin: "0"}} className='detalhe'>•{"\u00A0\u00A0\u00A0"}{option}</p>
+                        ))}
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "bold" }}>{props.extras}€</p>
+                        <p style={{ margin: "0", fontWeight: "600" }}>{props.extras}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <div style={{ textAlign: "center" }}>
                     <button className='btncupao' onClick={vouchers}>+ Inserir cupão</button>
-                    <p style={{ margin: "5px 0 0 0", fontWeight: "bold" }}>Total:</p>
-                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c" }}>{props.total}€</p>
+                    <p style={{ margin: "5px 0 0 0", fontWeight: "600" }}>Total:</p>
+                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }}>{props.total}€</p>
                 </div>
 
 
@@ -146,8 +148,8 @@ const SecondContainer = styled.div`
     border: none;
     outline: none;
     color: #00c17c;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: 600;
     margin: 20px 0px;
   }
 `;
@@ -159,9 +161,13 @@ const ServiceConatiner = styled.div`
 
 const TextInner = styled.div`
   width: 75%;
-
+  font-size: 13px;
   padding: 5px 5px 5px 30px;
   border-right: 2px solid #e4e4e4;
+  .detalhe{
+    font-size: 14px;
+    font-weight: 500;
+  }
 `;
 const PriceInner = styled.div`
   width: 25%;

@@ -39,6 +39,8 @@ const ConteudoPagamento = styled.div`
   align-items: center;
   width: 100%;
   overflow: hidden !important;
+  font-size: 13px;
+  font-weight: 400;
 `;
 
 
@@ -158,7 +160,7 @@ const MetodoPagamento = () => {
                             border: "none",
                             width: "90%",
                             textAlign: "left",
-                            fontSize: "16px",
+                            fontSize: "13px",
                             fontWeight: "500",
 
                         }}>Adicionar Pagamento</button>

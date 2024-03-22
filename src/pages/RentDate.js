@@ -78,7 +78,7 @@ const RentDateDiv = styled.div`
   }
 
   .info {
-    font-size: 16px;
+    font-size: 13px;
     margin-bottom: -18px;
     margin-top: 50px;
 
