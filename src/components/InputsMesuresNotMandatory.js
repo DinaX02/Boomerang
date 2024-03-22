@@ -135,11 +135,11 @@ const InputMeasuresNotMandatory = (props) => {
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}
           message={
-              <ImgModalDress src={ImgMesuresModal}/>
+              <ImgModalDress src={ImgMesuresModal} alt='Imagem exemplo de medidas' />
           }
         />
      <ButtonWrapper>
-        <InfoIconContainer><InfoSvg src={InfoIconMesures} onClick={handleIconClick}/> Medidas da peça</InfoIconContainer>
+        <InfoIconContainer><InfoSvg src={InfoIconMesures} onClick={handleIconClick} alt='icon de mais informação'/> Medidas da peça</InfoIconContainer>
         <ContainerMesures>
           <span>Busto</span>
           <Divisor/>

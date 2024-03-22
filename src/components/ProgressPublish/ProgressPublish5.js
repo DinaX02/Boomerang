@@ -41,7 +41,7 @@ const Container = styled.div`
 `;
 
 const ParagraphIntroAdress = styled.p`
-  color: #9f9f9f;
+  color: rgb (84,84,84);
 
   @media (max-width: 500px) {
     font-size: 14px;
