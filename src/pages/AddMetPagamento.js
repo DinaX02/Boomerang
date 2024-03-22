@@ -12,7 +12,7 @@ const MainContainer = styled.div`
 
 
   .mensagem{
-    color:#9f9f9f;
+    color: rgb (84,84,84);
     font-size: 13px;
   }
 `;

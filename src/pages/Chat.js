@@ -144,7 +144,7 @@ const Chat = () => {
             onChange={handleSendImage}
             style={{ display: "none" }}
           />
-          <button type="submit" onClick={handleSendMessage}>
+          <button type="submit" onClick={handleSendMessage} aria-label="Botão Enviar Mensagem">
             <SendRoundedIcon />
           </button>
         </form>
@@ -284,6 +284,7 @@ const ChatStyle = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       border-radius: 8px;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 
