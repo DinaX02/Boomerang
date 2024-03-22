@@ -24,11 +24,11 @@ const MainContainer = styled.div`
     margin-bottom: 20px;
   }
   .conteudo h2 {
-    font-weight: bold;
-    font-size: 22px;
+    font-weight: 600;
+    font-size: 20px;
   }
   .conteudo p {
-    font-size: 16px;
+    font-size: 14px;
     margin: 0;
     line-height: 22px;
   }

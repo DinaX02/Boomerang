@@ -53,8 +53,8 @@ const ConteudoLavagem = styled.div`
   align-items: center;
   width: 100%;
   overflow: hidden !important;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 const IconLavagemSelect = styled.img`

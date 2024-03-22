@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import addMoradaIcon from '../assets/icons/icon_AddMorada.png';
 import iconPontoRecolho from '../assets/icons/icon_PontoRecolha.png';
 import dropPontoRecolha from '../assets/icons/drop_PontoRecolha.png';
@@ -20,7 +20,7 @@ const MainContainer = styled.div`
   height: 80vh;
 `;
 
-  
+
 
 const MoradaSelecionada = styled.div`
   background-color: ${props => (props.selecionada ? '#343541' : '#ffffff')};
@@ -33,8 +33,7 @@ const MoradaSelecionada = styled.div`
   align-items: center;
   padding: 0px 10px;
   cursor: pointer;
-  box-shadow: -1px 4px 7px -1px rgb(0 0 0 / 15%);;
-
+  box-shadow: -1px 4px 7px -1px rgb(0 0 0 / 15%);
 `;
 
 const ConteudoMorada = styled.div`
@@ -42,6 +41,7 @@ const ConteudoMorada = styled.div`
   align-items: center;
   width: 100%;
   overflow: hidden !important;
+  font-size: 13px ;
 `;
 
 
@@ -112,8 +112,8 @@ const AlugarMorada = () => {
     const navigate = useNavigate();
 
     const handleNextStep = () => {
-    dispatch(updateProgressRent({ index: 0, updatedData: {morada: moradaSelecionada} }));
-      navigate("/metodo-pagamento");
+        dispatch(updateProgressRent({ index: 0, updatedData: { morada: moradaSelecionada } }));
+        navigate("/metodo-pagamento");
     };
 
 
@@ -122,33 +122,33 @@ const AlugarMorada = () => {
             <NavbarWeb />
             <Header name="Morada" />
             <MainContainer>
-            <PreviewCard id={list.article_id} valor={list.total}/>
-                <div style={{paddingTop: '25px'}}>
+                <PreviewCard id={list.article_id} valor={list.total} />
+                <div style={{ paddingTop: '25px' }}>
 
 
-                {moradas.map((morada, index) => (
-                    <MoradaSelecionada
-                        key={index}
-                        selecionada={morada === moradaSelecionada}
-                        onClick={() => {setMoradaSelecionada(morada); setButtonDisable(true)}}
-                    >
-                        <ConteudoMorada>
-                            <IconMoradaSelect
-                                src={iconMoradaSelect}
-                                alt="icon"
-                                selecionada={morada === moradaSelecionada}
-                            />
-                            {morada}
-                        </ConteudoMorada>
-                        <BotaoRemover
-                            onClick={() => handleRemoverMorada(index)}
+                    {moradas.map((morada, index) => (
+                        <MoradaSelecionada
+                            key={index}
                             selecionada={morada === moradaSelecionada}
+                            onClick={() => { setMoradaSelecionada(morada); setButtonDisable(true) }}
                         >
-                            X
-                        </BotaoRemover>
-                    </MoradaSelecionada>
-                ))}
-        </div>
+                            <ConteudoMorada>
+                                <IconMoradaSelect
+                                    src={iconMoradaSelect}
+                                    alt="icon"
+                                    selecionada={morada === moradaSelecionada}
+                                />
+                                {morada}
+                            </ConteudoMorada>
+                            <BotaoRemover
+                                onClick={() => handleRemoverMorada(index)}
+                                selecionada={morada === moradaSelecionada}
+                            >
+                                X
+                            </BotaoRemover>
+                        </MoradaSelecionada>
+                    ))}
+                </div>
 
                 <Link to={"/adicionar-morada"}>
                     <SelecionarMorada>
@@ -158,7 +158,7 @@ const AlugarMorada = () => {
                             border: "none",
                             width: "90%",
                             textAlign: "left",
-                            fontSize: "16px",
+                            fontSize: "13px",
                             fontWeight: "500",
 
                         }}>Adicionar Morada</button>
@@ -177,7 +177,7 @@ const AlugarMorada = () => {
                         border: "none",
                         color: "#cbcbcb",
                         textAlign: "left",
-                        fontSize: "16px",
+                        fontSize: "13px",
                         fontWeight: "500",
 
                     }}>Ponto de Recolha</button>
@@ -195,7 +195,7 @@ const AlugarMorada = () => {
                     }} src={dropPontoRecolha} alt="Adicionar Morada"></img>
                 </PontoRecolha>
                 <ConfirmButton>
-                <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar"/>
+                    <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar" />
                 </ConfirmButton>
 
             </MainContainer>

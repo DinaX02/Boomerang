@@ -38,13 +38,14 @@ const AlugarValorTotal = () => {
     const valor = artigosJSON[list.article_id-1].dailyRentalPrice * daysDifference;
     const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2)) ;
     const extras = (list.detalhes[0] + list.detalhes[1]) === 1 ? 5 : (list.detalhes[0] + list.detalhes[1]) === 2 ? 0 : 10;
+    const OpExtras = (((list.detalhes[0])===1) && (list.detalhes[1])===0) ? ["Transportadora Eco-friendly"] : (((((list.detalhes[0])===0) && (list.detalhes[1])===1)) ? ["Lavandaria Sustentável"] : ["Transportadora Eco-friendly","Lavandaria Sustentável"])
     const total = valor + taxa + extras;
 
 
-        console.log(extras)
+        console.log(OpExtras)
 
 
-  console.log("lista updated",list)
+  // console.log("lista updated",list)
 
 
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const AlugarValorTotal = () => {
         <div>
             <Header name="Valor Total" />
             <MainContainer>
-                <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras}/>
+                <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras} OpExtras={OpExtras}/>
 
                     <ConfButton>
                <Button onClick={handleNextStep} text="Continuar"/>
