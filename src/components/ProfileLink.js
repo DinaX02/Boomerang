@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import StarIcon from '@mui/icons-material/Star';
 
 const ProfileLink = (props) => {
     return (
@@ -11,6 +12,9 @@ const ProfileLink = (props) => {
             {props.name && <div className={'description'}>
                 {props.name}
             </div>}
+            {props.rating && <div>
+                {props.rating} <StarIcon/>
+                </div>}
 
         </ProfileLinkStyle>
     )
@@ -34,6 +38,9 @@ const ProfileLinkStyle = styled(Link)`
   .description{
     margin-top: 5px;
     text-align: center;
+  }
+  svg{
+    height: 15px;
   }
 `
 

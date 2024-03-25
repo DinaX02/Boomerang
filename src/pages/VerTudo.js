@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import MenuMobile from "../components/MenuMobile";
 import Paper from '@mui/material/Paper';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -18,11 +18,11 @@ import galeriaIcon from "../assets/icons/galeria.svg";
 
 
 const VerTudo = () => {
-    const { search } = useLocation();
-    const queryParams = new URLSearchParams(search);
-    const initialQuery = queryParams.get('query');
+    // const { search } = useLocation();
+    // const queryParams = new URLSearchParams(search);
+    // const initialQuery = queryParams.get('query');
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [anchorElView, setAnchorElView] = React.useState(null);
+    // const [anchorElView, setAnchorElView] = React.useState(null);
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
     const [sortingCriteria, setSortingCriteria] = useState('mostRecent');
     const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
@@ -42,7 +42,7 @@ const VerTudo = () => {
 
     const handleClose = () => {
         setAnchorEl(null);
-        setAnchorElView(null);
+        // setAnchorElView(null);
     };
 
     const handleListKeyDown = (event) => {

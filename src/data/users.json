@@ -1,0 +1,82 @@
+[
+  {
+    "username": "Maria da Silva",
+    "gender": "female",
+    "email": "maria.silva@example.com",
+    "address": "Rua das Flores, 123, Lisboa, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.5
+  },
+  {
+    "username": "João Pereira",
+    "gender": "male",
+    "email": "joao.pereira@example.com",
+    "address": "Avenida Central, 456, Porto, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 3.8
+  },
+  {
+    "username": "Ana Martins",
+    "gender": "female",
+    "email": "ana.martins@example.com",
+    "address": "Rua do Comércio, 789, Braga, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.2
+  },
+  {
+    "username": "Pedro Oliveira",
+    "gender": "male",
+    "email": "pedro.oliveira@example.com",
+    "address": "Avenida dos Aliados, 1011, Coimbra, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.0
+  },
+  {
+    "username": "Sofia Costa",
+    "gender": "female",
+    "email": "sofia.costa@example.com",
+    "address": "Rua Direita, 1213, Faro, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.8
+  },
+  {
+    "username": "Manuel Pereira",
+    "gender": "male",
+    "email": "manuel.pereira@example.com",
+    "address": "Largo do Rossio, 1415, Évora, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 3.7
+  },
+  {
+    "username": "Marta Ferreira",
+    "gender": "female",
+    "email": "marta.ferreira@example.com",
+    "address": "Praça da República, 1617, Guimarães, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.5
+  },
+  {
+    "username": "Carlos Sousa",
+    "gender": "male",
+    "email": "carlos.sousa@example.com",
+    "address": "Rua dos Santos, 1819, Viseu, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.2
+  },
+  {
+    "username": "Inês Costa",
+    "gender": "female",
+    "email": "ines.costa@example.com",
+    "address": "Avenida da Liberdade, 2021, Aveiro, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 3.9
+  },
+  {
+    "username": "António Ramos",
+    "gender": "male",
+    "email": "antonio.ramos@example.com",
+    "address": "Travessa da Esperança, 2223, Setúbal, Portugal",
+    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
+    "rating": 4.1
+  }
+]

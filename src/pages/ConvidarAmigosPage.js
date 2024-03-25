@@ -113,7 +113,7 @@ const ConvidarAmigosPage = () => {
         </p>
 
         <ContainerAddAmigos>
-          <p className="tituloGreenContainer">Partilha o Código Qr</p>
+          <p className="tituloGreenContainer">Partilha o Código QR</p>
           <p className="paraghContainerGreen">
             Partilha com os teus amigos e ajuda a fazer crescer a comunidade
             Boomerang!

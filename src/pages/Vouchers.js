@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import Notification from "../components/Notification";
-import MenuMobile from "../components/MenuMobile";
 import styled from "styled-components";
 import nothingimg from "../assets/menumobile/notificationsbtn.svg";
 import { useSelector } from "react-redux";
@@ -32,7 +31,6 @@ const Vouchers = () => {
 </div>        </div>
           )}
       </VouchersDiv>
-      <MenuMobile></MenuMobile>
     </div>
   );
 };

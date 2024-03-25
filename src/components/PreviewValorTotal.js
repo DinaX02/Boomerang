@@ -101,7 +101,7 @@ const PreviewValorTotal = (props) => {
                             <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Extras</p>
                         </div>
                         {props.OpExtras.map((option) => (
-                                <p style={{ margin: "0"}} className='detalhe'>•{"\u00A0\u00A0\u00A0"}{option}</p>
+                                <p style={{ margin: "0"}} className='detalhe'>•{"\u00A0\u00A0"}{option}</p>
                         ))}
                     </TextInner>
                     <PriceInner>
