@@ -38,7 +38,7 @@ const Profile = () => {
         <Link className="namediv" to={"/edit-profile-page"}>
           <div className="profileimg"></div>
           <div className="profiletext fontsizeadjust">
-            <p className="username">mariacarmo</p>
+            <h1 className="username">mariacarmo</h1>
             <p>{bio.substring(0, 22) + "..."}</p>
           </div>
 
@@ -281,6 +281,8 @@ margin-right: 24px;
 .profiletext{
   .username{
     font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
   }
   p{
     margin: 0;

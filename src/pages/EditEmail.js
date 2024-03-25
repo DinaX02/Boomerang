@@ -63,7 +63,9 @@ const EditEmail = () => {
             <Button
               onClick={handleClick}
               text="Atualizar email"
-              disable={disableBtn}></Button>
+              disable={disableBtn}
+              type="submit"
+              ></Button>
           </div>
         </form>
         <Modal

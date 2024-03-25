@@ -43,7 +43,7 @@ const Homepage = () => {
         <div className={'top'}>
           <div>
             <div>Bem-Vindo</div>
-            <div>O teu guarda-roupa ilimitado começa aqui</div>
+            <h1>O teu guarda-roupa ilimitado começa aqui</h1>
           </div>
           {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
           <Link to={"/profile-page"} aria-label="Link para visitares o teu perfil"><div className={'profileLink'} ></div></Link>
@@ -114,6 +114,12 @@ const HomepageStyle = styled.div`
       font-size: 20px;
       font-weight: 800;
       flex: 1;
+
+      h1 {
+        font-size: 20px;
+        font-weight: 800;
+        flex: 1;
+      }
 
       div:first-child {
         font-weight: 600;

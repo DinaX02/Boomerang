@@ -30,7 +30,8 @@ const Button = (props) => {
                 backgroundColor: isPressed ? "#00C17C" : (props.disable ? "#cacaca" : "#343541")
             }}
             disabled={props.disable}
-            onClick={() => {
+            onClick={(event) => {
+                event.preventDefault();
                 if (!props.disable && props.onClick) {
                     props.onClick();
                 }

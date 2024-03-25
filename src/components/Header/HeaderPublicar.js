@@ -24,7 +24,7 @@ const HeaderPublish = (props) => {
         style={{ cursor: "pointer" }}
         alt="arrow go back"
       />
-      <h3>{name}</h3>
+      <h1 style={{fontSize: "16px", marginBottom: "0"}}>{name}</h1>
     </header>
   );
 };
