@@ -167,7 +167,9 @@ const EditProfile = () => {
             <Button
               onClick={handleClick}
               text="Atualizar perfil"
-              disable={disableBtn}></Button>
+              disable={disableBtn}
+              type={"submit"}
+              ></Button>
           </div>
         </form>
         <Modal
