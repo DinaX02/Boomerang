@@ -24,7 +24,7 @@ const ConfirmButton = styled.div`
   margin-top: 60px;
 `;
 
-const LavagemSelecionada = styled.div`
+const LavagemSelecionada = styled.button`
   background-color: ${props => (props.selecionada ? '#343541' : '#ffffff')};
   border-radius: 5px;
   width: 90%;
@@ -36,6 +36,7 @@ const LavagemSelecionada = styled.div`
   padding: 0px 10px;
   cursor: pointer;
   box-shadow: -1px 4px 7px -1px rgb(0 0 0 / 15%);
+  border: none;
 `;
 
 const MainSelection = styled.div`
@@ -199,11 +200,12 @@ const AlugarDetalhes = () => {
                             <LavagemSelecionada
                                 selecionada={lavagemSelecionada === index}
                                 onClick={() => handleLavagemClick(index)}
+                                name={lavagens.nome}
                             >
                                 <ConteudoLavagem>
-                                    <IconLavagemSelect src={iconMoradaSelect} alt="icon" selecionada={lavagemSelecionada === index} />
+                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selecionada={lavagemSelecionada === index} />
                                     {lavagem.nome}
-                                    <IconFolha src={iconFolha} alt="icon" valorCincoEuros={lavagem.valor === 5} />
+                                    <IconFolha src={iconFolha} alt="icone de sustentabilidade" valorCincoEuros={lavagem.valor === 5} />
                                     {lavagem.valor !== 0 && <ValorLavagem selecionada={lavagemSelecionada === index}>{lavagem.valor} €</ValorLavagem>}
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
@@ -215,7 +217,7 @@ const AlugarDetalhes = () => {
                                     <img
                                         style={{ width: "17px" }}
                                         src={iconInfo}
-                                        alt="icon"
+                                        alt="ícone de informação"
                                     ></img>
                                 </button>
                             </ButtonInfo>
@@ -229,11 +231,12 @@ const AlugarDetalhes = () => {
                             <LavagemSelecionada
                                 selecionada={transporteSelecionado === index}
                                 onClick={() => handleTransporteClick(index)}
+                                name={transporte.nome}
                             >
                                 <ConteudoLavagem>
-                                    <IconLavagemSelect src={iconMoradaSelect} alt="icon" selecionada={transporteSelecionado === index} />
+                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selecionada={transporteSelecionado === index} />
                                     {transporte.nome}
-                                    <IconFolha src={iconFolha} alt="icon" valorCincoEuros={transporte.valor === 5} />
+                                    <IconFolha src={iconFolha} alt="icone de sustentabilidade" valorCincoEuros={transporte.valor === 5} />
                                     {transporte.valor !== 0 && <ValorLavagem selecionada={transporteSelecionado === index}>{transporte.valor} €</ValorLavagem>}
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
@@ -245,7 +248,7 @@ const AlugarDetalhes = () => {
                                     <img
                                         style={{ width: "17px" }}
                                         src={iconInfo}
-                                        alt="icon"
+                                        alt="ícone de informação"
                                     ></img>
                                 </button>
                             </ButtonInfo>

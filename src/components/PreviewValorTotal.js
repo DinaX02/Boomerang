@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import iconInfo from '../assets/icons/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import Modal from "./Modal";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const PreviewValorTotal = (props) => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
     const navigate = useNavigate();
-    const list = useSelector((state) => state.Rent.progressRentList);
+    // const list = useSelector((state) => state.Rent.progressRentList);
     const [fecharModal, setFecharModal] = useState(true);
 
     const handleIconClick = () => {
