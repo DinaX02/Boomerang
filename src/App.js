@@ -9,7 +9,7 @@ import ProgressPublish3 from "./components/ProgressPublish/ProgressPublish3";
 import ProgressPublish4 from "./components/ProgressPublish/ProgressPublish4";
 import ProgressPublish5 from "./components/ProgressPublish/ProgressPublish5";
 import Notifications from "./pages/Notifications";
-import EditProfile from "./pages/EditProfile";
+import Settings from "./pages/Settings";
 import OnBoarding from "./pages/OnBoarding";
 import RentDate from "./pages/RentDate";
 import SignUpPage from "./pages/SignUpPage";
@@ -32,6 +32,8 @@ import RecompensasParaAddAmigos from "./pages/RecompensasParaAddAmigos";
 import ConvidarAmigosPage from "./pages/ConvidarAmigosPage";
 import AvaliarAluguerPage from "./pages/AvaliarAluguerPage";
 import VerTudo from "./pages/VerTudo";
+import EditProfile from "./pages/EditProfile";
+import EditEmail from "./pages/EditEmail";
 
 function App() {
 
@@ -50,7 +52,9 @@ function App() {
         <Route path="/article/:id" element={<ArticlePage/>}></Route>
         <Route path="/chat" element={<Chat/>}></Route>
         <Route path="/results" element={<Results />} />
+        <Route path="/settings-page" element={<Settings/>}></Route>
         <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
+        <Route path="/edit-email-page" element={<EditEmail/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
         <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
         <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>

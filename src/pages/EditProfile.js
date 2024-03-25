@@ -10,10 +10,8 @@ import Modal from '../components/Modal';
 import Input from '../components/Input';
 
 const EditProfile = () => {
-  const [email, setEmail] = useState("mariacarmo1985@gmail.com");
   const [username, setUsername] = useState("mariacarmo");
   const [password, setPassword] = useState("password_atual");
-  const [disableEmail, setDisableEmail] = useState(true);
   const [disableUsername, setDisableUsername] = useState(true);
   const [disableBiografia, setDisableBiografia] = useState(true);
   const [disablePassword, setDisablePassword] = useState(true);
@@ -35,7 +33,7 @@ const EditProfile = () => {
   }
 
   const handleClick = () => {
-    navigate('/profile-page');
+    navigate('/settings-page');
   };
 
   const handleSubmit = (e) => {
@@ -56,16 +54,11 @@ const EditProfile = () => {
         className='imagemPerfil'
         src={firstImage ? URL.createObjectURL(firstImage) : UserUnknownIcon}
         alt="imagem de perfil"
-        style={!firstImage ? null : { border: '1px solid #343541' }}
+        style={{ border: '1px solid #343541' }}
       />
     );
   };
 
-  const handleEditEmailInput = () => {
-    setDisableEmail(false);
-    setDisableBtn(false);
-    setAlert(true);
-  }
   const handleEditUsernameInput = () => {
     setDisableUsername(false);
     setDisableBtn(false);
@@ -114,31 +107,6 @@ const EditProfile = () => {
           <div className='inputsContainer'>
             <div className='inputContainer'>
               <div className='inputTitleContainer'>
-                <label htmlFor="email" className='inputTitle'>
-                  E-mail
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditEmailInput} />
-                </label>
-              </div>
-              {/* <input
-                className="input"
-                type="text"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={disableEmail}
-              /> */}
-              <Input
-                obrigatorio={true}
-                placeholder=""
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={disableEmail}
-              />
-            </div>
-
-
-            <div className='inputContainer'>
-              <div className='inputTitleContainer'>
                 <label htmlFor="username" className='inputTitle'>
                   Nome de utilizador
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput} />
@@ -161,7 +129,7 @@ const EditProfile = () => {
               />
             </div>
             <div className='inputContainer'>
-              <div className='inputTitleContainer'>
+              <div className='inputTitleContainer' style={{marginTop: "0"}}>
                 <label htmlFor="biografia" className='inputTitle'>
                   Biografia
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditBiografiaInput} />
@@ -185,16 +153,6 @@ const EditProfile = () => {
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditPasswordInput} />
                 </label>
               </div>
-              {/* <input
-                className="input"
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                disabled={disablePassword}
-              /> */}
               <Input
                 obrigatorio={true}
                 type="password"
@@ -208,7 +166,7 @@ const EditProfile = () => {
           <div className='btnAtualizarDados'>
             <Button
               onClick={handleClick}
-              text="Atualizar dados"
+              text="Atualizar perfil"
               disable={disableBtn}></Button>
           </div>
         </form>
@@ -310,6 +268,10 @@ const EditProfileStyle = styled.div`
         font-size: 12px;
         color: #888;
         margin-left: 9px;
+      }
+
+      .textErroObrigatorio{
+        margin-bottom: 0;
       }
       
       @media only screen and (min-width: 600px) {

@@ -34,7 +34,7 @@ const Profile = () => {
   return (
     <div>
       <ProfileStyle>
-        <div className="namediv">
+        <Link className="namediv" to={"/edit-profile-page"}>
           <div className="profileimg"></div>
           <div className="profiletext fontsizeadjust">
             <p className="username">mariacarmo</p>
@@ -42,7 +42,7 @@ const Profile = () => {
           </div>
 
           <ArrowForwardIosRoundedIcon className="setaprofile"></ArrowForwardIosRoundedIcon>
-        </div>
+        </Link>
         <p className="title">Atividade</p>
 
         <div className="icondiv">
@@ -123,58 +123,60 @@ const Profile = () => {
         <p className="title">Definições</p>
 
         <div className="icondiv">
-          <div className="iconitem">
-            <SettingsOutlinedIcon
-              alt="definições"
-              className="icon"
-            ></SettingsOutlinedIcon>
-            <div className="profiletext">
-              <p>Definições</p>
+          <Link to={"/settings-page"}>
+            <div className="iconitem">
+              <SettingsOutlinedIcon
+                alt="definições"
+                className="icon"
+              ></SettingsOutlinedIcon>
+              <div className="profiletext">
+                <p>Definições</p>
+              </div>
+              <ArrowForwardIosRoundedIcon
+                alt="avançar"
+                className="seta"
+              ></ArrowForwardIosRoundedIcon>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
-          </div>
-          <hr></hr>
-          <div className="iconitem">
-            <DescriptionOutlinedIcon
-              alt="termos e condições"
-              className="icon"
-            ></DescriptionOutlinedIcon>
-            <div className="profiletext">
-              <p>Termos e Condições</p>
+            </Link>
+            <hr></hr>
+            <div className="iconitem">
+              <DescriptionOutlinedIcon
+                alt="termos e condições"
+                className="icon"
+              ></DescriptionOutlinedIcon>
+              <div className="profiletext">
+                <p>Termos e Condições</p>
+              </div>
+              <ArrowForwardIosRoundedIcon
+                alt="avançar"
+                className="seta"
+              ></ArrowForwardIosRoundedIcon>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
-          </div>
-          <hr></hr>
-          <div className="iconitem">
-            <PrivacyTipOutlinedIcon
-              alt="política de privacidade"
-              className="icon"
-            ></PrivacyTipOutlinedIcon>
-            <div className="profiletext">
-              <p>Política de Privacidade</p>
+            <hr></hr>
+            <div className="iconitem">
+              <PrivacyTipOutlinedIcon
+                alt="política de privacidade"
+                className="icon"
+              ></PrivacyTipOutlinedIcon>
+              <div className="profiletext">
+                <p>Política de Privacidade</p>
+              </div>
+              <ArrowForwardIosRoundedIcon
+                alt="avançar"
+                className="seta"
+              ></ArrowForwardIosRoundedIcon>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
-          </div>
-          <hr></hr>
-          <div className="iconitem">
-            <img src={Sobrenos} alt="sobre nós" className="icon"></img>
-            <div className="profiletext">
-              <p>Sobre Nós</p>
+            <hr></hr>
+            <div className="iconitem">
+              <img src={Sobrenos} alt="sobre nós" className="icon"></img>
+              <div className="profiletext">
+                <p>Sobre Nós</p>
+              </div>
+              <ArrowForwardIosRoundedIcon
+                alt="avançar"
+                className="seta"
+              ></ArrowForwardIosRoundedIcon>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
-          </div>
         </div>
         <div className="sair" onClick={handleClickLogout}>
           <Button text="Terminar Sessão" />
@@ -221,7 +223,7 @@ const ProfileStyle = styled.div`
     //   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
     //   border-radius: 10px;
     //   font-size: 14px;
-    margin: 20px 20px 0 0;
+    margin: 20px 24px 0 0;
     display: flex;
     align-self: flex-end;
     align-items: center;
@@ -235,8 +237,8 @@ const ProfileStyle = styled.div`
   //   }
 
 .namediv{
-  margin-left: 20px;
-margin-right: 20px;
+  margin-left: 24px;
+margin-right: 24px;
   margin-top: 25px;
   height: 90px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
@@ -251,7 +253,7 @@ margin-right: 20px;
   height: 50px;
   width: 50px;
   border-radius: 100%;
-  border: 2px black solid;
+  border: 1px black solid;
   background-image: url(${mariacarmo});
   background-size: cover;
   background-repeat: no-repeat;
@@ -275,11 +277,13 @@ margin-right: 20px;
     margin-top: 35px;
     font-weight: bold;
     padding-left: 25px;
+    font-size: 14px;
+    font-weight: bold;
   }
 
   .icondiv {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
     padding-top: 20px;
     padding-bottom: 20px;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
@@ -288,7 +292,8 @@ margin-right: 20px;
     background-color: white;
     border-radius: 5px;
     justify-content: center;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 400;
   }
 
   .iconitem {

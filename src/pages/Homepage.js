@@ -20,6 +20,8 @@ const Homepage = () => {
   // const [showLoginRegistar, setShowLoginRegistar] = useState(true);
 
   useEffect(() => {
+    // dar reset ao scroll quando se entrar aqui :)
+    window.scrollTo(0, 0);
     if (window.innerWidth < 600) {
 
       if (localStorage.getItem("redirect")) {//entrado antes
