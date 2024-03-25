@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
 import { Link } from 'react-router-dom';
-import addMoradaIcon from '../assets/icons/icon_AddMorada.png';
+import addMoradaIcon from '../assets/icons/icon_AddMorada.svg';
 import iconPontoRecolho from '../assets/icons/icon_PontoRecolha.png';
 import dropPontoRecolha from '../assets/icons/drop_PontoRecolha.png';
 import iconMoradaSelect from '../assets/icons/selectedAdress.svg';

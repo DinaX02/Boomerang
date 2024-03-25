@@ -98,6 +98,7 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
                         aria-controls={anchorEl ? 'article-menu' : undefined}
                         aria-haspopup="true"
                         onClick={handleClick}
+                        aria-label="Botão Definições do Artigo"
                     >
                         <MoreVertIcon style={{color: "white"}}/>
                     </IconButton>
@@ -153,7 +154,7 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
                                         zIndex: '1',
                                     }}
                                     src={image}
-                                    alt={`image-${index}`}
+                                    alt={`imagem do artigo ${index}`}
                                 />
                             </div>
                         ))}
@@ -201,7 +202,7 @@ Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) �
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Cor</div>
-                <div className={'articleColor'}><img src={colorImages[item.color]}/>{item.color}</div>
+                <div className={'articleColor'}><img src={colorImages[item.color]} alt='cor da imagem'/>{item.color}</div>
             </div>
             <div className={'articleSection'}>
                 <div className={'title'}>Categoria</div>

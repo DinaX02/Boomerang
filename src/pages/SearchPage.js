@@ -11,7 +11,7 @@ const SearchPage = () => {
     const [searchInput, setSearchInput] = useState('');
 
     const categories = [
-        'Calças', 'Casacos', 'Sapatos', 'Acessórios', 'Roupas Íntimas', 'Bonés', 'Meias',
+        'Calças', 'Casacos', 'Sapatos', 'Acessórios', 'Saias', 'Bonés', 'Meias',
         'Vestidos',
     ];
 
@@ -33,11 +33,14 @@ const SearchPage = () => {
         }
     };
 
-    const handleSearch = (e) => {
-        e.preventDefault()
-        const searchUrl = `/results?query=${encodeURIComponent(searchInput)}`;
+    const handleSearch = (e, tabIndex) => {
+        e.preventDefault();
+        const searchUrl = tabIndex === 1 ?
+            `/results?type=articles&query=${encodeURIComponent(searchInput)}` :
+            `/results?type=members&query=${encodeURIComponent(searchInput)}`;
         navigate(searchUrl);
     };
+
 
     return (
         <div>
@@ -46,7 +49,7 @@ const SearchPage = () => {
                     title1={'Artigos'}
                     firstComponent={
                         <div>
-                            <form className={'searchInput'} onSubmit={handleSearch}>
+                            <form className={'searchInput'} onSubmit={(e) => handleSearch(e, 1)}>
                                 <SearchIcon />
                                 <input
                                     placeholder="Procura artigos"
@@ -71,7 +74,7 @@ const SearchPage = () => {
                     }
                     title2={'Membros'}
                     secondComponent={
-                        <form className={'searchInput'} onSubmit={handleSearch}>
+                        <form className={'searchInput'} onSubmit={(e) => handleSearch(e, 2)}>
                             <SearchIcon />
                             <input
                                 placeholder="Procura membros"

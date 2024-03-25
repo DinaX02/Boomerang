@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import filtro from '../assets/icons/Filter_button.png';
 import closeFilter from '../assets/icons/eliminar.svg';
 import maisFilter from '../assets/icons/mostrar_mais_icon.svg';
-import menosFilter from '../assets/icons/Filter_menos.png';
+import menosFilter from '../assets/icons/Filter_menos.svg';
 import Button from "./Button";
 
 const FilterButtons = ({ applyFilters, handleActiveFilters }) => {

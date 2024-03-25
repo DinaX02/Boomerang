@@ -11,6 +11,7 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import { MenuList } from "@mui/material";
 import artigosJSON from "../data/artigos.json";
+import usersJSON from "../data/users.json";
 import Article from "../components/Article"; // Import the component
 import noResultsIcon from "../assets/icons/noResultsIcon.svg";
 import mosaicoIcon from "../assets/icons/mosaico.svg";
@@ -18,12 +19,14 @@ import ordenarIcon from "../assets/icons/ordenar.svg";
 import galeriaIcon from "../assets/icons/galeria.svg";
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import ProfileLink from "../components/ProfileLink";
 
 const Results = () => {
     const navigate = useNavigate();
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
     const initialQuery = queryParams.get('query');
+    const type = queryParams.get('type');
     const [searchInput, setSearchInput] = useState(initialQuery || '');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [sortingCriteria, setSortingCriteria] = useState('mostRecent');
@@ -39,22 +42,32 @@ const Results = () => {
     }, [initialQuery]);
 
     const filterArticles = (query) => {
-        if (query) {
-            const filtered = artigosJSON.filter(artigo =>
-                artigo.title.toLowerCase().includes(query.toLowerCase()) ||
-                artigo.description.toLowerCase().includes(query.toLowerCase()) ||
-                artigo.brand.toLowerCase().includes(query.toLowerCase())
-            );
-            setFilteredArticles(filtered);
-        } else {
-            setFilteredArticles(artigosJSON);
+        if (type === 'articles'){
+            if (query) {
+                const filtered = artigosJSON.filter(artigo =>
+                    artigo.title.toLowerCase().includes(query.toLowerCase()) ||
+                    artigo.description.toLowerCase().includes(query.toLowerCase()) ||
+                    artigo.brand.toLowerCase().includes(query.toLowerCase())
+                );
+                setFilteredArticles(filtered);
+            } else {
+                setFilteredArticles(artigosJSON);
+            }
+        } else if (type === 'members'){
+            if (query) {
+                const filtered = usersJSON.filter(user =>
+                    user.username.toLowerCase().includes(query.toLowerCase())
+                );
+                setFilteredArticles(filtered);
+            } else {
+                setFilteredArticles(usersJSON);
+            }
         }
+
     };
 
     const applyFilters = (selectedFilters) => {
-        // Filter articles based on the selected filters
-        let filteredArticles = artigosJSON.filter((artigo) => {
-            // Check if each article matches all selected filters
+        let filtered = filteredArticles.filter((artigo) => {
             return (
                 (selectedFilters.size === null || artigo.size === selectedFilters.size) &&
                 (selectedFilters.color === null || artigo.color === selectedFilters.color) &&
@@ -62,12 +75,12 @@ const Results = () => {
                 (selectedFilters.brand === null || artigo.brand === selectedFilters.brand)
             );
         });
-        setFilteredArticles(filteredArticles);
+        setFilteredArticles(filtered);
     };
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const searchUrl = `/results?query=${encodeURIComponent(searchInput)}`;
+        const searchUrl = `/results?type=${type}&query=${encodeURIComponent(searchInput)}`;
         navigate(searchUrl);
         filterArticles(searchInput);
     };
@@ -148,7 +161,7 @@ const Results = () => {
         <ResultsStyle>
             <div className={'resultsHeader'}>
                 <div className={'search'}>
-                    <form className={'searchInput'} onSubmit={handleSearch}>
+                    <form className={'searchInput'}  style={{ maxWidth: type === 'members' ? 'none' : null }} onSubmit={handleSearch}>
                         <SearchIcon />
                         <input
                             placeholder="Procura artigos"
@@ -157,7 +170,9 @@ const Results = () => {
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
                     </form>
-                    <FilterButtons applyFilters={applyFilters} handleActiveFilters={handleActiveFilters}/>
+                    {type === 'articles' && <FilterButtons applyFilters={applyFilters} handleActiveFilters={handleActiveFilters} />}
+
+
                 </div>
                 <div className={'sectionTitle'}>
                     <div className='resultadosTitle'>Resultados</div>
@@ -315,20 +330,36 @@ const Results = () => {
                 )}
             </div>
             <div className={'resultsContent'}>
+                {type && type === 'articles' ? (
+                    sortArtigos().length !== 0 ? (
+                        <div className={'resultsArticles'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                            {sortArtigos().slice(0, 10).map((artigo) => {
+                                return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}  width={singleColumnGrid ? '100%' : '120px'}/>;
+                            })}
+                        </div>
 
-                {sortArtigos().length !== 0 ? (
-                    <div className={'resultsArticles'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {sortArtigos().slice(0, 10).map((artigo) => {
-                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}  width={singleColumnGrid ? '100%' : '120px'}/>;
-                        })}
-                    </div>
-
+                    ) : (
+                        <div className='zeroResults'>
+                            <img src={noResultsIcon} alt="search icon for no results" />
+                            <p>Nenhum resultado encontrado</p>
+                        </div>
+                    )
                 ) : (
-                    <div className='zeroResults'>
-                        <img src={noResultsIcon} alt="search icon for no results" />
-                        <p>Nenhum resultado encontrado</p>
-                    </div>
+                    sortArtigos().length !== 0 ? (
+                        <div className={'resultsUsers'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                            {sortArtigos().slice(0, 10).map((user) => {
+                                return <ProfileLink name={user.username} image={user.avatar} key={user.id} zoom={1.3} rating={user.rating}/>;
+                            })}
+                        </div>
+
+                    ) : (
+                        <div className='zeroResults'>
+                            <img src={noResultsIcon} alt="search icon for no results" />
+                            <p>Nenhum resultado encontrado</p>
+                        </div>
+                    )
                 )}
+
             </div>
             <MenuMobile />
         </ResultsStyle>
@@ -351,12 +382,20 @@ const ResultsStyle = styled.div`
       justify-content: space-between;
       gap: 25px 25px;
       flex-direction: row;
+      .description {
+      text-align: left;
+    }
+    }
+    .resultsUsers{
+      display: grid;
+      padding-top: 25px;
+      gap: 75px 75px;
+      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+      justify-items: center;
     }
   }
 
-  .description {
-    text-align: left;
-  }
+  
 
   .resultsHeader{
     z-index: 10;

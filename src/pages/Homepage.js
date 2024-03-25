@@ -46,7 +46,7 @@ const Homepage = () => {
             <div>O teu guarda-roupa ilimitado começa aqui</div>
           </div>
           {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
-          <div className={'profileLink'} ></div>
+          <Link to={"/profile-page"} aria-label="Link para visitares o teu perfil"><div className={'profileLink'} ></div></Link>
         </div>
         <div>
           <div className={'sectionTitle'}><span>Categorias Populares</span></div>
@@ -69,7 +69,7 @@ const Homepage = () => {
 
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'}>Ver tudo</Link></div>
+          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Link para página Ver Todos os teus favoritos">Ver tudo</Link></div>
           <div className={'articles'}>
             {artigosJSON.slice(0, 5).map((artigo) => {
               return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} />
@@ -78,10 +78,10 @@ const Homepage = () => {
           </div>
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'}>Ver tudo</Link></div>
+          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Link para página Ver Todas as novidades">Ver tudo</Link></div>
           <div className={'articles'}>
             {artigosJSON.slice(6, 11).map((artigo) => {
-              console.log(artigo.id);
+              // console.log(artigo.id);
               return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} />
             })}
             <Article more={true} />

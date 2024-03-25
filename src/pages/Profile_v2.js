@@ -12,6 +12,7 @@ import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import Sobrenos from '../assets/icons/sobrenos.svg';
 import Button from "../components/Button";
 
@@ -112,6 +113,22 @@ const Profile = () => {
               ></LocalOfferOutlinedIcon>
               <div className="profiletext">
                 <p>Cupões</p>
+              </div>
+              <ArrowForwardIosRoundedIcon
+                alt="avançar"
+                className="seta"
+              ></ArrowForwardIosRoundedIcon>
+            </div>
+          </Link>
+          <hr></hr>
+          <Link to={"/recompensas"}>
+            <div className="iconitem">
+              <CardGiftcardIcon
+                alt="recompensas"
+                className="icon"
+              ></CardGiftcardIcon>
+              <div className="profiletext">
+                <p>Recompensas</p>
               </div>
               <ArrowForwardIosRoundedIcon
                 alt="avançar"
