@@ -144,7 +144,7 @@ const RecompensasParaAddAmigos = () => {
       </ContainerConvidarAmigos>
       <TituloPagina>Ganhe Recompensas</TituloPagina>
       <p style={{ fontSize: "13px" }}>
-        Partilha com os teus amigos e começa a ganhar !
+        Partilha com os teus amigos e começa a ganhar!
       </p>
 
       <ContainerAddAmigos>
