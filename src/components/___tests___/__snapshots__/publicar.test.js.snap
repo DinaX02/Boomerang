@@ -12,9 +12,11 @@ exports[`snapshot da página Publicar 1`] = `
         src="back_arrow.svg"
         style="cursor: pointer;"
       />
-      <h3>
+      <h1
+        style="font-size: 16px; margin-bottom: 0px;"
+      >
         Publicar
-      </h3>
+      </h1>
     </header>
     <div
       class="sc-bcXGCL igpRmy fundoModal"

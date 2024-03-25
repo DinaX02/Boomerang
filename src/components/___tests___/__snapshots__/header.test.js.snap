@@ -15,8 +15,15 @@ exports[`snapshot 1`] = `
       }
     }
   />
-  <h3>
+  <h1
+    style={
+      Object {
+        "fontSize": "16px",
+        "marginBottom": "0",
+      }
+    }
+  >
     Página desconhecida
-  </h3>
+  </h1>
 </header>
 `;
