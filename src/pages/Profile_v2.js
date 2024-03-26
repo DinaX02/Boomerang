@@ -4,15 +4,15 @@ import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
 import mariacarmo from "../assets/icons/user_unknown.svg"
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
-import CheckroomOutlinedIcon from '@mui/icons-material/CheckroomOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import PersonAddOutlinedIcon from '../assets/icons/profile/invite.svg';
+import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
+import FavoriteBorderOutlinedIcon from '../assets/icons/profile/favorite.svg';
+import ShoppingBasketOutlinedIcon from '../assets/icons/profile/encomendas.svg';
+import LocalOfferOutlinedIcon from '../assets/icons/profile/cupoes.svg';
+import SettingsOutlinedIcon from '../assets/icons/profile/settings.svg';
+import DescriptionOutlinedIcon from '../assets/icons/profile/termos.svg';
+import PrivacyTipOutlinedIcon from '../assets/icons/profile/privacidade.svg';
+import CardGiftcardIcon from '../assets/icons/profile/gift.svg';
 import Sobrenos from '../assets/icons/sobrenos.svg';
 import Button from "../components/Button";
 
@@ -49,10 +49,11 @@ const Profile = () => {
         <div className="icondiv">
           <Link to={"/convidar-amigos"}>
             <div className="iconitem">
-              <PersonAddOutlinedIcon
+              <img
+                src={PersonAddOutlinedIcon}
                 alt="convidar amigos"
                 className="icon"
-              ></PersonAddOutlinedIcon>
+              ></img>
               <div className="profiletext">
                 <p>Convidar Amigos</p>
               </div>
@@ -64,10 +65,11 @@ const Profile = () => {
           </Link>
           <hr></hr>
           <div className="iconitem">
-            <CheckroomOutlinedIcon
+            <img
+              src={CheckroomOutlinedIcon}
               alt="armário"
               className="icon"
-            ></CheckroomOutlinedIcon>
+            ></img>
             <div className="profiletext">
               <p>Armário</p>
             </div>
@@ -78,10 +80,11 @@ const Profile = () => {
           </div>
           <hr></hr>
           <div className="iconitem">
-            <FavoriteBorderOutlinedIcon
+            <img
+              src={FavoriteBorderOutlinedIcon}
               alt="favoritos"
               className="icon"
-            ></FavoriteBorderOutlinedIcon>
+            ></img>
             <div className="profiletext">
               <p>Favoritos</p>
             </div>
@@ -92,10 +95,11 @@ const Profile = () => {
           </div>
           <hr></hr>
           <div className="iconitem">
-            <ShoppingBasketOutlinedIcon
+            <img
+              src={ShoppingBasketOutlinedIcon}
               alt="histórico de encomendas"
               className="icon"
-            ></ShoppingBasketOutlinedIcon>
+            ></img>
             <div className="profiletext">
               <p>Histórico de encomendas</p>
             </div>
@@ -107,10 +111,11 @@ const Profile = () => {
           <hr></hr>
           <Link to={"/vouchers-page"}>
             <div className="iconitem">
-              <LocalOfferOutlinedIcon
+              <img
+                src={LocalOfferOutlinedIcon}
                 alt="cupões"
                 className="icon"
-              ></LocalOfferOutlinedIcon>
+              ></img>
               <div className="profiletext">
                 <p>Cupões</p>
               </div>
@@ -123,10 +128,11 @@ const Profile = () => {
           <hr></hr>
           <Link to={"/recompensas"}>
             <div className="iconitem">
-              <CardGiftcardIcon
+              <img
+                src={CardGiftcardIcon}
                 alt="recompensas"
                 className="icon"
-              ></CardGiftcardIcon>
+              ></img>
               <div className="profiletext">
                 <p>Recompensas</p>
               </div>
@@ -142,10 +148,11 @@ const Profile = () => {
         <div className="icondiv">
           <Link to={"/settings-page"}>
             <div className="iconitem">
-              <SettingsOutlinedIcon
+              <img
+                src={SettingsOutlinedIcon}
                 alt="definições"
                 className="icon"
-              ></SettingsOutlinedIcon>
+              ></img>
               <div className="profiletext">
                 <p>Definições</p>
               </div>
@@ -154,46 +161,48 @@ const Profile = () => {
                 className="seta"
               ></ArrowForwardIosRoundedIcon>
             </div>
-            </Link>
-            <hr></hr>
-            <div className="iconitem">
-              <DescriptionOutlinedIcon
-                alt="termos e condições"
-                className="icon"
-              ></DescriptionOutlinedIcon>
-              <div className="profiletext">
-                <p>Termos e Condições</p>
-              </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+          </Link>
+          <hr></hr>
+          <div className="iconitem">
+            <img
+              src={DescriptionOutlinedIcon}
+              alt="termos e condições"
+              className="icon"
+            ></img>
+            <div className="profiletext">
+              <p>Termos e Condições</p>
             </div>
-            <hr></hr>
-            <div className="iconitem">
-              <PrivacyTipOutlinedIcon
-                alt="política de privacidade"
-                className="icon"
-              ></PrivacyTipOutlinedIcon>
-              <div className="profiletext">
-                <p>Política de Privacidade</p>
-              </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon
+              alt="avançar"
+              className="seta"
+            ></ArrowForwardIosRoundedIcon>
+          </div>
+          <hr></hr>
+          <div className="iconitem">
+            <img
+              src={PrivacyTipOutlinedIcon}
+              alt="política de privacidade"
+              className="icon"
+            ></img>
+            <div className="profiletext">
+              <p>Política de Privacidade</p>
             </div>
-            <hr></hr>
-            <div className="iconitem">
-              <img src={Sobrenos} alt="sobre nós" className="icon"></img>
-              <div className="profiletext">
-                <p>Sobre Nós</p>
-              </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon
+              alt="avançar"
+              className="seta"
+            ></ArrowForwardIosRoundedIcon>
+          </div>
+          <hr></hr>
+          <div className="iconitem">
+            <img src={Sobrenos} alt="sobre nós" className="icon"></img>
+            <div className="profiletext">
+              <p>Sobre Nós</p>
             </div>
+            <ArrowForwardIosRoundedIcon
+              alt="avançar"
+              className="seta"
+            ></ArrowForwardIosRoundedIcon>
+          </div>
         </div>
         <div className="sair" onClick={handleClickLogout}>
           <Button text="Terminar Sessão" />
@@ -218,19 +227,22 @@ const ProfileStyle = styled.div`
 
   .setaprofile {
     width: 20px;
+    color: #5c5c5c;
   }
   .fontsizeadjust {
     font-size: 14px;
   }
   .icon {
-    width: 28px;
-    height: 20px;
-    margin-right: 30px;
+    width: 20px;
+    /* height: 20px; */
+    margin-right: 20px;
     margin-left: 25px;
   }
   .seta {
     width: 18px;
     height: 15px;
+    margin-left: 20px;
+    color: #5c5c5c;
   }
 
   .sair {
@@ -312,7 +324,10 @@ margin-right: 24px;
     border-radius: 5px;
     justify-content: center;
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 500;
+    hr{
+      color: #cacaca;
+    }
   }
 
   .iconitem {

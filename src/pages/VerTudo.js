@@ -140,8 +140,11 @@ const VerTudo = () => {
                                                 onKeyDown={handleListKeyDown}
                                             >
                                                 <MenuItem className={sortingCriteria === 'mostRecent' ? 'selected' : ''} onClick={() => handleSort('mostRecent')}>Mais recente</MenuItem>
+                                                <hr style={{margin: "5px 0", color: "#CACACA"}}/>
                                                 <MenuItem className={sortingCriteria === 'oldest' ? 'selected' : ''} onClick={() => handleSort('oldest')}>Mais antigo</MenuItem>
+                                                <hr style={{margin: "5px 0", color: "#CACACA"}}/>
                                                 <MenuItem className={sortingCriteria === 'lowToHigh' ? 'selected' : ''} onClick={() => handleSort('lowToHigh')}>Preço: baixo para alto</MenuItem>
+                                                <hr style={{margin: "5px 0", color: "#CACACA"}}/>
                                                 <MenuItem className={sortingCriteria === 'highToLow' ? 'selected' : ''} onClick={() => handleSort('highToLow')}>Preço: alto para baixo</MenuItem>
                                             </MenuList>
                                         </ClickAwayListener>

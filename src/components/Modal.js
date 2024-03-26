@@ -76,7 +76,7 @@ hr.divisorModal {
 
 /*texto da modal*/
 .textoModal {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
 }
 

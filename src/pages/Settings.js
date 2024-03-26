@@ -83,6 +83,7 @@ const ProfileStyle = styled.div`
 
   .setaprofile {
     width: 20px;
+    color: #5c5c5c;
   }
   .fontsizeadjust {
     font-size: 14px;
@@ -96,6 +97,7 @@ const ProfileStyle = styled.div`
   .seta {
     width: 18px;
     height: 15px;
+    color: #5c5c5c;
   }
 
 .profiletext{
@@ -134,6 +136,9 @@ const ProfileStyle = styled.div`
     justify-content: center;
     font-size: 13px;
     font-weight: 400;
+    hr{
+      color: #cacaca;
+    }
   }
 
   .iconitem {
