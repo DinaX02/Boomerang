@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // import FavoriteIcon from '../assets/icons/favoriteIcon.svg'
 import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
 

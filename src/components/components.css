@@ -569,9 +569,9 @@ margin-top: 2.5em;
 .MuiList-root li{
     min-height: auto;
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 10px 15px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 5px 15px;
 
 
 }

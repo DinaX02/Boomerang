@@ -81,12 +81,6 @@ const IconFolha = styled.img`
   margin: 0px 10px 0px 5px;
 `;
 
-const ParagraphMessageModal = styled.span`
-  font-weight: 400;
-  font-size: 14px;
-  margin-bottom: 1rem;
-`;
-
 const AlugarDetalhes = () => {
     const [lavagemSelecionada, setLavagemSelecionada] = useState(null);
     const [transporteSelecionado, setTransporteSelecionado] = useState(null);
@@ -102,26 +96,26 @@ const AlugarDetalhes = () => {
 
     const modalMessages = [
         (
-            <ParagraphMessageModal>
+            <span>
                 <strong>Vale de 1 lavagem</strong> numa lavandaria parceira com consumo energético reduzido.
                 Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo aluguer.
-            </ParagraphMessageModal>
+            </span>
         ),
         (
-            <ParagraphMessageModal>
+            <span>
                 Lavagem a cargo do utilizador, o mesmo deve lavar a peça antes da devolução.
-            </ParagraphMessageModal>
+            </span>
         ),
         (
-            <ParagraphMessageModal>
+            <span>
                 Transportadora parceira com consumo energético reduzido. Inclui <strong><i>tracking</i></strong> da encomenda.
                 Com esta opção tens direito a um <strong>cupão de 7%</strong> no teu próximo aluguer
-            </ParagraphMessageModal>
+            </span>
         ),
         (
-            <ParagraphMessageModal>
+            <span>
                 Transporte a cargo do utilizador, o mesmo deve deslocar-se para efetuar a devolução da peça.
-            </ParagraphMessageModal>
+            </span>
         ),
     ];
 

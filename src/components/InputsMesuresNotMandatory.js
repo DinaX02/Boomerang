@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import InfoIconMesures from "../assets/icons/infoIcon.svg";
 import Modal from "./Modal";
@@ -35,7 +35,7 @@ const InfoIconContainer = styled.span`
 const InfoSvg = styled.img`
 width: 18px;
 margin-right:8px;
-` 
+`
 const ImgModalDress = styled.img`
   margin-top: 1em;
   text-align: center;
@@ -76,6 +76,7 @@ const ContainerMesures = styled.div`
     span {
       margin-left: 5px; 
   }
+}
 `;
 
 const StyledInput = styled.input`
@@ -131,59 +132,59 @@ const InputMeasuresNotMandatory = (props) => {
 
   return (
     <Container>
-              <Modal
-          fecharModal={fecharModal}
-          setFecharModal={setFecharModal}
-          message={
-              <ImgModalDress src={ImgMesuresModal} alt='Imagem exemplo de medidas' />
-          }
-        />
-     <ButtonWrapper>
-        <InfoIconContainer><InfoSvg src={InfoIconMesures} onClick={handleIconClick} alt='icon de mais informação'/> Medidas da peça</InfoIconContainer>
+      <Modal
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        message={
+          <ImgModalDress src={ImgMesuresModal} alt='Imagem exemplo de medidas' />
+        }
+      />
+      <ButtonWrapper>
+        <InfoIconContainer><InfoSvg src={InfoIconMesures} onClick={handleIconClick} alt='icon de mais informação' /> Medidas da peça</InfoIconContainer>
         <ContainerMesures>
           <span>Busto</span>
-          <Divisor/>
+          <Divisor />
           <div>
             <StyledInput placeholder="Ex: 84"
-            type="number"
-            value={measureBusto}
-            onChange={(e) => handleInputChange("measureBusto", e.target.value)}/>
+              type="number"
+              value={measureBusto}
+              onChange={(e) => handleInputChange("measureBusto", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
 
         <ContainerMesures>
           <span>Cintura</span>
-          <Divisor/>
+          <Divisor />
           <div>
-            <StyledInput  placeholder="Ex: 87"
-            type="number"
-            value={measureCintura}
-            onChange={(e) => handleInputChange("measureCintura", e.target.value)}/>
+            <StyledInput placeholder="Ex: 87"
+              type="number"
+              value={measureCintura}
+              onChange={(e) => handleInputChange("measureCintura", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
 
         <ContainerMesures>
           <span>Quadril</span>
-          <Divisor/>
+          <Divisor />
           <div>
-            <StyledInput  placeholder="Ex: 90"
-            type="number"
-            value={measureQuadril}
-            onChange={(e) => handleInputChange("measureQuadril", e.target.value)}/>
+            <StyledInput placeholder="Ex: 90"
+              type="number"
+              value={measureQuadril}
+              onChange={(e) => handleInputChange("measureQuadril", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
 
         <ContainerMesures>
           <span>Comprimento</span>
-          <Divisor/>
+          <Divisor />
           <div>
-            <StyledInput  placeholder="Ex: 130"
-            type="number"
-            value={measureComprimento}
-            onChange={(e) => handleInputChange("measureComprimento", e.target.value)}/>
+            <StyledInput placeholder="Ex: 130"
+              type="number"
+              value={measureComprimento}
+              onChange={(e) => handleInputChange("measureComprimento", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
