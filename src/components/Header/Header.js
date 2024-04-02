@@ -17,7 +17,7 @@ const Header = (props) => {
 
   return (
     <header className="headerBoomerang">
-      <img data-testid="svg-icon" src={arrowBack} onClick={handleGoBack} style={{ cursor: "pointer" }} alt="arrow go back" />
+      <img data-testid="svg-icon" src={arrowBack} onClick={handleGoBack} style={{ cursor: "pointer" }} alt="seta para voltar à página anterior" />
       <h1 style={{fontSize: "16px", marginBottom: "0"}}>{name}</h1>
     </header>
   );

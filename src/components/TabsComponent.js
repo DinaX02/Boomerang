@@ -21,6 +21,7 @@ const TabsComponent = (props) => {
                     <button
                         key={index}
                         onClick={() => handleTabClick(index)}
+                        aria-label={`Categoria de pesquisa por ` + props[`title${index}`]}
                         className={activeTab === index ? 'active' : ''}
                     >
                         {props[`title${index}`]}

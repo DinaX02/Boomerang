@@ -69,22 +69,22 @@ const Homepage = () => {
 
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Link para página Ver Todos os teus favoritos">Ver tudo</Link></div>
+          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Ver Todos os teus favoritos">Ver tudo</Link></div>
           <div className={'articles'}>
             {artigosJSON.slice(0, 5).map((artigo) => {
-              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} />
+              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} />
             })}
-            <Article more={true} />
+            <Article more={true} ariaLabel={"Ver Todos os teus favoritos"}/>
           </div>
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Link para página Ver Todas as novidades">Ver tudo</Link></div>
+          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Todas as novidades">Ver tudo</Link></div>
           <div className={'articles'}>
             {artigosJSON.slice(6, 11).map((artigo) => {
               // console.log(artigo.id);
-              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} />
+              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title}/>
             })}
-            <Article more={true} />
+            <Article more={true} ariaLabel={"Ver Todas as novidades"}/>
           </div>
         </div>
         <MenuMobile></MenuMobile>

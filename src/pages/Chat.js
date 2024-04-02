@@ -130,6 +130,7 @@ const Chat = () => {
           <input
             type="text"
             maxLength="256"
+            aria-label="Caixa de texto para escrever uma mensagem"
             placeholder="Escreve uma mensagem..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
@@ -144,7 +145,7 @@ const Chat = () => {
             onChange={handleSendImage}
             style={{ display: "none" }}
           />
-          <button type="submit" onClick={handleSendMessage} aria-label="Botão Enviar Mensagem">
+          <button type="submit" onClick={handleSendMessage} aria-label="Enviar Mensagem">
             <SendRoundedIcon />
           </button>
         </form>
