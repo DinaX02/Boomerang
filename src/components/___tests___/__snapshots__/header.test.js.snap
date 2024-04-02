@@ -5,7 +5,7 @@ exports[`snapshot 1`] = `
   className="headerBoomerang"
 >
   <img
-    alt="arrow go back"
+    alt="seta para voltar à página anterior"
     data-testid="svg-icon"
     onClick={[Function]}
     src="back_arrow.svg"

@@ -7,7 +7,7 @@ exports[`snapshot da página Publicar 1`] = `
       class="headerBoomerang"
     >
       <img
-        alt="arrow go back"
+        alt="seta para voltar à página anterior"
         data-testid="svg-icon"
         src="back_arrow.svg"
         style="cursor: pointer;"
