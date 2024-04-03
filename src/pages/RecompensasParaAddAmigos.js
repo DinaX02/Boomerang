@@ -12,6 +12,12 @@ const ContainerConvidarAmigos = styled.div`
   justify-content: space-between;
   margin-top: 30px;
   width: 100%;
+
+
+  .btnFecharr{
+    border: none; 
+    background: transparent;
+  }
 `;
 const ContainerGeral = styled.div`
   padding: 0 24px;
@@ -132,11 +138,12 @@ const RecompensasParaAddAmigos = () => {
   return (
     <ContainerGeral>
       <ContainerConvidarAmigos>
+        <button className="btnFecharr">
         <FecharPaginaIcon
           src={ExitPage}
           alt="fechar pagina"
           onClick={handleGoBack}
-        />
+        /></button>
         <ButtonRecompensas>
           <GreenStarIcon src={GreenStar} alt="icon de recompensa" />
           Recompensas

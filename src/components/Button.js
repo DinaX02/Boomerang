@@ -55,7 +55,7 @@ const ButtonStyle = styled.button`
     width: ${props => props.width || '144px'};
     height: 36px;
     border-radius: 5px;
-    outline: none;
+    // outline: none;
     border: 1px transparent;
     font-family: Montserrat;
 `

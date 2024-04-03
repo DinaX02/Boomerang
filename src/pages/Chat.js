@@ -80,7 +80,7 @@ const Chat = () => {
             data-testid="svg-icon"
             src={arrowBack}
             style={{ cursor: "pointer" }}
-            alt="arrow go back"
+            alt="seta para voltar à página anterior"
           />
         </div>
         <div className={"userDetails"}>

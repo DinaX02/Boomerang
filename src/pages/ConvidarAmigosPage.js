@@ -41,6 +41,11 @@ const ContainerAddAmigos = styled.div`
     margin-bottom: 0.3em;
   }
 
+  .botaoPartilharRedes{
+    border: none;
+    background-color: transparent;
+  }
+
   .tituloshare {
     font-size: 15px;
     font-weight: bold;
@@ -126,22 +131,25 @@ const ConvidarAmigosPage = () => {
         <ContainerAddAmigos>
           <p className="tituloshare">Outras opções de partilha</p>
           <div className="containerShareRedes">
+            <button className="botaoPartilharRedes">
             <img
               src={IconWhatsapp}
               alt="icon partilhar whatsapp"
               onClick={shareOnWhatsapp}
-            />
+            /></button>
             {/* <img src={IconInstagram} alt='icon partilhar Instagram' onClick={shareOnInstagram}/> */}
+            <button className="botaoPartilharRedes">
             <img
               src={IconTwitter}
               alt="icon partilhar Twitter"
               onClick={shareOnTwitter}
-            />
+            /></button>
+            <button className="botaoPartilharRedes">
             <img
               src={IconFacebook}
               alt="icon partilhar facebook"
               onClick={shareOnFacebook}
-            />
+            /></button>
           </div>
         </ContainerAddAmigos>
       </ContainerGeral>
