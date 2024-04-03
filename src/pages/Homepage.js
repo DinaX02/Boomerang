@@ -42,8 +42,8 @@ const Homepage = () => {
     <Link to={"/search-page"}><button>Pesquisa</button></Link>*/}
         <div className={'top'}>
           <div>
-            <div>Bem-Vindo</div>
-            <h1>O teu guarda-roupa ilimitado começa aqui</h1>
+            <h1 style={{fontSize: "12px", fontWeight: "600", marginBottom: "5px"}}>Bem-Vindo</h1>
+            <h2 style={{fontSize: "20px",fontWeight: "800"}}>O teu guarda-roupa ilimitado começa aqui</h2>
           </div>
           {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
           <Link to={"/profile-page"} aria-label="Link para visitares o teu perfil"><div className={'profileLink'} ></div></Link>

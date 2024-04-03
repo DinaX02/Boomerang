@@ -126,7 +126,8 @@ const ArticlePage = (props) => {
       />
       <div className={'headerBoomerang'}>
         <div onClick={() => { navigate(-1) }} className={'back'}>
-          <img data-testid="svg-icon" src={arrowBack} style={{ cursor: "pointer" }} alt="arrow go back" />
+          <button style={{background:"transparent", border:'none'}} >
+          <img data-testid="svg-icon" src={arrowBack} style={{ cursor: "pointer" }} alt="seta para voltar à página anterior"/></button>
           <h3>Voltar</h3>
         </div>
         <div className={'icons'}>
