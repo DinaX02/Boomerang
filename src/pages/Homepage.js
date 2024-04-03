@@ -164,7 +164,7 @@ const HomepageStyle = styled.div`
       font-size: 12px;
       font-weight: 600;
       text-decoration: none;
-      color: #00C17C;
+      color: #008052;
     }
   }
 `
