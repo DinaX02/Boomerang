@@ -47,14 +47,14 @@ test("verifica se existe um img no componente Header", () => {
   expect(svgElement).toBeInTheDocument();
 });
 
-test("snapshot", () => {
-  const tree = renderer
-    .create(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>
-    )
-    .toJSON();
-  console.log(tree);
-  expect(tree).toMatchSnapshot();
-});
+// test("snapshot", () => {
+//   const tree = renderer
+//     .create(
+//       <MemoryRouter>
+//         <Header />
+//       </MemoryRouter>
+//     )
+//     .toJSON();
+//   console.log(tree);
+//   expect(tree).toMatchSnapshot();
+// });

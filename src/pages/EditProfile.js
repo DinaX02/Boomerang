@@ -109,7 +109,8 @@ const EditProfile = () => {
               <div className='inputTitleContainer'>
                 <label htmlFor="username" className='inputTitle'>
                   Nome de utilizador
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput} />
+                  <button className="buttonEdit" onClick={handleEditUsernameInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
                 </label>
               </div>
               {/* <input
@@ -132,7 +133,8 @@ const EditProfile = () => {
               <div className='inputTitleContainer' style={{marginTop: "0"}}>
                 <label htmlFor="biografia" className='inputTitle'>
                   Biografia
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditBiografiaInput} />
+                  <button className="buttonEdit" onClick={handleEditBiografiaInput} >
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
                   <span className="countCharBiografia">{countChar}/150</span>
                 </label>
               </div>
@@ -150,7 +152,8 @@ const EditProfile = () => {
               <div className='inputTitleContainer'>
                 <label htmlFor="password" className='inputTitle'>
                   Palavra-passe
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditPasswordInput} />
+                  <button className="buttonEdit" onClick={handleEditPasswordInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
                 </label>
               </div>
               <Input
@@ -182,6 +185,7 @@ const EditProfile = () => {
     </>
   )
 }
+
 
 const EditProfileStyle = styled.div`
           /* padding: 0 24px; */
@@ -274,6 +278,13 @@ const EditProfileStyle = styled.div`
 
       .textErroObrigatorio{
         margin-bottom: 0;
+      }
+
+      .buttonEdit{
+        border: none;
+        margin: 0;
+        padding:0;
+        background-color: transparent;
       }
       
       @media only screen and (min-width: 600px) {
