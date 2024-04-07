@@ -1,88 +1,125 @@
+import articlesJSON from '../data/artigos.json';
+import usersJSON from '../data/users.json';
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams} from 'react-router-dom';
+import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
+import Article from "../components/Article";
+import noResultsIcon from "../assets/icons/noResultsIcon.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterButtons from "../components/FilterButtons";
-import Paper from '@mui/material/Paper';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import { MenuList } from "@mui/material";
-import artigosJSON from "../data/artigos.json";
-import usersJSON from "../data/users.json";
-import Article from "../components/Article"; // Import the component
-import noResultsIcon from "../assets/icons/noResultsIcon.svg";
-import mosaicoIcon from "../assets/icons/mosaico.svg";
 import ordenarIcon from "../assets/icons/ordenar.svg";
+import Popper from "@mui/material/Popper";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import {CircularProgress, MenuList} from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Stack from "@mui/material/Stack";
+import Chip from "@mui/material/Chip";
 import galeriaIcon from "../assets/icons/galeria.svg";
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
+import mosaicoIcon from "../assets/icons/mosaico.svg";
 import ProfileLink from "../components/ProfileLink";
 
 const Results = () => {
     const navigate = useNavigate();
-    const { search } = useLocation();
-    const queryParams = new URLSearchParams(search);
-    const initialQuery = queryParams.get('query');
-    const type = queryParams.get('type');
-    const [searchInput, setSearchInput] = useState(initialQuery || '');
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [sortingCriteria, setSortingCriteria] = useState('mostRecent');
-    const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
-    const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
+    const [queryParams,setQueryParams] = useSearchParams();
+    const [singleColumnGrid, setSingleColumnGrid] = useState(false);
+    const [articles, setArticles] = useState(articlesJSON);
+    const type = queryParams.get('type') || '';
+    const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
+    const [users, setUsers] = useState(usersJSON);
     const [filteredArticles, setFilteredArticles] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [currentParams, setCurrentParams] = useState(queryParams);
+    const [searchInput, setSearchInput] = useState( queryParams.get('query') || '');
+    const [anchorEl, setAnchorEl] = React.useState(null);
     const [activeFilters, setActiveFilters] = useState({});
-    const shouldRenderStack = Object.values(activeFilters).some(value => value !== null);
+    const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
 
     useEffect(() => {
-        setSearchInput(initialQuery || '');
-        filterArticles(initialQuery);
-    }, [initialQuery]);
+        setIsLoading(true);
+        // Filter articles based on search query and parameters
+        const query = queryParams.get('query') || '';
+        const size = queryParams.get('size') || null;
+        const category = queryParams.get('category') || null;
+        const color = queryParams.get('color') || null;
+        const brand = queryParams.get('brand') || null;
 
-    const filterArticles = (query) => {
         if (type === 'articles'){
-            if (query) {
-                const filtered = artigosJSON.filter(artigo =>
-                    artigo.title.toLowerCase().includes(query.toLowerCase()) ||
-                    artigo.description.toLowerCase().includes(query.toLowerCase()) ||
-                    artigo.brand.toLowerCase().includes(query.toLowerCase())
-                );
-                setFilteredArticles(filtered);
-            } else {
-                setFilteredArticles(artigosJSON);
+
+            setActiveFilters({
+                size: size,
+                color: color,
+                category: category,
+                brand: brand,
+            })
+
+            const filtered = articles.filter(article =>
+                article.title.toLowerCase().includes(query.toLowerCase()) &&
+                (size ? article.size.toLowerCase() === size.toLowerCase() : true) &&
+                (category ? article.category.toLowerCase() === category.toLowerCase() : true) &&
+                (color ? article.color.toLowerCase() === color.toLowerCase() : true) &&
+                (brand ? article.brand.toLowerCase() === brand.toLowerCase() : true)
+            );
+            if (sortingCriteria === 'lowToHigh') {
+                filtered.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
+            } else if (sortingCriteria === 'highToLow') {
+                filtered.sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
+            } else if (sortingCriteria === 'mostRecent') {
+                filtered.sort((a, b) => a.id - b.id);
+            } else if (sortingCriteria === 'oldest') {
+                filtered.sort((a, b) => b.id - a.id);
             }
+
+            setFilteredArticles(filtered);
+
         } else if (type === 'members'){
-            if (query) {
-                const filtered = usersJSON.filter(user =>
-                    user.username.toLowerCase().includes(query.toLowerCase())
-                );
-                setFilteredArticles(filtered);
+            const filteredUsers = users.filter(user =>
+                user.username.toLowerCase().includes(query.toLowerCase())
+            );
+            setFilteredUsers(filteredUsers);
+        }
+        setIsLoading(false);
+    }, [queryParams]);
+
+
+    const addFilters = (filterObj) => {
+        const newParams = new URLSearchParams(currentParams);
+
+        // loop through the object and add filters that are not null
+        for (const [filterType, value] of Object.entries(filterObj)) {
+            if (value !== null) {
+                newParams.set(filterType, value);
             } else {
-                setFilteredArticles(usersJSON);
+                newParams.delete(filterType);
             }
         }
 
+        setCurrentParams(newParams);
+        navigate(`?${newParams.toString()}`);
     };
 
-    const applyFilters = (selectedFilters) => {
-        let filtered = filteredArticles.filter((artigo) => {
-            return (
-                (selectedFilters.size === null || artigo.size === selectedFilters.size) &&
-                (selectedFilters.color === null || artigo.color === selectedFilters.color) &&
-                (selectedFilters.category === null || artigo.category.toLowerCase() === selectedFilters.category) &&
-                (selectedFilters.brand === null || artigo.brand === selectedFilters.brand)
-            );
-        });
-        setFilteredArticles(filtered);
+    const deleteFilter = (key) => {
+        activeFilters[key] = null;
+        addFilters(activeFilters);
+        console.log('delete')
+    };
+
+    const handleSort = (criteria) => {
+        const newParams = new URLSearchParams(currentParams);
+        newParams.set('sorting', criteria);
+        setCurrentParams(newParams);
+        navigate(`?${newParams.toString()}`);
     };
 
     const handleSearch = (e) => {
         e.preventDefault();
-        const searchUrl = `/results?type=${type}&query=${encodeURIComponent(searchInput)}`;
-        navigate(searchUrl);
-        filterArticles(searchInput);
+        const newParams = new URLSearchParams(currentParams);
+        newParams.set('query', searchInput);
+        setCurrentParams(newParams);
+        navigate(`?${newParams.toString()}`);
     };
 
     const handleClick = (event) => {
@@ -93,15 +130,6 @@ const Results = () => {
         setAnchorEl(null);
     };
 
-    const handleDelete = (key) => {
-        activeFilters[key] = null;
-        applyFilters(activeFilters);
-        console.log('delete')
-    };
-
-    const handleActiveFilters = (activeFilters) => {
-        setActiveFilters(activeFilters);
-    };
 
     const handleListKeyDown = (event) => {
         if (event.key === 'Tab') {
@@ -110,11 +138,6 @@ const Results = () => {
         } else if (event.key === 'Escape') {
             handleClose();
         }
-    };
-
-    const handleSort = (criteria) => {
-        setSortingCriteria(criteria);
-        handleClose();
     };
 
     const handleViewOption = () => {
@@ -143,20 +166,6 @@ const Results = () => {
         }
     };
 
-    const sortArtigos = () => {
-        if (sortingCriteria === 'lowToHigh') {
-            return filteredArticles.slice(0, 10).sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
-        } else if (sortingCriteria === 'highToLow') {
-            return filteredArticles.slice(0, 10).sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
-        } else if (sortingCriteria === 'mostRecent') {
-            return filteredArticles.slice(0, 10).sort((a, b) => a.id - b.id);
-        } else if (sortingCriteria === 'oldest') {
-            return filteredArticles.slice(0, 10).sort((a, b) => b.id - a.id);
-        } else {
-            return artigosJSON;
-        }
-    };
-
     return (
         <ResultsStyle>
             <div className={'resultsHeader'}>
@@ -164,62 +173,19 @@ const Results = () => {
                     <form className={'searchInput'}  style={{ maxWidth: type === 'members' ? 'none' : null }} onSubmit={handleSearch}>
                         <SearchIcon />
                         <input
-                            placeholder="Procura artigos"
+                            placeholder={type === 'articles' ? 'Procura artigos' : 'Procura membros'}
                             maxLength='64'
                             value={searchInput}
                             onChange={(e) => setSearchInput(e.target.value)}
                         />
                     </form>
-                    {type === 'articles' && <FilterButtons applyFilters={applyFilters} handleActiveFilters={handleActiveFilters} />}
+                    { type === 'articles' && <FilterButtons applyFilters={addFilters}/>}
 
 
                 </div>
+                {type === 'articles' ? (
                 <div className={'sectionTitle'}>
                     <div className='resultadosTitle'>Resultados</div>
-                    {/* <div>
-                        <div
-                            id="article-menu-button"
-                            aria-controls={anchorEl ? 'article-menu' : undefined}
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                            style={{ cursor: 'pointer', height: '25px', display: 'flex', alignItems: 'center', fontWeight: '600' }}
-                        >
-                            Ordenar
-                        </div>
-                        <Popper
-                            open={Boolean(anchorEl)}
-                            anchorEl={anchorEl}
-                            role={undefined}
-                            placement="bottom-start"
-                            transition
-                            disablePortal
-                        >
-                            {({ TransitionProps, placement }) => (
-                                <Grow
-                                    {...TransitionProps}
-                                    style={{
-                                        transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                    }}
-                                >
-                                    <Paper>
-                                        <ClickAwayListener onClickAway={handleClose}>
-                                            <MenuList
-                                                autoFocusItem={Boolean(anchorEl)}
-                                                id="composition-menu"
-                                                aria-labelledby="composition-button"
-                                                onKeyDown={handleListKeyDown}
-                                            >
-                                                <MenuItem className={sortingCriteria === 'mostRecent' ? 'selected' : ''} onClick={() => handleSort('mostRecent')}>Mais recente</MenuItem>
-                                                <MenuItem className={sortingCriteria === 'oldest' ? 'selected' : ''} onClick={() => handleSort('oldest')}>Mais antigo</MenuItem>
-                                                <MenuItem className={sortingCriteria === 'lowToHigh' ? 'selected' : ''} onClick={() => handleSort('lowToHigh')}>Preço: baixo para alto</MenuItem>
-                                                <MenuItem className={sortingCriteria === 'highToLow' ? 'selected' : ''} onClick={() => handleSort('highToLow')}>Preço: alto para baixo</MenuItem>
-                                            </MenuList>
-                                        </ClickAwayListener>
-                                    </Paper>
-                                </Grow>
-                            )}
-                        </Popper>
-                    </div> */}
                     <div>
                         <img
                             src={ordenarIcon}
@@ -276,42 +242,10 @@ const Results = () => {
                             onClick={handleViewOption}
                             style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
                         />
-                        {/* <Popper
-                            open={Boolean(anchorElView)}
-                            anchorEl={anchorElView}
-                            role={undefined}
-                            placement="bottom-start"
-                            transition
-                            disablePortal
-                            style={{ width: '120px' }}
-                        >
-                            {({ TransitionProps, placement }) => (
-                                <Grow
-                                    {...TransitionProps}
-                                    style={{
-                                        transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                    }}
-                                >
-                                    <Paper>
-                                        <ClickAwayListener onClickAway={handleClose}>
-                                            <MenuList
-                                                autoFocusItem={Boolean(anchorElView)}
-                                                id="view-menu"
-                                                aria-labelledby="view-button"
-                                                onKeyDown={handleListKeyDown}
-                                            >
-                                                <MenuItem className={viewOption === 'lista' ? 'selected' : ''} onClick={() => handleViewOption('lista')}>Lista</MenuItem>
-                                                <MenuItem className={viewOption === 'galeria' ? 'selected' : ''} onClick={() => handleViewOption('galeria')}>Galeria</MenuItem>
-                                                <MenuItem className={viewOption === 'mosaico' ? 'selected' : ''} onClick={() => handleViewOption('mosaico')}>Mosaico</MenuItem>
-                                            </MenuList>
-                                        </ClickAwayListener>
-                                    </Paper>
-                                </Grow>
-                            )}
-                        </Popper> */}
                     </div>
-                </div>
-                {shouldRenderStack && (
+                </div>) : (<div className={'sectionTitle'}>
+                            <div className='resultadosTitle'>Resultados</div>
+                            </div>)}
                     <Stack style={{paddingTop: '10px'}} direction="row" spacing={1}>
                         {Object.keys(activeFilters).map(key => {
                             if (activeFilters[key] !== null) {
@@ -319,7 +253,7 @@ const Results = () => {
                                     <Chip
                                         key={key}
                                         label={activeFilters[key]}
-                                        onDelete={() => handleDelete(key)}
+                                        onDelete={() => deleteFilter(key)}
                                     />
                                 );
                             } else {
@@ -327,40 +261,48 @@ const Results = () => {
                             }
                         })}
                     </Stack>
-                )}
-            </div>
-            <div className={'resultsContent'}>
-                {type && type === 'articles' ? (
-                    sortArtigos().length !== 0 ? (
-                        <div className={'resultsArticles'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                            {sortArtigos().slice(0, 10).map((artigo) => {
-                                return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25}  width={singleColumnGrid ? '100%' : '120px'}/>;
-                            })}
-                        </div>
 
-                    ) : (
-                        <div className='zeroResults'>
-                            <img src={noResultsIcon} alt="search icon for no results" />
-                            <p>Nenhum resultado encontrado</p>
-                        </div>
-                    )
+            </div>
+
+            {isLoading && <CircularProgress className={'loader'} color="success" />}
+
+            {!isLoading && type === 'articles' && <div className={'resultsContent'}>
+                {filteredArticles.length !== 0 ? (
+                    <div className={'resultsArticles'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                        {filteredArticles.map((artigo) => {
+                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
+                        })}
+                    </div>
                 ) : (
-                    sortArtigos().length !== 0 ? (
-                        <div className={'resultsUsers'}  style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                            {sortArtigos().slice(0, 10).map((user) => {
-                                return <ProfileLink name={user.username} image={user.avatar} key={user.id} zoom={1.3} rating={user.rating}/>;
-                            })}
-                        </div>
-
-                    ) : (
-                        <div className='zeroResults'>
-                            <img src={noResultsIcon} alt="search icon for no results" />
-                            <p>Nenhum resultado encontrado</p>
-                        </div>
-                    )
+                    <div className='zeroResults'>
+                        <img src={noResultsIcon} alt="search icon for no results" />
+                        <p>Nenhum resultado encontrado</p>
+                    </div>
                 )}
 
-            </div>
+            </div>}
+
+            {!isLoading && type === 'members' && <div className={'resultsContent'}>
+                {filteredUsers.length !== 0 ? (
+                    <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                        {filteredUsers.map((user) => {
+                            return <div key={user.id} className={'userRow'}>
+                                <ProfileLink image={user.avatar} key={user.id} zoom={0.7} />
+                                <div>{user.username}</div>
+                                {/*<div style={{marginLeft: 'auto',opacity: 0.6, display: 'flex', alignItems: 'center'}}>{user.rating} <StarIcon/></div>*/}
+                            </div>
+                        })}
+                    </div>
+                ) : (
+                    <div className='zeroResults'>
+                        <img src={noResultsIcon} alt="search icon for no results" />
+                        <p>Nenhum resultado encontrado</p>
+                    </div>
+                )}
+
+            </div>}
+
+
             <MenuMobile />
         </ResultsStyle>
     );
@@ -368,9 +310,20 @@ const Results = () => {
 
 const ResultsStyle = styled.div`
 
-
+  .loader{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 40px;
+    height: 40px;
+  }
+  
   .resultsContent{
-    padding: 0 25px 115px 25px;
+    padding-bottom: 115px;
+    margin: 0 25px;
     text-align: center;
     .resultsArticles {
       /* gap: 20px 10px;
@@ -383,19 +336,28 @@ const ResultsStyle = styled.div`
       gap: 25px 25px;
       flex-direction: row;
       .description {
-      text-align: left;
-    }
+        text-align: left;
+      }
     }
     .resultsUsers{
-      display: grid;
-      padding-top: 25px;
-      gap: 75px 75px;
-      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
-      justify-items: center;
+      font-size: 14px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      .userRow{
+        gap: 15px;
+        padding: 10px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+        width: 100%;
+        background-color: white;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+      }
     }
   }
 
-  
+
 
   .resultsHeader{
     z-index: 10;

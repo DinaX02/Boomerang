@@ -4,8 +4,12 @@ import closeFilter from '../assets/icons/eliminar.svg';
 import maisFilter from '../assets/icons/mostrar_mais_icon.svg';
 import menosFilter from '../assets/icons/Filter_menos.svg';
 import Button from "./Button";
+import {useLocation} from "react-router-dom";
 
 const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
+
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
     const [showFilters, setShowFilters] = useState(false);
     const [accordion, setAccordion] = useState({
         size: false,
@@ -21,13 +25,28 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
         brand: null,
     });
 
-    const toggleFilters = () => {
-        setShowFilters(!showFilters);
+    const toggleFiltersOn = () => {
+        const size = queryParams.get('size') || null;
+        const category = queryParams.get('category') || null;
+        const color = queryParams.get('color') || null;
+        const brand = queryParams.get('brand') || null;
+        setSelectedFilters({
+            size: size,
+            color: color,
+            category: category,
+            brand: brand,
+        });
+        //toggle every accordion
+        setShowFilters(true);
+    };
+
+    const toggleFiltersOff = () => {
+        setAccordion({});
+        setShowFilters(false);
     };
 
     const toggleAccordion = (filter) => {
         setAccordion({
-            ...accordion,
             [filter]: !accordion[filter],
         });
     };
@@ -35,9 +54,8 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
     const handleApplyFilters = () => {
         // Apply selected filters
         console.log(selectedFilters)
-        handleActiveFilters(selectedFilters)
         applyFilters(selectedFilters);
-        toggleFilters(); // Close the filter overlay
+        toggleFiltersOff(); // Close the filter overlay
     };
 
     const handleSelectFilter = (filterType, value) => {
@@ -47,12 +65,11 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
             ...selectedFilters,
             [filterType]: newValue,
         });
-        console.log(selectedFilters[filterType])
     };
 
     return (
         <div>
-            <button className="filterButton" onClick={toggleFilters}><img src={filtro} alt="filtro"></img></button>
+            <button className="filterButton" onClick={toggleFiltersOn}><img src={filtro} alt="filtro"></img></button>
 
             {showFilters && (
                 <div className="overlay">
@@ -61,7 +78,7 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                             <h2>Filtros</h2>
                         </div>
                         <div className="filterClose">
-                            <button onClick={toggleFilters}><img src={closeFilter} alt="fechar"></img></button>
+                            <button onClick={toggleFiltersOff}><img src={closeFilter} alt="fechar"></img></button>
                         </div>
                     </div>
                     <div className="filterMenu">
