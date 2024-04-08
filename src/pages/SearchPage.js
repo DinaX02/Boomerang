@@ -67,7 +67,7 @@ const SearchPage = () => {
                             <div className={'sectionTitle'}>Marcas Populares</div>
                             <div className={'chips'}>
                                 {brands.map((brand, index) => (
-                                    <Chip key={index} category={brand} />
+                                    <Chip key={index} brand={brand} />
                                 ))}
                             </div>
                         </div>
