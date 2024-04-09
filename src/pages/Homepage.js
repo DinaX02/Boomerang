@@ -42,14 +42,14 @@ const Homepage = () => {
     <Link to={"/search-page"}><button>Pesquisa</button></Link>*/}
         <div className={'top'}>
           <div>
-            <div>Bem-Vindo</div>
-            <h1>O teu guarda-roupa ilimitado começa aqui</h1>
+            <h1 style={{fontSize: "12px", fontWeight: "600", marginBottom: "5px"}}>Bem-Vindo</h1>
+            <h2 style={{fontSize: "20px",fontWeight: "800"}}>O teu guarda-roupa ilimitado começa aqui</h2>
           </div>
           {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
           <Link to={"/profile-page"} aria-label="Link para visitares o teu perfil"><div className={'profileLink'} ></div></Link>
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Categorias Populares</span></div>
+          <h3 className={'sectionTitle'}><span>Categorias Populares</span></h3>
           <div className={'articles'}>
             <Chip category={'Homem'} />
             <Chip category={'Mulher'} />
@@ -58,7 +58,7 @@ const Homepage = () => {
           </div>
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Promotores Populares</span></div>
+          <h3 className={'sectionTitle'}><span>Promotores Populares</span></h3>
           <div className={'articles'}>
             <ProfileLink className={'profileLink'} name={'Bernardo Silva'} image={person1} />
             <ProfileLink className={'profileLink'} name={'Joana Faria'} image={person2} />
@@ -69,7 +69,7 @@ const Homepage = () => {
 
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Ver Todos os teus favoritos">Ver tudo</Link></div>
+          <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
           <div className={'articles'}>
             {artigosJSON.slice(0, 5).map((artigo) => {
               return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} />
@@ -78,7 +78,7 @@ const Homepage = () => {
           </div>
         </div>
         <div>
-          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Todas as novidades">Ver tudo</Link></div>
+          <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Tudo das novidades">Ver tudo</Link></div>
           <div className={'articles'}>
             {artigosJSON.slice(6, 11).map((artigo) => {
               // console.log(artigo.id);
@@ -164,7 +164,7 @@ const HomepageStyle = styled.div`
       font-size: 12px;
       font-weight: 600;
       text-decoration: none;
-      color: #00C17C;
+      color: #008052;
     }
   }
 `

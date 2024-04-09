@@ -105,15 +105,16 @@ const VerTudo = () => {
             <div className={'resultsContent'}>
                 <div className={'sectionTitle'}>
                     <div>
+                        <button className='buttonForKeyboard' onClick={handleClick}>
                         <img
                             src={ordenarIcon}
                             alt="ordenar icon"
                             id="article-menu-button"
                             aria-controls={anchorEl ? 'article-menu' : undefined}
                             // aria-haspopup="true"
-                            onClick={handleClick}
+                           
                             style={{ cursor: 'pointer', height: '18px', display: 'flex', marginRight: '20px' }}
-                        ></img>
+                        ></img></button>
 
                         <Popper
                             open={Boolean(anchorEl)}
@@ -154,6 +155,7 @@ const VerTudo = () => {
                         </Popper>
                     </div>
                     <div>
+                        <button className='buttonForKeyboard'>
                         <img
                             src={getViewIcon()}
                             alt="view icon"
@@ -162,7 +164,7 @@ const VerTudo = () => {
                             // aria-haspopup="true"
                             onClick={handleViewOption}
                             style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
-                        />
+                        /></button>
                         {/* <Popper
                             open={Boolean(anchorElView)}
                             anchorEl={anchorElView}
@@ -224,6 +226,12 @@ const ResultsStyle = styled.div`
       gap: 25px 25px;
       flex-direction: row;
     }
+  }
+
+  .buttonForKeyboard{
+    border:none;
+    background-color: transparent;
+
   }
 
   .sectionTitle {

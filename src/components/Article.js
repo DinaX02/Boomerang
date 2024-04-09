@@ -60,7 +60,7 @@ const MoreLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #00C17C;
+  color: #008052;
   justify-content: center;
 `
 

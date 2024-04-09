@@ -4,6 +4,14 @@ import "./../components.css";
 import { useNavigate } from "react-router-dom";
 import share from "../../assets/icons/share.svg";
 import styled from "styled-components";
+import styled from "styled-components";
+
+const ButtonForKeyBoard= styled.button`
+background-color: transparent;
+border: none;
+
+`
+
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -17,9 +25,10 @@ const Header = (props) => {
     props.alertHandler ? props.alertHandler() : navigate(-1); // voltar para trás
   };
 
-  return (
+  return (    
     <header className="headerBoomerang">
-      <img data-testid="svg-icon" src={arrowBack} onClick={handleGoBack} style={{ cursor: "pointer" }} alt="seta para voltar à página anterior" />
+      <ButtonForKeyBoard onClick={handleGoBack} >
+      <img data-testid="svg-icon" src={arrowBack} style={{ cursor: "pointer" }} alt="seta para voltar à página anterior" /></ButtonForKeyBoard>
       <h1 style={{fontSize: "16px", marginBottom: "0"}}>{name}</h1>
       {props.share && <IconRight src={share}/>}
     </header>
