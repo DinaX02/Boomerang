@@ -32,14 +32,15 @@ const Article = (props) => {
     )
   }
 
-
+  const height = `${(208 / 120) * parseInt(props.width)}px`;
+  const imgHeight = `${(144 / 120) * parseInt(props.width)}px`;
 
   return (
     //TODO: alterar o link para o link do artigo//
     //TODO: alterar imagens e informações para o artigo//
 
-    <ArticleStyled style={{ zoom: `${props.scale}`, width: `${props.width}` }}>
-      <Link to={`/article/${props.id}`}> <img className='imgArticle' src={props.image} alt={'article'} /></Link>
+    <ArticleStyled style={{ zoom: `${props.scale}`, width: `${props.width}`, height: {height} }}>
+      <Link to={`/article/${props.id}`}> <img className='imgArticle' src={props.image} alt={'article'} style={{height: `${imgHeight}`}}/></Link>
       {props.description && <div style={{ display: props.description ? "block" : "none" }} className={'description'}>
         <div className={'priceRow'}>
           <div>{props.price}€ / dia</div>

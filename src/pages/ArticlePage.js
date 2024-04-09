@@ -249,8 +249,8 @@ const ArticlePage = (props) => {
         </div>
       </div>
       <div className={'articleSection'}>
-        <div className={'title'}>Título da Peça</div>
-        <div>{item.title}</div>
+        <p className={'title'}>Título da Peça</p>
+        <p>{item.title}</p>
       </div>
       <div className={'articleSection'}>
         <div className={'title'}>Valor Estimado do Artigo <button onClick={() => { handleIconClick(0) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação'/></button></div>

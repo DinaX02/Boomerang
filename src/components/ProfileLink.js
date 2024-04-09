@@ -7,7 +7,7 @@ const ProfileLink = (props) => {
     return (
 
 
-        <ProfileLinkStyle to={`/profile-page`} style={{zoom: props.zoom}}>
+        <ProfileLinkStyle to={`/profile-view-page`} style={{zoom: props.zoom}}>
             <img src={props.image} className={'profileLink'} alt='profile'/>
             {props.name && <div className={'description'}>
                 {props.name}
@@ -33,7 +33,7 @@ const ProfileLinkStyle = styled(Link)`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: solid 1px #2e2e2e;
+    border: solid 1px #343541;
   }
   .description{
     margin-top: 5px;
