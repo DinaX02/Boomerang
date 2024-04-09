@@ -4,7 +4,6 @@ import "./../components.css";
 import { useNavigate } from "react-router-dom";
 import share from "../../assets/icons/share.svg";
 import styled from "styled-components";
-import styled from "styled-components";
 
 const ButtonForKeyBoard= styled.button`
 background-color: transparent;
