@@ -166,86 +166,116 @@ const Results = () => {
         }
     };
 
+    const handleTabClick = (typeOf) => {
+        switch (typeOf) {
+            case 'articles':
+                localStorage.setItem('activeTab', '1');
+                navigate(`/search-page`);
+                break;
+            case 'members':
+                localStorage.setItem('activeTab', '2');
+                navigate(`/search-page`);
+                break;
+            default:
+                return;
+        }
+    };
+
     return (
         <ResultsStyle>
             <div className={'resultsHeader'}>
-                <div className={'search'}>
-                    <form className={'searchInput'}  style={{ maxWidth: type === 'members' ? 'none' : null }} onSubmit={handleSearch}>
-                        <SearchIcon />
-                        <input
-                            placeholder={type === 'articles' ? 'Procura artigos' : 'Procura membros'}
-                            maxLength='64'
-                            value={searchInput}
-                            onChange={(e) => setSearchInput(e.target.value)}
-                        />
-                    </form>
-                    { type === 'articles' && <FilterButtons applyFilters={addFilters}/>}
-
-
-                </div>
-                {type === 'articles' ? (
-                <div className={'sectionTitle'}>
-                    <div className='resultadosTitle'>Resultados</div>
-                    <div>
-                        <img
-                            src={ordenarIcon}
-                            alt="ordenar icon"
-                            id="article-menu-button"
-                            aria-controls={anchorEl ? 'article-menu' : undefined}
-                            // aria-haspopup="true"
-                            onClick={handleClick}
-                            style={{ cursor: 'pointer', height: '18px', display: 'flex', marginRight: '20px' }}
-                        ></img>
-
-                        <Popper
-                            open={Boolean(anchorEl)}
-                            anchorEl={anchorEl}
-                            role={undefined}
-                            placement="bottom-start"
-                            transition
-                            disablePortal
-                            style={{ width: '180px' }}
+                <div className="tab-buttons">
+                        <button
+                            onClick={() => handleTabClick('articles')}
+                            className={type === 'articles' ? 'active' : ''}
                         >
-                            {({ TransitionProps, placement }) => (
-                                <Grow
-                                    {...TransitionProps}
-                                    style={{
-                                        transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
-                                    }}
-                                >
-                                    <Paper>
-                                        <ClickAwayListener onClickAway={handleClose}>
-                                            <MenuList
-                                                autoFocusItem={Boolean(anchorEl)}
-                                                id="composition-menu"
-                                                aria-labelledby="composition-button"
-                                                onKeyDown={handleListKeyDown}
-                                            >
-                                                <MenuItem className={sortingCriteria === 'mostRecent' ? 'selected' : ''} onClick={() => handleSort('mostRecent')}>Mais recente</MenuItem>
-                                                <MenuItem className={sortingCriteria === 'oldest' ? 'selected' : ''} onClick={() => handleSort('oldest')}>Mais antigo</MenuItem>
-                                                <MenuItem className={sortingCriteria === 'lowToHigh' ? 'selected' : ''} onClick={() => handleSort('lowToHigh')}>Preço: baixo para alto</MenuItem>
-                                                <MenuItem className={sortingCriteria === 'highToLow' ? 'selected' : ''} onClick={() => handleSort('highToLow')}>Preço: alto para baixo</MenuItem>
-                                            </MenuList>
-                                        </ClickAwayListener>
-                                    </Paper>
-                                </Grow>
-                            )}
-                        </Popper>
+                            Artigos
+                        </button>
+                    <button
+                        onClick={() => handleTabClick('members')}
+                        className={type === 'members' ? 'active' : ''}
+                    >
+                        Membros
+                    </button>
+                </div>
+                <div className={'headerPadding'}>
+                    <div className={'search'}>
+                        <form className={'searchInput'}  style={{ maxWidth: type === 'members' ? 'none' : null }} onSubmit={handleSearch}>
+                            <SearchIcon />
+                            <input
+                                placeholder={type === 'articles' ? 'Procura artigos' : 'Procura membros'}
+                                maxLength='64'
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                            />
+                        </form>
+                        { type === 'articles' && <FilterButtons applyFilters={addFilters}/>}
+
+
                     </div>
-                    <div>
-                        <img
-                            src={getViewIcon()}
-                            alt="view icon"
-                            id="view-menu-button"
-                            // aria-controls={anchorElView ? 'view-menu' : undefined}
-                            // aria-haspopup="true"
-                            onClick={handleViewOption}
-                            style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
-                        />
-                    </div>
-                </div>) : (<div className={'sectionTitle'}>
+                    {type === 'articles' ? (
+                        <div className={'sectionTitle'}>
                             <div className='resultadosTitle'>Resultados</div>
-                            </div>)}
+                            <div>
+                                <img
+                                    src={ordenarIcon}
+                                    alt="ordenar icon"
+                                    id="article-menu-button"
+                                    aria-controls={anchorEl ? 'article-menu' : undefined}
+                                    // aria-haspopup="true"
+                                    onClick={handleClick}
+                                    style={{ cursor: 'pointer', height: '18px', display: 'flex', marginRight: '20px' }}
+                                ></img>
+
+                                <Popper
+                                    open={Boolean(anchorEl)}
+                                    anchorEl={anchorEl}
+                                    role={undefined}
+                                    placement="bottom-start"
+                                    transition
+                                    disablePortal
+                                    style={{ width: '180px' }}
+                                >
+                                    {({ TransitionProps, placement }) => (
+                                        <Grow
+                                            {...TransitionProps}
+                                            style={{
+                                                transformOrigin: placement === 'bottom-start' ? 'left top' : 'left bottom',
+                                            }}
+                                        >
+                                            <Paper>
+                                                <ClickAwayListener onClickAway={handleClose}>
+                                                    <MenuList
+                                                        autoFocusItem={Boolean(anchorEl)}
+                                                        id="composition-menu"
+                                                        aria-labelledby="composition-button"
+                                                        onKeyDown={handleListKeyDown}
+                                                    >
+                                                        <MenuItem className={sortingCriteria === 'mostRecent' ? 'selected' : ''} onClick={() => handleSort('mostRecent')}>Mais recente</MenuItem>
+                                                        <MenuItem className={sortingCriteria === 'oldest' ? 'selected' : ''} onClick={() => handleSort('oldest')}>Mais antigo</MenuItem>
+                                                        <MenuItem className={sortingCriteria === 'lowToHigh' ? 'selected' : ''} onClick={() => handleSort('lowToHigh')}>Preço: baixo para alto</MenuItem>
+                                                        <MenuItem className={sortingCriteria === 'highToLow' ? 'selected' : ''} onClick={() => handleSort('highToLow')}>Preço: alto para baixo</MenuItem>
+                                                    </MenuList>
+                                                </ClickAwayListener>
+                                            </Paper>
+                                        </Grow>
+                                    )}
+                                </Popper>
+                            </div>
+                            <div>
+                                <img
+                                    src={getViewIcon()}
+                                    alt="view icon"
+                                    id="view-menu-button"
+                                    // aria-controls={anchorElView ? 'view-menu' : undefined}
+                                    // aria-haspopup="true"
+                                    onClick={handleViewOption}
+                                    style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
+                                />
+                            </div>
+                        </div>) : (<div className={'sectionTitle'}>
+                        <div className='resultadosTitle'>Resultados</div>
+                    </div>)}
                     <Stack style={{paddingTop: '10px'}} direction="row" spacing={1}>
                         {Object.keys(activeFilters).map(key => {
                             if (activeFilters[key] !== null) {
@@ -261,6 +291,7 @@ const Results = () => {
                             }
                         })}
                     </Stack>
+                </div>
 
             </div>
 
@@ -361,11 +392,45 @@ const ResultsStyle = styled.div`
 
   .resultsHeader{
     z-index: 10;
-    padding: 25px 25px 15px 25px;
     width: 100%;
     position: sticky;
     top: 0;
     background-color: #f8f8f8;
+    
+    .headerPadding{
+      padding: 25px 25px 25px;
+    }
+
+    .tab-buttons {
+      padding-top: 25px;
+      position: sticky;
+      top: 0;
+      background-color: #F8F8F8;
+      z-index: 1;
+      display: flex;
+      gap: 10px;
+      border-bottom: 3px solid rgb(0,0,0,0.05);
+      button {
+        &:first-child{
+          margin: 0 0 -3px 35px;
+        }
+        margin: 0 35px -3px 0;
+        padding-bottom: 10px;
+        background-color: transparent;
+        font-weight: 600;
+        border: none;
+        flex: 1;
+        color: rgb(0, 0, 0, 0.4);
+        border-bottom: 3px solid rgb(0,0,0,0);
+        &.active {
+          color: black;
+          border-color: #00c17c;
+        }
+        :not(.active):hover {
+          color: rgb(0, 0, 0, 0.7);
+        }
+      }
+    }
 
     .search{
       width: 100%;

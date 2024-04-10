@@ -11,7 +11,7 @@ const SearchPage = () => {
     const [searchInput, setSearchInput] = useState('');
 
     const categories = [
-        'Calças', 'Casacos', 'Sapatos', 'Acessórios', 'Saias', 'Bonés', 'Meias',
+        'Calças', 'Casacos', 'Sapatos', 'Acessórios', 'Saias', 'Bonés', 'Camisas',
         'Vestidos',
     ];
 
