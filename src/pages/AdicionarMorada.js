@@ -41,8 +41,8 @@ const AdicionarMorada = () => {
     const cidadeRef = useRef(null);
     const codigoPostalRef = useRef(null);
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
+    const handleFormSubmit = () => {
+        // event.preventDefault();
 
         if (!morada || !localidade || !cidade || !codigoPostal) {
             // Lógica de tratamento de erro, se necessário
@@ -71,7 +71,7 @@ const AdicionarMorada = () => {
             <Header name="Adicionar Morada" />
             <MainContainer>
 
-                <form onSubmit={handleFormSubmit} style={{ marginTop: "100px" }}>
+                <form  style={{ marginTop: "100px" }}>
                     <AddMorada>
                         <input type="text" name="Morada" value={morada} onChange={(e) => setMorada(e.target.value)}
                             placeholder="Adicionar Morada"
@@ -141,7 +141,18 @@ const AdicionarMorada = () => {
                     </AddMorada>
                     <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-                        <Button type="submit" text="Guardar" />
+                        <Button type="submit" text="Guardar" onClick={handleFormSubmit}/>
+                        {/* <input type="submit" value="Guardar" style={{
+                            backgroundColor: "#343541",
+                            width: "144px",
+                            height: "36px",
+                            border: "none",
+                            borderRadius: "5px",
+                            color: "white",
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            outline: "none",
+                        }} /> */}
                     </ConfButton>
 
 
