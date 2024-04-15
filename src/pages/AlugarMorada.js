@@ -167,7 +167,7 @@ const AlugarMorada = () => {
                             width: "20px",
 
 
-                        }} src={addMoradaIcon} alt="Ícon de adicioanar Morada"></img>
+                        }} src={addMoradaIcon} alt="Ícone de adicionar Morada"></img>
                     </SelecionarMorada>
                 </Link>
                 <hr></hr>

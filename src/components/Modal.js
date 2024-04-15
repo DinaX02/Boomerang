@@ -27,7 +27,8 @@ const Modal = (props) => {
                 <div className="modalContent"
                     role="dialog"
                     aria-modal="true"
-                    tabIndex={0} // Adicionar tabIndex para tornar o elemento focável
+                    aria-hidden="true"
+                    tabIndex={0}
                     ref={modalRef}
                     >
                     <p className="textoModal" >{props.message}</p>
