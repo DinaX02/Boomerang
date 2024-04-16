@@ -1,43 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header/Header';
 import styled from "styled-components";
 import mockupprofile from '../assets/icons/user_unknown.svg';
 import Article from '../components/Article';
 import artigosJSON from '../data/artigos.json';
 import starIcon from '../assets/icons/start.svg';
+import usersJSON from '../data/users.json';
+import { useParams } from 'react-router-dom';
 
 const ProfileOthersViewPage = () => {
-    const nameUser = 'Maria';
     const starIconsArray = new Array(5).fill(null); // Array com 5 elementos nulos
+    const { id } = useParams();
+    const [item, setItem] = useState({});
 
+    useEffect(() => {
+        usersJSON.forEach(user => {
+            if (user.id === parseInt(id)) {
+                setItem(user);
+            }
+        });
+    }, [item, id])
     return (
         <ProfileOthersViewStyle>
-            <Header name={`Perfil de ${nameUser}`} share={true} />
+            <Header name={`Perfil de ${item.name ? item.name.split(' ')[0] : ''}`} share={true} />
             <div className='headerProfile'></div>
-            <img src={mockupprofile} alt={`Imagem de perfil de ${nameUser}`} className='profileLink' />
+            {item.avatar ? <img src={item.avatar} alt={`Imagem de perfil de ${item.name}`} className='profileLink' />: <img src={mockupprofile} alt={`Imagem de perfil de ${item.name}`} className='profileLink' />}
             <div className='infoPerfil'>
                 <div>
-                    <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>Maria do Carmo</h6>
-                    <div style={{ display: "inline-block", position:"absolute", right: "0", marginRight: "24px" }} >
+                    <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>{item.name}</h6>
+                    <div style={{ display: "inline-block", position: "absolute", right: "0", marginRight: "24px" }} >
                         {starIconsArray.map((_, index) => (
                             <img key={index} src={starIcon} alt="Star Icon" />
                         ))}
                     </div>
                 </div>
-                <p className='info'>mariacarmo</p>
+                <p className='info'>{item.username}</p>
                 <hr className='divisor' />
                 <p className='titulo'>Biografia</p>
-                <p className='info'>Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia.</p>
+                <p className='info'>{item.biografia}</p>
                 <hr className='divisor' />
                 <p className='titulo'>Membro da Boomerang desde</p>
                 <p className='info' style={{ marginBottom: 0 }}>24/03/2024</p>
             </div>
             <div className='armarioSection'>
-                <h5 className='armarioTitle'>Armário de {nameUser}</h5>
+                <h5 className='armarioTitle'>Armário de {item.name ? item.name.split(' ')[0] : ''}</h5>
                 <div className='articles'>
                     {artigosJSON.slice(6, 11).map((artigo) => {
                         // console.log(artigo.id);
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} width={"170px"}/>
+                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} width={"170px"} />
                     })}
                 </div>
             </div>
