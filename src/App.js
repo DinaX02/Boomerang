@@ -50,7 +50,7 @@ function App() {
         <Route path="/search-page" element={<SearchPage/>}></Route>
         <Route path="/publicar-page" element={<Publicar/>}></Route>
         <Route path="/profile-page" element={<Profile/>}></Route>
-        <Route path="/profile-view-page" element={<ProfileOthersViewPage/>}></Route>
+        <Route path="/profile-view-page/:id" element={<ProfileOthersViewPage/>}></Route>
         <Route path="/article/:id" element={<ArticlePage/>}></Route>
         <Route path="/chat" element={<Chat/>}></Route>
         <Route path="/results" element={<Results />} />
