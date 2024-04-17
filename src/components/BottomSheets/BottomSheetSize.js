@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import Draggable from "react-draggable";
 import styled from "styled-components";
+import { FocusOn } from 'react-focus-on';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -78,13 +79,13 @@ const Button = styled.button`
   }
 `;
 
-const BottomSheetSizes = React.forwardRef(({onSelectOptionSizes }, ref) => {
+const BottomSheetSizes = React.forwardRef(({ onSelectOptionSizes }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
 
-const handleOptionSelect = (option) => {
-  // console.log(`Opção selecionada: ${option}`);
-  onSelectOptionSizes(option);
-};
+  const handleOptionSelect = (option) => {
+    // console.log(`Opção selecionada: ${option}`);
+    onSelectOptionSizes(option);
+  };
 
   const modalProps = useSpring({
     opacity: isOpen ? 1 : 0,
@@ -99,17 +100,19 @@ const handleOptionSelect = (option) => {
       nodeRef={ref}
     >
       <ModalContainer style={{ ...modalProps, transform: `translateY(${isOpen ? 0 : 100}%)` }} ref={ref}>
-        <DragContainer>
-        <DragHandle />
-        </DragContainer>
-        <ButtonContainer>
-          <Button onTouchStart={() => handleOptionSelect("XS")}>XS</Button>
-          <Button onTouchStart={() => handleOptionSelect("S")}>S</Button>
-          <Button onTouchStart={() => handleOptionSelect("M")}>M</Button>
-          <Button onTouchStart={() => handleOptionSelect("L")}>L</Button>
-          <Button onTouchStart={() => handleOptionSelect("XL")}>XL</Button>
-          <Button onTouchStart={() => handleOptionSelect("XXL")}>XXL</Button>
-        </ButtonContainer>
+        <FocusOn enabled autoFocusLock={false}>
+          <DragContainer>
+            <DragHandle />
+          </DragContainer>
+          <ButtonContainer>
+            <Button onTouchStart={() => handleOptionSelect("XS")}>XS</Button>
+            <Button onTouchStart={() => handleOptionSelect("S")}>S</Button>
+            <Button onTouchStart={() => handleOptionSelect("M")}>M</Button>
+            <Button onTouchStart={() => handleOptionSelect("L")}>L</Button>
+            <Button onTouchStart={() => handleOptionSelect("XL")}>XL</Button>
+            <Button onTouchStart={() => handleOptionSelect("XXL")}>XXL</Button>
+          </ButtonContainer>
+        </FocusOn>
       </ModalContainer>
     </Draggable>
   );
