@@ -175,7 +175,8 @@ const Results = () => {
 
                 </div>
                 <div className={'sectionTitle'}>
-                    <div className='resultadosTitle'>Resultados</div>
+                    <div className='resultadosTitle'><h1 style={{fontSize: "14px",
+    fontWeight: "800"}}>Resultados</h1></div>
                     {/* <div>
                         <div
                             id="article-menu-button"

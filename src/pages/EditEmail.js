@@ -45,7 +45,9 @@ const EditEmail = () => {
               <div className='inputTitleContainer'>
                 <label htmlFor="username" className='inputTitle'>
                   Email
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput} />
+                  <button className='buttonediticon'>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput}/>
+                  </button>
                 </label>
               </div>
               <Input
@@ -166,6 +168,10 @@ const EditProfileStyle = styled.div`
         font-size: 12px;
         color: #888;
         margin-left: 9px;
+      }
+      .buttonediticon{
+        border: none;
+        background-color: transparent;
       }
       
       @media only screen and (min-width: 600px) {

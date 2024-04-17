@@ -94,7 +94,7 @@ const Chat = () => {
       </div>
       <div className={"chatMessages"}>
         {messages.map((message, index) => (
-          <Message key={index} sender={message.sender}>
+          <Message key={index} $sender={message.sender}>
             {message.text}
             {message.selectImages && (
               <img
@@ -325,21 +325,21 @@ const Message = styled.div`
   display: flex;
   flex-direction: column-reverse;
   background-color: ${(props) =>
-    props.sender === "user" ? "#00c17c" : "white"};
-  color: ${(props) => (props.sender === "user" ? "#fff" : "#000")};
+    props.$sender === "user" ? "#00c17c" : "white"};
+  color: ${(props) => (props.$sender === "user" ? "#fff" : "#000")};
   border-radius: 8px;
   padding: 8px 16px;
   max-width: 70%;
   border: ${(props) =>
-    props.sender === "user" ? "none" : "1px solid rgb(0,0,0,0.1)"};
+    props.$sender === "user" ? "none" : "1px solid rgb(0,0,0,0.1)"};
   margin-bottom: 8px;
   align-self: ${(props) =>
-    props.sender === "user" ? "flex-end" : "flex-start"};
+    props.$sender === "user" ? "flex-end" : "flex-start"};
   border-bottom-right-radius: ${(props) =>
-    props.sender === "user" ? "0" : "8px"};
+    props.$sender === "user" ? "0" : "8px"};
   border-bottom-left-radius: ${(props) =>
-    props.sender === "user" ? "8px" : "0"};
-  margin-left: ${(props) => (props.sender === "user" ? "auto" : "0")}; // Adicionando margem à esquerda se o remetente for "user"
+    props.$sender === "user" ? "8px" : "0"};
+  margin-left: ${(props) => (props.$sender === "user" ? "auto" : "0")}; // Adicionando margem à esquerda se o remetente for "user"
 
   img {
     max-height: 200px;
@@ -350,6 +350,6 @@ const Message = styled.div`
     margin-bottom: 1em;
     margin-top: 1em;
   }
-`;
+;`
 
 export default Chat;

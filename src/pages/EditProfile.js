@@ -108,10 +108,10 @@ const EditProfile = () => {
             <div className='inputContainer'>
               <div className='inputTitleContainer'>
                 <label htmlFor="username" className='inputTitle'>
-                  Nome de utilizador
+                  Nome de utilizador </label>
                   <button className="buttonEdit" onClick={handleEditUsernameInput}>
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
-                </label>
+               
               </div>
               {/* <input
                 className="input"
@@ -133,10 +133,11 @@ const EditProfile = () => {
               <div className='inputTitleContainer' style={{marginTop: "0"}}>
                 <label htmlFor="biografia" className='inputTitle'>
                   Biografia
+                  </label>
                   <button className="buttonEdit" onClick={handleEditBiografiaInput} >
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
                   <span className="countCharBiografia">{countChar}/150</span>
-                </label>
+                
               </div>
               <textarea
                 className="biografiaInput input"
@@ -152,9 +153,10 @@ const EditProfile = () => {
               <div className='inputTitleContainer'>
                 <label htmlFor="password" className='inputTitle'>
                   Palavra-passe
+                  </label>
                   <button className="buttonEdit" onClick={handleEditPasswordInput}>
                   <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
-                </label>
+                
               </div>
               <Input
                 obrigatorio={true}
@@ -269,6 +271,7 @@ const EditProfileStyle = styled.div`
           margin-left: 24px;
           font-size: 14px;
           padding-bottom: 0.5rem;
+          height: 90px;
       }
       .countCharBiografia{
         font-size: 12px;
