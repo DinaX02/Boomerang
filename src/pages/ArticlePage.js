@@ -91,12 +91,12 @@ const ArticlePage = (props) => {
 
   const handleListKeyDown = (event) => {
     if (event.key === 'Tab') {
-        event.preventDefault();
-        handleClose();
+      event.preventDefault();
+      handleClose();
     } else if (event.key === 'Escape') {
-        handleClose();
+      handleClose();
     }
-};
+  };
 
   useEffect(() => {
     artigosJSON.forEach(artigo => {
@@ -126,8 +126,8 @@ const ArticlePage = (props) => {
       />
       <div className={'headerBoomerang'}>
         <div onClick={() => { navigate(-1) }} className={'back'}>
-          <button style={{background:"transparent", border:'none'}} >
-          <img data-testid="svg-icon" src={arrowBack} style={{ cursor: "pointer" }} alt="seta para voltar à página anterior"/></button>
+          <button style={{ background: "transparent", border: 'none' }} >
+            <img data-testid="svg-icon" src={arrowBack} style={{ cursor: "pointer" }} alt="seta para voltar à página anterior" /></button>
           <h3>Voltar</h3>
         </div>
         <div className={'icons'}>
@@ -183,7 +183,7 @@ const ArticlePage = (props) => {
                     >
                       {/* <MenuItem onClick={handleClose}><img src={notificarIcon} alt="ícone de notificar-me" style={{margin: "0 10px 0 0", padding: 0}}/>Notificar-me</MenuItem>
                       <hr style={{margin: "5px 0", color: "#CACACA"}}/> */}
-                      <MenuItem onClick={handleClose}><img src={denunciarIcon} alt="ícone de denunciar" style={{margin: "0 10px 0 0", padding: 0}}/>Denunciar</MenuItem>
+                      <MenuItem onClick={handleClose}><img src={denunciarIcon} alt="ícone de denunciar" style={{ margin: "0 10px 0 0", padding: 0 }} />Denunciar</MenuItem>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -250,11 +250,19 @@ const ArticlePage = (props) => {
         </div>
       </div>
       <div className={'articleSection'}>
-        <div className={'title'}>Título da Peça</div>
-        <div>{item.title}</div>
+        <p className={'title'}>Título da Peça</p>
+        <p>{item.title}</p>
       </div>
       <div className={'articleSection'}>
-        <div className={'title'}>Valor Estimado do Artigo <button onClick={() => { handleIconClick(0) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação'/></button></div>
+        <div className={'title'}>Valor Estimado do Artigo
+          <button
+            onClick={() => { handleIconClick(0) }}
+            className='buttonInfo'>
+            <img
+              style={{ marginLeft: "0.5em", marginBottom: "5px" }}
+              src={InfoIconTaxa} alt='icone de informação' />
+          </button>
+        </div>
         <div style={{ marginBottom: "24px" }}>60€</div>
         <div className={'title'}>Preço do Aluguer por dia</div>
         <div style={{ marginTop: "10px" }}>{item.dailyRentalPrice}€ / dia</div>
@@ -281,7 +289,7 @@ const ArticlePage = (props) => {
         <div>{item.brand}</div>
       </div>
       <div className={'articleSection'}>
-        <div className={'title'}>Estado <button onClick={() => { handleIconClick(2) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação'/></button></div>
+        <div className={'title'}>Estado <button onClick={() => { handleIconClick(2) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button></div>
         <div>{item.condition}</div>
       </div>
       <div className={'articleSection'}>

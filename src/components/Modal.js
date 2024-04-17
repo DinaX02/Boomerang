@@ -1,40 +1,59 @@
-import React from "react";
+import React, { useRef, useEffect } from 'react';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 // import Col from 'react-bootstrap/Col';
 
 //Componente reutilizavel - Modal
 const Modal = (props) => {
+    const modalRef = useRef(null);
+
     const navigate = useNavigate();
+    useEffect(() => {
+
+        if (modalRef.current) {
+            modalRef.current.focus();
+        }
+    }, []);
+    
     return (
-        <ModalStyle className="fundoModal"
-            style={
-                props.fecharModal   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
-                    ? { display: "none" }
-                    : { display: "block" }
-            }>
-            <div className="modalContent">
-                <p className="textoModal">{props.message}</p>
-                {!props.alert && <hr className="divisorModal"></hr>}
-                {!props.alert && <button
-                    className="btnOK"
-                    onClick={() => {
-                        props.setFecharModal(!props.fecharModal)
-                    }}>OK</button>}
-                {props.alert && <button
-                    className="btnOK alert"
-                    onClick={() => {
-                        props.setFecharModal(!props.fecharModal)
-                    }}>Não</button>}
-                {props.alert && <div className="vl"></div>}
-                {props.alert && <button
-                    className="btnOK alert sim"
-                    onClick={() => {
-                        navigate(-1); // voltar para trás
-                    }}
-                >Sim</button>}
-            </div>
-        </ModalStyle>
+        <>
+        {!props.fecharModal && <ModalStyle className="fundoModal"
+                // style={
+                //     props.fecharModal   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
+                //         ? { visibility: "hidden" }
+                //         : { visibility: "visible" }
+                // }
+                >
+                <div className="modalContent"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-hidden="true"
+                    tabIndex={0}
+                    ref={modalRef}
+                    >
+                    <p className="textoModal" >{props.message}</p>
+                    {!props.alert && <hr className="divisorModal"></hr>}
+                    {!props.alert && <button
+                        className="btnOK"
+                        onClick={() => {
+                            props.setFecharModal(!props.fecharModal)
+                        }}>OK</button>}
+                    {props.alert && <button
+                        className="btnOK alert"
+                        onClick={() => {
+                            props.setFecharModal(!props.fecharModal)
+                        }}>Não</button>}
+                    {props.alert && <div className="vl"></div>}
+                    {props.alert && <button
+                        className="btnOK alert sim"
+                        onClick={() => {
+                            navigate(-1); // voltar para trás
+                        }}
+                    >Sim</button>}
+                </div>
+            </ModalStyle>
+        }
+        </>
     )
 }
 

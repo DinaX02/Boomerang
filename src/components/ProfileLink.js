@@ -2,13 +2,14 @@ import React from 'react'
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import StarIcon from '@mui/icons-material/Star';
+import mockupprofile from '../assets/icons/user_unknown.svg';
 
 const ProfileLink = (props) => {
     return (
 
 
-        <ProfileLinkStyle to={`/profile-page`} style={{zoom: props.zoom}}>
-            <img src={props.image} className={'profileLink'} alt='profile'/>
+        <ProfileLinkStyle to={`/profile-view-page/${props.id}`} style={{zoom: props.zoom}}>
+            {props.image ? <img src={props.image} className={'profileLink'} alt='profile'/> : <img src={mockupprofile} className={'profileLink'} alt='profile'/>}
             {props.name && <div className={'description'}>
                 {props.name}
             </div>}
@@ -33,7 +34,7 @@ const ProfileLinkStyle = styled(Link)`
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: solid 1px #2e2e2e;
+    border: solid 1px #343541;
   }
   .description{
     margin-top: 5px;

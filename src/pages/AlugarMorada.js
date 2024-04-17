@@ -160,13 +160,14 @@ const AlugarMorada = () => {
                             textAlign: "left",
                             fontSize: "13px",
                             fontWeight: "500",
+                            color: "#000000"
 
                         }}>Adicionar Morada</button>
                         <img style={{
                             width: "20px",
 
 
-                        }} src={addMoradaIcon} alt="Adicioanr Morada"></img>
+                        }} src={addMoradaIcon} alt="Ícone de adicionar Morada"></img>
                     </SelecionarMorada>
                 </Link>
                 <hr></hr>
