@@ -9,6 +9,7 @@ import VermelhoSvg from "../../assets/cores/vermelho.svg";
 import VerdeSvg from "../../assets/cores/verde.svg";
 import AzulSvg from "../../assets/cores/azul.svg";
 import AmareloSvg from "../../assets/cores/amarelo.svg";
+import { FocusOn } from 'react-focus-on';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -124,32 +125,34 @@ const BottomSheetColours = React.forwardRef(
           }}
           ref={ref}
         >
-          <DragContainer>
-            <DragHandle />
-          </DragContainer>
-          <ButtonContainer>
-            <Button onTouchStart={() => handleOptionSelectColours("Multicor")}>
-              <img src={MulticorSvg} alt="multicor_img" /> Multicor
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Preto")}>
-              <img src={PretoSvg} alt="preto_img" /> Preto
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Branco")}>
-              <img src={BrancoSvg} alt="branco_img" /> Branco
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Vermelho")}>
-              <img src={VermelhoSvg} alt="vermelho_img" /> Vermelho
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Verde")}>
-              <img src={VerdeSvg} alt="verde_img" /> Verde
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Azul")}>
-              <img src={AzulSvg} alt="azul_img" /> Azul
-            </Button>
-            <Button onTouchStart={() => handleOptionSelectColours("Amarelo")}>
-              <img src={AmareloSvg} alt="amarelo_img" /> Amarelo
-            </Button>
-          </ButtonContainer>
+          <FocusOn enabled autoFocusLock={false}>
+            <DragContainer>
+              <DragHandle />
+            </DragContainer>
+            <ButtonContainer>
+              <Button onTouchStart={() => handleOptionSelectColours("Multicor")}>
+                <img src={MulticorSvg} alt="multicor_img" /> Multicor
+              </Button>
+              <Button onTouchStart={() => handleOptionSelectColours("Preto")}>
+                <img src={PretoSvg} alt="preto_img" /> Preto
+              </Button>
+              <Button onTouchStart={() => handleOptionSelectColours("Branco")}>
+                <img src={BrancoSvg} alt="branco_img" /> Branco
+              </Button>
+              <Button onTouchStart={() => handleOptionSelectColours("Vermelho")}>
+                <img src={VermelhoSvg} alt="vermelho_img" /> Vermelho
+              </Button>
+              <Button onTouchStart={() => handleOptionSelectColours("Verde")}>
+                <img src={VerdeSvg} alt="verde_img" /> Verde
+              </Button>
+              <Button onTouchStart={() => handleOptionSelectColours("Azul")}>
+                <img src={AzulSvg} alt="azul_img" /> Azul
+              </Button>
+              <Button onTouchStart={() => handleOptionSelectColours("Amarelo")}>
+                <img src={AmareloSvg} alt="amarelo_img" /> Amarelo
+              </Button>
+            </ButtonContainer>
+          </FocusOn>
         </ModalContainer>
       </Draggable>
     );

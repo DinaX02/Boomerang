@@ -22,32 +22,32 @@ const ProfileOthersViewPage = () => {
     }, [item, id])
     return (
         <ProfileOthersViewStyle>
-            <Header name={`Perfil de ${item.name ? item.name.split(' ')[0] : ''}`} share={true} />
+            {item.name ? <Header name={`Perfil de ${item.name ? item.name.split(' ')[0] : ''}`} share={true} /> : <Header name={`Perfil`} share={true} />}
             <div className='headerProfile'></div>
             {item.avatar ? <img src={item.avatar} alt={`Imagem de perfil de ${item.name}`} className='profileLink' />: <img src={mockupprofile} alt={`Imagem de perfil de ${item.name}`} className='profileLink' />}
             <div className='infoPerfil'>
                 <div>
-                    <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>{item.name}</h6>
+                    {item.name ? <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>{item.name}</h6> : <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>Utilizador da Boomerang</h6>}
                     <div style={{ display: "inline-block", position: "absolute", right: "0", marginRight: "24px" }} >
                         {starIconsArray.map((_, index) => (
                             <img key={index} src={starIcon} alt="Star Icon" />
                         ))}
                     </div>
                 </div>
-                <p className='info'>{item.username}</p>
+                {item.username ? <p className='info'>{item.username}</p> : <p className='info'>-</p>}
                 <hr className='divisor' />
                 <p className='titulo'>Biografia</p>
-                <p className='info'>{item.biografia}</p>
+                {item.biografia ? <p className='info'>{item.biografia}</p> : <p className='info'>-</p>}
                 <hr className='divisor' />
                 <p className='titulo'>Membro da Boomerang desde</p>
                 <p className='info' style={{ marginBottom: 0 }}>24/03/2024</p>
             </div>
             <div className='armarioSection'>
-                <h5 className='armarioTitle'>Armário de {item.name ? item.name.split(' ')[0] : ''}</h5>
+                {item.name ? <h5 className='armarioTitle'>Armário de {item.name ? item.name.split(' ')[0] : ''}</h5> : <h5 className='armarioTitle'>Armário</h5>}
                 <div className='articles'>
                     {artigosJSON.slice(6, 11).map((artigo) => {
                         // console.log(artigo.id);
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} width={"170px"} />
+                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} width={"160px"} />
                     })}
                 </div>
             </div>
