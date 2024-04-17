@@ -210,8 +210,6 @@ const Results = () => {
                             />
                         </form>
                         { type === 'articles' && <FilterButtons applyFilters={addFilters}/>}
-
-
                     </div>
                     {type === 'articles' ? (
                         <div className={'sectionTitle'}>

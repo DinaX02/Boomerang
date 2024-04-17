@@ -3,7 +3,7 @@ import articlesData from "../../data/artigos.json";
 import brandData from "../../data/marcasRoupa.json";
 import Header from "../Header/Header";
 import { MemoryRouter } from "react-router-dom";
-import renderer from "react-test-renderer";
+// import renderer from "react-test-renderer";
 
 afterEach(() => {
   cleanup();
