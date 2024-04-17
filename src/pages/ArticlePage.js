@@ -50,15 +50,17 @@ const ArticlePage = (props) => {
 
     (<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>),
 
-    (<span><strong>Muito Bom</strong> Uma peça pouco usada que pode ter ligeiras
+    (<span><strong>Muito Bom</strong><br></br> Uma peça pouco usada que pode ter ligeiras
       imperfeições, mas que está em bom estado. Inclui fotografias e
       descrições de quaisquer defeitos no teu anúncio.
       <br></br>
-      <strong>Bom</strong> Uma peça usada que pode apresentar imperfeições
+      <br></br>
+      <strong>Bom</strong><br></br> Uma peça usada que pode apresentar imperfeições
       e sinais de desgaste. Inclui fotografias e descrições de quaisquer
       defeitos no teu anúncio.
       <br></br>
-      <strong>Satisfatório</strong> Uma peça usada com frequência, com
+      <br></br>
+      <strong>Satisfatório</strong> <br></br>Uma peça usada com frequência, com
       imperfeições e sinais de desgaste. Inclui fotografias e descrições
       de quaisquer defeitos no teu anúncio.</span>),
 

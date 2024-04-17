@@ -3,15 +3,25 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 
 const Chip = (props) => {
+    let url;
+    let label;
+
+    if (props.category) {
+        url = `/results?type=articles&category=${props.category}`;
+        label = props.category;
+    } else if (props.brand) {
+        url = `/results?type=articles&brand=${props.brand}`;
+        label = props.brand;
+    } else {
+        // Handle case where neither category nor brand is provided
+        return null; // or render a default value
+    }
+
     return (
-
-        //TODO: alterar o link para o link do artigo//
-        //TODO: alterar imagens e informações para o artigo//
-
-        <ChipLinkStyle to={`/`} >
-            {props.category}
+        <ChipLinkStyle to={url}>
+            {label}
         </ChipLinkStyle>
-    )
+    );
 }
 
 const ChipLinkStyle = styled(Link)`
