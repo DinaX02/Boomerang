@@ -26,25 +26,33 @@ const Article = (props) => {
   if (props.more) {
     return (
 
-      <MoreLink to={`/ver-tudo`}>
+      <MoreLink to={`/ver-tudo`} aria-label={"Link para página Ver Todos os teus favoritos"}>
         Ver Tudo
       </MoreLink>
     )
   }
 
-
+  const height = `${(208 / 120) * parseInt(props.width)}px`;
+  const imgHeight = `${(144 / 120) * parseInt(props.width)}px`;
 
   return (
     //TODO: alterar o link para o link do artigo//
     //TODO: alterar imagens e informações para o artigo//
 
-    <ArticleStyled style={{ zoom: `${props.scale}`, width: `${props.width}` }}>
-      <Link to={`/article/${props.id}`}> <img className='imgArticle' src={props.image} alt={'article'} /></Link>
+    <ArticleStyled style={{ zoom: `${props.scale}`, width: `${props.width}`, height: { height } }}>
+      <Link to={`/article/${props.id}`}>
+        <img
+          className='imgArticle'
+          src={props.image}
+          style={{ height: `${imgHeight}` }}
+          alt={`${props.title}`}
+        />
+      </Link>
       {props.description && <div style={{ display: props.description ? "block" : "none" }} className={'description'}>
         <div className={'priceRow'}>
           <div>{props.price}€ / dia</div>
           {/* <div><FavoriteBorderIcon style={{color: "lightgray", scale: '0.7'}}/></div> */}
-          <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{zoom: '1.1'}}/>
+          <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />
         </div>
         <p>{props.brand}</p>
         <p>Tamanho {props.size}</p>
@@ -59,7 +67,7 @@ const MoreLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #00C17C;
+  color: #008052;
   justify-content: center;
 `
 

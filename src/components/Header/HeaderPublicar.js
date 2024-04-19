@@ -2,6 +2,12 @@ import React from "react";
 import arrowBack from "../../assets/icons/back_arrow.svg";
 import "./../components.css";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const ButtonForKeyBoard= styled.button`
+background-color: transparent;
+border: none;
+`
 
 const HeaderPublish = (props) => {
   const navigate = useNavigate();
@@ -17,14 +23,16 @@ const HeaderPublish = (props) => {
 
   return (
     <header className="headerBoomerang">
+      <ButtonForKeyBoard>
       <img
         data-testid="svg-icon"
         src={arrowBack}
         onClick={handleGoBack}
         style={{ cursor: "pointer" }}
-        alt="arrow go back"
+        alt="seta para voltar à página anterior"
       />
-      <h3>{name}</h3>
+      </ButtonForKeyBoard>
+      <h1 style={{fontSize: "16px", marginBottom: "0"}}>{name}</h1>
     </header>
   );
 };

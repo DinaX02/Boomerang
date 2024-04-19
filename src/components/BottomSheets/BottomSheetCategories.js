@@ -3,6 +3,7 @@ import { useSpring, animated } from "react-spring";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 import DropdownIcon from "../../assets/icons/SwipeIcon.svg"
+import { FocusOn } from 'react-focus-on';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -123,10 +124,10 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
   const renderSubcategories = () => {
 
     const subcategories = {
-      Mulher: ["Vestidos","Camisolas e Casacos","Calças","Calçado"],
-      Homem: ["Cerimónia","Camisolas e Casacos","Calças","Sapatos"],
-      Criança: ["0-6 meses", "0-18 meses","1-6 anos","6-14 anos"],
-      Trajes: ["Rancho","Natal","Carnaval"],
+      Mulher: ["Vestidos", "Camisolas e Casacos", "Calças", "Calçado"],
+      Homem: ["Cerimónia", "Camisolas e Casacos", "Calças", "Sapatos"],
+      Criança: ["0-6 meses", "0-18 meses", "1-6 anos", "6-14 anos"],
+      Trajes: ["Rancho", "Natal", "Carnaval"],
     };
 
     return subcategories[selectedCategory].map((subcategory, index) => (
@@ -162,35 +163,37 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
         onTouchMove={handleTouchMove}
         onTouchEnd={() => setTouchStart(0)}
       >
-        <DragContainer>
-          <DragHandle />
-        </DragContainer>
-        <animated.div style={categorySpringProps}>
-          {!selectedCategory ? (
-            <ButtonContainer>
-              <CategoryButton onTouchStart={() => handleCategorySelect('Mulher')}>
-                <span>Mulher</span>
-                <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-              </CategoryButton>
-              <CategoryButton onTouchStart={() => handleCategorySelect('Homem')}>
-                <span>Homem</span>
-                <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-              </CategoryButton>
-              <CategoryButton onTouchStart={() => handleCategorySelect('Criança')}>
-                <span>Criança</span>
-                <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-              </CategoryButton>
-              <CategoryButton onTouchStart={() => handleCategorySelect('Trajes')}>
-                <span>Trajes</span>
-                <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-              </CategoryButton>
-            </ButtonContainer>
-          ) : (
-            <SubCategoryContainer>
-              {renderSubcategories()}
-            </SubCategoryContainer>
-          )}
-        </animated.div>
+        <FocusOn enabled autoFocusLock={false}>
+          <DragContainer>
+            <DragHandle />
+          </DragContainer>
+          <animated.div style={categorySpringProps}>
+            {!selectedCategory ? (
+              <ButtonContainer>
+                <CategoryButton onTouchStart={() => handleCategorySelect('Mulher')}>
+                  <span>Mulher</span>
+                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
+                </CategoryButton>
+                <CategoryButton onTouchStart={() => handleCategorySelect('Homem')}>
+                  <span>Homem</span>
+                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
+                </CategoryButton>
+                <CategoryButton onTouchStart={() => handleCategorySelect('Criança')}>
+                  <span>Criança</span>
+                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
+                </CategoryButton>
+                <CategoryButton onTouchStart={() => handleCategorySelect('Trajes')}>
+                  <span>Trajes</span>
+                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
+                </CategoryButton>
+              </ButtonContainer>
+            ) : (
+              <SubCategoryContainer>
+                {renderSubcategories()}
+              </SubCategoryContainer>
+            )}
+          </animated.div>
+        </FocusOn>
       </ModalContainer>
     </Draggable>
   );

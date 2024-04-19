@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 import Draggable from "react-draggable";
+import { FocusOn } from 'react-focus-on';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -95,15 +96,17 @@ const BottomSheet = React.forwardRef((props, ref) => {
             nodeRef={ref}
         >
             <ModalContainer style={isDragging ? {} : springProps} ref={ref} >
-                <DragContainer className="handle" onClick={props.handleClickDrag}>
-                    <DragHandle />
-                </DragContainer>
-                <ButtonContainer>
-                    <Button onTouchStart={() => handleOptionSelect("Masculino")} type="button">Masculino</Button>
-                    <Button onTouchStart={() => handleOptionSelect("Feminino")} type="button">Feminino</Button>
-                    <Button onTouchStart={() => handleOptionSelect("Outro")} type="button">Outro</Button>
-                    <Button onTouchStart={() => handleOptionSelect("Prefiro não dizer")} type="button">Prefiro não dizer</Button>
-                </ButtonContainer>
+                <FocusOn enabled autoFocusLock={false}>
+                    <DragContainer className="handle" onClick={props.handleClickDrag}>
+                        <DragHandle />
+                    </DragContainer>
+                    <ButtonContainer>
+                        <Button onTouchStart={() => handleOptionSelect("Masculino")} type="button">Masculino</Button>
+                        <Button onTouchStart={() => handleOptionSelect("Feminino")} type="button">Feminino</Button>
+                        <Button onTouchStart={() => handleOptionSelect("Outro")} type="button">Outro</Button>
+                        <Button onTouchStart={() => handleOptionSelect("Prefiro não dizer")} type="button">Prefiro não dizer</Button>
+                    </ButtonContainer>
+                </FocusOn>
             </ModalContainer>
         </Draggable>
     );

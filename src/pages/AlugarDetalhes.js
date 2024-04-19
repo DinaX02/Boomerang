@@ -24,18 +24,19 @@ const ConfirmButton = styled.div`
   margin-top: 60px;
 `;
 
-const LavagemSelecionada = styled.div`
-  background-color: ${props => (props.selecionada ? '#343541' : '#ffffff')};
+const LavagemSelecionada = styled.button`
+  background-color: ${props => (props.selected ? '#343541' : '#ffffff')};
   border-radius: 5px;
   width: 90%;
   height: 40px;
   margin: 7px 0px;
-  color: ${props => (props.selecionada ? '#ffffff' : '#000000')};
+  color: ${props => (props.selected ? '#ffffff' : '#000000')};
   display: flex;
   align-items: center;
   padding: 0px 10px;
   cursor: pointer;
   box-shadow: -1px 4px 7px -1px rgb(0 0 0 / 15%);
+  border: none;
 `;
 
 const MainSelection = styled.div`
@@ -59,7 +60,7 @@ const ConteudoLavagem = styled.div`
 
 const IconLavagemSelect = styled.img`
   width: 10px;
-  visibility: ${props => (props.selecionada ? 'visible' : 'hidden')};
+  visibility: ${props => (props.selected ? 'visible' : 'hidden')};
   margin: 0px 10px 0px 0px;
 `;
 
@@ -72,12 +73,12 @@ const ValorLavagem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-color: ${props => (props.selecionada ? 'ffffff' : '#e4e4e4')};
+  border-color: ${props => (props.selected ? 'ffffff' : '#e4e4e4')};
 `;
 
 const IconFolha = styled.img`
   width: 12px;
-  visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
+  //visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
   margin: 0px 10px 0px 5px;
 `;
 
@@ -88,6 +89,7 @@ const AlugarDetalhes = () => {
     const [fecharModal2, setFecharModal2] = useState(true);
     const [fecharModal3, setFecharModal3] = useState(true);
     const [fecharModal4, setFecharModal4] = useState(true);
+    const [total, setTotal] = useState(0); // Estado para armazenar o total
 
     const navigate = useNavigate();
 
@@ -120,7 +122,7 @@ const AlugarDetalhes = () => {
     ];
 
     const handleIconClick = (index) => {
-        switch(index) {
+        switch (index) {
             case 0:
                 setFecharModal(false);
                 break;
@@ -132,6 +134,8 @@ const AlugarDetalhes = () => {
                 break;
             case 3:
                 setFecharModal4(false);
+                break;
+            default:
                 break;
         }
     };
@@ -147,11 +151,25 @@ const AlugarDetalhes = () => {
     ];
 
     const handleLavagemClick = index => {
+        if (lavagemSelecionada !== null && lavagens[lavagemSelecionada].valor > 0) {
+            // Se uma opção paga foi desselecionada, subtrai o valor dela
+            setTotal(prevTotal => prevTotal - lavagens[lavagemSelecionada].valor);
+        }
         setLavagemSelecionada(index);
+        if (lavagens[index].nome === 'Lavandaria Sustentável') {
+            setTotal(prevTotal => prevTotal + lavagens[index].valor);
+        }
     };
 
     const handleTransporteClick = index => {
+        if (transporteSelecionado !== null && transportes[transporteSelecionado].valor > 0) {
+            // Se uma opção paga foi desselecionada, subtrai o valor dela
+            setTotal(prevTotal => prevTotal - transportes[transporteSelecionado].valor);
+        }
         setTransporteSelecionado(index);
+        if (transportes[index].nome === 'Transportadora Eco-Friendly') {
+            setTotal(prevTotal => prevTotal + transportes[index].valor);
+        }
     };
 
     const isContinuarDisabled = lavagemSelecionada === null || transporteSelecionado === null;
@@ -186,19 +204,20 @@ const AlugarDetalhes = () => {
                     setFecharModal={setFecharModal4}
                     message={modalMessages[3]}
                 />
-                <PreviewCard id={list.article_id} valor={list.total} />
+                <PreviewCard id={list.article_id} valor={list.total+total} />
                 <div style={{ paddingTop: "25px" }}>
                     {lavagens.map((lavagem, index) => (
                         <MainSelection key={index}>
                             <LavagemSelecionada
-                                selecionada={lavagemSelecionada === index}
+                                selected={lavagemSelecionada === index}
                                 onClick={() => handleLavagemClick(index)}
+                                name={lavagens.nome}
                             >
                                 <ConteudoLavagem>
-                                    <IconLavagemSelect src={iconMoradaSelect} alt="icon" selecionada={lavagemSelecionada === index} />
+                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selected={lavagemSelecionada === index}/>
                                     {lavagem.nome}
-                                    <IconFolha src={iconFolha} alt="icon" valorCincoEuros={lavagem.valor === 5} />
-                                    {lavagem.valor !== 0 && <ValorLavagem selecionada={lavagemSelecionada === index}>{lavagem.valor} €</ValorLavagem>}
+                                    {lavagem.nome==="Lavandaria Sustentável" && <IconFolha src={iconFolha} alt="icone de sustentabilidade" />}
+                                    {lavagem.valor !== 0 && <ValorLavagem >{lavagem.valor} €</ValorLavagem>}
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
                             <ButtonInfo>
@@ -209,7 +228,7 @@ const AlugarDetalhes = () => {
                                     <img
                                         style={{ width: "17px" }}
                                         src={iconInfo}
-                                        alt="icon"
+                                        alt="ícone de informação"
                                     ></img>
                                 </button>
                             </ButtonInfo>
@@ -221,14 +240,15 @@ const AlugarDetalhes = () => {
                     {transportes.map((transporte, index) => (
                         <MainSelection key={index}>
                             <LavagemSelecionada
-                                selecionada={transporteSelecionado === index}
+                            selected={transporteSelecionado === index}
                                 onClick={() => handleTransporteClick(index)}
+                                name={transporte.nome}
                             >
                                 <ConteudoLavagem>
-                                    <IconLavagemSelect src={iconMoradaSelect} alt="icon" selecionada={transporteSelecionado === index} />
+                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selected={transporteSelecionado === index}/>
                                     {transporte.nome}
-                                    <IconFolha src={iconFolha} alt="icon" valorCincoEuros={transporte.valor === 5} />
-                                    {transporte.valor !== 0 && <ValorLavagem selecionada={transporteSelecionado === index}>{transporte.valor} €</ValorLavagem>}
+                                    {transporte.nome==="Transportadora Eco-Friendly" && <IconFolha src={iconFolha} alt="icone de sustentabilidade"/>}
+                                    {transporte.valor !== 0 && <ValorLavagem>{transporte.valor} €</ValorLavagem>}
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
                             <ButtonInfo>
@@ -239,7 +259,7 @@ const AlugarDetalhes = () => {
                                     <img
                                         style={{ width: "17px" }}
                                         src={iconInfo}
-                                        alt="icon"
+                                        alt="ícone de informação"
                                     ></img>
                                 </button>
                             </ButtonInfo>

@@ -108,9 +108,10 @@ const EditProfile = () => {
             <div className='inputContainer'>
               <div className='inputTitleContainer'>
                 <label htmlFor="username" className='inputTitle'>
-                  Nome de utilizador
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput} />
-                </label>
+                  Nome de utilizador </label>
+                  <button className="buttonEdit" onClick={handleEditUsernameInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
+               
               </div>
               {/* <input
                 className="input"
@@ -132,9 +133,11 @@ const EditProfile = () => {
               <div className='inputTitleContainer' style={{marginTop: "0"}}>
                 <label htmlFor="biografia" className='inputTitle'>
                   Biografia
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditBiografiaInput} />
+                  </label>
+                  <button className="buttonEdit" onClick={handleEditBiografiaInput} >
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
                   <span className="countCharBiografia">{countChar}/150</span>
-                </label>
+                
               </div>
               <textarea
                 className="biografiaInput input"
@@ -150,8 +153,10 @@ const EditProfile = () => {
               <div className='inputTitleContainer'>
                 <label htmlFor="password" className='inputTitle'>
                   Palavra-passe
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditPasswordInput} />
-                </label>
+                  </label>
+                  <button className="buttonEdit" onClick={handleEditPasswordInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
+                
               </div>
               <Input
                 obrigatorio={true}
@@ -167,7 +172,9 @@ const EditProfile = () => {
             <Button
               onClick={handleClick}
               text="Atualizar perfil"
-              disable={disableBtn}></Button>
+              disable={disableBtn}
+              type={"submit"}
+              ></Button>
           </div>
         </form>
         <Modal
@@ -180,6 +187,7 @@ const EditProfile = () => {
     </>
   )
 }
+
 
 const EditProfileStyle = styled.div`
           /* padding: 0 24px; */
@@ -263,6 +271,7 @@ const EditProfileStyle = styled.div`
           margin-left: 24px;
           font-size: 14px;
           padding-bottom: 0.5rem;
+          height: 90px;
       }
       .countCharBiografia{
         font-size: 12px;
@@ -272,6 +281,13 @@ const EditProfileStyle = styled.div`
 
       .textErroObrigatorio{
         margin-bottom: 0;
+      }
+
+      .buttonEdit{
+        border: none;
+        margin: 0;
+        padding:0;
+        background-color: transparent;
       }
       
       @media only screen and (min-width: 600px) {

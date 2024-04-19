@@ -1,82 +1,112 @@
 [
   {
-    "username": "Maria da Silva",
+    "id": 1,
+    "name": "Maria da Silva",
+    "username": "mariasilva",
     "gender": "female",
     "email": "maria.silva@example.com",
     "address": "Rua das Flores, 123, Lisboa, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.5
+    "avatar": "https://randomuser.me/api/portraits/women/82.jpg",
+    "rating": 4.5,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "João Pereira",
+    "id": 2,
+    "name": "João Pereira",
+    "username": "joaopereira",
     "gender": "male",
     "email": "joao.pereira@example.com",
     "address": "Avenida Central, 456, Porto, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 3.8
+    "avatar": "https://randomuser.me/api/portraits/men/54.jpg",
+    "rating": 3.8,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Ana Martins",
+    "id": 3,
+    "name": "Ana Martins",
+    "username": "anamartins",
     "gender": "female",
     "email": "ana.martins@example.com",
     "address": "Rua do Comércio, 789, Braga, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.2
+    "avatar": "https://randomuser.me/api/portraits/women/2.jpg",
+    "rating": 4.2,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Pedro Oliveira",
+    "id": 4,
+    "name": "Pedro Oliveira",
+    "username": "pedroliveira",
     "gender": "male",
     "email": "pedro.oliveira@example.com",
     "address": "Avenida dos Aliados, 1011, Coimbra, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.0
+    "avatar": "https://randomuser.me/api/portraits/men/4.jpg",
+    "rating": 4.0,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Sofia Costa",
+    "id": 5,
+    "name": "Sofia Costa",
+    "username": "sofiacosta",
     "gender": "female",
     "email": "sofia.costa@example.com",
     "address": "Rua Direita, 1213, Faro, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.8
+    "avatar": "https://randomuser.me/api/portraits/women/10.jpg",
+    "rating": 4.8,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Manuel Pereira",
+    "id": 6,
+    "name": "Manuel Pereira",
+    "username": "manuelpereira",
     "gender": "male",
     "email": "manuel.pereira@example.com",
     "address": "Largo do Rossio, 1415, Évora, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 3.7
+    "avatar": "https://randomuser.me/api/portraits/men/10.jpg",
+    "rating": 3.7,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Marta Ferreira",
+    "id": 7,
+    "name": "Marta Ferreira",
+    "username": "marta ferreira",
     "gender": "female",
     "email": "marta.ferreira@example.com",
     "address": "Praça da República, 1617, Guimarães, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.5
+    "avatar": "https://randomuser.me/api/portraits/women/11.jpg",
+    "rating": 4.5,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Carlos Sousa",
+    "id": 8,
+    "name": "Carlos Sousa",
+    "username": "carlossousa",
     "gender": "male",
     "email": "carlos.sousa@example.com",
     "address": "Rua dos Santos, 1819, Viseu, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.2
+    "avatar": "https://randomuser.me/api/portraits/men/1.jpg",
+    "rating": 4.2,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "Inês Costa",
+    "id": 9,
+    "name": "Inês Costa",
+    "username": "inescosta",
     "gender": "female",
     "email": "ines.costa@example.com",
     "address": "Avenida da Liberdade, 2021, Aveiro, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 3.9
+    "avatar": "https://randomuser.me/api/portraits/women/54.jpg",
+    "rating": 3.9,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   },
   {
-    "username": "António Ramos",
+    "id": 10,
+    "name": "António Ramos",
+    "username": "antonioramos",
     "gender": "male",
     "email": "antonio.ramos@example.com",
     "address": "Travessa da Esperança, 2223, Setúbal, Portugal",
-    "avatar": "https://img.freepik.com/free-photo/fashion-photo-young-magnificent-woman-blue-dress_158595-362.jpg?size=626&ext=jpg&ga=GA1.1.1210606668.1698419982&semt=ais",
-    "rating": 4.1
+    "avatar": "https://randomuser.me/api/portraits/men/7.jpg",
+    "rating": 4.1,
+    "biografia": "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia."
   }
 ]

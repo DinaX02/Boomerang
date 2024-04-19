@@ -6,15 +6,21 @@ exports[`snapshot da página Publicar 1`] = `
     <header
       class="headerBoomerang"
     >
-      <img
-        alt="arrow go back"
-        data-testid="svg-icon"
-        src="back_arrow.svg"
-        style="cursor: pointer;"
-      />
-      <h3>
+      <button
+        class="sc-gswONk krdUba"
+      >
+        <img
+          alt="seta para voltar à página anterior"
+          data-testid="svg-icon"
+          src="back_arrow.svg"
+          style="cursor: pointer;"
+        />
+      </button>
+      <h1
+        style="font-size: 16px; margin-bottom: 0px;"
+      >
         Publicar
-      </h3>
+      </h1>
     </header>
     <div
       class="sc-bcXGCL igpRmy fundoModal"
@@ -191,14 +197,14 @@ exports[`snapshot da página Publicar 1`] = `
       </div>
     </div>
     <div
-      class="sc-dkrGBB eRMAbR"
+      class="sc-hLBatu kzsZRx"
     >
       <div
-        class="sc-ipEzrc dMEeNc"
+        class="sc-csuRvn hDMiPI"
         for="images"
       >
         <label
-          class="sc-jrcSHq ihVdvs addImgInputPublish"
+          class="sc-kDvuXt jWTMV addImgInputPublish"
           for="images"
         >
           <span
@@ -221,16 +227,16 @@ exports[`snapshot da página Publicar 1`] = `
           type="file"
         />
         <p
-          class="sc-kDvuXt bhGTJC"
+          class="sc-ipEzrc dqzeBJ"
         >
           Adiciona até 5 fotografias
         </p>
         <div
-          class="sc-jSVask xghpD"
+          class="sc-gKPSgB enKMZP"
         />
       </div>
       <label
-        class="sc-hLBatu dmVqSI"
+        class="sc-eDvShL dRYxAC"
         for="title"
       >
         Título 
@@ -241,14 +247,14 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <textarea
-        class="sc-csuRvn crtXm productFormInput"
+        class="sc-eDVOW GgVhu productFormInput"
         id="title"
         placeholder="Ex: Casaco de Pele Preto"
         style="font-size: 15px;"
         type="text"
       />
       <label
-        class="sc-hLBatu dmVqSI"
+        class="sc-eDvShL dRYxAC"
         for="description"
       >
         Descrição 
@@ -264,7 +270,7 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <input
-        class="sc-eDvShL iYuXLl productFormInput"
+        class="sc-jSVask hgNVEH productFormInput"
         data-testid="description-input"
         id="description"
         placeholder="Ex: Casaco de Pele em bom estado."
@@ -272,7 +278,7 @@ exports[`snapshot da página Publicar 1`] = `
         value="Test Description"
       />
       <label
-        class="sc-hLBatu dmVqSI"
+        class="sc-eDvShL dRYxAC"
         for="description"
       >
         <span
@@ -283,10 +289,10 @@ exports[`snapshot da página Publicar 1`] = `
          Campo Obrigatório
       </label>
       <div
-        class="sc-pyeOL dIfPvU"
+        class="sc-jrcSHq UJMpq"
       >
         <button
-          class="sc-gswONk fvXehR btnComponent"
+          class="sc-dkrGBB eiKdDW btnComponent"
           disabled=""
           style="background-color: rgb(202, 202, 202);"
           type="button"

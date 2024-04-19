@@ -30,7 +30,8 @@ const Button = (props) => {
                 backgroundColor: isPressed ? "#00C17C" : (props.disable ? "#cacaca" : "#343541")
             }}
             disabled={props.disable}
-            onClick={() => {
+            onClick={(event) => {
+                event.preventDefault();
                 if (!props.disable && props.onClick) {
                     props.onClick();
                 }
@@ -54,7 +55,7 @@ const ButtonStyle = styled.button`
     width: ${props => props.width || '144px'};
     height: 36px;
     border-radius: 5px;
-    outline: none;
+    // outline: none;
     border: 1px transparent;
     font-family: Montserrat;
 `

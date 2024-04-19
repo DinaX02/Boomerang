@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import iconInfo from '../assets/icons/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import Modal from "./Modal";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const PreviewValorTotal = (props) => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
     const navigate = useNavigate();
-    const list = useSelector((state) => state.Rent.progressRentList);
+    // const list = useSelector((state) => state.Rent.progressRentList);
     const [fecharModal, setFecharModal] = useState(true);
 
     const handleIconClick = () => {
@@ -77,41 +77,41 @@ const PreviewValorTotal = (props) => {
             <SecondContainer>
                 <ServiceConatiner>
                     <TextInner>
-                        <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Preço diário</p>
-                        <p style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ / dia x {props.days} dias</p>
+                        <p aria-label='Parcela preço diário' style={{ margin: "2px 0px", fontWeight: "bold" }}>Preço diário</p>
+                        <p aria-label='Cálculo' style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ / dia x {props.days} dias</p>
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "600" }}>{props.valor}€</p>
+                        <p style={{ margin: "0", fontWeight: "600" }} aria-label='Preço diário total'>{props.valor}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <ServiceConatiner>
                     <TextInner>
                         <div style={{ display: "flex", alignItems: "center" }}>
-                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icon" onClick={handleIconClick} />
+                            <p aria-label='Parcela taxa de proteção' style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><button onClick={handleIconClick} className='buttonInfo'><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icone de informação"/></button>
                         </div>
-                        <p style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ x 5% + 2€</p>
+                        <p aria-label='Cálculo' style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ x 5% + 2€</p>
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "600" }}>{props.taxa}€</p>
+                        <p style={{ margin: "0", fontWeight: "600" }} aria-label='Valor total da taxa de proteção'>{props.taxa}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <ServiceConatiner>
                     <TextInner>
                         <div style={{ display: "flex", alignItems: "center" }}>
-                            <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Extras</p>
+                            <p style={{ margin: "2px 0px", fontWeight: "bold" }} aria-label='Parcela extras'>Extras</p>
                         </div>
                         {props.OpExtras.map((option) => (
-                                <p style={{ margin: "0"}} className='detalhe'>•{"\u00A0\u00A0"}{option}</p>
+                                <p style={{ margin: "0"}} className='detalhe' aria-label='opção'>•{"\u00A0\u00A0"}{option}</p>
                         ))}
                     </TextInner>
                     <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "600" }}>{props.extras}€</p>
+                        <p style={{ margin: "0", fontWeight: "600" }} aria-label='Valor total dos extras'>{props.extras}€</p>
                     </PriceInner>
                 </ServiceConatiner>
                 <div style={{ textAlign: "center" }}>
-                    <button className='btncupao' onClick={vouchers}>+ Inserir cupão</button>
+                    <button className='btncupao' onClick={vouchers}aria-label='Para inserir cupão'>+ Inserir cupão</button>
                     <p style={{ margin: "5px 0 0 0", fontWeight: "600" }}>Total:</p>
-                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }}>{props.total}€</p>
+                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }} aria-label='Valor total do aluguer a pagar'>{props.total}€</p>
                 </div>
 
 
@@ -164,6 +164,10 @@ const TextInner = styled.div`
   font-size: 13px;
   padding: 5px 5px 5px 30px;
   border-right: 2px solid #e4e4e4;
+  .buttonInfo{
+      border: none;
+      background: none;
+    }
   .detalhe{
     font-size: 14px;
     font-weight: 500;

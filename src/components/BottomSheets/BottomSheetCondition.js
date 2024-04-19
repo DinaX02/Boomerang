@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import Draggable from "react-draggable";
 import styled from "styled-components";
+import { FocusOn } from 'react-focus-on';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -78,10 +79,10 @@ const BottomSheet = React.forwardRef(({ onSelectOption }, ref) => {
   //   onClose();
   // };
 
-const handleOptionSelect = (option) => {
-  // console.log(`Opção selecionada: ${option}`);
-  onSelectOption(option);
-};
+  const handleOptionSelect = (option) => {
+    // console.log(`Opção selecionada: ${option}`);
+    onSelectOption(option);
+  };
 
   const modalProps = useSpring({
     opacity: isOpen ? 1 : 0,
@@ -96,14 +97,16 @@ const handleOptionSelect = (option) => {
       nodeRef={ref}
     >
       <ModalContainer style={{ ...modalProps, transform: `translateY(${isOpen ? 0 : 100}%)` }} ref={ref}>
-        <DragContainer>
-        <DragHandle />
-        </DragContainer>
-        <ButtonContainer>
-          <Button onTouchStart={() => handleOptionSelect("Muito Bom")}>Muito Bom</Button>
-          <Button onTouchStart={() => handleOptionSelect("Bom")}>Bom</Button>
-          <Button onTouchStart={() => handleOptionSelect("Satisfatório")}>Satisfatório</Button>
-        </ButtonContainer>
+        <FocusOn enabled autoFocusLock={false}>
+          <DragContainer>
+            <DragHandle />
+          </DragContainer>
+          <ButtonContainer>
+            <Button onTouchStart={() => handleOptionSelect("Muito Bom")}>Muito Bom</Button>
+            <Button onTouchStart={() => handleOptionSelect("Bom")}>Bom</Button>
+            <Button onTouchStart={() => handleOptionSelect("Satisfatório")}>Satisfatório</Button>
+          </ButtonContainer>
+        </FocusOn>
       </ModalContainer>
     </Draggable>
   );

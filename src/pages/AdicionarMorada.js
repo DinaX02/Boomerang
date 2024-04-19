@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Header from '../components/Header/Header';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
@@ -36,8 +36,13 @@ const AdicionarMorada = () => {
     const [codigoPostal, setCodigoPostal] = useState('');
     const navigate = useNavigate();
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
+    // Refs para os inputs
+    const localidadeRef = useRef(null);
+    const cidadeRef = useRef(null);
+    const codigoPostalRef = useRef(null);
+
+    const handleFormSubmit = () => {
+        // event.preventDefault();
 
         if (!morada || !localidade || !cidade || !codigoPostal) {
             // Lógica de tratamento de erro, se necessário
@@ -54,16 +59,23 @@ const AdicionarMorada = () => {
         navigate('/alugar-morada', { state: { moradas: storedMoradas } });
     };
 
+    const handleKeyDown = (event, ref) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            ref.current.focus();
+        }
+    };
 
     return (
         <div>
             <Header name="Adicionar Morada" />
             <MainContainer>
 
-                <form onSubmit={handleFormSubmit} style={{ marginTop: "100px" }}>
+                <form  style={{ marginTop: "100px" }}>
                     <AddMorada>
                         <input type="text" name="Morada" value={morada} onChange={(e) => setMorada(e.target.value)}
                             placeholder="Adicionar Morada"
+                            aria-label='Caixa de texto para escrever a morada'
                             style={{
                                 border: "none",
                                 width: "90%",
@@ -71,12 +83,15 @@ const AdicionarMorada = () => {
                                 fontSize: "15px",
                                 outline: "none",
                             }}
-                            required />
+                            required
+                            onKeyDown={(e) => handleKeyDown(e, localidadeRef)}
+                        />
                         <span>*</span>
                     </AddMorada>
                     <AddMorada>
                         <input type="text" name="localidade" value={localidade} onChange={(e) => setLocalidade(e.target.value)}
                             placeholder="Localidade"
+                            aria-label='Caixa de texto para escrever a localidade'
                             style={{
                                 border: "none",
                                 width: "90%",
@@ -84,12 +99,16 @@ const AdicionarMorada = () => {
                                 fontSize: "15px",
                                 outline: "none",
                             }}
-                            required />
+                            required
+                            ref={localidadeRef}
+                            onKeyDown={(e) => handleKeyDown(e, cidadeRef)}
+                        />
                         <span>*</span>
                     </AddMorada>
                     <AddMorada>
                         <input type="text" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}
                             placeholder="Cidade"
+                            aria-label='Caixa de texto para escrever a cidade'
                             style={{
                                 border: "none",
                                 width: "90%",
@@ -97,12 +116,16 @@ const AdicionarMorada = () => {
                                 fontSize: "15px",
                                 outline: "none",
                             }}
-                            required />
+                            required
+                            ref={cidadeRef}
+                            onKeyDown={(e) => handleKeyDown(e, codigoPostalRef)}
+                        />
                         <span>*</span>
                     </AddMorada>
                     <AddMorada>
                         <input type="text" name="codigoPost" value={codigoPostal} onChange={(e) => setCodigoPostal(e.target.value)}
                             placeholder="Código Postal"
+                            aria-label='Caixa de texto para escrever o código postal'
                             style={{
                                 border: "none",
                                 width: "90%",
@@ -110,12 +133,26 @@ const AdicionarMorada = () => {
                                 fontSize: "15px",
                                 outline: "none",
                             }}
-                            required />
+                            required
+                            ref={codigoPostalRef}
+                            onKeyDown={(e) => handleKeyDown(e, codigoPostalRef)}
+                        />
                         <span>*</span>
                     </AddMorada>
                     <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-               <Button type="submit" text="Guardar"/>
+                        <Button type="submit" text="Guardar" onClick={handleFormSubmit}/>
+                        {/* <input type="submit" value="Guardar" style={{
+                            backgroundColor: "#343541",
+                            width: "144px",
+                            height: "36px",
+                            border: "none",
+                            borderRadius: "5px",
+                            color: "white",
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            outline: "none",
+                        }} /> */}
                     </ConfButton>
 
 
