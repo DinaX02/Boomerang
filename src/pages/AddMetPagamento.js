@@ -141,7 +141,18 @@ const AddMetPagamento = () => {
                     </AddMetPagamentoContainer>
                     <h6><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-                        <Button type="submit" text="Guardar" />
+                        {/* <Button type="submit" text="Guardar" /> */}
+                                <input type="submit" value="Guardar" style={{
+                            backgroundColor: "#343541",
+                            width: "144px",
+                            height: "36px",
+                            border: "none",
+                            borderRadius: "5px",
+                            color: "white",
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            outline: "none",
+                        }} />
                     </ConfButton>
                 </form>
             </MainContainer>
