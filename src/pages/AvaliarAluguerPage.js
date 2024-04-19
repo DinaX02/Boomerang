@@ -12,6 +12,7 @@ import AvaliacaoSelected from "../assets/icons/estrela_avaliar_selected.svg";
 import InfoIcon from "../assets/icons/infoIcon.svg";
 import iconOverlay from "../assets/icons/tick_iconOverlayFInal.svg";
 import OverlayFinalPublish from "../components/OverlayFinalPublish";
+import { Link } from "react-router-dom";
 
 const AvaliarAluguerPage = () => {
   const list = useSelector((state) => state.Rent.progressRentList);
@@ -70,19 +71,21 @@ const AvaliarAluguerPage = () => {
 
           {/* <div className='helpersLinks'><img src={InfoIcon}/><p>O que fazer caso a peça não chegar a tempo</p></div> */}
           <div style={{ marginTop: "1em" }} className="helpersLinks">
-            <img src={InfoIcon} alt="icon de informação" />
-            <p>Perguntas Frequentes</p>
+
+            {/* <img src={InfoIcon} alt="icon de informação" /> */}
+           <Link to={"/faq-perguntas-frequentes"}><p>Perguntas Frequentes</p></Link> 
           </div>
 
-          <p>Outras opções</p>
+          <p style={{marginLeft: "0.5em"}}>Outras opções</p>
 
-          <div className="helpersLinks">
+          {/* <div className="helpersLinks">
             <img src={InfoIcon} alt="icon de informação" />
             <p>Ajuda</p>
-          </div>
+          </div> */}
+
           <div className="helpersLinks">
-            <img src={InfoIcon} alt="icon de informação" />
-            <p>Contactar Suporte</p>
+            {/* <img src={InfoIcon} alt="icon de informação" /> */}
+            <Link to={"/contactar-suporte"}><p>Contactar Suporte</p></Link>
           </div>
         </div>
 
@@ -182,6 +185,11 @@ const ContainerAvaliarPage = styled.div`
       p {
         margin-left: 0.5em;
         margin-bottom: 0;
+        text-decoration: underline;
+      }
+
+      a {
+        color: black;
       }
     }
   }
@@ -192,3 +200,10 @@ const ContainerBtnConcluir = styled.div`
   justify-content: center;
   margin-top: 2.7em;
 `;
+
+const BtnInfo = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+

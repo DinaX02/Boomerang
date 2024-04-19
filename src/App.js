@@ -35,6 +35,8 @@ import VerTudo from "./pages/VerTudo";
 import EditProfile from "./pages/EditProfile";
 import EditEmail from "./pages/EditEmail";
 import ProfileOthersViewPage from "./pages/ProfileOthersViewPage";
+import FAQ from "./pages/FAQ.js";
+import ContactarSuporte from "./pages/ContactarSuporte";
 
 function App() {
 
@@ -79,6 +81,8 @@ function App() {
         <Route path="/recompensas" element={<RecompensasParaAddAmigos/>}></Route>
         <Route path="/convidar-amigos" element={<ConvidarAmigosPage/>}></Route>
         <Route path="/avaliar-aluguer" element={<AvaliarAluguerPage/>}></Route>
+        <Route path="/faq-perguntas-frequentes" element={<FAQ/>}></Route>
+        <Route path="/contactar-suporte" element={<ContactarSuporte/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>
