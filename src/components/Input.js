@@ -41,7 +41,7 @@ const Input = (props) => {
                             : { outline: "none" }
                 }
             ></input>
-            {props.isPassword && (
+            {(props.isPassword || props.isPasswordEdit) && (
                 <img
                     className={`sideIndication icon`}
                     src={shown ? EyeSlashIcon : EyeOpenIcon}
