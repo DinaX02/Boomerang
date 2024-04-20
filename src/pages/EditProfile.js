@@ -21,6 +21,8 @@ const EditProfile = () => {
   const [imagePerfil, setImagePerfil] = useState([]);
   const [fecharModal, setFecharModal] = useState(true);
   const [alert, setAlert] = useState(false);
+  const [shown, setShown] = useState(false);
+  const [isPasswordEdit, setIsPasswordEdit] = useState(false);
   const navigate = useNavigate();
 
   const handleBiografiaChange = (e) => {
@@ -73,12 +75,17 @@ const EditProfile = () => {
     setDisablePassword(false);
     setDisableBtn(false);
     setAlert(true);
+    setIsPasswordEdit(true);
   }
 
   const alertHandler = () => {
     alert ? setFecharModal(false) : navigate(-1);
   }
 
+
+  const toggleEyeHandle = (id) => {
+    setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
+  }
   return (
     <>
       <Header name="Editar Perfil" alertHandler={alertHandler} />
@@ -160,11 +167,14 @@ const EditProfile = () => {
               </div>
               <Input
                 obrigatorio={true}
-                type="password"
+                type={shown.password ? "text" : "password"}
                 placeholder=""
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={disablePassword}
+                shown={shown.password}
+                isPasswordEdit={isPasswordEdit}
+                toggleEyeHandle={() => toggleEyeHandle("password")} // Passa o id correspondente
               />
             </div>
           </div>
