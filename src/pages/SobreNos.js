@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/Header/Header';
 import styled from 'styled-components';
 import DinisFto from "../assets/sobrenos/dinis 1.png";
@@ -120,6 +120,11 @@ text-align: center;
 `
 
 const SobreNos = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
+
   return (
     <div>
     <Header name="Sobre Nós"/>
