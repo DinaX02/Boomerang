@@ -37,6 +37,7 @@ import EditEmail from "./pages/EditEmail";
 import ProfileOthersViewPage from "./pages/ProfileOthersViewPage";
 import FAQ from "./pages/FAQ.js";
 import ContactarSuporte from "./pages/ContactarSuporte";
+import SobreNos from "./pages/SobreNos.js";
 
 function App() {
 
@@ -83,6 +84,7 @@ function App() {
         <Route path="/avaliar-aluguer" element={<AvaliarAluguerPage/>}></Route>
         <Route path="/faq-perguntas-frequentes" element={<FAQ/>}></Route>
         <Route path="/contactar-suporte" element={<ContactarSuporte/>}></Route>
+        <Route path="/sobre-nos" element={<SobreNos/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>
