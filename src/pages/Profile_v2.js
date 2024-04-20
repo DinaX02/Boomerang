@@ -193,6 +193,7 @@ const Profile = () => {
             ></ArrowForwardIosRoundedIcon>
           </div>
           <hr></hr>
+          <Link to={"/sobre-nos"}>
           <div className="iconitem">
             <img src={Sobrenos} alt="sobre nós" className="icon"></img>
             <div className="profiletext">
@@ -203,6 +204,7 @@ const Profile = () => {
               className="seta"
             ></ArrowForwardIosRoundedIcon>
           </div>
+          </Link>
         </div>
         <div className="sair" onClick={handleClickLogout}>
           <Button text="Terminar Sessão" />
