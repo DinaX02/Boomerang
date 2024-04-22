@@ -56,6 +56,7 @@ const ProfileOthersViewPage = () => {
 }
 
 const ProfileOthersViewStyle = styled.div`
+    margin-bottom: 24px;
     .headerProfile {
         background-color: #343541;
         height: 12vh;
