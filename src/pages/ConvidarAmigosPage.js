@@ -8,7 +8,7 @@ import IconTwitter from "../assets/icons/icon_twitter.svg";
 import IconFacebook from "../assets/icons/icon-facebook.svg";
 
 const TituloPagina = styled.p`
-  margin-top: 3em;
+  margin-top: 30px;
   font-size: 20px;
   font-weight: 800;
 `;

@@ -16,7 +16,7 @@ const EditEmail = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/settings-page');
+    navigate(-1);
   };
 
   const handleSubmit = (e) => {
