@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-focus-on": "^3.9.3",
+    "react-helmet": "^6.1.0",
     "react-modal": "^3.16.1",
     "react-redux": "^9.0.4",
     "react-responsive-carousel": "^3.2.23",

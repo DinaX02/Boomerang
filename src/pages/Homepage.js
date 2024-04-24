@@ -42,7 +42,7 @@ const Homepage = () => {
     <Link to={"/search-page"}><button>Pesquisa</button></Link>*/}
         <div className={'top'}>
           <div>
-            <h1 style={{ fontSize: "12px", fontWeight: "600", marginBottom: "5px" }}>Bem-Vindo</h1>
+            <Link to={"/homepageweb"}><h1 style={{ fontSize: "12px", fontWeight: "600", marginBottom: "5px" }}>Bem-Vindo</h1></Link>
             <h2 style={{ fontSize: "20px", fontWeight: "800" }}>O teu guarda-roupa ilimitado começa aqui</h2>
           </div>
           {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
