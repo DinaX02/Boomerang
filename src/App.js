@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./pages/Homepage";
+// import Homepage from "./pages/Homepage";
 import SearchPage from "./pages/SearchPage";
 import Publicar from "./pages/Publicar";
 import Profile from "./pages/Profile_v2";
@@ -38,7 +38,7 @@ import ProfileOthersViewPage from "./pages/ProfileOthersViewPage";
 import FAQ from "./pages/FAQ.js";
 import ContactarSuporte from "./pages/ContactarSuporte";
 import SobreNos from "./pages/SobreNos.js";
-import HomepageWeb from "./pages/HomePageWeb/HomePageWeb.js";
+import HomepageGeral from "./pages/HomepageGeral.js";
 
 function App() {
 
@@ -48,7 +48,7 @@ function App() {
     <div className="App">
 <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage/>}></Route>
+        <Route path="/" element={<HomepageGeral/>}></Route>
         <Route path="/onBoarding" element={<OnBoarding/>}></Route>
         <Route path="/sign-up-page" element={<SignUpPage/>}></Route>
         <Route path="/search-page" element={<SearchPage/>}></Route>
@@ -86,7 +86,6 @@ function App() {
         <Route path="/faq-perguntas-frequentes" element={<FAQ/>}></Route>
         <Route path="/contactar-suporte" element={<ContactarSuporte/>}></Route>
         <Route path="/sobre-nos" element={<SobreNos/>}></Route>
-        <Route path="/homepageweb" element={<HomepageWeb/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>

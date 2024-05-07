@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import LogoBoomerang from "../../assets/icons/logo_boomerang_navbar.svg";
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -41,7 +42,7 @@ const BrandName = styled.span`
 const Navbar = () => {
   return (
     <StyledNavbar>
-      <Logo src="/logo.png" alt="Boomerang" />
+      <Logo src={LogoBoomerang} alt="icon Boomerang" />
       <BrandName>Boomerang</BrandName>
     </StyledNavbar>
   );
