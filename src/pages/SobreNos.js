@@ -173,7 +173,7 @@ Inspiramos a positividade no futuro, destacando o potencial próprio de cada uti
 </ContainerInfo>
 
     <ContainerTeam>
-<TagTeam>Conheça a Equipa</TagTeam>
+<TagTeam>Conhece a Equipa</TagTeam>
 
 <div>
 

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import styled from "styled-components";
 import Button from "../components/Button";
@@ -126,18 +125,6 @@ const MandatoryField = styled.span`
   font-weight: 500;
   font-size: 14px;
   align-self: flex-start;
-`;
-
-const Popup = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 9999;
 `;
 
 const ContactarSuporte = () => {
