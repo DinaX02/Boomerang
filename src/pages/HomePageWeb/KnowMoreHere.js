@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import friendsImage from '../../assets/homepageweb/amy-kate-Xsppd5V1yKE-unsplash.jpg'
+import friendsImage from '../../assets/homepageweb/2girls.jpg'
 
 const KnowMoreContainer = styled.div`
   display: flex;
   align-items: center; 
-  justify-content: flex-start; 
+  /* justify-content: flex-start;  */
   width: 100%;
   margin-top: 8rem;
+  padding: 0 300px;
 
   @media (max-width: 1024px) {
     flex-direction: column;
@@ -17,11 +18,11 @@ const KnowMoreContainer = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1;
-  max-width: 50%;
+  /* flex: 1; */
+  /* max-width: 50%; */
   img {
-    width: 100%; 
-    height: auto;
+    width: auto; 
+    height: 45vh;
   }
 
   @media (max-width: 1024px) {
@@ -30,17 +31,17 @@ const ImageWrapper = styled.div`
 `;
 
 const TextContent = styled.div`
-  flex: 1;
-  max-width: 45%;
+  /* flex: 1; */
+  /* max-width: 45%; */
   font-size: 20px;
-  font-weight: 500;
-  color: #343541;
+  font-weight: 400;
+  color: black;
   line-height: 1.3;
-  padding-left: 4vw;
+  padding-left: 80px;
 
   @media (max-width: 1024px) {
     max-width: 100%;
-    padding: 1rem;
+    /* padding: 1rem; */
     font-size: calc(0.625rem + 2vw);
   }
 `;

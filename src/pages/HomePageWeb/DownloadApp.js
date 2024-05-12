@@ -15,8 +15,8 @@ const AppHeader = styled.div`
 `;
 
 const AppTitle = styled.h1`
-  font-size: 5vw;
-  color: #343541;
+  font-size: 48px;
+  color: black;
   font-weight: bold;
   padding: 1vw 0;
 
@@ -48,11 +48,11 @@ const DownloadAppContainer = styled.div`
 
 const Title = styled.h2`
   font-weight: bold;
-  font-size: 4vw; 
+  font-size: 40px; 
   margin-bottom: 2vw;
   color: #f8f8f8;
   max-width: 60%;
-  padding: 100px;
+  padding: 0 100px;
 
   @media (max-width: 1024px) {
     font-size: 8vw;
@@ -61,19 +61,19 @@ const Title = styled.h2`
 `;
 
 const DownloadButton = styled.button`
-  padding: 0.5vw; 
-  width: 200px; 
+  padding: 0.5vw 1vw; 
+  /* width: 200px;  */
   min-width: 150px; 
-  font-size: calc(1vw + 10px); 
+  font-size: 16px; 
   font-weight: bold;
-  color: #343541;
-  background-color: #F8F8F8;
+  color: #FFFFFF;
+  background-color: #252525;
   border: none;
   cursor: pointer;
   border-radius: 10px;
   z-index: 20;
-  margin-top: 2vw; 
-  margin-left: 7vw;
+  /* margin-top: 2vw;  */
+  margin-left: 100px;
 
   @media (max-width: 1024px) {
     font-size: calc(1.8vw + 10px); 
@@ -97,7 +97,7 @@ const DownloadApp = () => {
       </AppHeader>
       <DownloadAppContainer>
         <Title>Explora e ganha com a Boomerang!</Title>
-        <DownloadButton>Download</DownloadButton>
+        <DownloadButton>Instala a app</DownloadButton>
       </DownloadAppContainer>
     </>
   );

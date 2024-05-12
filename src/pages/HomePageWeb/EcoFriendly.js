@@ -7,8 +7,9 @@ const EcoFriendlyContainer = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-  color: #343541;
+  color: black;
   margin-top: 8rem;
+  padding: 0 300px;
 
   @media (max-width: 1024px) {
     height: unset; 
@@ -20,7 +21,7 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
 
   @media (max-width: 1024px) {
@@ -32,12 +33,17 @@ const TextContent = styled.div`
   flex: 1;
   padding: 0 50px;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 20px;
-  color: #343541; 
+  color: black; 
   max-width: 700px; 
   line-height: 1.3; 
   z-index: 1;
+
+  h3{
+    margin-bottom: 80px;
+    font-weight: 600;
+  }
 
   @media (max-width: 1024px) {
     padding: 1rem;
@@ -52,24 +58,25 @@ const BolderItalicText = styled.span`
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1;
+  /* flex: 1; */
 `;
 
 const EcoImage = styled.img`
   max-width: 100%; 
-  height: auto;
+  height: 45vh;
 `;
 
 const EcoFriendly = () => {
   return (
     <EcoFriendlyContainer>
       <ContentContainer>
-        <TextContent>
-          <p>Transporte <BolderItalicText>eco-friendly</BolderItalicText>? Também temos! Com este serviço, tens a peça desejada mais perto de ti e sabes que estás a contribuir também para o não aumento das emissões de carbono com um transporte 100% elétrico.</p>
-        </TextContent>
         <ImageWrapper>
           <EcoImage src={ecofriendlyImage} alt="Transporte Sustentável" />
         </ImageWrapper>
+        <TextContent>
+          <h3>Transporte <i>Eco-friendly</i></h3>
+          <p>Transporte <BolderItalicText>eco-friendly</BolderItalicText>? Também temos! Com este serviço, tens a peça desejada mais perto de ti e sabes que estás a contribuir também para o não aumento das emissões de carbono com um transporte 100% elétrico.</p>
+        </TextContent>
       </ContentContainer>
     </EcoFriendlyContainer>
   );
