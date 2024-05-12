@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LogoBoomerang from "../../assets/icons/logo_boomerang_navbar.svg";
+import LogoBoomerang from "../../assets/homepageweb/logo-white.svg";
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -10,7 +10,7 @@ const StyledNavbar = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  background: #F8F8F8;
+  background: #252525;
   padding: 10px 5%;
   z-index: 10;
 
@@ -21,8 +21,8 @@ const StyledNavbar = styled.nav`
 `;
 
 const Logo = styled.img`
-  height: 40px;
-  margin-right: 20px;
+  height: 35px;
+  margin-right: 15px;
 
   @media (max-width: 768px) {
     height: 35px; 
@@ -30,9 +30,9 @@ const Logo = styled.img`
 `;
 
 const BrandName = styled.span`
-  font-size: 30px;
+  font-size: 22px;
   font-weight: bold;
-  color: #343541;
+  color: #FFFFFF;
 
   @media (max-width: 768px) {
     font-size: 25px;

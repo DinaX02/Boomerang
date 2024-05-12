@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import closetImage from '../../assets/homepageweb/visualsofdana-gjocswZiGM4-unsplash.jpg';
+import closetImage from '../../assets/homepageweb/naturedress.jpg';
 
 const ClosetContainer = styled.div`
   display: flex;
@@ -8,13 +8,14 @@ const ClosetContainer = styled.div`
   align-items: center; 
   justify-content: center; 
   width: 100%;
-  color: #343541;
+  color: black;
+  padding: 0 300px;
 `;
 
 const ClosetTitle = styled.h2`
   text-align: center;
   margin-bottom: 50px; 
-  font-size: 50px;
+  font-size: 48px;
   font-weight: bold;
   margin-top: 8rem;
   max-width: 90%;
@@ -45,11 +46,12 @@ const ContentContainer = styled.div`
 
 const TextContent = styled.div`
   flex: 1;
-  padding: 0 50px;
+  /* padding: 0 100px; */
+  padding-right: 80px;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 20px;
-  color: #343541; 
+  color: black; 
   line-height: 1.3; 
 
   @media (max-width: 1024px) {
@@ -63,7 +65,8 @@ const Bolder = styled.span`
 `;
 
 const ImageWrapper = styled.div`
-  flex: 1;
+  /* flex: 1; */
+  text-align: right;
 
   @media (max-width: 1024px) {
     padding: 0;
@@ -71,8 +74,8 @@ const ImageWrapper = styled.div`
 `;
 
 const ClosetImage = styled.img`
-  width: 100%; 
-  height: auto; 
+  width: auto; 
+  height: 45vh; 
 `;
 
 const InfiniteCloset = () => {
@@ -87,7 +90,7 @@ const InfiniteCloset = () => {
             Ao escolher a <Bolder>Boomerang</Bolder>, estás a contribuir para um movimento que valoriza a moda de forma responsável. Cada peça conta a sua própria história, de um compromisso com um futuro mais sustentável.
           </p>
           <p>
-            Tens uma peça de roupa parada no teu armário? Imagina agora poderes-lhe dar uma nova vida e rentabilizares o teu armário dessa forma. <Bolder>Gostas da ideia?</Bolder>
+            Tens uma peça de roupa parada no teu armário? Imagina agora poderes-lhe dar uma nova vida e rentabilizares o teu armário dessa forma. <br></br><Bolder>Gostas da ideia?</Bolder>
           </p>
         </TextContent>
         <ImageWrapper>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import backgroundImage from '../../assets/homepageweb/christina-victoria-craft-w1H-gKfwKvU-unsplash.jpg';
+import backgroundImage from '../../assets/homepageweb/couple.jpg';
 
 const HeroWrapper = styled.div`
   position: relative;
@@ -35,7 +35,7 @@ const HeroOverlay = styled.div`
 `;
 
 const HeroTitle = styled.h1`
-  font-size: calc(2.5rem + 1.5vw);
+  font-size: 64px;
   font-weight: bold;
   margin-bottom: 1rem;
   color: #F8F8F8;
@@ -57,13 +57,13 @@ const HeroTitle = styled.h1`
 `;
 
 const HeroText = styled.p`
-  font-size: calc(0.625rem + 1vw);
+  font-size: 20px;
   margin-bottom: 1rem;
   font-weight: 500;
   color: #F8F8F8;
   line-height: 1.3;
   z-index: 2;
-  max-width: 50%;
+  max-width: 45%;
 
   @media (max-width: 1024px) {
     max-width: 70%;
@@ -81,9 +81,9 @@ const HeroText = styled.p`
 
 const DownloadButton = styled.a`
   padding: 0.625rem 1.25rem;
-  font-size: calc(0.625rem + 0.5vw);
+  font-size: 16px;
   font-weight: bold;
-  color: #343541;
+  color: black;
   background-color: #F8F8F8;
   border: none;
   cursor: pointer;
@@ -105,11 +105,11 @@ const HeroSection = () => {
       <HeroText>A Boomerang abraça uma abordagem única pela moda. Não se trata apenas de um aluguer de roupa, mas sim de uma comunidade unida que desafia o convencional.
       O objetivo é simples: mudar a forma como encaras a moda e reduzir o desperdício têxtil.</HeroText>
       <DownloadButton 
-        href="https://boomerang.tdw-mctw.dev/" //isto não está a reencaminhar o botão para o link
+        href="" //isto não está a reencaminhar o botão para o link
         target="_blank"
         rel="noopener noreferrer"
       >
-        Download da app
+        Instala a app
       </DownloadButton>
     </HeroWrapper>
   );
