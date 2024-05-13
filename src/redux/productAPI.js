@@ -36,6 +36,6 @@ export const myAPI = createApi({
     }),
 });
 
-export const { useFetchProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useFetchProductFormQuery } = catAPI;
+export const { useFetchProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useFetchProductFormQuery } = myApi;
 
 export default myAPI;
