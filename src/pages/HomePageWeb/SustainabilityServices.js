@@ -11,9 +11,20 @@ const ServicesContainer = styled.div`
   color: black;
   margin-top: 8rem;
   padding: 0 300px;
-
-  @media (max-width: 1024px) {
-    margin-top: unset;
+  margin-bottom: 100px;
+  @media (min-width: 600px) and (max-width: 768px) {
+    padding: 0 30px;
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    margin-top: 2rem;
+    padding: 0 120px;
+  }
+  @media (min-width: 1200px) and (max-width: 1600px) {
+    padding: 0 120px;
+  }
+  @media (max-width: 1200px) {
+    margin-bottom: 0;
   }
 `;
 
@@ -24,8 +35,14 @@ const ServicesTitle = styled.h2`
   font-weight: bold;
 
   @media (max-width: 1024px) {
-    font-size: 36px;
+    font-size: 30px;
     padding: 25px 16px;
+  }
+  @media (max-width: 1200px) {
+    font-size: 35px;
+  }
+  @media (max-width: 768px) {
+    margin-bottom: 0; 
   }
 `;
 
@@ -33,7 +50,7 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   width: 100%;
 
   @media (max-width: 1024px) {
@@ -44,22 +61,59 @@ const ContentContainer = styled.div`
 const TextContent = styled.div`
   flex: 1;
   padding-right: 80px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   margin-bottom: 20px;
   color: black;
   max-width: 700px;
   line-height: 1.3;
   z-index: 1;
+  @media (max-width: 1024px) {
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 1024px) and (max-width: 1200px) {
+      padding-right: 50px;
+    }
 
   h3{
     margin-bottom: 80px;
     font-weight: 600;
+    @media (max-width: 768px) {
+      margin-bottom: 50px;
+    }
+    @media (max-width: 1024px) {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    }
+    @media (max-width: 1200px) {
+      font-size: 20px;
+    }
+    @media (min-width: 1200px) {
+      font-size: 20px;
+    }
+  } 
+  p{
+    @media (max-width: 1024px) {
+      font-size: 16px;
+      max-width: 561px;
+    }
+    @media (max-width: 1200px) {
+      font-size: 16px;
+    }
+    @media (min-width: 1200px) and (max-width: 1400px) {
+      font-size: 18px;
+    }
   }
 
   @media (max-width: 1024px) {
     max-width: 100%; 
-    font-size: calc(0.625rem + 2vw);
+    /* font-size: calc(0.625rem + 2vw); */
   }
 `;
 
@@ -70,15 +124,16 @@ const BoldText = styled.span`
 const ImageContainer = styled.div`
   /* flex: 1;
   padding-right: 0; */
+  text-align: center;
 `;
 
 const ServicesImage = styled.img`
-  max-width: 100%;
-  height: 45vh;
+    width: auto; 
+    height: 45vh;
 `;
 
 const DownloadButton = styled.button`
-  padding: 0.5vw 1vw; 
+  padding: 8px 16px; 
   /* width: 200px;  */
   min-width: 150px; 
   font-size: 16px; 
@@ -94,22 +149,29 @@ const DownloadButton = styled.button`
   margin: 0 25px;
 
   @media (max-width: 1024px) {
-    font-size: calc(1.8vw + 10px); 
-    padding: 1vw; 
+    /* font-size: calc(1.8vw + 10px);  */
+    /* padding: 1vw;  */
   }
 
-  @media (max-width: 768px) {
-    font-size: calc(3vw + 10px); 
-    padding: 4vw; 
-    margin-top: 6vw; 
+  @media (max-width: 1200px) {
+    /* font-size: calc(3vw + 10px);  */
+    /* padding: 4vw;  */
+    margin-top: 15px; 
     /* margin-left: 10vw;  */
-    min-width: 120px; 
+    /* min-width: 120px;  */
   }
 `;
 
 const ButtonContainer = styled.div`
   margin-bottom: 100px;
   margin-top: 15px;
+  text-align: center;
+  @media (max-width: 768px) {
+    margin-top: 0; 
+  }
+  @media (max-width: 1200px) {
+    margin-bottom: 70px; 
+  }
 `;
 
 const SustainabilityServices = () => {

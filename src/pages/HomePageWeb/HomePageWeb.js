@@ -13,7 +13,6 @@ import Footer from "./Footer";
 const FlexContainer = styled.div`
  display: unset;
  flex-direction: unset;
- background-color: red;
 
  @media (max-width: 1024px) {
     display: flex;

@@ -207,7 +207,8 @@ const Profile = () => {
           </Link>
         </div>
         <div className="sair" onClick={handleClickLogout}>
-          <Button text="Terminar Sessão" />
+          {/* <Button text="Terminar Sessão" /> */}
+          <p>Terminar Sessão</p>
         </div>
       </ProfileStyle>
       <MenuMobile></MenuMobile>
@@ -254,11 +255,14 @@ const ProfileStyle = styled.div`
     //   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.09));
     //   border-radius: 10px;
     //   font-size: 14px;
-    margin: 20px 24px 0 0;
+    margin: 20px 0 0 24px;
     display: flex;
-    align-self: flex-end;
+    /* align-self: flex-start; */
     align-items: center;
     justify-content: center;
+    text-decoration: underline;
+    font-size: 14px;
+    font-weight: 600;
     // height: 40px;
     // padding: 0 30px 0 30px;
   }

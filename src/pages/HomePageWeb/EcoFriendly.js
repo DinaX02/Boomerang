@@ -11,9 +11,21 @@ const EcoFriendlyContainer = styled.div`
   margin-top: 8rem;
   padding: 0 300px;
 
-  @media (max-width: 1024px) {
+  @media (min-width: 600px) and (max-width: 768px) {
+    padding: 0 30px;
+    margin-top: 4rem;
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
     height: unset; 
-    margin-top: unset;
+    margin-top: 4rem;
+    padding: 0;
+    padding: 0 120px;
+  }
+  @media (min-width: 1200px) and (max-width: 1600px) {
+    padding: 0 120px;
+  }
+  @media (max-width: 1200px) {
+    margin-bottom: 70px;
   }
 `;
 
@@ -21,7 +33,7 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   width: 100%;
 
   @media (max-width: 1024px) {
@@ -31,24 +43,57 @@ const ContentContainer = styled.div`
 
 const TextContent = styled.div`
   flex: 1;
-  padding: 0 50px;
-  font-size: 20px;
+  padding-left: 80px;
+  font-size: 18px;
   font-weight: 400;
   margin-bottom: 20px;
   color: black; 
   max-width: 700px; 
   line-height: 1.3; 
   z-index: 1;
+  @media (max-width: 1200px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+  }
 
   h3{
     margin-bottom: 80px;
     font-weight: 600;
+    @media (max-width: 768px) {
+      margin-bottom: 50px;
+    }
+    @media (max-width: 1024px) {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    }
+    @media (max-width: 1200px) {
+      font-size: 20px;
+    }
+    @media (min-width: 1200px) {
+      font-size: 20px;
+    }
+  }
+
+  p{
+    @media (max-width: 1200px) {
+    font-size: 16px;
+    max-width: 561px;
+    }
+    @media (min-width: 1200px) and (max-width: 1400px) {
+      font-size: 18px;
+    }
   }
 
   @media (max-width: 1024px) {
-    padding: 1rem;
+    /* padding: 1rem; */
+    padding: 0;
     max-width: 100%; 
-    font-size: calc(0.625rem + 2vw);
+    /* font-size: calc(0.625rem + 2vw); */
   }
 `;
 
@@ -59,10 +104,11 @@ const BolderItalicText = styled.span`
 
 const ImageWrapper = styled.div`
   /* flex: 1; */
+  text-align: center;
 `;
 
 const EcoImage = styled.img`
-  max-width: 100%; 
+  width: auto; 
   height: 45vh;
 `;
 

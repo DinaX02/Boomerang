@@ -7,20 +7,31 @@ import LogoInsta from "../../assets/homepageweb/logo-insta.svg";
 import LogoTiktok from "../../assets/homepageweb/logo-tiktok.svg";
 
 const FooterStyle = styled.footer`
-    padding: 50px 100px 50px 100px;
+    padding: 50px 100px;
     font-size: 16px;
     font-weight: 500;
 
-    img {
-        width: 200px;
+    .logoFooter {
+        max-width: 200px;
+        @media (max-width: 880px) {
+            width: 150px;
+            margin-bottom: 30px;
+        }
     }
     .containerFlex {
         display: flex;
         align-items: start;
-        justify-content: center;
-        gap: 200px;
+        justify-content: space-between;
+        /* gap: 300px; */
+        @media (max-width: 880px) {
+            flex-direction: column;
+            align-items: center;
+        }
         p {
             margin-bottom: 3px;
+            @media (max-width: 880px) {
+                text-align: center;
+            }
             a{
                 text-decoration: none;
                 color: black;
@@ -37,13 +48,16 @@ const FooterStyle = styled.footer`
             width: 30px;
         }
     }
+    @media (max-width: 1024px) {
+        padding: 50px; 
+    }
 `
 
 const Footer = () => {
     return (
         <FooterStyle>
             <div className='containerFlex'>
-                <img src={LogoBoomerang} alt="icon Boomerang" />
+                <img className="logoFooter" src={LogoBoomerang} alt="icon Boomerang" />
                 <p><Link>Sobre nós</Link></p>
                 <div>
                     <p><Link>Termos e Condições</Link></p>

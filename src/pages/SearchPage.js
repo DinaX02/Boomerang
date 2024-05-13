@@ -108,13 +108,14 @@ const SearchStyle = styled.div`
   
   .searchInput{
     height: 50px;
-    border: 1px solid rgb(0,0,0,0.1);
+    /* border: 1px solid rgb(0,0,0,0.1); */
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
     padding: 8px;
     background-color: white;
     width: 100%;
     display: flex;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 5px;
     
     input{
       max-width: calc(100% - 20px);

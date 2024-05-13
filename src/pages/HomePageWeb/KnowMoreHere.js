@@ -9,24 +9,34 @@ const KnowMoreContainer = styled.div`
   width: 100%;
   margin-top: 8rem;
   padding: 0 300px;
-
   @media (max-width: 1024px) {
     flex-direction: column;
-    margin-top: unset;
   }
-
+  @media (min-width: 600px) and (max-width: 768px) {
+    padding: 0 30px;
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) and (max-width: 1200px) {
+    /* flex-direction: column; */
+    margin-top: 2rem;
+    padding: 0 120px;
+  }
+  @media (min-width: 1200px) and (max-width: 1600px) {
+    padding: 0 120px;
+  }
 `;
 
 const ImageWrapper = styled.div`
   /* flex: 1; */
   /* max-width: 50%; */
+  text-align: center;
   img {
     width: auto; 
     height: 45vh;
   }
 
   @media (max-width: 1024px) {
-    max-width: 100%;
+    /* max-width: 100%; */
   }
 `;
 
@@ -38,12 +48,28 @@ const TextContent = styled.div`
   color: black;
   line-height: 1.3;
   padding-left: 80px;
-
   @media (max-width: 1024px) {
-    max-width: 100%;
-    /* padding: 1rem; */
-    font-size: calc(0.625rem + 2vw);
+    padding-left: 0;
   }
+
+  @media (max-width: 1200px) {
+    max-width: 561px;
+    /* padding: 1rem; */
+    font-size: 16px;
+    padding: 0;
+    padding-top: 20px;
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 1024px) and (max-width: 1200px) {
+    padding-left: 50px;
+  }
+    @media (min-width: 1200px) and (max-width: 1400px) {
+      font-size: 18px;
+    }
 `;
 
 const Bold = styled.span`
