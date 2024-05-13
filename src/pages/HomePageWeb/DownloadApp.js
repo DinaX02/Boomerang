@@ -21,7 +21,10 @@ const AppTitle = styled.h1`
   padding: 1vw 0;
 
   @media (max-width: 1024px) {
-    font-size: 8vw;
+    font-size: 30px;
+  }
+  @media (max-width: 1200px) {
+    font-size: 35px;
   }
 `;
 
@@ -40,9 +43,9 @@ const DownloadAppContainer = styled.div`
 
   @media (max-width: 1024px) {
     height: 64vh; 
-    justify-content: space-between;
+    /* justify-content: space-between; */
     background-position: right 28% center;
-    padding: 4vw 2vw;
+    padding-top: 30px;
   }
 `;
 
@@ -55,13 +58,21 @@ const Title = styled.h2`
   padding: 0 100px;
 
   @media (max-width: 1024px) {
-    font-size: 8vw;
-    padding: 6vw;
+    /* max-width: 80%; */
+    padding: 0 30px;
+  }
+  @media (max-width: 1200px) {
+    font-size: 35px;
+  }
+
+  @media (max-width: 768px) {
+    /* max-width: 80%;  */
+    /* font-size: 40px; */
   }
 `;
 
 const DownloadButton = styled.button`
-  padding: 0.5vw 1vw; 
+    padding: 0.625rem 1.25rem;
   /* width: 200px;  */
   min-width: 150px; 
   font-size: 16px; 
@@ -76,16 +87,17 @@ const DownloadButton = styled.button`
   margin-left: 100px;
 
   @media (max-width: 1024px) {
-    font-size: calc(1.8vw + 10px); 
-    padding: 1vw; 
+    /* font-size: calc(1.8vw + 10px);  */
+    /* padding: 1vw;  */
+    margin-left: 30px;
   }
 
   @media (max-width: 768px) {
-    font-size: calc(3vw + 10px); 
+    /* font-size: calc(3vw + 10px); 
     padding: 4vw; 
     margin-top: 6vw; 
     margin-left: 10vw; 
-    min-width: 120px; 
+    min-width: 120px;  */
   }
 `;
 

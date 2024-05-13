@@ -19,7 +19,7 @@ const HeroWrapper = styled.div`
   padding: 5vw;
 
   @media (max-width: 768px) {
-    padding: 5vw;
+    /* padding: 5vw; */
   }
 `;
 
@@ -44,16 +44,15 @@ const HeroTitle = styled.h1`
   max-width: 55%;
 
   @media (max-width: 1024px) {
-    max-width: 65%;
+    /* max-width: 80%; */
+    font-size: 30px;
   }
 
   @media (max-width: 768px) {
-    max-width: 75%; 
+    /* max-width: 80%;  */
+    /* font-size: 40px; */
   }
 
-  @media (max-width: 480px) {
-    max-width: 85%;
-  }
 `;
 
 const HeroText = styled.p`
@@ -75,7 +74,6 @@ const HeroText = styled.p`
 
   @media (max-width: 480px) {
     max-width: 90%;
-    font-size: calc(2vw + 10px);
   }
 `;
 
@@ -93,7 +91,7 @@ const DownloadButton = styled.a`
   z-index: 2;
 
   @media (max-width: 768px) {
-    font-size: calc(0.625rem + 1vw);
+    /* font-size: calc(0.625rem + 1vw); */
   }
 `;
 
