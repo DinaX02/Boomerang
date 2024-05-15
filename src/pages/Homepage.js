@@ -14,8 +14,11 @@ import artigosJSON from '../data/artigos.json';
 // import person5 from '../assets/homepage_people/person5.jpg'
 import mockupprofile from '../assets/icons/user_unknown.svg'
 import usersJSON from '../data/users.json';
+// import { useFetchProductSearchQuery } from '../redux/productAPI';
 
 const Homepage = () => {
+  // const {data} = useFetchProductSearchQuery();
+  // console.log(data);
   const navigate = useNavigate();
   // const [showLoginRegistar, setShowLoginRegistar] = useState(true);
 
@@ -64,7 +67,7 @@ const Homepage = () => {
               .sort((a, b) => b.rating - a.rating) // Ordena os users pelo rating em ordem decrescente
               .slice(0, 5) // Pega os primeiros 5 users após a ordenação
               .map((user) => (
-                <ProfileLink className={'profileLink'} name={user.username} image={user.avatar} id={user.id}/>
+                <ProfileLink className={'profileLink'} name={user.username} image={user.avatar} id={user.id} />
               ))}
 
           </div>
