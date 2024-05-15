@@ -43,7 +43,7 @@ const ImageWrapper = styled.div`
 const TextContent = styled.div`
   /* flex: 1; */
   /* max-width: 45%; */
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   color: black;
   line-height: 1.3;
