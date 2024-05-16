@@ -1,59 +1,74 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header/Header';
-import styled from "styled-components";
+import styled from 'styled-components';
 import mockupprofile from '../assets/icons/user_unknown.svg';
 import Article from '../components/Article';
-import artigosJSON from '../data/artigos.json';
+import { useSeeUserQuery } from '../redux/usersAPI';
 import starIcon from '../assets/icons/start.svg';
-import usersJSON from '../data/users.json';
-import { useParams } from 'react-router-dom';
 
 const ProfileOthersViewPage = () => {
-    const starIconsArray = new Array(5).fill(null); // Array com 5 elementos nulos
     const { id } = useParams();
-    const [item, setItem] = useState({});
+    // console.log('Requisição à API:', { id: parseInt(id) });
+const { data: user, isLoading } = useSeeUserQuery({ id: parseInt(id) });
+// console.log('Resposta da API:', user); 
+    const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        usersJSON.forEach(user => {
-            if (user.id === parseInt(id)) {
-                setItem(user);
-            }
-        });
-    }, [item, id])
+        if (!isLoading && user) {
+            setArticles(user.articles);
+        }
+    }, [isLoading, user]);
+
     return (
         <ProfileOthersViewStyle>
-            {item.name ? <Header name={`Perfil de ${item.name ? item.name.split(' ')[0] : ''}`} share={true} /> : <Header name={`Perfil`} share={true} />}
-            <div className='headerProfile'></div>
-            {item.avatar ? <img src={item.avatar} alt={`Imagem de perfil de ${item.name}`} className='profileLink' />: <img src={mockupprofile} alt={`Imagem de perfil de ${item.name}`} className='profileLink' />}
-            <div className='infoPerfil'>
+            <Header name={user ? `Perfil de ${user.name.split(' ')[0]}` : 'Perfil'} share={true} />
+            <div className="headerProfile"></div>
+            <img
+                src={user?.avatar || mockupprofile}
+                alt={`Imagem de perfil de ${user?.name}`}
+                className="profileLink"
+            />
+            <div className="infoPerfil">
                 <div>
-                    {item.name ? <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>{item.name}</h6> : <h6 style={{ fontSize: "14px", fontWeight: 700, display: "inline-block", color: "black" }}>Utilizador da Boomerang</h6>}
-                    <div style={{ display: "inline-block", position: "absolute", right: "0", marginRight: "24px" }} >
-                        {starIconsArray.map((_, index) => (
+                    <h6 style={{ fontSize: '14px', fontWeight: 700, display: 'inline-block', color: 'black' }}>
+                        {user?.name || 'Utilizador da Boomerang'}
+                    </h6>
+                    <div style={{ display: 'inline-block', position: 'absolute', right: 0, marginRight: '24px' }}>
+                        {[...Array(5)].map((_, index) => (
                             <img key={index} src={starIcon} alt="Star Icon" />
                         ))}
                     </div>
                 </div>
-                {item.username ? <p className='info'>{item.username}</p> : <p className='info'>-</p>}
-                <hr className='divisor' />
-                <p className='titulo'>Biografia</p>
-                {item.biografia ? <p className='info'>{item.biografia}</p> : <p className='info'>-</p>}
-                <hr className='divisor' />
-                <p className='titulo'>Membro da Boomerang desde</p>
-                <p className='info' style={{ marginBottom: 0 }}>24/03/2024</p>
+                <p className="info">{user?.username || '-'}</p>
+                <hr className="divisor" />
+                <p className="titulo">Biografia</p>
+                <p className="info">{user?.bio || '-'}</p>
+                <hr className="divisor" />
+                <p className="titulo">Membro da Boomerang desde</p>
+                <p className="info" style={{ marginBottom: 0 }}>
+                    {user ? new Date(user.createdAt).toLocaleDateString() : '-'}
+                </p>
             </div>
-            <div className='armarioSection'>
-                {item.name ? <h5 className='armarioTitle'>Armário de {item.name ? item.name.split(' ')[0] : ''}</h5> : <h5 className='armarioTitle'>Armário</h5>}
-                <div className='articles'>
-                    {artigosJSON.slice(6, 11).map((artigo) => {
-                        // console.log(artigo.id);
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} width={"160px"} />
-                    })}
-                </div>
+            <div className="armarioSection">
+                <h5 className="armarioTitle">Armário de {user?.name.split(' ')[0]}</h5>
+                {articles && articles.map((artigo) => (
+    <Article
+        key={artigo.id}
+        id={artigo.id}
+        description={artigo.description}
+        image={artigo.images[0]}
+        price={artigo.dailyRentalPrice}
+        brand={artigo.brand}
+        size={artigo.size}
+        title={artigo.title}
+        width={'160px'}
+    />
+))}
             </div>
         </ProfileOthersViewStyle>
-    )
-}
+    );
+};
 
 const ProfileOthersViewStyle = styled.div`
     margin-bottom: 24px;

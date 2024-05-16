@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const myUserAPI = createApi({
-  reducerPath: "productAPI",
+  reducerPath: "userAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/",
     prepareHeaders: (headers) => {
@@ -19,7 +19,7 @@ export const myUserAPI = createApi({
       }),
     }),
 
-    regsiterUser: builder.mutation({
+    registerUser: builder.mutation({
       query: ({ username, name, email, gender, password }) => ({
         url: "user/register",
         method: "POST",
@@ -34,34 +34,21 @@ export const myUserAPI = createApi({
       }),
     }),
 
-    searchUser: builder.mutation({
+    searchUser: builder.query({
       query: ({ username, page }) => ({
         url: "user/search",
         method: "GET",
-        body: { username, page },
-      }),
-    }),
-
-    searchUser: builder.mutation({
-      query: ({ username, page }) => ({
-        url: "user/search",
-        method: "GET",
-        body: { username, page },
-      }),
-    }),
-
-    userSearch: builder.query({
-      query: ({ username, page }) => ({
-        url: "user/search",
         params: { username, page },
       }),
     }),
+
     seeUser: builder.query({
       query: ({ id }) => ({
         url: "user",
         params: { id },
       }),
     }),
+
     editUser: builder.mutation({
       query: ({ bio, username, name, email, gender }) => ({
         url: "user",
@@ -90,11 +77,12 @@ export const myUserAPI = createApi({
 
 export const {
   useLoginUserMutation,
-  useRegsiterUserMutation,
+  useRegisterUserMutation,
   useLogoutUserMutation,
-  useUserSearchQuery,
+  useSearchUserQuery,
   useSeeUserQuery,
   useEditUserMutation,
+  useEditPasswordMutation,
   useDeleteUserMutation,
 } = myUserAPI;
 
