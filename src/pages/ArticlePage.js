@@ -253,7 +253,7 @@ const ArticlePage = (props) => {
       </div>
       <div className={'articleSection'}>
         <p className={'title'}>Título da Peça</p>
-        <p>{item.title}</p>
+        <p style={{marginBottom: "0px"}}>{item.title}</p>
       </div>
       <div className={'articleSection'}>
         <div className={'title'}>Valor Estimado do Artigo
@@ -385,6 +385,7 @@ const ArticlePageStyle = styled.div`
     font-weight: 500;
     font-size: 14px;
     padding: 24px 0;
+    /* padding-bottom: 0px; */
     margin: 0 24px;
     border-top: 1px solid rgb(0,0,0,0.1);
     .buttonInfo{
