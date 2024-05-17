@@ -10,6 +10,7 @@ import OverlayFinalPublish from "../OverlayFinalPublish";
 import iconOverlay from "../../assets/icons/tick_iconOverlayFInal.svg"
 import { useDispatch, useSelector } from "react-redux";
 import {resetProgressPublish1} from "../../redux/publicarSlice";
+import { useCreateProductMutation } from '../../redux/productAPI';
 
 const ContainerCentered = styled.div`
   display: flex;
@@ -52,6 +53,7 @@ const ProgressPublish5 = () => {
   const [fecharModal, setFecharModal] = useState(true);
   const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
   const [showOverlayFinal, setShowOverlayFinal ]= useState(false);
+  const [publishProduct] = useCreateProductMutation();
 
   const progressPublish1=useSelector((state) => state.Publicar1.progressPublish1);
 
@@ -77,7 +79,8 @@ const ProgressPublish5 = () => {
     setShowOverlayFinal(true);
     setTimeout(() => {
       localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
-
+      console.log(progressPublish1);
+      publishProduct(progressPublish1);
       dispatch(resetProgressPublish1());
 
       setShowOverlayFinal(false);

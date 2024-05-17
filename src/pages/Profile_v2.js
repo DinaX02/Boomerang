@@ -258,8 +258,8 @@ const ProfileStyle = styled.div`
     margin: 20px 0 0 24px;
     display: flex;
     /* align-self: flex-start; */
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
     text-decoration: underline;
     font-size: 14px;
     font-weight: 600;
