@@ -9,6 +9,7 @@ import Modal from '../components/Modal';
 import ButtonForOpenBottomSheetSignUp from "../components/ButtonForOpenBottomSheetSignUp";
 import Button from '../components/Button';
 import BottomSheetGender from '../components/BottomSheets/BottomSheetGender';
+import { useRegisterUserMutation } from '../redux/usersAPI';
 
 const SignUpPage = () => {
   const [inputNomeValue, setInputNomeValue] = useState('');
@@ -30,6 +31,7 @@ const SignUpPage = () => {
   const bottomSheetRef = useRef(null);
 
   const navigate = useNavigate();
+  const [registerUser, { isLoading, isError, isSuccess }] = useRegisterUserMutation();
 
   const handleNomeChange = (e) => {
     setInputNomeValue(e.target.value);
@@ -131,10 +133,28 @@ const SignUpPage = () => {
     setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
   }
 
+  const handleRegisterClick = async (e) => {
+    e.preventDefault();
+    if (todosCamposPreenchidos && termosAceitos && matchPassword) {
+      try {
+        await registerUser({
+          username: inputNomeUtilizadorValue,
+          name: `${inputNomeValue} ${inputApelidoValue}`,
+          email: inputEmailValue,
+          gender: btnGeneroName,
+          password: inputPassValue,
+        }).unwrap();
+        navigate('/login'); 
+      } catch (err) {
+        console.error('Failed to register:', err);
+      }
+    }
+  };
+  
   return (
     <RegistarStyle>
       <Header name="Criar conta" alertHandler={alertHandler} />
-      <form className='formRegistar'>
+      <form className='formRegistar' onSubmit={handleRegisterClick}>
         <Input
           obrigatorio={true}
           placeholder="Nome"
@@ -165,8 +185,6 @@ const SignUpPage = () => {
 
         {bottomSheetOpen && <Draggable
           cancel=".no-drag"
-          // bounds="parent"
-          // positionOffset={{ x: "0", y: "0" }}
           onStop={() => setBottomSheetOpen(false)}
           nodeRef={bottomSheetRef}
         >

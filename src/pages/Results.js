@@ -1,5 +1,5 @@
 import articlesJSON from '../data/artigos.json';
-import usersJSON from '../data/users.json';
+// import usersJSON from '../data/users.json';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams} from 'react-router-dom';
 import styled from "styled-components";
@@ -20,6 +20,7 @@ import Chip from "@mui/material/Chip";
 import galeriaIcon from "../assets/icons/galeria.svg";
 import mosaicoIcon from "../assets/icons/mosaico.svg";
 import ProfileLink from "../components/ProfileLink";
+import { useSearchUserQuery } from '../redux/usersAPI';
 
 const Results = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Results = () => {
     const [articles, setArticles] = useState(articlesJSON);
     const type = queryParams.get('type') || '';
     const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
-    const [users, setUsers] = useState(usersJSON);
+    // const [users, setUsers] = useState(usersJSON);
     const [filteredArticles, setFilteredArticles] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +38,27 @@ const Results = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [activeFilters, setActiveFilters] = useState({});
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
+
+    const { data: usersData, isLoading: isLoadingUsers } = useSearchUserQuery(
+        { username: searchInput, page: 1 },
+        {
+            skip: queryParams.get('type') !== 'members',
+        }
+    );
+    
+      useEffect(() => {
+        if (usersData) {
+          setIsLoading(false);
+        //   console.log(usersData)
+        }
+      }, [usersData]);
+    
+      useEffect(() => {
+        setIsLoading(true);
+        if (queryParams.get('type') === 'members' && usersData) {
+            setActiveFilters({});
+        }
+    }, [queryParams, usersData]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -75,15 +97,14 @@ const Results = () => {
 
             setFilteredArticles(filtered);
 
-        } else if (type === 'members'){
-            const filteredUsers = users.filter(user =>
+        } else if (type === 'members' && usersData){
+            const filteredUsers = usersData.filter(user =>
                 user.username.toLowerCase().includes(query.toLowerCase())
             );
             setFilteredUsers(filteredUsers);
         }
         setIsLoading(false);
-    }, [queryParams]);
-
+    }, [queryParams, type, usersData, articles, sortingCriteria]);
 
     const addFilters = (filterObj) => {
         const newParams = new URLSearchParams(currentParams);
@@ -312,24 +333,23 @@ const Results = () => {
             </div>}
 
             {!isLoading && type === 'members' && <div className={'resultsContent'}>
-                {filteredUsers.length !== 0 ? (
-                    <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {filteredUsers.map((user) => {
-                            return <div key={user.id} className={'userRow'}>
-                                <ProfileLink image={user.avatar} key={user.id} zoom={0.7} />
-                                <div>{user.username}</div>
-                                {/*<div style={{marginLeft: 'auto',opacity: 0.6, display: 'flex', alignItems: 'center'}}>{user.rating} <StarIcon/></div>*/}
-                            </div>
-                        })}
-                    </div>
-                ) : (
-                    <div className='zeroResults'>
-                        <img src={noResultsIcon} alt="search icon for no results" />
-                        <p>Nenhum resultado encontrado</p>
-                    </div>
-                )}
-
-            </div>}
+    {filteredUsers.length !== 0 ? (
+        <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+            {filteredUsers.map((user) => {
+                return <div key={user.id} className={'userRow'}>
+                    <ProfileLink image={user.avatarUrl} key={user.id} zoom={0.7} id={user.id}/> {/* Note a mudança para user.avatarUrl */}
+                    <div>{user.username}</div>
+                    {/*<div style={{marginLeft: 'auto',opacity: 0.6, display: 'flex', alignItems: 'center'}}>{user.rating} <StarIcon/></div>*/}
+                </div>
+            })}
+        </div>
+    ) : (
+        <div className='zeroResults'>
+            <img src={noResultsIcon} alt="search icon for no results" />
+            <p>Nenhum resultado encontrado</p>
+        </div>
+    )}
+</div>}
 
 
             <MenuMobile />
