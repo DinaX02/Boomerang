@@ -17,6 +17,9 @@ export const myUserAPI = createApi({
         method: "POST",
         body: { username, password },
       }),
+      transformResponse: (response) => {
+        return { username: response.username, token: response.token };
+      },
     }),
 
     registerUser: builder.mutation({

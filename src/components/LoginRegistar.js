@@ -4,9 +4,11 @@ import styled from "styled-components";
 import Button from '../components/Button';
 import Input from '../components/Input';
 import CloseIcon from '../assets/icons/close2.svg';
+import {useLoginUserMutation} from "../redux/usersAPI";
 
 const LoginRegistar = () => {
     const navigate = useNavigate();
+    const [loginUser, { isLoading, isSuccess, isError, data: loginData, error }] = useLoginUserMutation();
     const [fecharBottomSheet, setFecharBottomSheet] = useState(false);
     const [mostrarLogin, setMostrarLogin] = useState(false);
     const [inputNomeValue, setInputNomeValue] = useState('');
@@ -16,43 +18,37 @@ const LoginRegistar = () => {
     const [shown, setShown] = useState(false);
     const ref = useRef(null);
 
-    const handleCriarContaClick = () => {
-        navigate('/sign-up-page');
-    };
-
     useEffect(() => {
-        // Verifica se todos os campos estão preenchidos
-        const camposPreenchidos =
-            inputNomeValue.trim() !== '' &&
-            inputPassValue.trim() !== '';
-
-        // Atualiza o estado de todosCamposPreenchidos
+        const camposPreenchidos = inputNomeValue.trim() !== '' && inputPassValue.trim() !== '';
         setTodosCamposPreenchidos(camposPreenchidos);
 
         const handleBodyScroll = () => {
-            // Desativa o scroll quando fecharBottomSheet é falso
             document.body.style.overflow = !fecharBottomSheet ? 'hidden' : 'auto';
         };
 
-        // Adiciona o evento de scroll ao montar o componente
         handleBodyScroll();
-
-        // Remove o evento de scroll ao desmontar o componente
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [
-        inputNomeValue,
-        inputPassValue,
-        fecharBottomSheet
-    ]);
+    }, [inputNomeValue, inputPassValue, fecharBottomSheet]);
 
-    const handleEntrarClick = () => {
+    useEffect(() => {
+        if (isSuccess && loginData) {
+            setFecharBottomSheet(true);
+            localStorage.setItem('login', true);
+            console.log("utilizador logado com sucesso");
+        }
+    }, [isSuccess, loginData]);
+
+    const handleEntrarClick = async () => {
         if (mostrarLogin) {
             if (todosCamposPreenchidos) {
-                setFecharBottomSheet(true);
-            }
-            else {
+                try {
+                    await loginUser({ username: inputNomeValue, password: inputPassValue }).unwrap();
+                } catch (err) {
+                    console.error('Falha no login:', err);
+                }
+            } else {
                 setErroObrigatorio(true);
             }
         } else {
@@ -64,7 +60,6 @@ const LoginRegistar = () => {
         setFecharBottomSheet(true);
         localStorage.setItem('login', true);
     }
-
 
     const handleInputNomeChange = (e) => {
         setInputNomeValue(e.target.value);
@@ -79,9 +74,8 @@ const LoginRegistar = () => {
     }
 
     const clickCriarContaHandle = () => {
-        navigate('/sign-up-page')
+        navigate('/sign-up-page');
     }
-
 
     const toggleEyeHandle = () => {
         setShown(!shown);
@@ -89,64 +83,72 @@ const LoginRegistar = () => {
 
     return (
         <LoginRegistarStyle>
-            {!fecharBottomSheet && <div className='fundoBlured'>
-                <div
-                    ref={ref}
-                    className='bottomSheetLoginRegistar'
-                    style={
-                        mostrarLogin
-                            ? { height: "354px" }
-                            : { height: "220px" }
-                    }>
-                    <div className='dragHandleContainer'>
-                        {/* <div className='dragHandle' /> */}
-                        <img src={CloseIcon} alt='close icon' className='closeIcon' onClick={dragClickHandle} />
+            {!fecharBottomSheet && (
+                <div className='fundoBlured'>
+                    <div
+                        ref={ref}
+                        className='bottomSheetLoginRegistar'
+                        style={mostrarLogin ? { height: "354px" } : { height: "220px" }}
+                    >
+                        <div className='dragHandleContainer'>
+                            <img src={CloseIcon} alt='close icon' className='closeIcon' onClick={dragClickHandle} />
+                        </div>
+                        {!mostrarLogin && (
+                            <div className='loginRegistarContainer'>
+                                <Button
+                                    isBtnLoginRegistar={true}
+                                    width="236px"
+                                    onClick={handleEntrarClick}
+                                    text="Entrar"
+                                />
+                                <Button
+                                    isBtnLoginRegistar={true}
+                                    width="236px"
+                                    onClick={clickCriarContaHandle}
+                                    text="Criar conta"
+                                />
+                                <Link className='ignorar' onTouchStart={clickContinuarHandle} style={{ visibility: 'hidden' }}>Continuar sem conta</Link>
+                            </div>
+                        )}
+                        {mostrarLogin && (
+                            <div className='loginContainer'>       
+                                <form className='formLogin'>
+                                {isError && <div className="error_msg">Falha no login: {error.data.message}</div>}
+                                    <Input
+                                        erroObrigatorio={erroObrigatorio}
+                                        placeholder="E-mail ou nome de utilizador"
+                                        value={inputNomeValue}
+                                        onChange={handleInputNomeChange}
+                                    />
+                                    <Input
+                                        erroObrigatorio={erroObrigatorio}
+                                        placeholder="Palavra-passe"
+                                        value={inputPassValue}
+                                        onChange={handleInputPassChange}
+                                        type={shown ? "text" : "password"}
+                                        isPassword={true}
+                                        toggleEyeHandle={toggleEyeHandle}
+                                        login={true}
+                                    />
+                                </form>
+                                <Link className='ignorar forgetPassword'>Esqueceste-te da palavra-passe?</Link>
+                                <div className='btnspaceurgent'>
+                                    <Button
+                                        isBtnLoginRegistar={true}
+                                        width="236px"
+                                        type="submit"
+                                        onClick={handleEntrarClick}
+                                        text="Entrar"
+                                    />
+                                </div>
+                                <Link className='ignorar' onTouchStart={clickCriarContaHandle}>Criar conta</Link>
+                            </div>
+                        )}
                     </div>
-                    {!mostrarLogin && <div className='loginRegistarContainer' >
-                        <Button
-                            isBtnLoginRegistar={true}
-                            width="236px"
-                            onClick={handleEntrarClick}
-                            text="Entrar"></Button>
-                        <Button
-                            isBtnLoginRegistar={true}
-                            width="236px"
-                            onClick={handleCriarContaClick}
-                            text="Criar conta"></Button>
-                        <Link className='ignorar' onTouchStart={clickContinuarHandle} style={{ visibility: 'hidden' }}>Continuar sem conta</Link>
-                    </div>}
-                    {mostrarLogin && <div className='loginContainer'>
-                        <form className='formLogin'>
-                            <Input
-                                erroObrigatorio={erroObrigatorio}
-                                placeholder="E-mail ou nome de utilizador"
-                                value={inputNomeValue}
-                                onChange={handleInputNomeChange}
-                            />
-                            <Input
-                                erroObrigatorio={erroObrigatorio}
-                                placeholder="Palavra-passe"
-                                value={inputPassValue}
-                                onChange={handleInputPassChange}
-                                type={shown ? "text" : "password"}
-                                isPassword={true}
-                                toggleEyeHandle={() => toggleEyeHandle()}
-                                login={true}
-                            />
-                        </form>
-                        <Link className='ignorar forgetPassword'>Esqueceste-te da palavra-passe?</Link>
-                        <Button
-                            isBtnLoginRegistar={true}
-                            width="236px"
-                            type="submit"
-                            onClick={handleEntrarClick}
-                            text="Entrar"></Button>
-                        <Link className='ignorar' onTouchStart={clickCriarContaHandle}>Criar conta</Link>
-                    </div>}
                 </div>
-            </div>}
+            )}
         </LoginRegistarStyle>
-    )
+    );
 }
 
 const LoginRegistarStyle = styled.div`
@@ -189,6 +191,15 @@ const LoginRegistarStyle = styled.div`
     margin-bottom: 24px;
   }
 
+  .btnspaceurgent{
+    margin-top: 18px;
+  }
+
+  .error_msg{
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: rgb(200, 0, 0);
+  }
   .ignorar {
         font-weight: normal;
         font-size: 13px;
