@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
-import mariacarmo from "../assets/icons/user_unknown.svg"
+import mariacarmo from "../assets/icons/user_unknown.svg";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import PersonAddOutlinedIcon from '../assets/icons/profile/invite.svg';
 import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
@@ -15,13 +15,20 @@ import PrivacyTipOutlinedIcon from '../assets/icons/profile/privacidade.svg';
 import CardGiftcardIcon from '../assets/icons/profile/gift.svg';
 import Sobrenos from '../assets/icons/sobrenos.svg';
 import Button from "../components/Button";
+import { useLogoutUserMutation } from "../redux/usersAPI"; // Importar o hook de logout
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [logoutUser] = useLogoutUserMutation(); // Usar o hook de logout
 
-  const handleClickLogout = () => {
-    localStorage.removeItem("login");
-    navigate("/");
+  const handleClickLogout = async () => {
+    try {
+      await logoutUser().unwrap();
+      localStorage.removeItem("login");
+      navigate("/");
+    } catch (error) {
+      console.error('Falha no logout:', error);
+    }
   };
 
   useEffect(() => {
@@ -207,7 +214,6 @@ const Profile = () => {
           </Link>
         </div>
         <div className="sair" onClick={handleClickLogout}>
-          {/* <Button text="Terminar Sessão" /> */}
           <p>Terminar Sessão</p>
         </div>
       </ProfileStyle>
