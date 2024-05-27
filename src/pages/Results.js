@@ -1,7 +1,7 @@
 import articlesJSON from '../data/artigos.json';
 // import usersJSON from '../data/users.json';
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams} from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
 import Article from "../components/Article";
@@ -13,7 +13,7 @@ import Popper from "@mui/material/Popper";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import {CircularProgress, MenuList} from "@mui/material";
+import { CircularProgress, MenuList } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
@@ -21,10 +21,13 @@ import galeriaIcon from "../assets/icons/galeria.svg";
 import mosaicoIcon from "../assets/icons/mosaico.svg";
 import ProfileLink from "../components/ProfileLink";
 import { useSearchUserQuery } from '../redux/usersAPI';
+import { useFetchProductSearchQuery } from '../redux/productAPI';
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+
 
 const Results = () => {
     const navigate = useNavigate();
-    const [queryParams,setQueryParams] = useSearchParams();
+    const [queryParams, setQueryParams] = useSearchParams();
     const [singleColumnGrid, setSingleColumnGrid] = useState(false);
     const [articles, setArticles] = useState(articlesJSON);
     const type = queryParams.get('type') || '';
@@ -32,36 +35,38 @@ const Results = () => {
     // const [users, setUsers] = useState(usersJSON);
     const [filteredArticles, setFilteredArticles] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
     const [currentParams, setCurrentParams] = useState(queryParams);
-    const [searchInput, setSearchInput] = useState( queryParams.get('query') || '');
+    const [searchInput, setSearchInput] = useState(queryParams.get('query') || '');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [activeFilters, setActiveFilters] = useState({});
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
 
+    const { data: productsData, isLoading } = useFetchProductSearchQuery({ name: searchInput });
+    console.log(productsData);
     const { data: usersData, isLoading: isLoadingUsers } = useSearchUserQuery(
         { username: searchInput, page: 1 },
         {
             skip: queryParams.get('type') !== 'members',
         }
     );
-    
-      useEffect(() => {
+
+    useEffect(() => {
         if (usersData) {
-          setIsLoading(false);
-        //   console.log(usersData)
+            // setIsLoading(false);
+            //   console.log(usersData)
         }
-      }, [usersData]);
-    
-      useEffect(() => {
-        setIsLoading(true);
+    }, [usersData]);
+
+    useEffect(() => {
+        // setIsLoading(true);
         if (queryParams.get('type') === 'members' && usersData) {
             setActiveFilters({});
         }
     }, [queryParams, usersData]);
 
     useEffect(() => {
-        setIsLoading(true);
+        // setIsLoading(true);
         // Filter articles based on search query and parameters
         const query = queryParams.get('query') || '';
         const size = queryParams.get('size') || null;
@@ -69,7 +74,7 @@ const Results = () => {
         const color = queryParams.get('color') || null;
         const brand = queryParams.get('brand') || null;
 
-        if (type === 'articles'){
+        if (type === 'articles') {
 
             setActiveFilters({
                 size: size,
@@ -78,32 +83,32 @@ const Results = () => {
                 brand: brand,
             })
 
-            const filtered = articles.filter(article =>
-                article.title.toLowerCase().includes(query.toLowerCase()) &&
-                (size ? article.size.toLowerCase() === size.toLowerCase() : true) &&
-                (category ? article.category.toLowerCase() === category.toLowerCase() : true) &&
-                (color ? article.color.toLowerCase() === color.toLowerCase() : true) &&
-                (brand ? article.brand.toLowerCase() === brand.toLowerCase() : true)
-            );
-            if (sortingCriteria === 'lowToHigh') {
-                filtered.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
-            } else if (sortingCriteria === 'highToLow') {
-                filtered.sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
-            } else if (sortingCriteria === 'mostRecent') {
-                filtered.sort((a, b) => a.id - b.id);
-            } else if (sortingCriteria === 'oldest') {
-                filtered.sort((a, b) => b.id - a.id);
-            }
+            // const filtered = productsData.filter(article =>
+            //     article.title.toLowerCase().includes(query.toLowerCase()) &&
+            //     (size ? article.Size.name.toLowerCase() === size.toLowerCase() : true) &&
+            //     (category ? article.ProductType.name.toLowerCase() === category.toLowerCase() : true) &&
+            //     (color ? article.Color.name.toLowerCase() === color.toLowerCase() : true) &&
+            //     (brand ? article.brand.toLowerCase() === brand.toLowerCase() : true)
+            // );
+            // if (sortingCriteria === 'lowToHigh') {
+            //     filtered.sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
+            // } else if (sortingCriteria === 'highToLow') {
+            //     filtered.sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
+            // } else if (sortingCriteria === 'mostRecent') {
+            //     filtered.sort((a, b) => a.id - b.id);
+            // } else if (sortingCriteria === 'oldest') {
+            //     filtered.sort((a, b) => b.id - a.id);
+            // }
 
-            setFilteredArticles(filtered);
+            // setFilteredArticles(filtered);
 
-        } else if (type === 'members' && usersData){
-            const filteredUsers = usersData.filter(user =>
-                user.username.toLowerCase().includes(query.toLowerCase())
-            );
-            setFilteredUsers(filteredUsers);
+        } else if (type === 'members' && usersData) {
+            // const filteredUsers = usersData.filter(user =>
+            //     user.username.toLowerCase().includes(query.toLowerCase())
+            // );
+            // setFilteredUsers(filteredUsers);
         }
-        setIsLoading(false);
+        // setIsLoading(false);
     }, [queryParams, type, usersData, articles, sortingCriteria]);
 
     const addFilters = (filterObj) => {
@@ -164,11 +169,11 @@ const Results = () => {
     const handleViewOption = () => {
         // setViewOption(option);
         // handleClose();
-        if(viewOption==='mosaico'){
+        if (viewOption === 'mosaico') {
             setSingleColumnGrid(true);
             setViewOption('galeria');
         }
-        else{
+        else {
             setSingleColumnGrid(false);
             setViewOption('mosaico');
         }
@@ -206,12 +211,12 @@ const Results = () => {
         <ResultsStyle>
             <div className={'resultsHeader'}>
                 <div className="tab-buttons">
-                        <button
-                            onClick={() => handleTabClick('articles')}
-                            className={type === 'articles' ? 'active' : ''}
-                        >
-                            Artigos
-                        </button>
+                    <button
+                        onClick={() => handleTabClick('articles')}
+                        className={type === 'articles' ? 'active' : ''}
+                    >
+                        Artigos
+                    </button>
                     <button
                         onClick={() => handleTabClick('members')}
                         className={type === 'members' ? 'active' : ''}
@@ -221,7 +226,7 @@ const Results = () => {
                 </div>
                 <div className={'headerPadding'}>
                     <div className={'search'}>
-                        <form className={'searchInput'}  style={{ maxWidth: type === 'members' ? 'none' : null }} onSubmit={handleSearch}>
+                        <form className={'searchInput'} style={{ maxWidth: type === 'members' ? 'none' : null }} onSubmit={handleSearch}>
                             <SearchIcon />
                             <input
                                 placeholder={type === 'articles' ? 'Procura artigos' : 'Procura membros'}
@@ -230,7 +235,7 @@ const Results = () => {
                                 onChange={(e) => setSearchInput(e.target.value)}
                             />
                         </form>
-                        { type === 'articles' && <FilterButtons applyFilters={addFilters}/>}
+                        {type === 'articles' && <FilterButtons applyFilters={addFilters} />}
                     </div>
                     {type === 'articles' ? (
                         <div className={'sectionTitle'}>
@@ -293,9 +298,9 @@ const Results = () => {
                                 />
                             </div>
                         </div>) : (<div className={'sectionTitle'}>
-                        <div className='resultadosTitle'>Resultados</div>
-                    </div>)}
-                    <Stack style={{paddingTop: '10px'}} direction="row" spacing={1}>
+                            <div className='resultadosTitle'>Resultados</div>
+                        </div>)}
+                    <Stack style={{ paddingTop: '10px' }} direction="row" spacing={1}>
                         {Object.keys(activeFilters).map(key => {
                             if (activeFilters[key] !== null) {
                                 return (
@@ -317,10 +322,10 @@ const Results = () => {
             {isLoading && <CircularProgress className={'loader'} color="success" />}
 
             {!isLoading && type === 'articles' && <div className={'resultsContent'}>
-                {filteredArticles.length !== 0 ? (
+                {productsData.length !== 0 ? (
                     <div className={'resultsArticles'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {filteredArticles.map((artigo) => {
-                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
+                        {productsData.map((artigo) => {
+                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
                         })}
                     </div>
                 ) : (
@@ -333,23 +338,23 @@ const Results = () => {
             </div>}
 
             {!isLoading && type === 'members' && <div className={'resultsContent'}>
-    {filteredUsers.length !== 0 ? (
-        <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-            {filteredUsers.map((user) => {
-                return <div key={user.id} className={'userRow'}>
-                    <ProfileLink image={user.avatarUrl} key={user.id} zoom={0.7} id={user.id}/> {/* Note a mudança para user.avatarUrl */}
-                    <div>{user.username}</div>
-                    {/*<div style={{marginLeft: 'auto',opacity: 0.6, display: 'flex', alignItems: 'center'}}>{user.rating} <StarIcon/></div>*/}
-                </div>
-            })}
-        </div>
-    ) : (
-        <div className='zeroResults'>
-            <img src={noResultsIcon} alt="search icon for no results" />
-            <p>Nenhum resultado encontrado</p>
-        </div>
-    )}
-</div>}
+                {usersData ? (
+                    <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                        {usersData.map((user) => {
+                            return <div key={user.id} className={'userRow'}>
+                                <ProfileLink image={user.avatarUrl} key={user.id} zoom={0.7} id={user.id} /> {/* Note a mudança para user.avatarUrl */}
+                                <div>{user.username}</div>
+                                {/*<div style={{marginLeft: 'auto',opacity: 0.6, display: 'flex', alignItems: 'center'}}>{user.rating} <StarIcon/></div>*/}
+                            </div>
+                        })}
+                    </div>
+                ) : (
+                    <div className='zeroResults'>
+                        <img src={noResultsIcon} alt="search icon for no results" />
+                        <p>Nenhum resultado encontrado</p>
+                    </div>
+                )}
+            </div>}
 
 
             <MenuMobile />
@@ -381,7 +386,7 @@ const ResultsStyle = styled.div`
       justify-items: center; */
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: space-around;
       gap: 25px 25px;
       flex-direction: row;
       .description {
