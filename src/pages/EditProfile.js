@@ -1,53 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import UserUnknownIcon from '../assets/icons/user_unknown.svg';
 import EditarPerfilIcon from '../assets/icons/editar_perfil.svg';
 import EditarInputIcon from '../assets/icons/editarInput.svg';
 import Header from '../components/Header/Header';
 import Modal from '../components/Modal';
 import Input from '../components/Input';
+import { useSeeUserQuery, useEditUserMutation } from "../redux/usersAPI";
 
 const EditProfile = () => {
-  const [username, setUsername] = useState("mariacarmo");
-  const [password, setPassword] = useState("password_atual");
+  const { data: userData, isLoading } = useSeeUserQuery();
+  const navigate = useNavigate();
   const [disableUsername, setDisableUsername] = useState(true);
   const [disableBiografia, setDisableBiografia] = useState(true);
-  const [disablePassword, setDisablePassword] = useState(true);
   const [disableBtn, setDisableBtn] = useState(true);
-  const [biografia, setBiografia] = useState("Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia.");
-  const [countChar, setCountChar] = useState(biografia.length);
+  const [biografia, setBiografia] = useState("");
+  const [countChar, setCountChar] = useState(0);
   const [imagePerfil, setImagePerfil] = useState([]);
   const [fecharModal, setFecharModal] = useState(true);
   const [alert, setAlert] = useState(false);
-  const [shown, setShown] = useState(false);
-  const [isPasswordEdit, setIsPasswordEdit] = useState(false);
-  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+
+  // States to store original values
+  const [originalUsername, setOriginalUsername] = useState("");
+  const [originalBiografia, setOriginalBiografia] = useState("");
+
+  useEffect(() => {
+    if (userData && userData.bio) {
+      setBiografia(userData.bio);
+      setOriginalBiografia(userData.bio);
+      setCountChar(userData.bio.length);
+    }
+    if (userData && userData.username) {
+      setUsername(userData.username);
+      setOriginalUsername(userData.username);
+    }
+  }, [userData]);
+
+  const [editUser] = useEditUserMutation();
 
   const handleBiografiaChange = (e) => {
     const inputBiografia = e.target.value;
-
     if (inputBiografia.length <= 150) {
       setBiografia(inputBiografia);
       setCountChar(inputBiografia.length);
+      setDisableBtn(inputBiografia === originalBiografia && username === originalUsername);
     }
-  }
-
-  const handleClick = () => {
-    navigate(-1);
   };
 
-  const handleSubmit = (e) => {
+  const handleEditUsernameInput = (e) => {
+    e.preventDefault();  // Evitar a submissão do formulário
+    setDisableUsername(false);
+    setAlert(true);
+  };
+
+  const handleEditBiografiaInput = (e) => {
+    e.preventDefault();  // Evitar a submissão do formulário
+    setDisableBiografia(false);
+    setAlert(true);
+  };
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    setDisableBtn(e.target.value === originalUsername && biografia === originalBiografia);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const newBio = biografia !== userData.bio ? biografia : userData.bio;
+
+      console.log("Dados a serem enviados para edição:", {
+        bio: newBio,
+        username,
+        name: userData.name,
+        email: userData.email,
+        gender: userData.gender
+      });
+
+      await editUser({
+        bio: newBio,
+        username,
+        name: userData.name,
+        email: userData.email,
+        gender: userData.gender
+      });
+      navigate('/profile-page');
+      console.log("Perfil editado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao editar perfil:", error);
+    }
   };
+
   const handleImageChange = (e) => {
     const newImages = e.target.files;
     setImagePerfil([...imagePerfil, ...newImages]);
-    console.log(newImages);
     setDisableBtn(false);
     setAlert(true);
-  }
+  };
 
   const renderImage = () => {
     const firstImage = imagePerfil.length > 0 ? imagePerfil[0] : null;
@@ -61,31 +113,10 @@ const EditProfile = () => {
     );
   };
 
-  const handleEditUsernameInput = () => {
-    setDisableUsername(false);
-    setDisableBtn(false);
-    setAlert(true);
-  }
-  const handleEditBiografiaInput = () => {
-    setDisableBiografia(false);
-    setDisableBtn(false);
-    setAlert(true);
-  }
-  const handleEditPasswordInput = () => {
-    setDisablePassword(false);
-    setDisableBtn(false);
-    setAlert(true);
-    setIsPasswordEdit(true);
-  }
-
   const alertHandler = () => {
     alert ? setFecharModal(false) : navigate(-1);
-  }
+  };
 
-
-  const toggleEyeHandle = (id) => {
-    setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
-  }
   return (
     <>
       <Header name="Editar Perfil" alertHandler={alertHandler} />
@@ -94,7 +125,6 @@ const EditProfile = () => {
           <div className="containerUserEdit">
             <label htmlFor="images">
               <div className='containerUserEditContent'>
-                {/* <img className="userUnknownIcon" src={UserUnknownIcon} alt="icon_user_unknown" /> */}
                 {renderImage()}
                 <img className="editarPerfilIcon" src={EditarPerfilIcon} alt="icon_editar_perfil" />
               </div>
@@ -107,85 +137,54 @@ const EditProfile = () => {
             onChange={handleImageChange}
             style={{ opacity: 0, position: "absolute", display: "block", zIndex: -1, maxWidth: "600px", width: "90%" }}
           />
-          {/* <div className="imagePerfil">
-      {renderImage()}
-    </div> */}
-
           <div className='inputsContainer'>
             <div className='inputContainer'>
               <div className='inputTitleContainer'>
                 <label htmlFor="username" className='inputTitle'>
-                  Nome de utilizador </label>
-                  <button className="buttonEdit" onClick={handleEditUsernameInput}>
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
-               
+                  Nome de utilizador
+                </label>
+                <button className="buttonEdit" type="button" onClick={handleEditUsernameInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" />
+                </button>
               </div>
-              {/* <input
-                className="input"
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                disabled={disableUsername}
-              /> */}
               <Input
                 obrigatorio={true}
                 placeholder=""
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
                 disabled={disableUsername}
+                onChange={handleUsernameChange}
               />
             </div>
+            
             <div className='inputContainer'>
-              <div className='inputTitleContainer' style={{marginTop: "0"}}>
+              <div className='inputTitleContainer' style={{ marginTop: "0" }}>
                 <label htmlFor="biografia" className='inputTitle'>
                   Biografia
-                  </label>
-                  <button className="buttonEdit" onClick={handleEditBiografiaInput} >
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
-                  <span className="countCharBiografia">{countChar}/150</span>
-                
+                </label>
+                <button className="buttonEdit" type="button" onClick={handleEditBiografiaInput} >
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" />
+                </button>
+                <span className="countCharBiografia">{countChar}/150</span>
               </div>
+
               <textarea
                 className="biografiaInput input"
                 id="biografia"
                 value={biografia}
                 maxLength={150}
-                onChange={(e) => handleBiografiaChange(e)}
+                onChange={handleBiografiaChange}
                 disabled={disableBiografia}
               />
             </div>
+          </div>
 
-            <div className='inputContainer'>
-              <div className='inputTitleContainer'>
-                <label htmlFor="password" className='inputTitle'>
-                  Palavra-passe
-                  </label>
-                  <button className="buttonEdit" onClick={handleEditPasswordInput}>
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
-                
-              </div>
-              <Input
-                obrigatorio={true}
-                type={shown.password ? "text" : "password"}
-                placeholder=""
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={disablePassword}
-                shown={shown.password}
-                isPasswordEdit={isPasswordEdit}
-                toggleEyeHandle={() => toggleEyeHandle("password")} // Passa o id correspondente
-              />
-            </div>
-          </div>
           <div className='btnAtualizarDados'>
-            <Button
-              onClick={handleClick}
-              text="Atualizar perfil"
-              disable={disableBtn}
-              type={"submit"}
-              ></Button>
+            <button className='buttonAtualizar'
+              disabled={disableBtn}
+              type="submit"
+            >Atualizar perfil</button>
           </div>
+
         </form>
         <Modal
           fecharModal={fecharModal}
@@ -195,9 +194,8 @@ const EditProfile = () => {
         />
       </EditProfileStyle>
     </>
-  )
-}
-
+  );
+};
 
 const EditProfileStyle = styled.div`
           /* padding: 0 24px; */
@@ -281,7 +279,7 @@ const EditProfileStyle = styled.div`
           margin-left: 24px;
           font-size: 14px;
           padding-bottom: 0.5rem;
-          height: 90px;
+          height: 110px;
       }
       .countCharBiografia{
         font-size: 12px;
@@ -299,6 +297,28 @@ const EditProfileStyle = styled.div`
         padding:0;
         background-color: transparent;
       }
+
+      .buttonAtualizar{
+        background-color: #343541;
+        color: white !important;
+        font-weight: bold;
+        font-size: 15px;
+        width: 144px;
+        height: 36px;
+        border-radius: 5px;
+        border: 1px transparent;
+        font-family: Montserrat;
+        cursor: pointer;
+      }
+
+      .buttonAtualizar:disabled {
+        background-color: rgb(202, 202, 202);
+        cursor: not-allowed;
+      }
+
+      .buttonAtualizar:active {
+        background-color: #00C17C;
+      }
       
       @media only screen and (min-width: 600px) {
         .input {
@@ -310,4 +330,4 @@ const EditProfileStyle = styled.div`
       }
 `
 
-export default EditProfile
+export default EditProfile;

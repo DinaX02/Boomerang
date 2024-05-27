@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
 import mariacarmo from "../assets/icons/user_unknown.svg";
@@ -14,30 +14,37 @@ import DescriptionOutlinedIcon from '../assets/icons/profile/termos.svg';
 import PrivacyTipOutlinedIcon from '../assets/icons/profile/privacidade.svg';
 import CardGiftcardIcon from '../assets/icons/profile/gift.svg';
 import Sobrenos from '../assets/icons/sobrenos.svg';
-import Button from "../components/Button";
-import { useLogoutUserMutation } from "../redux/usersAPI"; // Importar o hook de logout
+import Logout from '../assets/icons/logout.svg';
+// import Button from "../components/Button";
+import { useLogoutUserMutation } from "../redux/usersAPI";
+import { useSeeUserQuery } from "../redux/usersAPI";
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const [logoutUser] = useLogoutUserMutation(); // Usar o hook de logout
+  // const navigate = useNavigate();
+  const [logoutUser] = useLogoutUserMutation();
+  // const { data: userData} = useSeeUserQuery();
+  const { data: userData, refetch, isLoading } = useSeeUserQuery();
+  // console.log("Dados do utilizador:", userData);
+
 
   const handleClickLogout = async () => {
     try {
       await logoutUser().unwrap();
       localStorage.removeItem("login");
-      navigate("/");
+      document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      window.location.reload();
     } catch (error) {
       console.error('Falha no logout:', error);
     }
   };
 
   useEffect(() => {
-    // dar reset ao scroll quando se entrar aqui :)
+    // Reset scroll ao entrar na página
     window.scrollTo(0, 0);
-  }, []);
+    refetch();
+  }, [refetch]);
 
-  let bio =
-    "Sou apaixonada por moda e tenho sempre em conta opções mais sustentáveis no meu dia-a-dia.";
+  if (isLoading) return <div>Carregando...</div>
 
   return (
     <div>
@@ -45,108 +52,65 @@ const Profile = () => {
         <Link className="namediv" to={"/edit-profile-page"}>
           <div className="profileimg"></div>
           <div className="profiletext fontsizeadjust">
-            <h1 className="username">mariacarmo</h1>
-            <p>{bio.substring(0, 22) + "..."}</p>
+            <h1 className="username">{userData?.username || 'Utilizador da Boomerang'}</h1>
+            <p>{userData?.bio || "-".substring(0, 22) + "..."}</p>
           </div>
-
-          <ArrowForwardIosRoundedIcon className="setaprofile"></ArrowForwardIosRoundedIcon>
+          <ArrowForwardIosRoundedIcon className="setaprofile" />
         </Link>
         <p className="title">Atividade</p>
 
         <div className="icondiv">
           <Link to={"/convidar-amigos"}>
             <div className="iconitem">
-              <img
-                src={PersonAddOutlinedIcon}
-                alt="convidar amigos"
-                className="icon"
-              ></img>
+              <img src={PersonAddOutlinedIcon} alt="convidar amigos" className="icon" />
               <div className="profiletext">
                 <p>Convidar Amigos</p>
               </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
           </Link>
-          <hr></hr>
+          <hr />
           <div className="iconitem">
-            <img
-              src={CheckroomOutlinedIcon}
-              alt="armário"
-              className="icon"
-            ></img>
+            <img src={CheckroomOutlinedIcon} alt="armário" className="icon" />
             <div className="profiletext">
               <p>Armário</p>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
-          <hr></hr>
+          <hr />
           <div className="iconitem">
-            <img
-              src={FavoriteBorderOutlinedIcon}
-              alt="favoritos"
-              className="icon"
-            ></img>
+            <img src={FavoriteBorderOutlinedIcon} alt="favoritos" className="icon" />
             <div className="profiletext">
               <p>Favoritos</p>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
-          <hr></hr>
+          <hr />
           <div className="iconitem">
-            <img
-              src={ShoppingBasketOutlinedIcon}
-              alt="histórico de encomendas"
-              className="icon"
-            ></img>
+            <img src={ShoppingBasketOutlinedIcon} alt="histórico de encomendas" className="icon" />
             <div className="profiletext">
               <p>Histórico de encomendas</p>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
-          <hr></hr>
+          <hr />
           <Link to={"/vouchers-page"}>
             <div className="iconitem">
-              <img
-                src={LocalOfferOutlinedIcon}
-                alt="cupões"
-                className="icon"
-              ></img>
+              <img src={LocalOfferOutlinedIcon} alt="cupões" className="icon" />
               <div className="profiletext">
                 <p>Cupões</p>
               </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
           </Link>
-          <hr></hr>
+          <hr />
           <Link to={"/recompensas"}>
             <div className="iconitem">
-              <img
-                src={CardGiftcardIcon}
-                alt="recompensas"
-                className="icon"
-              ></img>
+              <img src={CardGiftcardIcon} alt="recompensas" className="icon" />
               <div className="profiletext">
                 <p>Recompensas</p>
               </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
           </Link>
         </div>
@@ -155,69 +119,55 @@ const Profile = () => {
         <div className="icondiv">
           <Link to={"/settings-page"}>
             <div className="iconitem">
-              <img
-                src={SettingsOutlinedIcon}
-                alt="definições"
-                className="icon"
-              ></img>
+              <img src={SettingsOutlinedIcon} alt="definições" className="icon" />
               <div className="profiletext">
                 <p>Definições</p>
               </div>
-              <ArrowForwardIosRoundedIcon
-                alt="avançar"
-                className="seta"
-              ></ArrowForwardIosRoundedIcon>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
           </Link>
-          <hr></hr>
+          <hr />
           <div className="iconitem">
-            <img
-              src={DescriptionOutlinedIcon}
-              alt="termos e condições"
-              className="icon"
-            ></img>
+            <img src={DescriptionOutlinedIcon} alt="termos e condições" className="icon" />
             <div className="profiletext">
               <p>Termos e Condições</p>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
-          <hr></hr>
+          <hr />
           <div className="iconitem">
-            <img
-              src={PrivacyTipOutlinedIcon}
-              alt="política de privacidade"
-              className="icon"
-            ></img>
+            <img src={PrivacyTipOutlinedIcon} alt="política de privacidade" className="icon" />
             <div className="profiletext">
               <p>Política de Privacidade</p>
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
+            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
-          <hr></hr>
+          <hr />
           <Link to={"/sobre-nos"}>
-          <div className="iconitem">
-            <img src={Sobrenos} alt="sobre nós" className="icon"></img>
-            <div className="profiletext">
-              <p>Sobre Nós</p>
+            <div className="iconitem">
+              <img src={Sobrenos} alt="sobre nós" className="icon" />
+              <div className="profiletext">
+                <p>Sobre Nós</p>
+              </div>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
-            <ArrowForwardIosRoundedIcon
-              alt="avançar"
-              className="seta"
-            ></ArrowForwardIosRoundedIcon>
+          </Link>
+          <hr></hr>
+          <Link to={"/"}>
+          <div className="iconitem">
+            <img src={Logout} alt="terminar sessão" className="icon"></img>
+            <div className="profiletext"  onClick={handleClickLogout}>
+              <p className="logout">Terminar sessão</p>
+            </div>
           </div>
           </Link>
         </div>
+        {/* </div>
         <div className="sair" onClick={handleClickLogout}>
           <p>Terminar Sessão</p>
-        </div>
+        </div> */}
       </ProfileStyle>
-      <MenuMobile></MenuMobile>
+      <MenuMobile />
     </div>
   );
 };
