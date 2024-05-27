@@ -42,6 +42,18 @@ const Profile = () => {
             </div>
           </Link>
           <hr></hr>
+          <Link to={"/edit-password-page"}>
+            <div className="iconitem">
+              <div className="profiletext">
+                <p>Alterar palavra-passe</p>
+              </div>
+              <ArrowForwardIosRoundedIcon
+                alt="avançar"
+                className="seta"
+              ></ArrowForwardIosRoundedIcon>
+            </div>
+          </Link>
+          <hr></hr>
           <Link to={"/edit-email-page"}>
             <div className="iconitem">
               <div className="profiletext">

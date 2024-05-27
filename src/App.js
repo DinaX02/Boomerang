@@ -34,6 +34,7 @@ import AvaliarAluguerPage from "./pages/AvaliarAluguerPage";
 import VerTudo from "./pages/VerTudo";
 import EditProfile from "./pages/EditProfile";
 import EditEmail from "./pages/EditEmail";
+import EditPassword from "./pages/EditPassword.js"
 import ProfileOthersViewPage from "./pages/ProfileOthersViewPage";
 import FAQ from "./pages/FAQ.js";
 import ContactarSuporte from "./pages/ContactarSuporte";
@@ -61,6 +62,7 @@ function App() {
         <Route path="/settings-page" element={<Settings/>}></Route>
         <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
         <Route path="/edit-email-page" element={<EditEmail/>}></Route>
+        <Route path="/edit-password-page" element={<EditPassword/>}></Route>
         <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
         <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
         <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>

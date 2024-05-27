@@ -16,10 +16,11 @@ import mockupprofile from '../assets/icons/user_unknown.svg'
 import usersJSON from '../data/users.json';
 import { useFetchProductSearchQuery } from '../redux/productAPI';
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+import { CircularProgress } from "@mui/material";
 
 const Homepage = () => {
-  const {data, isLoading} = useFetchProductSearchQuery({title: ''});
-  console.log(data);
+  const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
+  // console.log(data);
   const navigate = useNavigate();
   // const [showLoginRegistar, setShowLoginRegistar] = useState(true);
 
@@ -52,6 +53,9 @@ const Homepage = () => {
           {/* <ProfileLink className={'profileLink'} image={mockupprofile}/> */}
           <Link to={"/profile-page"} aria-label="Link para visitares o teu perfil"><div className={'profileLink'} ></div></Link>
         </div>
+
+        {isLoading && <CircularProgress className={'loader'} color="success" />}
+
         <div>
           <h3 className={'sectionTitle'}><span>Categorias Populares</span></h3>
           <div className={'articles'}>
@@ -88,7 +92,7 @@ const Homepage = () => {
           <div className={'articles'}>
             {!isLoading && data.slice(6, 10).map((artigo) => {
               // console.log(artigo);
-              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct}  price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
+              return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
             })}
             <Article more={true} ariaLabel={"Ver Todas as novidades"} />
           </div>
@@ -172,6 +176,17 @@ const HomepageStyle = styled.div`
       text-decoration: none;
       color: #008052;
     }
+  }
+
+  .loader{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 40px;
+    height: 40px;
   }
 `
 

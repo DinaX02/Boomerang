@@ -43,7 +43,6 @@ const Results = () => {
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
 
     const { data: productsData, isLoading } = useFetchProductSearchQuery({ name: searchInput });
-    console.log(productsData);
     const { data: usersData, isLoading: isLoadingUsers } = useSearchUserQuery(
         { username: searchInput, page: 1 },
         {
