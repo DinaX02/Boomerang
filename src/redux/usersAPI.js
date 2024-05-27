@@ -8,6 +8,7 @@ export const myUserAPI = createApi({
       headers.set("Content-Type", "application/json");
       return headers;
     },
+    credentials: 'include',
   }),
 
   endpoints: (builder) => ({
@@ -17,9 +18,9 @@ export const myUserAPI = createApi({
         method: "POST",
         body: { username, password },
       }),
-      transformResponse: (response) => {
-        return { username: response.username, token: response.token };
-      },
+      // transformResponse: (response) => {
+      //   return {response};
+      // },
     }),
 
     registerUser: builder.mutation({
@@ -46,9 +47,9 @@ export const myUserAPI = createApi({
     }),
 
     seeUser: builder.query({
-      query: ({ id }) => ({
-        url: "user",
-        params: { id },
+      query: ({ id } = {}) => ({
+        url: `user${id ? `?id=${id}` : ''}`, 
+        method: "GET",
       }),
     }),
 

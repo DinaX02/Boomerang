@@ -240,14 +240,16 @@ const SignUpPage = () => {
           }>
           <span className="colourGreenAsterisk">*</span> Campo Obrigatório
         </div>
-      </form>
-      <Button
+        
+        <Button
         type="submit"
         onClick={handleEntrarClick}
         text="Concluir"
         disable={!todosCamposPreenchidos || !termosAceitos}
       >
       </Button>
+      </form>
+
       {/* <div>
         <div className='dragHandleContainer' onClick={dragClickHandle}>
           <div className='dragHandle' />
@@ -266,79 +268,92 @@ const SignUpPage = () => {
 }
 
 const RegistarStyle = styled.div`
-  .formRegistar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 600px;
-    margin: auto;
-  }
 
-  .termsContainer {
-    width: calc(100% - 48px);
-    display: flex;
-    align-items: start;
-    margin-bottom: 12px; /* Ajuste conforme necessário */
-  }
+flex-direction: column;
+min-height: 100vh;
+min-height: 100vh;
 
-  .termos {
-    font-size: 12px;
-    margin-left: 5px;
-    a {
-      text-decoration: underline;
-      color: #484954;
-    }
-  }
+.formRegistar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: auto;
+  flex: 1;
+  width: 100%;
+}
 
-  .campoObrigatorio {
-    width: calc(100% - 48px);
-    margin-bottom: 24px;
-    font-size: 14px;
-  }
+.termsContainer {
+  width: calc(100% - 48px);
+  display: flex;
+  align-items: start;
+  margin-bottom: 12px;
+}
 
-  .colourGreenAsterisk{
+.termos {
+  font-size: 12px;
+  margin-left: 5px;
+  a {
+    text-decoration: underline;
+    color: #484954;
+  }
+}
+
+.campoObrigatorio {
+  width: calc(100% - 48px);
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.colourGreenAsterisk {
   color: #00C17C;
   margin-left: 5px;
   margin-right: 5px;
 }
- .inputAsteriskContainer  {
+
+.inputAsteriskContainer {
   width: 100%;
   text-align: center;
- }
+}
 
- .inputAsteriskContainer .colourGreenAsterisk {
+.inputAsteriskContainer .colourGreenAsterisk {
   position: absolute;
   right: 40px;
   margin-top: 7px;
- }
+}
 
- .buttonOpenBottomSheetContainer {
+.buttonOpenBottomSheetContainer {
   width: calc(100% - 48px);
-  /* margin-top: 24px; */
   margin: 0;
- }
+}
 
- .headerBoomerang {
+.headerBoomerang {
   margin-bottom: 24px;
- }
+}
 
- .btnComponent {
-  position: absolute;
+.btnComponent {
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
- }
+}
 
- .asterisk {
+.asterisk {
   display: none;
- }
+}
 
- .buttonOpenBottomSheetContainer button {
+.buttonOpenBottomSheetContainer button {
   color: gray;
- }
+}
 
- .buttonOpenBottomSheetContainer button.opcaoSelecionada {
+.buttonOpenBottomSheetContainer button.opcaoSelecionada {
   color: black;
-  }
-`
+}
+
+.formRegistar button[type="submit"] {
+  margin: 0 auto;
+  margin-top: auto;
+}
+`;
+
 
 export default SignUpPage
