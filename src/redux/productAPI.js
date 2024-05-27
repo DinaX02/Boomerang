@@ -12,7 +12,10 @@ export const myAPI = createApi({
 
     endpoints: (builder) => ({
         fetchProduct: builder.query({
-            query: ({ id }) => `product?id=${id}`,
+            query: ({id = ''}) => ({
+                url: `product/?id=${id}`,
+                method: "GET",
+              }),
         }),
         createProduct: builder.mutation({
             query: ({ title, description, value, price_day, availability, brand, sizeId, productTypeId, colorId, gradeId }) => ({
@@ -38,7 +41,10 @@ export const myAPI = createApi({
             query: () => 'product/form', // Corrigido: URL deve ser uma string
         }),
         fetchProductSearch: builder.query({
-            query: () => 'product/search', // Corrigido: URL deve ser uma string
+            query: ({name = '', id = ''}) => ({
+                url: `product/search?name=${name}&id=${id}`,
+                method: "GET",
+              }),
         }),
     }),
 });
