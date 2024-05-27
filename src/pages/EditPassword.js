@@ -8,11 +8,13 @@ import Modal from '../components/Modal';
 import Input from '../components/Input';
 
 const EditEmail = () => {
-  const [username, setUsername] = useState("mariacarmo@gmail.com");
-  const [disableUsername, setDisableUsername] = useState(true);
+
   const [disableBtn, setDisableBtn] = useState(true);
   const [fecharModal, setFecharModal] = useState(true);
   const [alert, setAlert] = useState(false);
+  const [disablePassword, setDisablePassword] = useState(true);
+  const [password, setPassword] = useState("password_atual");
+
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,40 +24,59 @@ const EditEmail = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
-  const handleEditUsernameInput = () => {
-    setDisableUsername(false);
-    setDisableBtn(false);
-    setAlert(true);
-  }
  
 
   const alertHandler = () => {
     alert ? setFecharModal(false) : navigate(-1);
   }
 
+  const handleEditPasswordInput = () => {
+    setDisablePassword(false);
+    setDisableBtn(false);
+    setAlert(true);
+  }
+
   return (
     <>
-      <Header name="Editar Email" alertHandler={alertHandler} />
+      <Header name="Editar Palavra-passe" alertHandler={alertHandler} />
       <EditProfileStyle>
         <form onSubmit={handleSubmit}>
 
           <div className='inputsContainer'>
             <div className='inputContainer'>
-              <div className='inputTitleContainer'>
-                <label htmlFor="username" className='inputTitle'>
-                  Email
-                  <button className='buttonediticon'>
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" onClick={handleEditUsernameInput}/>
-                  </button>
-                </label>
+            <div className='inputTitleContainer'>
+                <label htmlFor="password" className='inputTitle'>
+                  Palavra-passe atual
+                  </label>
+                  <button className="buttonEdit" onClick={handleEditPasswordInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
+                
               </div>
               <Input
                 obrigatorio={true}
+                type="password"
                 placeholder=""
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                disabled={disableUsername}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={disablePassword}
+              />
+            </div>
+            <div className='inputContainer'>
+            <div className='inputTitleContainer'>
+                <label htmlFor="password" className='inputTitle'>
+                  Palavra-passe nova
+                  </label>
+                  <button className="buttonEdit" onClick={handleEditPasswordInput}>
+                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input"/></button>
+                
+              </div>
+              <Input
+                obrigatorio={true}
+                type="password"
+                placeholder=""
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={disablePassword}
               />
             </div>
 
@@ -173,7 +194,13 @@ const EditProfileStyle = styled.div`
         border: none;
         background-color: transparent;
       }
-      
+      .buttonEdit{
+        border: none;
+        margin: 0;
+        padding:0;
+        background-color: transparent;
+      }
+
       @media only screen and (min-width: 600px) {
         .input {
           font-size: 17px;
