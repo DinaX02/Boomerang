@@ -35,15 +35,23 @@ import Popper from '@mui/material/Popper';
 import { MenuList } from "@mui/material";
 import denunciarIcon from "../assets/icons/denunciar.svg";
 // import notificarIcon from "../assets/icons/notificar-me.svg";
+import { useFetchProductQuery } from '../redux/productAPI';
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+import { CircularProgress } from "@mui/material";
 
 const ArticlePage = (props) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { id } = useParams();
-  const [item, setItem] = useState({});
   const [fecharModal, setFecharModal] = useState(true);
   const message1 = "<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>"
   const [modalMessage, setModalMessage] = useState(message1);
+  const { data: productsData, isLoading, error } = useFetchProductQuery({ id: id });
+  const [item, setItem] = useState({});
+  
+  if (error) {
+    console.log("Mensagem de erro:" + error.message);
+  }
 
   const messages = [
     (<span>O <strong>valor estimado</strong> traduz a avaliação pessoal que o utilizador atribui à sua peça.</span>),
@@ -118,6 +126,8 @@ const ArticlePage = (props) => {
     // dar reset ao scroll quando se entrar aqui :)
     window.scrollTo(0, 0);
   }, []);
+
+  const imgHeight = `${(144 / 120) * parseInt(144)}px`;
 
   return (
     <ArticlePageStyle>
@@ -194,7 +204,9 @@ const ArticlePage = (props) => {
           </Popper>
         </div>
       </div>
-      {item.images && item.images.length > 0 &&
+      {isLoading && <CircularProgress className={'loader'} color="success" />}
+
+      {!isLoading && productsData[0].images && productsData[0].images.length > 0 &&
         <div className={'carousel'}>
           <Carousel
             showStatus={false}
@@ -231,6 +243,16 @@ const ArticlePage = (props) => {
           </Carousel>
         </div>
       }
+      {!isLoading && !productsData[0].images &&
+        // <img
+        //   src={imageDefaultProduct}
+        //   style={{ height: `${imgHeight}` }}
+        //   alt={`${productsData[0].title}`}
+        // />
+        <ImagemIndisponivel>
+          <p>Imagem indisponível</p>
+        </ImagemIndisponivel>
+      }
 
       <div className={'articleHeader'}>
         <div className={'user'}>
@@ -251,11 +273,11 @@ const ArticlePage = (props) => {
           <Button text="Chat" onClick={() => navigate(`/chat`)}></Button>
         </div>
       </div>
-      <div className={'articleSection'}>
+      {!isLoading && <div className={'articleSection'}>
         <p className={'title'}>Título da Peça</p>
-        <p style={{marginBottom: "0px"}}>{item.title}</p>
-      </div>
-      <div className={'articleSection'}>
+        <p style={{ marginBottom: "0px" }}>{productsData[0].title}</p>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Valor Estimado do Artigo
           <button
             onClick={() => { handleIconClick(0) }}
@@ -265,51 +287,79 @@ const ArticlePage = (props) => {
               src={InfoIconTaxa} alt='icone de informação' />
           </button>
         </div>
-        <div style={{ marginBottom: "24px" }}>60€</div>
+        <div style={{ marginBottom: "24px" }}>{productsData[0].value}</div>
         <div className={'title'}>Preço do Aluguer por dia</div>
-        <div style={{ marginTop: "10px" }}>{item.dailyRentalPrice}€ / dia</div>
+        <div style={{ marginTop: "10px" }}>{productsData[0].price_day}</div>
         <button className={'title buttonInfo'} style={{ fontWeight: "500", textDecoration: "underline" }} onClick={() => { handleIconClick(1) }}>Taxa de Proteção Obrigatória <img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button>
-      </div>
-      <div className={'articleSection'}>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Descrição</div>
-        <div>{item.description}</div>
-      </div>
-      <div className={'articleSection'}>
+        <div>{productsData[0].description}</div>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Tamanho</div>
-        <div>{item.size}</div>
-      </div>
-      <div className={'articleSection'}>
+        <div>{productsData[0].Size.name}</div>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Cor</div>
-        <div className={'articleColor'}><img src={colorImages[item.color]} alt='cor da imagem' />{item.color}</div>
-      </div>
-      <div className={'articleSection'}>
+        <div className={'articleColor'}><img src={colorImages[productsData[0].Color.name]} alt='cor da imagem' />{productsData[0].Color.name}</div>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Categoria</div>
-        <div>Vestido</div>
-      </div>
-      <div className={'articleSection'}>
+        <div>{productsData[0].ProductType.name}</div>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Marca</div>
-        <div>{item.brand}</div>
-      </div>
-      <div className={'articleSection'}>
+        <div>{productsData[0].brand}</div>
+      </div>}
+      {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Estado <button onClick={() => { handleIconClick(2) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button></div>
-        <div>{item.condition}</div>
-      </div>
-      <div className={'articleSection'}>
-        <div className={'title'}>Medidas da Peça <button onClick={() => { handleIconClick(3) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button></div>
-        {item.measurements && Object.entries(item.measurements).map(([propertyName, propertyValue]) => (
+        <div>{productsData[0].Grade.name}</div>
+      </div>}
+      {!isLoading && productsData[0].measurements && <div className={'articleSection'}>
+        {productsData[0].measurements && <div className={'title'}>Medidas da Peça <button onClick={() => { handleIconClick(3) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button>
+        </div>
+        }
+        {productsData[0].measurements && Object.entries(productsData[0]).map(([propertyName, propertyValue]) => (
           <div key={propertyName}>
             {propertyName}: {propertyValue}
           </div>
         ))}
 
       </div>
+      }
 
     </ArticlePageStyle>
   )
 }
 
+const ImagemIndisponivel = styled.div`
+margin: 0 24px;
+margin-top: 67px;
+border-bottom: 1px solid rgb(0,0,0,0.1);
+height: 100px;
+
+  p{
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+`
+
 const ArticlePageStyle = styled.div`
-  
+    .loader{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 40px;
+    height: 40px;
+  }
   
   .headerBoomerang{
     z-index: 100;
