@@ -5,20 +5,8 @@ import ExitPage from "../assets/icons/eliminar.svg";
 import GreenStar from "../assets/icons/green_star.svg";
 import AddFriendsIcon from "../assets/icons/Add_friends_icon.svg";
 import IconCampanhasTemporarias from "../assets/icons/icon_campanhas_temporarias.svg";
+import Header from "../components/Header/Header";
 
-const ContainerConvidarAmigos = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 30px;
-  width: 100%;
-
-
-  .btnFecharr{
-    border: none; 
-    background: transparent;
-  }
-`;
 const ContainerGeral = styled.div`
   padding: 0 24px;
 `;
@@ -97,34 +85,9 @@ const ContainerAddAmigos = styled.div`
     font-size: 14px;
   }
 `;
-const FecharPaginaIcon = styled.img`
-  width: 20px;
-  height: 20px;
-`;
-const ButtonRecompensas = styled.button`
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  padding-top: 0.3em;
-  padding-bottom: 0.3em;
-  padding-left: 0.6em;
-  padding-right: 0.6em;
-  background-color: #c6f6e5;
-  border: none;
 
-  &:active {
-    background-color: #a4e9d8;
-  }
-`;
-
-const GreenStarIcon = styled.img`
-  margin-left: 0.3em;
-  margin-right: 0.6em;
-  width: 20px;
-  height: 20px;
-`;
 const TituloPagina = styled.p`
-  margin-top: 3em;
+  margin-top: 30px;
   font-size: 20px;
   font-weight: 800;
 `;
@@ -135,21 +98,10 @@ const RecompensasParaAddAmigos = () => {
     navigate("/profile-page");
   };
 
-  return (
+  return (<>
+    <Header name={"Recompensas"} />
     <ContainerGeral>
-      <ContainerConvidarAmigos>
-        <button className="btnFecharr">
-        <FecharPaginaIcon
-          src={ExitPage}
-          alt="fechar pagina"
-          onClick={handleGoBack}
-        /></button>
-        <ButtonRecompensas>
-          <GreenStarIcon src={GreenStar} alt="icon de recompensa" />
-          Recompensas
-        </ButtonRecompensas>
-      </ContainerConvidarAmigos>
-      <TituloPagina>Ganhe Recompensas</TituloPagina>
+      <TituloPagina>Ganha Recompensas</TituloPagina>
       <p style={{ fontSize: "13px" }}>
         Partilha com os teus amigos e começa a ganhar!
       </p>
@@ -175,7 +127,10 @@ const RecompensasParaAddAmigos = () => {
         </Link>
       </ContainerCampanhasTemporarias>
     </ContainerGeral>
+  </>
+
   );
+
 };
 
 export default RecompensasParaAddAmigos;

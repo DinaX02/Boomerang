@@ -155,6 +155,7 @@ const EditProfile = () => {
                 onChange={handleUsernameChange}
               />
             </div>
+            
             <div className='inputContainer'>
               <div className='inputTitleContainer' style={{ marginTop: "0" }}>
                 <label htmlFor="biografia" className='inputTitle'>
@@ -165,6 +166,7 @@ const EditProfile = () => {
                 </button>
                 <span className="countCharBiografia">{countChar}/150</span>
               </div>
+
               <textarea
                 className="biografiaInput input"
                 id="biografia"
@@ -175,12 +177,14 @@ const EditProfile = () => {
               />
             </div>
           </div>
+
           <div className='btnAtualizarDados'>
             <button className='buttonAtualizar'
               disabled={disableBtn}
               type="submit"
             >Atualizar perfil</button>
           </div>
+
         </form>
         <Modal
           fecharModal={fecharModal}
