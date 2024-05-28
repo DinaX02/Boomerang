@@ -312,7 +312,7 @@ const EditProfileStyle = styled.div`
         cursor: not-allowed;
       }
 
-      .buttonAtualizar:active {
+      .buttonAtualizar:not(:disabled):active {
         background-color: #00C17C;
       }
       

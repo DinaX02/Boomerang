@@ -7,13 +7,14 @@ import Header from '../components/Header/Header';
 import Input from '../components/Input';
 import Modal from '../components/Modal';
 import ButtonForOpenBottomSheetSignUp from "../components/ButtonForOpenBottomSheetSignUp";
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import BottomSheetGender from '../components/BottomSheets/BottomSheetGender';
 import { useRegisterUserMutation } from '../redux/usersAPI';
 
 const SignUpPage = () => {
   const [inputNomeValue, setInputNomeValue] = useState('');
   const [inputApelidoValue, setInputApelidoValue] = useState('');
+  // const [disableBtn, setDisableBtn] = useState(true);
   const [inputEmailValue, setInputEmailValue] = useState('');
   const [inputNomeUtilizadorValue, setInputNomeUtilizadorValue] = useState('');
   const [inputPassValue, setInputPassValue] = useState('');
@@ -88,9 +89,9 @@ const SignUpPage = () => {
     setBottomSheetOpen(!bottomSheetOpen);
   }
 
-  const handleEntrarClick = () => {
-    navigate('/');
-  }
+  // const handleEntrarClick = () => {
+  //   navigate('/');
+  // }
 
 
   useEffect(() => {
@@ -144,7 +145,7 @@ const SignUpPage = () => {
           gender: btnGeneroName,
           password: inputPassValue,
         }).unwrap();
-        navigate('/login'); 
+        navigate('/');
       } catch (err) {
         console.error('Failed to register:', err);
       }
@@ -241,13 +242,24 @@ const SignUpPage = () => {
           <span className="colourGreenAsterisk">*</span> Campo Obrigatório
         </div>
         
-        <Button
+        <div className='btnAtualizarDados'>
+  <button 
+    className='buttonAtualizar'
+    disabled={!todosCamposPreenchidos || !termosAceitos || !matchPassword}
+    onClick={handleRegisterClick} // Chama a função correta
+    type="submit"
+  >
+    Concluir
+  </button>
+</div>
+
+        {/* <Button
         type="submit"
         onClick={handleEntrarClick}
         text="Concluir"
         disable={!todosCamposPreenchidos || !termosAceitos}
       >
-      </Button>
+      </Button> */}
       </form>
 
       {/* <div>
@@ -268,91 +280,118 @@ const SignUpPage = () => {
 }
 
 const RegistarStyle = styled.div`
-
-flex-direction: column;
-min-height: 100vh;
-min-height: 100vh;
-
-.formRegistar {
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 600px;
-  margin: auto;
-  flex: 1;
-  width: 100%;
-}
+  min-height: 100vh;
 
-.termsContainer {
-  width: calc(100% - 48px);
-  display: flex;
-  align-items: start;
-  margin-bottom: 12px;
-}
-
-.termos {
-  font-size: 12px;
-  margin-left: 5px;
-  a {
-    text-decoration: underline;
-    color: #484954;
+  .formRegistar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+    flex: 1;
+    width: 100%;
   }
-}
 
-.campoObrigatorio {
-  width: calc(100% - 48px);
-  margin-bottom: 24px;
-  font-size: 14px;
-}
+  .termsContainer {
+    width: calc(100% - 48px);
+    display: flex;
+    align-items: start;
+    margin-bottom: 12px;
+  }
 
-.colourGreenAsterisk {
-  color: #00C17C;
-  margin-left: 5px;
-  margin-right: 5px;
-}
+  .termos {
+    font-size: 12px;
+    margin-left: 5px;
+    a {
+      text-decoration: underline;
+      color: #484954;
+    }
+  }
 
-.inputAsteriskContainer {
-  width: 100%;
-  text-align: center;
-}
+  .campoObrigatorio {
+    width: calc(100% - 48px);
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
 
-.inputAsteriskContainer .colourGreenAsterisk {
-  position: absolute;
-  right: 40px;
-  margin-top: 7px;
-}
+  .colourGreenAsterisk {
+    color: #00C17C;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
-.buttonOpenBottomSheetContainer {
-  width: calc(100% - 48px);
-  margin: 0;
-}
+  .inputAsteriskContainer {
+    width: 100%;
+    text-align: center;
+  }
 
-.headerBoomerang {
-  margin-bottom: 24px;
-}
+  .btnAtualizarDados {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.btnComponent {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
+  .buttonAtualizar {
+    background-color: #343541;
+    color: white !important;
+    font-weight: bold;
+    font-size: 15px;
+    width: 144px;
+    height: 36px;
+    border-radius: 5px;
+    border: 1px transparent;
+    font-family: Montserrat;
+    cursor: pointer;
+  }
 
-.asterisk {
-  display: none;
-}
+  .buttonAtualizar:disabled {
+    background-color: rgb(202, 202, 202);
+    cursor: not-allowed;
+  }
 
-.buttonOpenBottomSheetContainer button {
-  color: gray;
-}
+  .buttonAtualizar:not(:disabled):active {
+    background-color: #00C17C;
+  }
 
-.buttonOpenBottomSheetContainer button.opcaoSelecionada {
-  color: black;
-}
+  .inputAsteriskContainer .colourGreenAsterisk {
+    position: absolute;
+    right: 40px;
+    margin-top: 7px;
+  }
 
-.formRegistar button[type="submit"] {
-  margin: 0 auto;
-  margin-top: auto;
-}
+  .buttonOpenBottomSheetContainer {
+    width: calc(100% - 48px);
+    margin: 0;
+  }
+
+  .headerBoomerang {
+    margin-bottom: 24px;
+  }
+
+  .btnComponent {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .asterisk {
+    display: none;
+  }
+
+  .buttonOpenBottomSheetContainer button {
+    color: gray;
+  }
+
+  .buttonOpenBottomSheetContainer button.opcaoSelecionada {
+    color: black;
+  }
+
+  .formRegistar button[type="submit"] {
+    margin: 0 auto;
+    margin-top: auto;
+  }
 `;
 
 
