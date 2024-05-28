@@ -1,30 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import Header from "../components/Header/Header";
-import Modal from "../components/Modal";
+// import Modal from "../components/Modal";
 
 const Profile = () => {
-  const [fecharModal, setFecharModal] = useState(true);
+  // const [fecharModal, setFecharModal] = useState(true);
 
   useEffect(() => {
     // dar reset ao scroll quando se entrar aqui :)
     window.scrollTo(0, 0);
   }, []);
 
-  const apagarContaHandler = () => {
-    setFecharModal(false);
-  }
+  // const apagarContaHandler = () => {
+  //   setFecharModal(false);
+  // }
 
   return (
     <div>
-      <Modal
+      {/* <Modal
         fecharModal={fecharModal}
         setFecharModal={setFecharModal}
         message="Tens a certeza que queres apagar a tua conta?"
         alert={true}
-      />
+      /> */}
+      
       <Header name="Definições" />
 
       <ProfileStyle>
@@ -66,7 +67,9 @@ const Profile = () => {
             </div>
           </Link>
           <hr></hr>
-          <div className="iconitem" onClick={apagarContaHandler}>
+          {/* <div className="iconitem" onClick={apagarContaHandler}> */}
+          <Link to={"/apagar-conta"}>
+          <div className="iconitem">
             <div className="profiletext">
               <p>Apagar conta</p>
             </div>
@@ -75,6 +78,7 @@ const Profile = () => {
               className="seta"
             ></ArrowForwardIosRoundedIcon>
           </div>
+          </Link>
         </div>
       </ProfileStyle>
     </div>
