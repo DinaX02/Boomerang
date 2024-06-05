@@ -72,13 +72,13 @@ const EditProfile = () => {
     try {
       const newBio = biografia !== userData.bio ? biografia : userData.bio;
 
-      console.log("Dados a serem enviados para edição:", {
-        bio: newBio,
-        username,
-        name: userData.name,
-        email: userData.email,
-        gender: userData.gender
-      });
+      // console.log("Dados a serem enviados para edição:", {
+      //   bio: newBio,
+      //   username,
+      //   name: userData.name,
+      //   email: userData.email,
+      //   gender: userData.gender
+      // });
 
       await editUser({
         bio: newBio,
