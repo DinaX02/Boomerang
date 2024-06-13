@@ -3,6 +3,16 @@ import { useSpring, animated } from "react-spring";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 import { FocusOn } from 'react-focus-on';
+import PretoSvg from "../../assets/cores/preto.svg";
+import BrancoSvg from "../../assets/cores/branco.svg";
+import VermelhoSvg from "../../assets/cores/vermelho.svg";
+import VerdeSvg from "../../assets/cores/verde.svg";
+import RosaSvg from "../../assets/cores/rosa.svg";
+import AzulSvg from "../../assets/cores/azul.svg";
+import AmareloSvg from "../../assets/cores/amarelo.svg";
+import MulticorSvg from "../../assets/cores/multicor.svg";
+import RoxoSvg from "../../assets/cores/roxo.svg";
+import LaranjaSvg from "../../assets/cores/laranja.svg";
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -14,7 +24,7 @@ const ModalContainer = styled(animated.div)`
   border-top-right-radius: 10px;
   cursor: grab;
   max-height: 370px;
-  overflow-y: auto;
+  overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
@@ -73,23 +83,37 @@ const Button = styled.button`
   border-bottom: 1px solid #cacaca !important;
   text-align: center;
   cursor: pointer !important;
+  
 
   &:hover {
     background-color: #dcdcdc;
   }
 `;
 
-const BottomSheetSizes = React.forwardRef(({ onSelectOptionSizes }, ref) => {
+const BottomSheetSizes = React.forwardRef(({ onSelectOption, props, data }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (option, id) => {
     // console.log(`Opção selecionada: ${option}`);
-    onSelectOptionSizes(option);
+    onSelectOption(option, id);
   };
 
   const modalProps = useSpring({
     opacity: isOpen ? 1 : 0,
   });
+
+  const colorImages = {
+    preto: PretoSvg,
+    branco: BrancoSvg,
+    vermelho: VermelhoSvg,
+    verde: VerdeSvg,
+    azul: AzulSvg,
+    amarelo: AmareloSvg,
+    rosa: RosaSvg,
+    multicor: MulticorSvg,
+    roxo: RoxoSvg,
+    laranja: LaranjaSvg
+  };
 
   return (
     <Draggable
@@ -105,12 +129,12 @@ const BottomSheetSizes = React.forwardRef(({ onSelectOptionSizes }, ref) => {
             <DragHandle />
           </DragContainer>
           <ButtonContainer>
-            <Button onTouchStart={() => handleOptionSelect("XS")}>XS</Button>
-            <Button onTouchStart={() => handleOptionSelect("S")}>S</Button>
-            <Button onTouchStart={() => handleOptionSelect("M")}>M</Button>
-            <Button onTouchStart={() => handleOptionSelect("L")}>L</Button>
-            <Button onTouchStart={() => handleOptionSelect("XL")}>XL</Button>
-            <Button onTouchStart={() => handleOptionSelect("XXL")}>XXL</Button>
+            {props.map((product) => {
+              return <Button style={props===data.colors ? {textAlign: 'left', paddingLeft: '24px'} : {textAlign: 'center'}} onTouchStart={() => handleOptionSelect(product.name, product.id)} key={product.id}>
+                {props === data.colors && <img src={colorImages[product.name.toLowerCase()]} alt={product.name} style={{marginRight: "10px"}}/>}
+                {product.name}
+              </Button>
+            })}
           </ButtonContainer>
         </FocusOn>
       </ModalContainer>

@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
 import InputMeasuresNotMandatory from "../InputsMesuresNotMandatory";
-import ButtonWithInfoIcon from "../ButtonWithInfoIcon";
+import ButtonForOpenBottomSheet from "../ButtonForOpenBottomSheet";
 import HeaderPublish from "../Header/HeaderPublicar";
-import BottomSheet from "../BottomSheets/BottomSheetCondition";
+import BottomSheet from "../BottomSheets/BottomSheet";
 import Draggable from "react-draggable";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
 import CustomizedSteppers from "../ProgressBar";
+import { useFetchProductFormQuery } from '../../redux/productAPI';
+import { CircularProgress } from "@mui/material";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -28,16 +30,30 @@ justify-content: space-evenly;
 z-index: -1;
 `;
 
+const Loader = styled(CircularProgress)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+`;
+
 const ProgressPublish3 = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const bottomSheetRef = useRef(null);
-  const [fecharModal, setFecharModal] = useState(true); 
+  const [fecharModal, setFecharModal] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data, isLoading } = useFetchProductFormQuery();
 
-  const selectedOption = useSelector(
-    (state) => state.Publicar1.progressPublish1.conditionOfClothing
+  const selectedOptionID = useSelector(
+    (state) => state.Publicar1.progressPublish1.GradeId
   );
+  const selectedOption = data?.grades?.find((size) => size.id === selectedOptionID)?.name;
+
 
   // console.log("opçao seleciona foi2....", selectedOption);
 
@@ -55,8 +71,8 @@ const ProgressPublish3 = () => {
     navigate("/progressPublish-4");
   };
 
-  const handleOptionSelect = (option) => {
-    dispatch(updateProgressPublish1({ conditionOfClothing: option }));
+  const handleOptionSelect = (option, id) => {
+    dispatch(updateProgressPublish1({ GradeId: id }));
     setBottomSheetOpen(false);
     setNextButtonDisabled(false);
   };
@@ -73,48 +89,54 @@ const ProgressPublish3 = () => {
   };
 
   return (
-    <div>
-      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
-      <CustomizedSteppers
-      activeStep={2}
-      onStepChange={handleChangeStepInProgressBar}
-      onNext={handleNextStepPublish}
-      onBack={handleGoBackStepPublish}
-      />
-      <ModalAlertaForPublish
+    <>
+      {isLoading && <Loader className={'loader'} color="success" />}
+
+      {!isLoading && <div>
+        <HeaderPublish name="Publicar" alertHandler={alertHandler} />
+        <CustomizedSteppers
+          activeStep={2}
+          onStepChange={handleChangeStepInProgressBar}
+          onNext={handleNextStepPublish}
+          onBack={handleGoBackStepPublish}
+        />
+        <ModalAlertaForPublish
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}
           alert={alert}
           message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
         />
-      {bottomSheetOpen && (
-        <Draggable
-          cancel=".no-drag"
-          bounds="parent"
-          positionOffset={{ x: "0", y: "0" }}
-          onStop={() => setBottomSheetOpen(false)}
-          nodeRef={bottomSheetRef}
-        >
-          <BottomSheet
-            ref={bottomSheetRef}
-            onClose={() => setBottomSheetOpen(false)}
-            onSelectOption={handleOptionSelect}
+        {bottomSheetOpen && (
+          <Draggable
+            cancel=".no-drag"
+            bounds="parent"
+            positionOffset={{ x: "0", y: "0" }}
+            onStop={() => setBottomSheetOpen(false)}
+            nodeRef={bottomSheetRef}
+          >
+            <BottomSheet
+              ref={bottomSheetRef}
+              onClose={() => setBottomSheetOpen(false)}
+              onSelectOption={handleOptionSelect}
+              props={data.grades}
+              data={data}
+            />
+          </Draggable>
+        )}
+        <SpaceTopComponent>
+          <ButtonForOpenBottomSheet
+            btnName="Estado"
+            onClick={handleToggleBottomSheet}
+            selectedOption={selectedOption}
           />
-        </Draggable>
-      )}
-      <SpaceTopComponent>
-        <ButtonWithInfoIcon
-          infoName="Estado"
-          onClick={handleToggleBottomSheet}
-          selectedOption={selectedOption}
-        />
-      </SpaceTopComponent>
-      <InputMeasuresNotMandatory />
-      <ContainerDoisBtn>
-        <Button text="Anterior" onClick={handleGoBackStepPublish} />
-        <Button text="Próximo" onClick={handleNextStepPublish} disable={nextButtonDisabled} />
-      </ContainerDoisBtn>
-    </div>
+        </SpaceTopComponent>
+        <InputMeasuresNotMandatory />
+        <ContainerDoisBtn>
+          <Button text="Anterior" onClick={handleGoBackStepPublish} />
+          <Button text="Próximo" onClick={handleNextStepPublish} disable={nextButtonDisabled} />
+        </ContainerDoisBtn>
+      </div>}
+    </>
   );
 };
 

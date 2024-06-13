@@ -4,9 +4,11 @@ import closeFilter from '../assets/icons/eliminar.svg';
 import maisFilter from '../assets/icons/mostrar_mais_icon.svg';
 import menosFilter from '../assets/icons/Filter_menos.svg';
 import Button from "./Button";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useFetchProductFormQuery } from '../redux/productAPI';
 
 const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
+    const { data, isLoading } = useFetchProductFormQuery();
 
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
@@ -19,17 +21,17 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
     });
 
     const [selectedFilters, setSelectedFilters] = useState({
-        size: null,
-        color: null,
-        category: null,
-        brand: null,
+        size: '',
+        color: '',
+        category: '',
+        brand: '',
     });
 
     const toggleFiltersOn = () => {
-        const size = queryParams.get('size') || null;
-        const category = queryParams.get('category') || null;
-        const color = queryParams.get('color') || null;
-        const brand = queryParams.get('brand') || null;
+        const size = queryParams.get('size') || '';
+        const category = queryParams.get('category') || '';
+        const color = queryParams.get('color') || '';
+        const brand = queryParams.get('brand') || '';
         setSelectedFilters({
             size: size,
             color: color,
@@ -53,13 +55,13 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
 
     const handleApplyFilters = () => {
         // Apply selected filters
-        console.log(selectedFilters)
+        // console.log(selectedFilters)
         applyFilters(selectedFilters);
         toggleFiltersOff(); // Close the filter overlay
     };
 
     const handleSelectFilter = (filterType, value) => {
-        const newValue = selectedFilters[filterType] === value ? null : value;
+        const newValue = selectedFilters[filterType] === value ? '' : value;
 
         setSelectedFilters({
             ...selectedFilters,
@@ -67,6 +69,14 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
         });
     };
 
+    const getUniqueCategories = (categories) => {
+        const seen = new Set();
+        return categories.filter(item => {
+            const isDuplicate = seen.has(item.category);
+            seen.add(item.category);
+            return !isDuplicate;
+        });
+    };
     return (
         <div>
             <button className="filterButton" onClick={toggleFiltersOn}><img src={filtro} alt="filtro"></img></button>
@@ -92,26 +102,12 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                             </div>
                             {accordion.size && (
                                 <div className="panel">
-                                    <label>
-                                        <input type="radio" className="radioInput" name="size" value="XS" onChange={() => handleSelectFilter('size', 'XS')} checked={selectedFilters['size'] === 'XS'} />
-                                        XS
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="size" value="S" onChange={() => handleSelectFilter('size', 'S')} checked={selectedFilters['size'] === 'S'} />
-                                        S
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="size" value="M" onChange={() => handleSelectFilter('size', 'M')} checked={selectedFilters['size'] === 'M'} />
-                                        M
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="size" value="L" onChange={() => handleSelectFilter('size', 'L')} checked={selectedFilters['size'] === 'L'} />
-                                        L
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="size" value="XL" onChange={() => handleSelectFilter('size', 'XL')} checked={selectedFilters['size'] === 'XL'} />
-                                        XL
-                                    </label>
+                                    {data.sizes.map((elem) => {
+                                        return <label key={elem.id}>
+                                            <input type="radio" className="radioInput" name="size" value={elem.name} onChange={() => handleSelectFilter('size', elem.name)} checked={selectedFilters['size'] === elem.name} />
+                                            {elem.name}
+                                        </label>
+                                    })}
                                 </div>
                             )}
 
@@ -124,18 +120,12 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                             </div>
                             {accordion.color && (
                                 <div className="panel">
-                                    <label>
-                                        <input type="radio" className="radioInput" name="color" value="multicor" onChange={() => handleSelectFilter('color', 'multicor')} checked={selectedFilters['color'] === 'multicor'} />
-                                        Multicor
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="color" value="preto" onChange={() => handleSelectFilter('color', 'preto')} checked={selectedFilters['color'] === 'preto'} />
-                                        Preto
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="color" value="branco" onChange={() => handleSelectFilter('color', 'branco')} checked={selectedFilters['color'] === 'branco'} />
-                                        Branco
-                                    </label>
+                                    {data.colors.map((elem) => {
+                                        return <label key={elem.id}>
+                                            <input type="radio" className="radioInput" name="color" value={elem.name} onChange={() => handleSelectFilter('color', elem.name)} checked={selectedFilters['color'] === elem.name} />
+                                            {elem.name}
+                                        </label>
+                                    })}
                                 </div>
                             )}
 
@@ -148,18 +138,12 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                             </div>
                             {accordion.category && (
                                 <div className="panel">
-                                    <label>
-                                        <input type="radio" className="radioInput" name="category" value="mulher" onChange={() => handleSelectFilter('category', 'mulher')} checked={selectedFilters['category'] === 'mulher'} />
-                                        Mulher
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="category" value="homem" onChange={() => handleSelectFilter('category', 'homem')} checked={selectedFilters['category'] === 'homem'} />
-                                        Homem
-                                    </label>
-                                    <label>
-                                        <input type="radio" className="radioInput" name="category" value="crianca" onChange={() => handleSelectFilter('category', 'crianca')} checked={selectedFilters['category'] === 'crianca'} />
-                                        Criança
-                                    </label>
+                                    {getUniqueCategories(data.productTypes).map((elem) => {
+                                        return <label key={elem.id}>
+                                            <input type="radio" className="radioInput" name="category" value={elem.name} onChange={() => handleSelectFilter('category', elem.category)} checked={selectedFilters['category'] === elem.category} />
+                                            {elem.category}
+                                        </label>
+                                    })}
                                 </div>
                             )}
 

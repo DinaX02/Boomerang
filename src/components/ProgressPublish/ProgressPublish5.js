@@ -60,12 +60,12 @@ const ProgressPublish5 = () => {
   const dispatch = useDispatch();
 
   const handleAddressSelect = () => {
-    console.log("handleAddressSelect estado");
+    // console.log("handleAddressSelect estado");
     setBtnPublicarEnabled(true);
   };
 
   useEffect(() => {
-    console.log("BtnPublicarEnabled:", BtnPublicarEnabled);
+    // console.log("BtnPublicarEnabled:", BtnPublicarEnabled);
   }, [BtnPublicarEnabled]);
 
   const navigate = useNavigate();
@@ -77,14 +77,20 @@ const ProgressPublish5 = () => {
 
   const handleNextStepPublish = () => {
     setShowOverlayFinal(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
       console.log(progressPublish1);
-      publishProduct(progressPublish1);
-      dispatch(resetProgressPublish1());
+      const { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId } = progressPublish1;
 
-      setShowOverlayFinal(false);
-      navigate("/");
+      try {
+        await publishProduct({ title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId }).unwrap();
+        dispatch(resetProgressPublish1());
+        setShowOverlayFinal(false);
+        navigate("/");
+      } catch (error) {
+        console.log('Error publishing product:', error);
+        setShowOverlayFinal(false); // Hide overlay if there's an error
+      }
     }, 3000);
   }
 

@@ -53,7 +53,7 @@ const ButtonForOpenBottomSheet = ({ btnName, onClick, selectedOption}) => {
     <Container>
       <ButtonWrapper>
         <StyledButton onClick={() => onClick(selectedOption)}>
-        <span>{btnName} {selectedOption ? `: ${selectedOption}` : ""} <Asterisk>*</Asterisk></span>
+        <span>{selectedOption ? `${selectedOption}` : `${btnName}`} {!selectedOption && <Asterisk>*</Asterisk>}</span>
           <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
         </StyledButton>
       </ButtonWrapper>

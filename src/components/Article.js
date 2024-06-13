@@ -54,7 +54,7 @@ const Article = (props) => {
           {/* <div><FavoriteBorderIcon style={{color: "lightgray", scale: '0.7'}}/></div> */}
           <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />
         </div>
-        <p>{props.brand}</p>
+        <p>{props.brand ? props.brand : "Sem marca"}</p>
         <p>Tamanho {props.size}</p>
       </div>}
     </ArticleStyled>

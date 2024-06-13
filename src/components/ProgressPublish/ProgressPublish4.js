@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Button from "../Button";
 import InputWithInfoIcon from "../InputWithInfoIcon";
@@ -20,12 +20,12 @@ const SpaceTopComponent = styled.div`
 `;
 
 const ContainerDoisBtn = styled.div`
-position: fixed;
-bottom: 3.5em;
-width: 100%;
-display: flex;
-justify-content: space-evenly;
-z-index: -1;
+  position: fixed;
+  bottom: 3.5em;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: -1;
 `;
 
 const ProgressPublish4 = () => {
@@ -33,16 +33,10 @@ const ProgressPublish4 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { value, price_day } = useSelector((state) => state.Publicar1.progressPublish1);
 
-  const {
-    estimatedValue,
-    rentalPricePerDay
-  } = useSelector((state) => state.Publicar1.progressPublish1);
+  const isButtonDisable = !value || price_day === '' || price_day === 0;
 
-  // console.log("Valores atuais:", estimatedValue, rentalPricePerDay);
-
-  const isButtonDisable = !estimatedValue || rentalPricePerDay === '' || rentalPricePerDay === 0;
-  
   const handleGoBackStepPublish = () => {
     navigate("/progressPublish-3");
   };
@@ -50,8 +44,8 @@ const ProgressPublish4 = () => {
   const handleNextStepPublish = () => {
     dispatch(
       updateProgressPublish1({
-        estimatedValue,
-        rentalPricePerDay
+        value: value === "" ? 0 : Number(value),
+        price_day: price_day === "" ? 0 : Number(price_day),
       })
     );
     navigate("/progressPublish-5");
@@ -59,57 +53,58 @@ const ProgressPublish4 = () => {
 
   const alertHandler = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
-  }
+  };
 
-  const handleChangeStepInProgressBar = (newStep) => { // passar para o proximo step 
+  const handleChangeStepInProgressBar = (newStep) => {
+    // passar para o proximo step
   };
 
   return (
     <div>
-      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
+      <HeaderPublish name="Publicar" alertHandler={alertHandler} />
       <CustomizedSteppers
-      activeStep={3}
-      onStepChange={handleChangeStepInProgressBar}
-      onNext={handleNextStepPublish}
-      onBack={handleGoBackStepPublish}
+        activeStep={3}
+        onStepChange={handleChangeStepInProgressBar}
+        onNext={handleNextStepPublish}
+        onBack={handleGoBackStepPublish}
       />
       <ModalAlertaForPublish
-          fecharModal={fecharModal}
-          setFecharModal={setFecharModal}
-          alert={alert}
-          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
-        />
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        alert={alert}
+        message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+      />
       <SpaceTopComponent>
-      <InputWithInfoIcon
+        <InputWithInfoIcon
           btnName="Valor estimado da peça"
           infoName="Valor estimado da peça"
           inputPlaceholder="Ex: 120"
-          value={estimatedValue}
+          value={value === 0 ? "" : value}
           onChange={(e) => {
             dispatch(
               updateProgressPublish1({
-                estimatedValue: e.target.value,
-                rentalPricePerDay,
+                value: e.target.value === "" ? 0 : Number(e.target.value),
+                price_day,
               })
             );
           }}
         />
- <InputWithEuroIcon
+        <InputWithEuroIcon
           infoName="Preço do aluguer p/ dia"
-          inputPlaceholderr="Ex: 10"
-          value={rentalPricePerDay}
+          inputPlaceholder="Ex: 10"
+          value={price_day === 0 ? "" : price_day}
           onChange={(e) => {
             dispatch(
               updateProgressPublish1({
-                estimatedValue,
-                rentalPricePerDay: e.target.value,
+                value,
+                price_day: e.target.value === "" ? 0 : Number(e.target.value),
               })
             );
-            }}
+          }}
         />
         <ContainerDoisBtn>
           <Button text="Anterior" onClick={handleGoBackStepPublish} />
-          <Button text="Próximo" onClick={handleNextStepPublish} disable={isButtonDisable}/>
+          <Button text="Próximo" onClick={handleNextStepPublish} disable={isButtonDisable} />
         </ContainerDoisBtn>
       </SpaceTopComponent>
     </div>

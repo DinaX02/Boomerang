@@ -31,18 +31,30 @@ const Results = () => {
     const [singleColumnGrid, setSingleColumnGrid] = useState(false);
     const [articles, setArticles] = useState(articlesJSON);
     const type = queryParams.get('type') || '';
-    const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
+    // const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
+    const [sortingCriteria, setSortingCriteria] = useState('mostRecent'); // Estado para armazenar o critério de ordenação
+
     // const [users, setUsers] = useState(usersJSON);
-    const [filteredArticles, setFilteredArticles] = useState([]);
-    const [filteredUsers, setFilteredUsers] = useState([]);
+    // const [filteredArticles, setFilteredArticles] = useState([]);
+    // const [filteredUsers, setFilteredUsers] = useState([]);
     // const [isLoading, setIsLoading] = useState(true);
     const [currentParams, setCurrentParams] = useState(queryParams);
     const [searchInput, setSearchInput] = useState(queryParams.get('query') || '');
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [activeFilters, setActiveFilters] = useState({});
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
+    const [sizeFilter, setSizeFilter] = useState('');
+    const [colorFilter, setColorFilter] = useState('');
+    const [categoryFilter, setCategoryFilter] = useState('');
 
-    const { data: productsData, isLoading } = useFetchProductSearchQuery({ name: searchInput });
+    const { data: productsData, isLoading } = useFetchProductSearchQuery({
+        name: searchInput,
+        size: sizeFilter,
+        color: colorFilter,
+        category: categoryFilter,
+        orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
+        orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
+    });
     const { data: usersData, isLoading: isLoadingUsers } = useSearchUserQuery(
         { username: searchInput, page: 1 },
         {
@@ -68,10 +80,10 @@ const Results = () => {
         // setIsLoading(true);
         // Filter articles based on search query and parameters
         const query = queryParams.get('query') || '';
-        const size = queryParams.get('size') || null;
-        const category = queryParams.get('category') || null;
-        const color = queryParams.get('color') || null;
-        const brand = queryParams.get('brand') || null;
+        const size = queryParams.get('size') || '';
+        const category = queryParams.get('category') || '';
+        const color = queryParams.get('color') || '';
+        const brand = queryParams.get('brand') || '';
 
         if (type === 'articles') {
 
@@ -115,6 +127,16 @@ const Results = () => {
 
         // loop through the object and add filters that are not null
         for (const [filterType, value] of Object.entries(filterObj)) {
+            if (filterType === 'size') {
+                setSizeFilter(value);
+            }
+            if (filterType === 'color') {
+                setColorFilter(value);
+            }
+            if (filterType === 'category') {
+                setCategoryFilter(value);
+            }
+
             if (value !== null) {
                 newParams.set(filterType, value);
             } else {
@@ -127,7 +149,7 @@ const Results = () => {
     };
 
     const deleteFilter = (key) => {
-        activeFilters[key] = null;
+        activeFilters[key] = '';
         addFilters(activeFilters);
         console.log('delete')
     };
@@ -137,6 +159,8 @@ const Results = () => {
         newParams.set('sorting', criteria);
         setCurrentParams(newParams);
         navigate(`?${newParams.toString()}`);
+        setSortingCriteria(criteria); // Atualiza o estado local com o critério de ordenação selecionado
+        handleClose();
     };
 
     const handleSearch = (e) => {
@@ -301,7 +325,7 @@ const Results = () => {
                         </div>)}
                     <Stack style={{ paddingTop: '10px' }} direction="row" spacing={1}>
                         {Object.keys(activeFilters).map(key => {
-                            if (activeFilters[key] !== null) {
+                            if (activeFilters[key] !== '') {
                                 return (
                                     <Chip
                                         key={key}
@@ -310,7 +334,7 @@ const Results = () => {
                                     />
                                 );
                             } else {
-                                return null;
+                                return '';
                             }
                         })}
                     </Stack>
