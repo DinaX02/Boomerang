@@ -31,7 +31,9 @@ const Results = () => {
     const [singleColumnGrid, setSingleColumnGrid] = useState(false);
     const [articles, setArticles] = useState(articlesJSON);
     const type = queryParams.get('type') || '';
-    const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
+    // const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
+    const [sortingCriteria, setSortingCriteria] = useState('mostRecent'); // Estado para armazenar o critério de ordenação
+
     // const [users, setUsers] = useState(usersJSON);
     // const [filteredArticles, setFilteredArticles] = useState([]);
     // const [filteredUsers, setFilteredUsers] = useState([]);
@@ -45,7 +47,14 @@ const Results = () => {
     const [colorFilter, setColorFilter] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('');
 
-    const { data: productsData, isLoading } = useFetchProductSearchQuery({ name: searchInput, size: sizeFilter, color: colorFilter, category: categoryFilter });
+    const { data: productsData, isLoading } = useFetchProductSearchQuery({
+        name: searchInput,
+        size: sizeFilter,
+        color: colorFilter,
+        category: categoryFilter,
+        orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
+        orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
+    });
     const { data: usersData, isLoading: isLoadingUsers } = useSearchUserQuery(
         { username: searchInput, page: 1 },
         {
@@ -118,16 +127,16 @@ const Results = () => {
 
         // loop through the object and add filters that are not null
         for (const [filterType, value] of Object.entries(filterObj)) {
-            if(filterType==='size'){
+            if (filterType === 'size') {
                 setSizeFilter(value);
             }
-            if(filterType==='color'){
+            if (filterType === 'color') {
                 setColorFilter(value);
             }
-            if(filterType==='category'){
+            if (filterType === 'category') {
                 setCategoryFilter(value);
             }
-            
+
             if (value !== null) {
                 newParams.set(filterType, value);
             } else {
@@ -150,6 +159,8 @@ const Results = () => {
         newParams.set('sorting', criteria);
         setCurrentParams(newParams);
         navigate(`?${newParams.toString()}`);
+        setSortingCriteria(criteria); // Atualiza o estado local com o critério de ordenação selecionado
+        handleClose();
     };
 
     const handleSearch = (e) => {
