@@ -66,11 +66,11 @@ const InputBrands = (props) => {
   const dispatch = useDispatch();
 
   const selectedOptionMarcaValue = useSelector(
-    (state) => state.Publicar1.progressPublish1.marcas
+    (state) => state.Publicar1.progressPublish1.brand
   );
 
   const handleInputChange = (inputValue) => {
-    dispatch(updateProgressPublish1({ marcas: inputValue }));
+    dispatch(updateProgressPublish1({ brand: inputValue }));
   };
 
   return (
@@ -101,9 +101,9 @@ const InputBrands = (props) => {
               />
               {isOpen && inputValue ? (
                 <div>
-                  {Object.keys(suggestions.marcas).map((group) => (
+                  {Object.keys(suggestions.brand).map((group) => (
                     <div key={group}>
-                      {suggestions.marcas[group]
+                      {suggestions.brand[group]
                         .filter(
                           (brand) =>
                             !inputValue ||

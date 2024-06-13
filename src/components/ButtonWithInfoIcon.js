@@ -137,8 +137,8 @@ const ButtonWithInfoIcon = (props) => {
         </InfoIconContainer>
         <StyledButton onClick={handleButtonClick}>
           <span>
-           {selectedOption ? `Estado: ${selectedOption}` : "Selecione Estado"}
-            <Asterisk>*</Asterisk>
+           {selectedOption ? `${selectedOption}` : "Selecione Estado"}
+           {!selectedOption && <Asterisk>*</Asterisk>}
           </span>
           <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
         </StyledButton>
