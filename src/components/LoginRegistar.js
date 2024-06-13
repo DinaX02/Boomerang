@@ -36,6 +36,7 @@ const LoginRegistar = () => {
         if (isSuccess && loginData) {
             setFecharBottomSheet(true);
             localStorage.setItem('login', true);
+            localStorage.setItem('firstLogin', 'true'); 
             console.log("utilizador logado com sucesso");
         }
     }, [isSuccess, loginData]);

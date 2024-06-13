@@ -29,10 +29,11 @@ const SignUpPage = () => {
   const [shown, setShown] = useState(false);
   const [matchPassword, setMatchPassword] = useState(false);
   const [erroObrigatorio, setErroObrigatorio] = useState(false);
+  const [errorMessages, setErrorMessages] = useState([]);
   const bottomSheetRef = useRef(null);
 
   const navigate = useNavigate();
-  const [registerUser, { isLoading, isError, isSuccess }] = useRegisterUserMutation();
+  const [registerUser, { isLoading}] = useRegisterUserMutation();
 
   const handleNomeChange = (e) => {
     setInputNomeValue(e.target.value);
@@ -138,16 +139,21 @@ const SignUpPage = () => {
     e.preventDefault();
     if (todosCamposPreenchidos && termosAceitos && matchPassword) {
       try {
-        await registerUser({
+        const response = await registerUser({
           username: inputNomeUtilizadorValue,
           name: `${inputNomeValue} ${inputApelidoValue}`,
           email: inputEmailValue,
           gender: btnGeneroName,
           password: inputPassValue,
-        }).unwrap();
-        navigate('/');
+        });
+        if (response.error) {
+          setErrorMessages(response.error.message); 
+        } else {
+          navigate('/');
+        }
       } catch (err) {
         console.error('Failed to register:', err);
+        setErrorMessages(['Erro ao processar sua solicitação. Por favor, tente novamente.']);
       }
     }
   };
@@ -242,14 +248,21 @@ const SignUpPage = () => {
           <span className="colourGreenAsterisk">*</span> Campo Obrigatório
         </div>
         
+{errorMessages && errorMessages.length > 0 && (
+  <div className="error-messages">
+    {errorMessages.map((error, index) => (
+      <p key={index}>{error}</p>
+    ))}
+  </div>
+)}
         <div className='btnAtualizarDados'>
   <button 
     className='buttonAtualizar'
-    disabled={!todosCamposPreenchidos || !termosAceitos || !matchPassword}
-    onClick={handleRegisterClick} // Chama a função correta
+    disabled={!todosCamposPreenchidos || !termosAceitos || !matchPassword|| isLoading}
+    onClick={handleRegisterClick}
     type="submit"
   >
-    Concluir
+     {isLoading ? 'Registando...' : 'Concluir'}
   </button>
 </div>
 
