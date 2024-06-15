@@ -51,10 +51,16 @@ export const myAPI = createApi({
                 method: "GET",
               }),
         }),
+        fetchFavorite: builder.query({
+            query: () => ({
+                url: `favorite`,
+                method: "GET",
+              }),
+        }),
         
     }),
 });
 
-export const { useFetchProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useFetchProductFormQuery, useFetchProductSearchQuery } = myAPI;
+export const { useFetchProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useFetchProductFormQuery, useFetchProductSearchQuery, useFetchFavoriteQuery } = myAPI;
 
 export default myAPI;

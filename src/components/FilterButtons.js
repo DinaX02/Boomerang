@@ -6,6 +6,8 @@ import menosFilter from '../assets/icons/Filter_menos.svg';
 import Button from "./Button";
 import { useLocation } from "react-router-dom";
 import { useFetchProductFormQuery } from '../redux/productAPI';
+import { CircularProgress } from "@mui/material";
+import styled from "styled-components";
 
 const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
     const { data, isLoading } = useFetchProductFormQuery();
@@ -78,7 +80,7 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
         });
     };
     return (
-        <div>
+        <FilterStyle>
             <button className="filterButton" onClick={toggleFiltersOn}><img src={filtro} alt="filtro"></img></button>
 
             {showFilters && (
@@ -91,6 +93,7 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                             <button onClick={toggleFiltersOff}><img src={closeFilter} alt="fechar"></img></button>
                         </div>
                     </div>
+                    {isLoading && <CircularProgress className={'loader'} color="success" />}
                     <div className="filterMenu">
                         <div className="accordionFilter">
                             <hr></hr>
@@ -173,8 +176,64 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                     </div>
                 </div>
             )}
-        </div>
+        </FilterStyle>
     );
 };
+
+const FilterStyle = styled.div`
+
+  .loader{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 40px;
+    height: 40px;
+  }
+
+  .accordion{
+    font-size: 13px;
+  }
+  .filterTitle h2{
+    font-size: 20px;
+  }
+
+  .accordionSeparador img {
+    width: 13px;
+  }
+
+  .panel label {
+    font-size: 12px;
+  }
+
+  input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Estilo quando o radio button está marcado */
+input[type="radio"]:checked::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #252525; /* Cor desejada para o checked */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+`
 
 export default FilterButtons;

@@ -6,21 +6,36 @@ import MenuMobile from "../components/MenuMobile";
 import ProfileLink from "../components/ProfileLink";
 import Chip from '../components/chip';
 import LoginRegistar from '../components/LoginRegistar';
-import artigosJSON from '../data/artigos.json';
+// import artigosJSON from '../data/artigos.json';
 import mockupprofile from '../assets/icons/user_unknown.svg';
 import usersJSON from '../data/users.json';
 import { useFetchProductSearchQuery } from '../redux/productAPI';
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import { CircularProgress } from "@mui/material";
 import PopupHomepage from '../components/HomepagePopUp';
+import { useFetchFavoriteQuery } from '../redux/favoriteAPI';
+import { useSeeUserQuery } from "../redux/usersAPI";
 
 const Homepage = () => {
   const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
+  const { data: dataFavorite, isLoading: isLoadingFavorite, error} = useFetchFavoriteQuery();
+  const { data: userData, refetch } = useSeeUserQuery();
+
+  useEffect(() => {
+    console.log("Loading state:", isLoadingFavorite);
+
+    console.log("Error state:", error);
+    if (!isLoadingFavorite) {
+      console.log("Data favorite:", dataFavorite);
+    }
+  }, [isLoadingFavorite, dataFavorite, error]);
+
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    refetch();
 
     if (window.innerWidth < 600) {
       if (localStorage.getItem("redirect")) {
@@ -35,7 +50,7 @@ const Homepage = () => {
       setShowPopup(true);
       localStorage.removeItem('firstLogin');
     }
-  }, [navigate]);
+  }, [navigate, refetch]);
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -47,7 +62,7 @@ const Homepage = () => {
       {!isLoading && (
         <HomepageStyle>
           {showPopup && (
-            <PopupHomepage 
+            <PopupHomepage
               message="Bem-vindo! Você pode editar seus dados no seu perfil."
               onClose={handleClosePopup}
             />
@@ -81,20 +96,20 @@ const Homepage = () => {
                 ))}
             </div>
           </div>
-          <div>
+          {userData && dataFavorite && dataFavorite.length > 0 && <div>
             <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
             <div className={'articles'}>
-              {artigosJSON.slice(0, 5).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} title={artigo.title} />
+              {!isLoadingFavorite && dataFavorite.slice(0, 4).map((artigo) => (
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title}/>
               ))}
               <Article more={true} ariaLabel={"Ver Todos os teus favoritos"} />
             </div>
-          </div>
+          </div>}
           <div>
             <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Tudo das novidades">Ver tudo</Link></div>
             <div className={'articles'}>
-              {!isLoading && data.slice(6, 10).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
+              {!isLoading && data.slice(0, 4).map((artigo) => (
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title}/>
               ))}
               <Article more={true} ariaLabel={"Ver Todas as novidades"} />
             </div>

@@ -56,7 +56,7 @@ const ArticlePage = (props) => {
   const messages = [
     (<span>O <strong>valor estimado</strong> traduz a avaliação pessoal que o utilizador atribui à sua peça.</span>),
 
-    (<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>),
+    (<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 15€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>),
 
     (<span><strong>Muito Bom</strong><br></br> Uma peça pouco usada que pode ter ligeiras
       imperfeições, mas que está em bom estado. Inclui fotografias e
