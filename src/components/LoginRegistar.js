@@ -38,6 +38,7 @@ const LoginRegistar = () => {
             localStorage.setItem('login', true);
             localStorage.setItem('firstLogin', 'true'); 
             console.log("utilizador logado com sucesso");
+            window.location.reload();
         }
     }, [isSuccess, loginData]);
 

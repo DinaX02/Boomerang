@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import EditarInputIcon from '../assets/icons/editarInput.svg';
 import Header from '../components/Header/Header';
 import Modal from '../components/Modal';

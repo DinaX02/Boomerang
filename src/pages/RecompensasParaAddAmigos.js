@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import ExitPage from "../assets/icons/eliminar.svg";
-import GreenStar from "../assets/icons/green_star.svg";
+// import ExitPage from "../assets/icons/eliminar.svg";
+// import GreenStar from "../assets/icons/green_star.svg";
 import AddFriendsIcon from "../assets/icons/Add_friends_icon.svg";
-import IconCampanhasTemporarias from "../assets/icons/icon_campanhas_temporarias.svg";
+// import IconCampanhasTemporarias from "../assets/icons/icon_campanhas_temporarias.svg";
 import Header from "../components/Header/Header";
 
 const ContainerGeral = styled.div`
@@ -17,42 +17,42 @@ const ConvidarBtnEIconAdd = styled.div`
   justify-content: space-between;
 `;
 
-const ContainerCampanhasTemporarias = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 1em;
-  margin-top: 3.4em;
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+// const ContainerCampanhasTemporarias = styled.div`
+//   display: flex;
+//   justify-content: space-around;
+//   align-items: center;
+//   background-color: #fff;
+//   border-radius: 8px;
+//   padding: 1em;
+//   margin-top: 3.4em;
+//   box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
 
-  .btnIrCampanhas {
-    background-color: #c6f6e5;
-    border: none;
-    border-radius: 4px;
-    padding-top: 0.6em;
-    padding-bottom: 0.6em;
-    padding-left: 2em;
-    padding-right: 2em;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  .btnIrCampanhas:active {
-    background-color: #a4e9d8;
-  }
+//   .btnIrCampanhas {
+//     background-color: #c6f6e5;
+//     border: none;
+//     border-radius: 4px;
+//     padding-top: 0.6em;
+//     padding-bottom: 0.6em;
+//     padding-left: 2em;
+//     padding-right: 2em;
+//     font-size: 12px;
+//     font-weight: bold;
+//     cursor: pointer;
+//   }
+//   .btnIrCampanhas:active {
+//     background-color: #a4e9d8;
+//   }
 
-  .tituloWhiteContainer {
-    font-size: 15px;
-    font-weight: bold;
-    margin-bottom: 0;
-  }
+//   .tituloWhiteContainer {
+//     font-size: 15px;
+//     font-weight: bold;
+//     margin-bottom: 0;
+//   }
 
-  img {
-    height: 40px;
-  }
-`;
+//   img {
+//     height: 40px;
+//   }
+// `;
 
 const ContainerAddAmigos = styled.div`
   background-color: #00c17c;
@@ -119,13 +119,13 @@ const RecompensasParaAddAmigos = () => {
         </ConvidarBtnEIconAdd>
       </ContainerAddAmigos>
 
-      <ContainerCampanhasTemporarias>
+      {/* <ContainerCampanhasTemporarias>
         <img src={IconCampanhasTemporarias} alt="icone campanhas temporarias" />
         <p className="tituloWhiteContainer">Campanhas Temporárias</p>
         <Link to={"/convidar-amigos"}>
           <button className="btnIrCampanhas">Ir</button>
         </Link>
-      </ContainerCampanhasTemporarias>
+      </ContainerCampanhasTemporarias> */}
     </ContainerGeral>
   </>
 
