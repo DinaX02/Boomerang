@@ -15,17 +15,14 @@ import PrivacyTipOutlinedIcon from '../assets/icons/profile/privacidade.svg';
 import CardGiftcardIcon from '../assets/icons/profile/gift.svg';
 import Sobrenos from '../assets/icons/sobrenos.svg';
 import Logout from '../assets/icons/logout.svg';
-// import Button from "../components/Button";
 import { useLogoutUserMutation } from "../redux/usersAPI";
 import { useSeeUserQuery } from "../redux/usersAPI";
+import { CircularProgress } from "@mui/material";
 
 const Profile = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [logoutUser] = useLogoutUserMutation();
-  // const { data: userData} = useSeeUserQuery();
   const { data: userData, refetch, isLoading } = useSeeUserQuery();
-  // console.log("Dados do utilizador:", userData);
-
 
   const handleClickLogout = async () => {
     try {
@@ -39,12 +36,24 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    // Reset scroll ao entrar na página
     window.scrollTo(0, 0);
     refetch();
   }, [refetch]);
 
-  if (isLoading) return <div>Carregando...</div>
+  useEffect(() => {
+    // console.log('Verificando  a userData...');
+    // console.log('userData:', userData);
+    // console.log('isLoading:', isLoading);
+
+    if (!isLoading && (!userData || !userData.id)) {
+      console.log('Utilizador foi realizou login não --> Redirecionado para a homepage...');
+      localStorage.removeItem("login");
+      navigate("/", { state: { showLoginRegister: true } });
+    }
+  }, [userData, isLoading, navigate]);
+
+  if (isLoading) return <Loader><CircularProgress className={'loader'} color="success" /></Loader>
+
 
   return (
     <div>
@@ -162,10 +171,6 @@ const Profile = () => {
           </div>
           </Link>
         </div>
-        {/* </div>
-        <div className="sair" onClick={handleClickLogout}>
-          <p>Terminar Sessão</p>
-        </div> */}
       </ProfileStyle>
       <MenuMobile />
     </div>
@@ -298,5 +303,18 @@ margin-right: 24px;
     align-items: center;
   }
 `;
+
+const Loader = styled.div`
+  .loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+  }
+`
 
 export default Profile;
