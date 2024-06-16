@@ -14,7 +14,8 @@ const ModalContainer = styled(animated.div)`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   cursor: grab;
-  max-height: 250px;
+  max-height: 370px;
+
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -72,8 +73,8 @@ const SubCategoryContainer = styled(animated.div)`
 `;
 
 const CategoryButton = styled(animated.button)`
-display: flex;
-justify-content: space-between;
+/* display: flex; */
+/* justify-content: space-between; */
 align-items: center;
 width: 100%;
 min-height: 40px;
@@ -83,7 +84,7 @@ border-top: none;
 border-left: none;
 border-right: none;
 border-bottom: 1px solid #CACACA !important;
-text-align: left;
+text-align: center;
 cursor: pointer !important;
 
 &:hover {
@@ -91,48 +92,64 @@ cursor: pointer !important;
 }
 
 span {
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
 }
 `;
 
 const StyledDropdownIcon = styled.img`
-
+  position: absolute;
+  right: 24px;
+  /* top: 0; */
   width: 10px;
   height: auto;
 `;
 
-const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, ref) => {
+const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories, props }, ref) => {
   const [isOpen, setIsOpen] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  // const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+
   const [touchStart, setTouchStart] = useState(0); // posição inicial
+  // const [categoryID, setCategoryID] = useState(0);
 
   const categorySpringProps = useSpring({
     opacity: isOpen ? 1 : 0,
     transform: isOpen ? 'translateY(0%)' : 'translateY(100%)',
   });
 
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+  const handleCategorySelect = (category, id) => {
+    setSelectedCategory(category, id);
+    // setCategoryID(id);
   };
 
-  const handleSubcategorySelect = (subcategory) => {
-    onSelectOptionCategories(`${selectedCategory} - ${subcategory}`);
+  const handleSubcategorySelect = (subcategory, id) => {
+    // console.log(subcategory);
+    onSelectOptionCategories(`${subcategory.category} | ${subcategory.name}`, id);
     setIsOpen(false);
   };
 
   const renderSubcategories = () => {
 
-    const subcategories = {
-      Mulher: ["Vestidos", "Camisolas e Casacos", "Calças", "Calçado"],
-      Homem: ["Cerimónia", "Camisolas e Casacos", "Calças", "Sapatos"],
-      Criança: ["0-6 meses", "0-18 meses", "1-6 anos", "6-14 anos"],
-      Trajes: ["Rancho", "Natal", "Carnaval"],
-    };
+    // const subcategories = {
+    //   Mulher: ["Vestidos", "Camisolas e Casacos", "Calças", "Calçado"],
+    //   Homem: ["Cerimónia", "Camisolas e Casacos", "Calças", "Sapatos"],
+    //   Criança: ["0-6 meses", "0-18 meses", "1-6 anos", "6-14 anos"],
+    //   Trajes: ["Rancho", "Natal", "Carnaval"],
+    // };
+    // console.log("category", selectedCategory)
+    const subcategories = Array.from(
+      new Set(
+        props
+          .filter((product) => product.category === selectedCategory)
+          .map((product) => product)
+      )
+    );
+    // console.log(subcategories);
 
-    return subcategories[selectedCategory].map((subcategory, index) => (
-      <CategoryButton key={index} onTouchStart={() => handleSubcategorySelect(subcategory)}>
-        {subcategory}
+    return subcategories.map((subcategory, index) => (
+      <CategoryButton key={index} onTouchStart={() => handleSubcategorySelect(subcategory, subcategory.id)}>
+        {subcategory.name}
       </CategoryButton>
     ));
   };
@@ -148,6 +165,8 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
       setIsOpen(false);
     }
   };
+
+  const uniqueCategories = Array.from(new Set(props.map((product) => product.category)));
 
   return (
     <Draggable
@@ -170,22 +189,12 @@ const BottomSheetCategories = React.forwardRef(({ onSelectOptionCategories }, re
           <animated.div style={categorySpringProps}>
             {!selectedCategory ? (
               <ButtonContainer>
-                <CategoryButton onTouchStart={() => handleCategorySelect('Mulher')}>
-                  <span>Mulher</span>
-                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-                </CategoryButton>
-                <CategoryButton onTouchStart={() => handleCategorySelect('Homem')}>
-                  <span>Homem</span>
-                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-                </CategoryButton>
-                <CategoryButton onTouchStart={() => handleCategorySelect('Criança')}>
-                  <span>Criança</span>
-                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-                </CategoryButton>
-                <CategoryButton onTouchStart={() => handleCategorySelect('Trajes')}>
-                  <span>Trajes</span>
-                  <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
-                </CategoryButton>
+                {uniqueCategories.map((category, index) => (
+                  <CategoryButton onTouchStart={() => handleCategorySelect(category, index)} key={index}>
+                    <span>{category}</span>
+                    <StyledDropdownIcon src={DropdownIcon} alt="Dropdown Icon" />
+                  </CategoryButton>
+                ))}
               </ButtonContainer>
             ) : (
               <SubCategoryContainer>

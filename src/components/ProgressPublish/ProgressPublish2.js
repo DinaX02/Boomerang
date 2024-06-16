@@ -5,14 +5,16 @@ import Button from "../Button";
 import ButtonForOpenBottomSheet from "../ButtonForOpenBottomSheet";
 import HeaderPublish from "../Header/HeaderPublicar";
 import Draggable from "react-draggable";
-import BottomSheetSizes from "../BottomSheets/BottomSheetSize";
+import BottomSheet from "../BottomSheets/BottomSheet";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressPublish1 } from "../../redux/publicarSlice";
-import BottomSheetColours from "../BottomSheets/BottomSheetColours";
+// import BottomSheetColours from "../BottomSheets/BottomSheetColours";
 import BottomSheetCategories from "../BottomSheets/BottomSheetCategories";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
 import InputBrands from "../InputBrands";
 import CustomizedSteppers from "../ProgressBar";
+import { useFetchProductFormQuery } from '../../redux/productAPI';
+import { CircularProgress } from "@mui/material";
 
 const SpaceTopComponent = styled.div`
   margin-top: 2.5em;
@@ -41,35 +43,69 @@ const ModalOverlay = styled.div`
   justify-content: center;
 `;
 
+const InfoIconContainer = styled.span`
+display: flex;
+align-items: center;
+font-weight: 500;
+font-size: 14px;
+align-self: flex-start;
+margin-bottom: 1rem;
+margin-left: 24px;
+`;
+
+const Loader = styled(CircularProgress)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+`;
+
 const ProgressPublish2 = () => {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [bottomSheetColoursOpen, setBottomSheetColoursOpen] = useState(false);
   const [bottomSheetCategoriesOpen, setBottomSheetCategoriesOpen] = useState(false);
   const bottomSheetRef = useRef(null);
   const [fecharModal, setFecharModal] = useState(true); // fechar modal de alerta de voltar para a homepage (perder dados inseridos)
+  const { data, isLoading } = useFetchProductFormQuery();
+  const [selectedOptionCategories, setSelectedOptionCategories] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const selectedOption = useSelector(
-    (state) => state.Publicar1.progressPublish1.size
+
+  const selectedOptionID = useSelector(
+    (state) => state.Publicar1.progressPublish1.SizeId
   );
 
-  const selectedOptionColours = useSelector(
-    (state) => state.Publicar1.progressPublish1.colour
+  const selectedOption = data?.sizes?.find((size) => size.id === selectedOptionID)?.name;
+
+  const selectedOptionColoursID = useSelector(
+    (state) => state.Publicar1.progressPublish1.ColorId
   );
 
-  const selectedOptionCategories = useSelector(
-    (state) => state.Publicar1.progressPublish1.categories
+  const selectedOptionColours = data?.colors?.find((color) => color.id === selectedOptionColoursID)?.name;
+
+  // !isLoading&&console.log("type", data.productTypes);
+
+  const selectedOptionCategoriesID = useSelector(
+    (state) => state.Publicar1.progressPublish1.ProductTypeId
   );
+  // console.log("id", selectedOptionCategoriesID);
+
+  // const selectedOptionCategories = data?.productTypes?.find((categories) => categories.id === selectedOptionCategoriesID)?.name;
+  // console.log("name", selectedOptionCategories);
 
   const selectedOptionMarcaValue = useSelector(
-    (state) => state.Publicar1.progressPublish1.marcas
+    (state) => state.Publicar1.progressPublish1.brand
   );
 
   const [nextButtonDisabled, setNextButtonDisabled] = useState(!selectedOption || !selectedOptionColours || !selectedOptionCategories);
 
-   // Abre e fecha o bottom sheet dos tamanhos
+  // Abre e fecha o bottom sheet dos tamanhos
 
   const handleToggleBottomSheet = () => {
     setBottomSheetColoursOpen(false);
@@ -128,21 +164,22 @@ const ProgressPublish2 = () => {
     navigate("/progressPublish-3");
   };
 
-  const handleOptionSelect = (option) => {
-    dispatch(updateProgressPublish1({ size: option }));
+  const handleOptionSelect = (option, id) => {
+    dispatch(updateProgressPublish1({ SizeId: id }));
     setBottomSheetOpen(false);
     setNextButtonDisabled(false);
   };
 
-  const handleOptionSelectColours = (option) => {
-    dispatch(updateProgressPublish1({ colour: option }));
+  const handleOptionSelectColours = (option, id) => {
+    dispatch(updateProgressPublish1({ ColorId: id }));
     setBottomSheetColoursOpen(false);
   };
 
-  const handleOptionSelectCategories = (option) => {
-    dispatch(updateProgressPublish1({ categories: option }));
+  const handleOptionSelectCategories = (option, id) => {
+    dispatch(updateProgressPublish1({ ProductTypeId: id }));
     setBottomSheetCategoriesOpen(false);
-  };
+    setSelectedOptionCategories(option);
+    };
 
   const alertHandler = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
@@ -152,103 +189,115 @@ const ProgressPublish2 = () => {
   };
 
   return (
-    <div>
-      <HeaderPublish name="Publicar" alertHandler={alertHandler}/>
-      <CustomizedSteppers
-      activeStep={1}
-      onStepChange={handleChangeStepInProgressBar}
-      onNext={handleNextStepPublish}
-      onBack={handleGoBackStepPublish}
-      />
-      <ModalAlertaForPublish
+    <>
+      {isLoading && <Loader className={'loader'} color="success" />}
+      {!isLoading && <div>
+        <HeaderPublish name="Publicar" alertHandler={alertHandler} />
+        <CustomizedSteppers
+          activeStep={1}
+          onStepChange={handleChangeStepInProgressBar}
+          onNext={handleNextStepPublish}
+          onBack={handleGoBackStepPublish}
+        />
+        <ModalAlertaForPublish
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}
           alert={alert}
           message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
         />
-      {/*  bottom sheet dos tamanhos */}
-      {bottomSheetOpen && (
-        <ModalOverlay className="modal-overlay">
-          <Draggable
-            cancel=".no-drag"
-            bounds="parent"
-            positionOffset={{ x: "0", y: "0" }}
-            onStop={() => setBottomSheetOpen(false)}
-            nodeRef={bottomSheetRef}
-          >
-            <BottomSheetSizes
-              ref={bottomSheetRef}
-              onClose={() => setBottomSheetOpen(false)}
-              onSelectOptionSizes={handleOptionSelect}
-            />
-          </Draggable>
-        </ModalOverlay>
-      )}
+        {/*  bottom sheet dos tamanhos */}
+        {bottomSheetOpen && (
+          <ModalOverlay className="modal-overlay">
+            <Draggable
+              cancel=".no-drag"
+              bounds="parent"
+              positionOffset={{ x: "0", y: "0" }}
+              onStop={() => setBottomSheetOpen(false)}
+              nodeRef={bottomSheetRef}
+            >
+              {!isLoading && <BottomSheet
+                ref={bottomSheetRef}
+                onClose={() => setBottomSheetOpen(false)}
+                onSelectOption={handleOptionSelect}
+                props={data.sizes}
+                data={data}
+              />}
+            </Draggable>
+          </ModalOverlay>
+        )}
 
-      {/*  bottom sheet dos cores */}
-      {bottomSheetColoursOpen && (
-        <ModalOverlay className="modal-overlay">
-          <Draggable
-            cancel=".no-drag"
-            bounds="parent"
-            positionOffset={{ x: "0", y: "0" }}
-            onStop={() => setBottomSheetColoursOpen(false)}
-            nodeRef={bottomSheetRef}
-          >
-            <BottomSheetColours
-              ref={bottomSheetRef}
-              onClose={() => setBottomSheetColoursOpen(false)}
-              onSelectOptionColours={handleOptionSelectColours}
-            />
-          </Draggable>
-        </ModalOverlay>
-      )}
+        {/*  bottom sheet dos cores */}
+        {bottomSheetColoursOpen && (
+          <ModalOverlay className="modal-overlay">
+            <Draggable
+              cancel=".no-drag"
+              bounds="parent"
+              positionOffset={{ x: "0", y: "0" }}
+              onStop={() => setBottomSheetColoursOpen(false)}
+              nodeRef={bottomSheetRef}
+            >
+              {!isLoading && <BottomSheet
+                ref={bottomSheetRef}
+                onClose={() => setBottomSheetColoursOpen(false)}
+                onSelectOption={handleOptionSelectColours}
+                props={data.colors}
+                data={data}
+              />}
+            </Draggable>
+          </ModalOverlay>
+        )}
 
-      {/*  bottom sheet das categorias */}
-      {bottomSheetCategoriesOpen && (
-        <ModalOverlay className="modal-overlay">
-          <Draggable
-            cancel=".no-drag"
-            bounds="parent"
-            positionOffset={{ x: "0", y: "0" }}
-            onStop={() => setBottomSheetCategoriesOpen(false)}
-            nodeRef={bottomSheetRef}
-          >
-            <BottomSheetCategories
-              ref={bottomSheetRef}
-              onClose={() => setBottomSheetCategoriesOpen(false)}
-              onSelectOptionCategories={handleOptionSelectCategories}
-            />
-          </Draggable>
-        </ModalOverlay>
-      )}
+        {/*  bottom sheet das categorias */}
+        {bottomSheetCategoriesOpen && (
+          <ModalOverlay className="modal-overlay">
+            <Draggable
+              cancel=".no-drag"
+              bounds="parent"
+              positionOffset={{ x: "0", y: "0" }}
+              onStop={() => setBottomSheetCategoriesOpen(false)}
+              nodeRef={bottomSheetRef}
+            >
+              <BottomSheetCategories
+                ref={bottomSheetRef}
+                onClose={() => setBottomSheetCategoriesOpen(false)}
+                onSelectOptionCategories={handleOptionSelectCategories}
+                props={data.productTypes}
+                data={data}
+              />
+            </Draggable>
+          </ModalOverlay>
+        )}
 
-      <SpaceTopComponent>
-        <ButtonForOpenBottomSheet
-          btnName="Tamanho"
-          onClick={handleToggleBottomSheet}
-          selectedOption={selectedOption}
-        />
-        <ButtonForOpenBottomSheet
-          btnName="Cor"
-          onClick={handleToggleBottomSheetColours}
-          selectedOption={selectedOptionColours}
-        />
-        <ButtonForOpenBottomSheet btnName="Categorias" onClick={handleToggleBottomSheetCategories}
-          selectedOption={selectedOptionCategories} />
+        <SpaceTopComponent>
+          <InfoIconContainer>Tamanho</InfoIconContainer>
+          <ButtonForOpenBottomSheet
+            btnName="Tamanho"
+            onClick={handleToggleBottomSheet}
+            selectedOption={selectedOption}
+          />
+          <InfoIconContainer>Cor</InfoIconContainer>
+          <ButtonForOpenBottomSheet
+            btnName="Cor"
+            onClick={handleToggleBottomSheetColours}
+            selectedOption={selectedOptionColours}
+          />
+          <InfoIconContainer>Categoria</InfoIconContainer>
+          <ButtonForOpenBottomSheet btnName="Categorias" onClick={handleToggleBottomSheetCategories}
+            selectedOption={selectedOptionCategories} />
 
-        <InputBrands selectedOptionMarcaValue={selectedOptionMarcaValue}/>
+          <InputBrands selectedOptionMarcaValue={selectedOptionMarcaValue} />
 
-      </SpaceTopComponent>
-      <ContainerDoisBtn>
-        <Button text="Anterior" onClick={handleGoBackStepPublish} />
-        <Button
-          text="Próximo"
-          onClick={handleNextStepPublish}
-          disable={nextButtonDisabled}
-        />
-      </ContainerDoisBtn>
-    </div>
+        </SpaceTopComponent>
+        <ContainerDoisBtn>
+          <Button text="Anterior" onClick={handleGoBackStepPublish} />
+          <Button
+            text="Próximo"
+            onClick={handleNextStepPublish}
+            disable={nextButtonDisabled}
+          />
+        </ContainerDoisBtn>
+      </div>}
+    </>
   );
 };
 

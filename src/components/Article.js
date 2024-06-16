@@ -1,25 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 // import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // import FavoriteIcon from '../assets/icons/favoriteIcon.svg'
 import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
-
+import { useAddFavoriteMutation, useRemoveFavoriteMutation, useFetchFavoriteQuery } from '../redux/favoriteAPI';
+import { useSeeUserQuery } from "../redux/usersAPI";
 
 const Article = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [strokeFavorite, setStrokeFavorite] = useState('black');
   const [fillFavorite, setFillFavorite] = useState('none');
+  const [addFavorite] = useAddFavoriteMutation();
+  const [removeFavorite] = useRemoveFavoriteMutation();
+  const { data: favorites } = useFetchFavoriteQuery();
+  const { data: userData } = useSeeUserQuery();
 
-  const favoriteHandler = () => {
-    setIsFavorite(!isFavorite);
-    if (!isFavorite) {
-      setStrokeFavorite('none');
-      setFillFavorite('#C80000');
+
+
+  useEffect(() => {
+    if (favorites && props.id) {
+      const isFav = favorites.some(fav => fav.id === props.id);
+      setIsFavorite(isFav);
+      setStrokeFavorite(isFav ? 'none' : 'black');
+      setFillFavorite(isFav ? '#C80000' : 'none');
     }
-    else {
-      setStrokeFavorite('black');
-      setFillFavorite('none');
+  }, [favorites, props.id]);
+
+  const favoriteHandler = async () => {
+    if (!isFavorite) {
+      try {
+        await addFavorite({ productId: props.id }).unwrap();
+        console.log(`Artigo ${props.id} adicionado aos favoritos`);
+        setIsFavorite(true);
+        setStrokeFavorite('none');
+        setFillFavorite('#C80000');
+        // props.refetchFavorites && props.refetchFavorites();
+      } catch (error) {
+        console.error('Failed to add favorite:', error);
+      }
+    } else {
+      try {
+        await removeFavorite({ productId: props.id }).unwrap();
+        console.log(`Artigo ${props.id} removido dos favoritos`);
+        setIsFavorite(false);
+        setStrokeFavorite('black');
+        setFillFavorite('none');
+        // props.refetchFavorites && props.refetchFavorites();
+      } catch (error) {
+        console.error('Failed to remove favorite:', error);
+      }
     }
   }
 
@@ -52,9 +82,9 @@ const Article = (props) => {
         <div className={'priceRow'}>
           <div>{props.price}€ / dia</div>
           {/* <div><FavoriteBorderIcon style={{color: "lightgray", scale: '0.7'}}/></div> */}
-          <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />
+          {userData && <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />}
         </div>
-        <p>{props.brand}</p>
+        <p>{props.brand ? props.brand : "Sem marca"}</p>
         <p>Tamanho {props.size}</p>
       </div>}
     </ArticleStyled>

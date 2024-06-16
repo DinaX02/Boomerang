@@ -84,7 +84,7 @@ const MandatoryField = styled.span`
 
 const InputWithEuroIcon = (props) => {
   const infoName = props.infoName;
-  const inputPlaceholderr = props.inputPlaceholderr;
+  const inputPlaceholder = props.inputPlaceholder;
 
   return (
     <Container>
@@ -96,7 +96,7 @@ const InputWithEuroIcon = (props) => {
         <InputContainer>
           <StyledInput
             type="number"
-            placeholder={inputPlaceholderr}
+            placeholder={inputPlaceholder}
             value={props.value}
             onChange={props.onChange}
           />

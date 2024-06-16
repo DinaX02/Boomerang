@@ -8,6 +8,7 @@ export const myAPI = createApi({
             headers.set('Content-Type', 'application/json')
             return headers
         },
+        credentials: 'include'
     }),
 
     endpoints: (builder) => ({
@@ -18,10 +19,10 @@ export const myAPI = createApi({
               }),
         }),
         createProduct: builder.mutation({
-            query: ({ title, description, value, price_day, availability, brand, sizeId, productTypeId, colorId, gradeId }) => ({
+            query: ({ title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId }) => ({
                 url: 'product/',
                 method: 'POST',
-                body: { title, description, value, price_day, availability, brand, sizeId, productTypeId, colorId, gradeId },
+                body: { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId },
             }),
         }),
         deleteProduct: builder.mutation({
@@ -38,17 +39,28 @@ export const myAPI = createApi({
             }),
         }),
         fetchProductForm: builder.query({
-            query: () => 'product/form', // Corrigido: URL deve ser uma string
+            query: () => ({
+                url: 'product/form',
+                method: 'GET',
+            }), // Corrigido: URL deve ser uma string
+           
         }),
         fetchProductSearch: builder.query({
-            query: ({name = '', id = ''}) => ({
-                url: `product/search?name=${name}&id=${id}`,
+            query: ({name = '', id = '', size = '', color = '', category = '', orderBy = '', orderDirection}) => ({
+                url: `product/search?name=${name}&id=${id}&size=${size}&color=${color}&category=${category}&orderBy=${orderBy}&orderDirection=${orderDirection}`,
                 method: "GET",
               }),
         }),
+        fetchFavorite: builder.query({
+            query: () => ({
+                url: `favorite`,
+                method: "GET",
+              }),
+        }),
+        
     }),
 });
 
-export const { useFetchProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useFetchProductFormQuery, useFetchProductSearchQuery } = myAPI;
+export const { useFetchProductQuery, useCreateProductMutation, useDeleteProductMutation, useUpdateProductMutation, useFetchProductFormQuery, useFetchProductSearchQuery, useFetchFavoriteQuery } = myAPI;
 
 export default myAPI;

@@ -15,7 +15,9 @@ import mosaicoIcon from "../assets/icons/mosaico.svg";
 import ordenarIcon from "../assets/icons/ordenar.svg";
 import galeriaIcon from "../assets/icons/galeria.svg";
 // import listaIcon from "../assets/icons/lista.svg";
-
+import { CircularProgress } from "@mui/material";
+import { useFetchProductSearchQuery } from '../redux/productAPI';
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 
 const VerTudo = () => {
     // const { search } = useLocation();
@@ -26,6 +28,11 @@ const VerTudo = () => {
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
     const [sortingCriteria, setSortingCriteria] = useState('mostRecent');
     const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
+    const { data: productsData, isLoading } = useFetchProductSearchQuery({
+        orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
+        orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
+    });
+    console.log(productsData);
 
     useEffect(() => {
         // dar reset ao scroll quando se entrar aqui :)
@@ -62,11 +69,11 @@ const VerTudo = () => {
     const handleViewOption = () => {
         // setViewOption(option);
         // handleClose();
-        if(viewOption==='mosaico'){
+        if (viewOption === 'mosaico') {
             setSingleColumnGrid(true);
             setViewOption('galeria');
         }
-        else{
+        else {
             setSingleColumnGrid(false);
             setViewOption('mosaico');
         }
@@ -106,15 +113,15 @@ const VerTudo = () => {
                 <div className={'sectionTitle'}>
                     <div>
                         <button className='buttonForKeyboard' onClick={handleClick}>
-                        <img
-                            src={ordenarIcon}
-                            alt="ordenar icon"
-                            id="article-menu-button"
-                            aria-controls={anchorEl ? 'article-menu' : undefined}
-                            // aria-haspopup="true"
-                           
-                            style={{ cursor: 'pointer', height: '18px', display: 'flex', marginRight: '20px' }}
-                        ></img></button>
+                            <img
+                                src={ordenarIcon}
+                                alt="ordenar icon"
+                                id="article-menu-button"
+                                aria-controls={anchorEl ? 'article-menu' : undefined}
+                                // aria-haspopup="true"
+
+                                style={{ cursor: 'pointer', height: '18px', display: 'flex', marginRight: '20px' }}
+                            ></img></button>
 
                         <Popper
                             open={Boolean(anchorEl)}
@@ -141,11 +148,11 @@ const VerTudo = () => {
                                                 onKeyDown={handleListKeyDown}
                                             >
                                                 <MenuItem className={sortingCriteria === 'mostRecent' ? 'selected' : ''} onClick={() => handleSort('mostRecent')}>Mais recente</MenuItem>
-                                                <hr style={{margin: "5px 0", color: "#CACACA"}}/>
+                                                <hr style={{ margin: "5px 0", color: "#CACACA" }} />
                                                 <MenuItem className={sortingCriteria === 'oldest' ? 'selected' : ''} onClick={() => handleSort('oldest')}>Mais antigo</MenuItem>
-                                                <hr style={{margin: "5px 0", color: "#CACACA"}}/>
+                                                <hr style={{ margin: "5px 0", color: "#CACACA" }} />
                                                 <MenuItem className={sortingCriteria === 'lowToHigh' ? 'selected' : ''} onClick={() => handleSort('lowToHigh')}>Preço: baixo para alto</MenuItem>
-                                                <hr style={{margin: "5px 0", color: "#CACACA"}}/>
+                                                <hr style={{ margin: "5px 0", color: "#CACACA" }} />
                                                 <MenuItem className={sortingCriteria === 'highToLow' ? 'selected' : ''} onClick={() => handleSort('highToLow')}>Preço: alto para baixo</MenuItem>
                                             </MenuList>
                                         </ClickAwayListener>
@@ -156,15 +163,15 @@ const VerTudo = () => {
                     </div>
                     <div>
                         <button className='buttonForKeyboard'>
-                        <img
-                            src={getViewIcon()}
-                            alt="view icon"
-                            id="view-menu-button"
-                            // aria-controls={anchorElView ? 'view-menu' : undefined}
-                            // aria-haspopup="true"
-                            onClick={handleViewOption}
-                            style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
-                        /></button>
+                            <img
+                                src={getViewIcon()}
+                                alt="view icon"
+                                id="view-menu-button"
+                                // aria-controls={anchorElView ? 'view-menu' : undefined}
+                                // aria-haspopup="true"
+                                onClick={handleViewOption}
+                                style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
+                            /></button>
                         {/* <Popper
                             open={Boolean(anchorElView)}
                             anchorEl={anchorElView}
@@ -201,12 +208,17 @@ const VerTudo = () => {
                     </div>
                 </div>
 
+                {isLoading && <CircularProgress className={'loader'} color="success" />}
 
-                <div className={`resultsArticles`} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                    {sortArtigos().slice(0, 10).map((artigo) => {
+
+                {!isLoading && <div className={`resultsArticles`} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                    {/* {sortArtigos().slice(0, 10).map((artigo) => {
                         return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} width={singleColumnGrid ? '100%' : '120px'}/>;
+                    })} */}
+                    {productsData.map((artigo) => {
+                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
                     })}
-                </div>
+                </div>}
             </div>
             <MenuMobile />
         </ResultsStyle>
@@ -251,6 +263,16 @@ const ResultsStyle = styled.div`
     width: 100vw;
   }
   
+  .loader{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export default VerTudo;

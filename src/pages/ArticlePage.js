@@ -24,7 +24,7 @@ import Rosa from "../assets/cores/rosa.svg";
 import Verde from "../assets/cores/verde.svg";
 import Roxo from "../assets/cores/roxo.svg";
 import Preto from "../assets/cores/preto.svg";
-import Multicolor from "../assets/cores/multicolor.svg";
+import Multicolor from "../assets/cores/multicor.svg";
 import Laranja from "../assets/cores/laranja.svg";
 import Branco from "../assets/cores/branco.svg";
 import ImgMesuresModal from "../assets/icons/overlay_dress_mesures.svg";
@@ -36,7 +36,7 @@ import { MenuList } from "@mui/material";
 import denunciarIcon from "../assets/icons/denunciar.svg";
 // import notificarIcon from "../assets/icons/notificar-me.svg";
 import { useFetchProductQuery } from '../redux/productAPI';
-import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+// import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import { CircularProgress } from "@mui/material";
 
 const ArticlePage = (props) => {
@@ -56,7 +56,7 @@ const ArticlePage = (props) => {
   const messages = [
     (<span>O <strong>valor estimado</strong> traduz a avaliação pessoal que o utilizador atribui à sua peça.</span>),
 
-    (<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>),
+    (<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 15€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>),
 
     (<span><strong>Muito Bom</strong><br></br> Uma peça pouco usada que pode ter ligeiras
       imperfeições, mas que está em bom estado. Inclui fotografias e
@@ -127,7 +127,7 @@ const ArticlePage = (props) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const imgHeight = `${(144 / 120) * parseInt(144)}px`;
+  // const imgHeight = `${(144 / 120) * parseInt(144)}px`;
 
   return (
     <ArticlePageStyle>
@@ -287,9 +287,9 @@ const ArticlePage = (props) => {
               src={InfoIconTaxa} alt='icone de informação' />
           </button>
         </div>
-        <div style={{ marginBottom: "24px" }}>{productsData[0].value}</div>
+        <div style={{ marginBottom: "24px" }}>{productsData[0].value}€</div>
         <div className={'title'}>Preço do Aluguer por dia</div>
-        <div style={{ marginTop: "10px" }}>{productsData[0].price_day}</div>
+        <div style={{ marginTop: "10px" }}>{productsData[0].price_day}€</div>
         <button className={'title buttonInfo'} style={{ fontWeight: "500", textDecoration: "underline" }} onClick={() => { handleIconClick(1) }}>Taxa de Proteção Obrigatória <img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button>
       </div>}
       {!isLoading && <div className={'articleSection'}>
