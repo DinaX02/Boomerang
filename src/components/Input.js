@@ -32,9 +32,10 @@ const Input = (props) => {
                 placeholder={props.placeholder}
                 value={props.value}
                 onChange={props.onChange}
+                onKeyDown={props.onKeyDown}
                 name='input'
                 style={
-                    (props.erroObrigatorio && !campoPreenchido) || (props.isPassword && (!props.matchPassword && campoPreenchido))
+                    (props.erroObrigatorio && !campoPreenchido) || (!props.login && props.isPassword && (!props.matchPassword && campoPreenchido))
                         ? { outline: "0.5px solid #c80000" }
                         : (props.matchPassword && campoPreenchido)
                             ? { outline: "0.5px solid #00C17C" } // Quando a nova condição é verdadeira

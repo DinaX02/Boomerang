@@ -14,6 +14,7 @@ const EditPassword = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [shown, setShown] = useState({ password: false, repeatPassword: false, newPassword: false });
+  const [matchPassword, setMatchPassword] = useState(false);
   const navigate = useNavigate();
   const [editPassword, { isLoading }] = useEditPasswordMutation();
 
