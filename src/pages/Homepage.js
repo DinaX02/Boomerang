@@ -18,7 +18,7 @@ import { useSeeUserQuery } from "../redux/usersAPI";
 
 const Homepage = () => {
   const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
-  const { data: dataFavorite, isLoading: isLoadingFavorite, error} = useFetchFavoriteQuery();
+  const { data: dataFavorite, isLoading: isLoadingFavorite, error } = useFetchFavoriteQuery();
   const { data: userData, refetch } = useSeeUserQuery();
 
   useEffect(() => {
@@ -55,6 +55,13 @@ const Homepage = () => {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
+
+  const [moreFav, setMoreFav] = useState(false);
+  useEffect(() => {
+  if (dataFavorite?.length > 4) {
+    setMoreFav(true);
+  }
+},[dataFavorite]);
 
   return (
     <Loader>
@@ -100,22 +107,22 @@ const Homepage = () => {
             <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
             <div className={'articles'}>
               {!isLoadingFavorite && dataFavorite.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title}/>
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
               ))}
-              <Article more={true} ariaLabel={"Ver Todos os teus favoritos"} />
+              <Article more={moreFav} ariaLabel={"Ver Todos os teus favoritos"} />
             </div>
           </div>}
           <div>
             <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Tudo das novidades">Ver tudo</Link></div>
             <div className={'articles'}>
               {!isLoading && data.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title}/>
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
               ))}
               <Article more={true} ariaLabel={"Ver Todas as novidades"} />
             </div>
           </div>
           <MenuMobile />
-          {!localStorage.getItem("login") && <LoginRegistar />}
+          {!userData && <LoginRegistar />}
         </HomepageStyle>
       )}
     </Loader>

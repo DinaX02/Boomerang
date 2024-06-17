@@ -83,6 +83,13 @@ const LoginRegistar = () => {
         setShown(!shown);
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent the default form submission
+            handleEntrarClick();
+        }
+    };
+
     return (
         <LoginRegistarStyle>
             {!fecharBottomSheet && (
@@ -121,6 +128,7 @@ const LoginRegistar = () => {
                                         placeholder="E-mail ou nome de utilizador"
                                         value={inputNomeValue}
                                         onChange={handleInputNomeChange}
+                                        onKeyDown={handleKeyDown}
                                     />
                                     <Input
                                         erroObrigatorio={erroObrigatorio}
@@ -131,9 +139,10 @@ const LoginRegistar = () => {
                                         isPassword={true}
                                         toggleEyeHandle={toggleEyeHandle}
                                         login={true}
+                                        onKeyDown={handleKeyDown}
                                     />
                                 </form>
-                                <Link className='ignorar forgetPassword'>Esqueceste-te da palavra-passe?</Link>
+                                {/* <Link className='ignorar forgetPassword'>Esqueceste-te da palavra-passe?</Link> */}
                                 <div className='btnspaceurgent'>
                                     <Button
                                         isBtnLoginRegistar={true}

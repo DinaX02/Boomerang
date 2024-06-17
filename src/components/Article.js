@@ -52,7 +52,7 @@ const Article = (props) => {
       }
     }
   }
-
+  console.log("more", props.more);
   if (props.more) {
     return (
 
@@ -71,12 +71,12 @@ const Article = (props) => {
 
     <ArticleStyled style={{ zoom: `${props.scale}`, width: `${props.width}`, height: { height } }}>
       <Link to={`/article/${props.id}`}>
-        <img
+        {props.image && <img
           className='imgArticle'
           src={props.image}
           style={{ height: `${imgHeight}` }}
           alt={`${props.title}`}
-        />
+        />}
       </Link>
       {props.description && <div style={{ display: props.description ? "block" : "none" }} className={'description'}>
         <div className={'priceRow'}>
