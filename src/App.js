@@ -41,6 +41,7 @@ import ContactarSuporte from "./pages/ContactarSuporte";
 import SobreNos from "./pages/SobreNos.js";
 import HomepageGeral from "./pages/HomepageGeral.js";
 import EliminarConta from "./pages/EliminarConta.js";
+import FavoritesPage from "./pages/FavoritesPage"
 
 function App() {
 
@@ -90,6 +91,7 @@ function App() {
         <Route path="/contactar-suporte" element={<ContactarSuporte/>}></Route>
         <Route path="/sobre-nos" element={<SobreNos/>}></Route>
         <Route path="/apagar-conta" element={<EliminarConta/>}></Route>
+        <Route path="/favorites-page" element={<FavoritesPage/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>

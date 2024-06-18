@@ -55,7 +55,7 @@ const Results = () => {
         orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
         orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
     });
-    const { data: usersData, isLoading: isLoadingUsers } = useSearchUserQuery(
+    const { data: usersData } = useSearchUserQuery(
         { username: searchInput, page: 1 },
         {
             skip: queryParams.get('type') !== 'members',
@@ -409,7 +409,7 @@ const ResultsStyle = styled.div`
       justify-items: center; */
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around;
+      justify-content: left;
       gap: 25px 25px;
       flex-direction: row;
       .description {

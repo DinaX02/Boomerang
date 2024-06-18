@@ -38,6 +38,9 @@ import denunciarIcon from "../assets/icons/denunciar.svg";
 import { useFetchProductQuery } from '../redux/productAPI';
 // import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import { CircularProgress } from "@mui/material";
+import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
+import { useSeeUserQuery } from "../redux/usersAPI";
+import { useAddFavoriteMutation, useRemoveFavoriteMutation, useFetchFavoriteQuery } from '../redux/favoriteAPI';
 
 const ArticlePage = (props) => {
   const navigate = useNavigate();
@@ -48,7 +51,15 @@ const ArticlePage = (props) => {
   const [modalMessage, setModalMessage] = useState(message1);
   const { data: productsData, isLoading, error } = useFetchProductQuery({ id: id });
   const [item, setItem] = useState({});
-  
+  const { data: userData } = useSeeUserQuery();
+  const { data: productUserData, isLoading: isUserLoading, error: userError } = useSeeUserQuery(productsData ? productsData[0].UserId : null);
+  const [fillFavorite, setFillFavorite] = useState('#00A167');
+  const [strokeFavorite, setStrokeFavorite] = useState('#25252580');
+  const [addFavorite] = useAddFavoriteMutation();
+  const [removeFavorite] = useRemoveFavoriteMutation();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { data: favorites } = useFetchFavoriteQuery();
+
   if (error) {
     console.log("Mensagem de erro:" + error.message);
   }
@@ -129,6 +140,42 @@ const ArticlePage = (props) => {
 
   // const imgHeight = `${(144 / 120) * parseInt(144)}px`;
 
+  useEffect(() => {
+    if (favorites && id) {
+      const isFav = favorites?.some(fav => fav.id === parseInt(id));
+      console.log("favorite or no?", isFav);
+      setIsFavorite(isFav);
+      setStrokeFavorite(isFav ? 'none' : '#25252580');
+      setFillFavorite(isFav ? '#C80000' : '#00A167');
+    }
+  }, [favorites, id]);
+
+  const favoriteHandler = async () => {
+    if (!isFavorite) {
+      try {
+        await addFavorite({ productId: id }).unwrap();
+        console.log(`Artigo ${id} adicionado aos favoritos`);
+        setIsFavorite(true);
+        setStrokeFavorite('none');
+        setFillFavorite('#C80000');
+        // props.refetchFavorites && props.refetchFavorites();
+      } catch (error) {
+        console.error('Failed to add favorite:', error);
+      }
+    } else {
+      try {
+        await removeFavorite({ productId: id }).unwrap();
+        console.log(`Artigo ${id} removido dos favoritos`);
+        setIsFavorite(false);
+        setStrokeFavorite('#25252580');
+        setFillFavorite('#00A167');
+        // props.refetchFavorites && props.refetchFavorites();
+      } catch (error) {
+        console.error('Failed to remove favorite:', error);
+      }
+    }
+  }
+
   return (
     <ArticlePageStyle>
       <Modal
@@ -143,6 +190,8 @@ const ArticlePage = (props) => {
           <h3>Voltar</h3>
         </div>
         <div className={'icons'}>
+          {userData && <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '2' }} />}
+
           <IconButton
             id="article-menu-button"
             aria-controls={anchorEl ? 'article-menu' : undefined}
@@ -256,9 +305,9 @@ const ArticlePage = (props) => {
 
       <div className={'articleHeader'}>
         <div className={'user'}>
-          <ProfileLink zoom={1.1} image={mockupprofile} />
+          <ProfileLink zoom={1.1} image={mockupprofile} id={productUserData?.id}/>
           <div>
-            <div>mariacarmo</div>
+            <div>{productUserData && productUserData.username}</div>
             <div className={'stars'}>
               <StarIcon />
               <StarIcon />
@@ -385,7 +434,8 @@ const ArticlePageStyle = styled.div`
         font-size: 30px;
       }
       display: flex;
-      gap: 20px;
+      gap: 15px;
+      align-items: center;
     }
   }
     

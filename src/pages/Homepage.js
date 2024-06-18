@@ -32,8 +32,17 @@ const Homepage = () => {
 
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
+  const [moreFav, setMoreFav] = useState(false);
+  // const [isReloaded, setIsReloaded] = useState(false); // Estado para controlar a recarga
 
   useEffect(() => {
+    if (!localStorage.getItem('reloaded')) {
+      localStorage.setItem('reloaded', 'true');
+      window.location.reload();
+    } else {
+      localStorage.removeItem('reloaded');
+    }
+
     window.scrollTo(0, 0);
     refetch();
 
@@ -56,12 +65,11 @@ const Homepage = () => {
     setShowPopup(false);
   };
 
-  const [moreFav, setMoreFav] = useState(false);
   useEffect(() => {
-  if (dataFavorite?.length > 4) {
-    setMoreFav(true);
-  }
-},[dataFavorite]);
+    if (dataFavorite?.length > 4) {
+      setMoreFav(true);
+    }
+  }, [dataFavorite]);
 
   return (
     <Loader>
@@ -104,12 +112,12 @@ const Homepage = () => {
             </div>
           </div>
           {userData && dataFavorite && dataFavorite.length > 0 && <div>
-            <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/ver-tudo'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
+            <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/favorites-page'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
             <div className={'articles'}>
               {!isLoadingFavorite && dataFavorite.slice(0, 4).map((artigo) => (
                 <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
               ))}
-              <Article more={moreFav} ariaLabel={"Ver Todos os teus favoritos"} />
+              <Article more={moreFav} ariaLabel={"Ver Todos os teus favoritos"} favorite={true} />
             </div>
           </div>}
           <div>
