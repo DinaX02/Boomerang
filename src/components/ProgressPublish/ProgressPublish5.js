@@ -1,15 +1,15 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../Button";
 import HeaderPublish from "../Header/HeaderPublicar";
 import ModalAlertaForPublish from "./ModalAlertaForPublish";
 import CustomizedSteppers from "../ProgressBar";
-import ChooseAdressComponent from "../ChooseAdressComponent"
+import ChooseAdressComponent from "../ChooseAdressComponent";
 import OverlayFinalPublish from "../OverlayFinalPublish";
-import iconOverlay from "../../assets/icons/tick_iconOverlayFInal.svg"
+import iconOverlay from "../../assets/icons/tick_iconOverlayFInal.svg";
 import { useDispatch, useSelector } from "react-redux";
-import {resetProgressPublish1} from "../../redux/publicarSlice";
+import { resetProgressPublish1 } from "../../redux/publicarSlice";
 import { useCreateProductMutation } from '../../redux/productAPI';
 
 const ContainerCentered = styled.div`
@@ -26,12 +26,12 @@ const SpaceTopComponent = styled.div`
 `;
 
 const ContainerDoisBtn = styled.div`
-position: fixed;
-bottom: 3.5em;
-width: 100%;
-display: flex;
-justify-content: space-evenly;
-z-index: -1;
+  position: fixed;
+  bottom: 3.5em;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  z-index: -1;
 `;
 
 const Container = styled.div`
@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 const ParagraphIntroAdress = styled.p`
-  color: rgb (84,84,84);
+  color: rgb(84, 84, 84);
 
   @media (max-width: 500px) {
     font-size: 14px;
@@ -52,15 +52,14 @@ const ParagraphIntroAdress = styled.p`
 const ProgressPublish5 = () => {
   const [fecharModal, setFecharModal] = useState(true);
   const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
-  const [showOverlayFinal, setShowOverlayFinal ]= useState(false);
+  const [showOverlayFinal, setShowOverlayFinal] = useState(false);
   const [publishProduct] = useCreateProductMutation();
 
-  const progressPublish1=useSelector((state) => state.Publicar1.progressPublish1);
+  const progressPublish1 = useSelector((state) => state.Publicar1.progressPublish1);
 
   const dispatch = useDispatch();
 
   const handleAddressSelect = () => {
-    // console.log("handleAddressSelect estado");
     setBtnPublicarEnabled(true);
   };
 
@@ -79,20 +78,21 @@ const ProgressPublish5 = () => {
     setShowOverlayFinal(true);
     setTimeout(async () => {
       localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
-      console.log(progressPublish1);
+      // console.log(progressPublish1);
       const { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId } = progressPublish1;
+      console.log("MEASURE:", measurements);
 
       try {
         await publishProduct({ title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId }).unwrap();
         dispatch(resetProgressPublish1());
         setShowOverlayFinal(false);
-        navigate("/");
+        // navigate("/");
       } catch (error) {
         console.log('Error publishing product:', error);
         setShowOverlayFinal(false); // Hide overlay if there's an error
       }
     }, 3000);
-  }
+  };
 
   const alertHandler = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
@@ -123,17 +123,17 @@ const ProgressPublish5 = () => {
               e eficiente da tua peça após o período de aluguer.
             </ParagraphIntroAdress>
           </Container>
-          <ChooseAdressComponent onAddressSelect={handleAddressSelect}/>
+          <ChooseAdressComponent onAddressSelect={handleAddressSelect} />
           <ContainerDoisBtn>
             <Button text="Anterior" onClick={handleGoBackStepPublish} />
-            <Button text="Publicar" onClick={handleNextStepPublish}  disable={!BtnPublicarEnabled}/>
+            <Button text="Publicar" onClick={handleNextStepPublish} disable={!BtnPublicarEnabled} />
           </ContainerDoisBtn>
         </SpaceTopComponent>
       </ContainerCentered>
       {showOverlayFinal && (
         <OverlayFinalPublish>
-          <img style={{marginTop: "1em"}} src={iconOverlay} alt="Icone de Publicar acabado" />
-          <p style={{marginTop: "1em", color:"white"}}>Publicado com sucesso!</p>
+          <img style={{ marginTop: "1em" }} src={iconOverlay} alt="Icone de Publicar acabado" />
+          <p style={{ marginTop: "1em", color: "white" }}>Publicado com sucesso!</p>
         </OverlayFinalPublish>
       )}
     </div>

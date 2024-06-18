@@ -49,7 +49,7 @@ const ArticlePage = (props) => {
   const [fecharModal, setFecharModal] = useState(true);
   const message1 = "<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>"
   const [modalMessage, setModalMessage] = useState(message1);
-  const { data: productsData, isLoading, error } = useFetchProductQuery({ id: id });
+  const { data: productsData, isLoading, error } = useFetchProductQuery({ id: parseInt(id) });
   const [item, setItem] = useState({});
   const { data: userData } = useSeeUserQuery();
   const { data: productUserData, isLoading: isUserLoading, error: userError } = useSeeUserQuery(productsData ? productsData[0].UserId : null);
@@ -60,9 +60,9 @@ const ArticlePage = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { data: favorites } = useFetchFavoriteQuery();
 
-  if (error) {
-    console.log("Mensagem de erro:" + error.message);
-  }
+  // if (error) {
+  //   console.log("Mensagem de erro:" + error.message);
+  // }
 
   const messages = [
     (<span>O <strong>valor estimado</strong> traduz a avaliação pessoal que o utilizador atribui à sua peça.</span>),
@@ -143,7 +143,6 @@ const ArticlePage = (props) => {
   useEffect(() => {
     if (favorites && id) {
       const isFav = favorites?.some(fav => fav.id === parseInt(id));
-      console.log("favorite or no?", isFav);
       setIsFavorite(isFav);
       setStrokeFavorite(isFav ? 'none' : '#25252580');
       setFillFavorite(isFav ? '#C80000' : '#00A167');
@@ -176,6 +175,7 @@ const ArticlePage = (props) => {
     }
   }
 
+  const measurementDefault = {cintura: 67};
   return (
     <ArticlePageStyle>
       <Modal
@@ -305,7 +305,7 @@ const ArticlePage = (props) => {
 
       <div className={'articleHeader'}>
         <div className={'user'}>
-          <ProfileLink zoom={1.1} image={mockupprofile} id={productUserData?.id}/>
+          <ProfileLink zoom={1.1} image={mockupprofile} id={productUserData?.id} />
           <div>
             <div>{productUserData && productUserData.username}</div>
             <div className={'stars'}>
@@ -359,7 +359,7 @@ const ArticlePage = (props) => {
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Marca</div>
-        <div>{productsData[0].brand}</div>
+        <div>{productsData[0].brand!=='' ?productsData[0].brand: "Sem marca"}</div>
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Estado <button onClick={() => { handleIconClick(2) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button></div>
@@ -369,9 +369,9 @@ const ArticlePage = (props) => {
         {productsData[0].measurements && <div className={'title'}>Medidas da Peça <button onClick={() => { handleIconClick(3) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button>
         </div>
         }
-        {productsData[0].measurements && Object.entries(productsData[0]).map(([propertyName, propertyValue]) => (
+        {productsData[0].measurements && Object.entries(productsData[0].measurements).map(([propertyName, propertyValue]) => (
           <div key={propertyName}>
-            {propertyName}: {propertyValue}
+            {propertyName}: {propertyValue}cm
           </div>
         ))}
 
