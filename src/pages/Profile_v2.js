@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
 import mariacarmo from "../assets/icons/user_unknown.svg";
@@ -87,13 +87,15 @@ const Profile = () => {
             <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
           <hr />
-          <div className="iconitem">
-            <img src={FavoriteBorderOutlinedIcon} alt="favoritos" className="icon" />
-            <div className="profiletext">
-              <p>Favoritos</p>
+          <Link to={"/favorites-page"}>
+            <div className="iconitem">
+              <img src={FavoriteBorderOutlinedIcon} alt="favoritos" className="icon" />
+              <div className="profiletext">
+                <p>Favoritos</p>
+              </div>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
-            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
-          </div>
+          </Link>
           <hr />
           <div className="iconitem">
             <img src={ShoppingBasketOutlinedIcon} alt="histórico de encomendas" className="icon" />
@@ -163,12 +165,12 @@ const Profile = () => {
           </Link>
           <hr></hr>
           <Link to={"/"}>
-          <div className="iconitem">
-            <img src={Logout} alt="terminar sessão" className="icon"></img>
-            <div className="profiletext"  onClick={handleClickLogout}>
-              <p className="logout">Terminar sessão</p>
+            <div className="iconitem">
+              <img src={Logout} alt="terminar sessão" className="icon"></img>
+              <div className="profiletext" onClick={handleClickLogout}>
+                <p className="logout">Terminar sessão</p>
+              </div>
             </div>
-          </div>
           </Link>
         </div>
       </ProfileStyle>

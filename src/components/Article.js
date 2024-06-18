@@ -52,11 +52,10 @@ const Article = (props) => {
       }
     }
   }
-  console.log("more", props.more);
   if (props.more) {
     return (
 
-      <MoreLink to={`/ver-tudo`} aria-label={"Link para página Ver Todos os teus favoritos"}>
+      <MoreLink to={props.favorite ?`/favorites-page` :`/ver-tudo`} aria-label={"Link para página Ver Todos os teus favoritos"}>
         Ver Tudo
       </MoreLink>
     )
