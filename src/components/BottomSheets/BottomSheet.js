@@ -13,6 +13,7 @@ import AmareloSvg from "../../assets/cores/amarelo.svg";
 import MulticorSvg from "../../assets/cores/multicor.svg";
 import RoxoSvg from "../../assets/cores/roxo.svg";
 import LaranjaSvg from "../../assets/cores/laranja.svg";
+import colors from '../../assets/colors';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -42,7 +43,7 @@ const DragContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding-top: 10px;
-  background-color: #343541;
+  background-color: ${colors.cinzaEscuro};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: 30px;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
+import colors from './../assets/colors';
 
 //Componente reutilizavel - Botao
 const Button = (props) => {
@@ -27,7 +28,7 @@ const Button = (props) => {
             width={props.width || '144px'}
             type={props.type || 'button'}
             style={{
-                backgroundColor: isPressed ? "#00C17C" : (props.disable ? "#cacaca" : "#343541")
+                backgroundColor: isPressed ? `${colors.verde}` : (props.disable ? "#cacaca" : `${colors.cinzaEscuro}`)
             }}
             disabled={props.disable}
             onClick={(event) => {
@@ -48,7 +49,7 @@ const Button = (props) => {
 }
 
 const ButtonStyle = styled.button`
-    background-color: #343541;
+    background-color: ${colors.cinzaEscuro};
     color: white;
     font-weight: bold;
     font-size: 15px;

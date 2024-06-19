@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import styled from 'styled-components';
+import { useAddLocationMutation } from '../redux/locationAPI';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -30,88 +31,94 @@ const ConfButton = styled.div`
 `;
 
 const AddAdressComponent = () => {
-  const [morada, setMorada] = useState('');
-  const [localidade, setLocalidade] = useState('');
-  const [cidade, setCidade] = useState('');
-  const [codigoPostal, setCodigoPostal] = useState('');
-  const navigate = useNavigate();
+    const [morada, setMorada] = useState('');
+    const [localidade, setLocalidade] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [codigoPostal, setCodigoPostal] = useState('');
+    const navigate = useNavigate();
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+    // Obtendo a função de mutação do hook useAddLocationMutation
+    const [addLocation] = useAddLocationMutation();
 
-    if (!morada || !localidade || !cidade || !codigoPostal) {
-        return;
-    }
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
 
-    const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
-    storedMoradas.push(morada);
-    localStorage.setItem('moradas', JSON.stringify(storedMoradas));
+        if (!morada || !localidade || !cidade || !codigoPostal) {
+            return;
+        }
 
-    navigate('/progressPublish-5', { state: { moradas: storedMoradas } });
-};
+        try {
+            // Chamar a função de mutação para adicionar a localização
+            await addLocation({ address: morada, locationName: localidade, postalCode: codigoPostal });
 
+            // Navegar para a próxima página após adicionar com sucesso
+            navigate('/progressPublish-5');
+        } catch (error) {
+            console.error('Erro ao adicionar localização:', error);
+            // Tratar o erro conforme necessário (ex: exibir mensagem para o usuário)
+        }
+    };
 
-  return (
-      <div>
-          <Header name="Adicionar Morada" />
-          <MainContainer>
-
-              <form onSubmit={handleFormSubmit} style={{ marginTop: "100px" }}>
-                  <AddMorada>
-                      <input type="text" name="Morada" value={morada} onChange={(e) => setMorada(e.target.value)}
-                          placeholder="Adicionar Morada"
-                          style={{
-                              border: "none",
-                              width: "90%",
-                              textAlign: "left",
-                              fontSize: "15px",
-                              outline: "none",
-                          }}
-                          required />
-                      <span>*</span>
-                  </AddMorada>
-                  <AddMorada>
-                      <input type="text" name="localidade" value={localidade} onChange={(e) => setLocalidade(e.target.value)}
-                          placeholder="Localidade"
-                          style={{
-                              border: "none",
-                              width: "90%",
-                              textAlign: "left",
-                              fontSize: "15px",
-                              outline: "none",
-                          }}
-                          required />
-                      <span>*</span>
-                  </AddMorada>
-                  <AddMorada>
-                      <input type="text" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}
-                          placeholder="Cidade"
-                          style={{
-                              border: "none",
-                              width: "90%",
-                              textAlign: "left",
-                              fontSize: "15px",
-                              outline: "none",
-                          }}
-                          required />
-                      <span>*</span>
-                  </AddMorada>
-                  <AddMorada>
-                      <input type="text" name="codigoPost" value={codigoPostal} onChange={(e) => setCodigoPostal(e.target.value)}
-                          placeholder="Código Postal"
-                          style={{
-                              border: "none",
-                              width: "90%",
-                              textAlign: "left",
-                              fontSize: "15px",
-                              outline: "none",
-                          }}
-                          required />
-                      <span>*</span>
-                  </AddMorada>
-                  <h6 style={{fontSize:"14px", fontWeight:"500"}}><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
-                  <ConfButton>
-             <input type="submit" value="Guardar" style={{
+    return (
+        <div>
+            <Header name="Adicionar Morada" />
+            <MainContainer>
+                <form onSubmit={handleFormSubmit} style={{ marginTop: "100px" }}>
+                    <AddMorada>
+                        <input type="text" name="Morada" value={morada} onChange={(e) => setMorada(e.target.value)}
+                            placeholder="Adicionar Morada"
+                            style={{
+                                border: "none",
+                                width: "90%",
+                                textAlign: "left",
+                                fontSize: "15px",
+                                outline: "none",
+                            }}
+                            required />
+                        <span>*</span>
+                    </AddMorada>
+                    <AddMorada>
+                        <input type="text" name="localidade" value={localidade} onChange={(e) => setLocalidade(e.target.value)}
+                            placeholder="Localidade"
+                            style={{
+                                border: "none",
+                                width: "90%",
+                                textAlign: "left",
+                                fontSize: "15px",
+                                outline: "none",
+                            }}
+                            required />
+                        <span>*</span>
+                    </AddMorada>
+                    <AddMorada>
+                        <input type="text" name="cidade" value={cidade} onChange={(e) => setCidade(e.target.value)}
+                            placeholder="Cidade"
+                            style={{
+                                border: "none",
+                                width: "90%",
+                                textAlign: "left",
+                                fontSize: "15px",
+                                outline: "none",
+                            }}
+                            required />
+                        <span>*</span>
+                    </AddMorada>
+                    <AddMorada>
+                        <input type="text" name="codigoPost" value={codigoPostal} onChange={(e) => setCodigoPostal(e.target.value)}
+                            placeholder="Código Postal"
+                            style={{
+                                border: "none",
+                                width: "90%",
+                                textAlign: "left",
+                                fontSize: "15px",
+                                outline: "none",
+                            }}
+                            required />
+                        <span>*</span>
+                    </AddMorada>
+                    <h6 style={{ fontSize: "14px", fontWeight: "500" }}><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
+                    <ConfButton>
+                        <input type="submit" value="Guardar" style={{
                             backgroundColor: "#343541",
                             width: "144px",
                             height: "36px",
@@ -122,16 +129,11 @@ const AddAdressComponent = () => {
                             fontWeight: "bold",
                             outline: "none",
                         }} />
-                  </ConfButton>
-
-
-              </form>
-
-
-
-          </MainContainer>
-      </div>
-  );
+                    </ConfButton>
+                </form>
+            </MainContainer>
+        </div>
+    );
 };
 
 export default AddAdressComponent;
