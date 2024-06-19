@@ -9,6 +9,21 @@ import Header from "../components/Header/Header";
 
 const ContainerGeral = styled.div`
   padding: 0 24px;
+
+  .divNotAvaliable{
+  border-radius: 8px;
+  background-color: #dddddd;
+  padding: 0.5em;
+
+  p{
+  margin-bottom: 0;
+  font-size: 14px;
+  }
+
+  span{
+  font-weight: bold;
+  }
+  }
 `;
 
 const ConvidarBtnEIconAdd = styled.div`
@@ -105,6 +120,10 @@ const RecompensasParaAddAmigos = () => {
       <p style={{ fontSize: "13px" }}>
         Partilha com os teus amigos e começa a ganhar!
       </p>
+
+      <div className="divNotAvaliable">
+        <p><span>Alerta:</span> Neste momento não existe nenhuma campanha em vigor!</p>
+      </div>
 
       <ContainerAddAmigos>
         <p className="tituloGreenContainer">Convida amigos</p>

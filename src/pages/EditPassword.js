@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from '../components/Header/Header';
 import Modal from '../components/Modal';
 import Input from '../components/Input';
+import { CircularProgress } from "@mui/material";
 import { useEditPasswordMutation } from "../redux/usersAPI";
 
 const EditPassword = () => {
@@ -19,135 +20,134 @@ const EditPassword = () => {
   const [editPassword, { isLoading }] = useEditPasswordMutation();
 
   const toggleEyeHandle = (id) => {
-      setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
+    setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
   };
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (password && newPassword && newPassword === repeatPassword && password !== newPassword) {
-          try {
-              console.log('A enviar para a API:', { password, newPassword });
-              const response = await editPassword({ password, newPassword }).unwrap();
-              console.log('API Response:', response);
-              navigate('/');
-          } catch (err) {
-              console.error('Failed to change password:', err);
-          }
-      } else {
-          if (password === newPassword) {
-              console.error('A nova palavra-passe deve ser diferente da palavra-passe atual.');
-          } else {
-              console.error('As palavras-passe não coincidem.');
-          }
+    e.preventDefault();
+    if (password && newPassword && newPassword === repeatPassword && password !== newPassword) {
+      try {
+        const response = await editPassword({ password, newPassword }).unwrap();
+        navigate('/');
+      } catch (err) {
+        console.error('Failed to change password:', err);
       }
+    } else {
+      if (password === newPassword) {
+        console.error('A nova palavra-passe deve ser diferente da palavra-passe atual.');
+      } else {
+        console.error('As palavras-passe não coincidem.');
+      }
+    }
   };
 
   const alertHandler = () => {
-      alert ? setFecharModal(false) : navigate(-1);
+    alert ? setFecharModal(false) : navigate(-1);
   };
 
   const handlePasswordInput = (e) => {
-      setPassword(e.target.value);
-      setAlert(true);
+    setPassword(e.target.value);
+    setAlert(true);
   };
 
   const handleNewPasswordInput = (e) => {
-      setNewPassword(e.target.value);
+    setNewPassword(e.target.value);
   };
 
   const handleRepeatPasswordInput = (e) => {
-      setRepeatPassword(e.target.value);
+    setRepeatPassword(e.target.value);
   };
 
   useEffect(() => {
-      const isValid =
-          password &&
-          newPassword &&
-          newPassword.length > 6 &&
-          newPassword !== password &&
-          newPassword === repeatPassword;
-      setDisableBtn(!isValid);
+    const isValid =
+      password &&
+      newPassword &&
+      newPassword.length > 6 &&
+      newPassword !== password &&
+      newPassword === repeatPassword;
+    setDisableBtn(!isValid);
+    setMatchPassword(newPassword === repeatPassword);
   }, [password, newPassword, repeatPassword]);
 
   return (
-      <>
-          <Header name="Alterar Palavra-passe" alertHandler={alertHandler} />
-          <EditProfileStyle>
-              <Container>
-                  <ParagraphIntroAdress>
-                      Para alterares a tua palavra-passe, terás que inserir a tua palavra-passe atual primeiro!
-                  </ParagraphIntroAdress>
-              </Container>
+    <>
+      <Header name="Alterar Palavra-passe" alertHandler={alertHandler} />
+      <EditProfileStyle>
+        <Container>
+          <ParagraphIntroAdress>
+            Para alterares a tua palavra-passe, terás que inserir a tua palavra-passe atual primeiro!
+          </ParagraphIntroAdress>
+        </Container>
 
-              <form onSubmit={handleSubmit}>
-                  <div className="inputsContainer">
-                      <div className="inputContainer">
-                          <div className="inputTitleContainer">
-                              <label htmlFor="password" className="inputTitle">
-                                  Palavra-passe atual
-                              </label>
-                          </div>
-                          <Input
-                              placeholder="Palavra-passe"
-                              value={password}
-                              onChange={handlePasswordInput}
-                              type={shown.password ? 'text' : 'password'}
-                              shown={shown.password}
-                              isPassword={true}
-                              toggleEyeHandle={() => toggleEyeHandle('password')}
-                          />
-                      </div>
-                      <div className="inputContainer">
-                          <div className="inputTitleContainer">
-                              <label htmlFor="newPassword" className="inputTitle">
-                                  Nova Palavra-passe
-                              </label>
-                          </div>
-                          <Input
-                              placeholder="Nova Palavra-passe"
-                              value={newPassword}
-                              onChange={handleNewPasswordInput}
-                              type={shown.newPassword ? 'text' : 'password'}
-                              shown={shown.newPassword}
-                              isPassword={true}
-                              toggleEyeHandle={() => toggleEyeHandle('newPassword')}
-                          />
-                      </div>
-                      <div className="inputContainer">
-                          <div className="inputTitleContainer">
-                              <label htmlFor="repeatPassword" className="inputTitle">
-                                  Repita a Nova Palavra-passe
-                              </label>
-                          </div>
-                          <Input
-                              placeholder="Repita a Nova Palavra-passe"
-                              value={repeatPassword}
-                              onChange={handleRepeatPasswordInput}
-                              type={shown.repeatPassword ? 'text' : 'password'}
-                              shown={shown.repeatPassword}
-                              isPassword={true}
-                              toggleEyeHandle={() => toggleEyeHandle('repeatPassword')}
-                          />
-                      </div>
-                  </div>
-                  <Label htmlFor="description">
-                      <span className="colourGreenAsterisk">*</span> Campo Obrigatório
-                  </Label>
-
-                  <div className="btnAtualizarDados">
-                      <button className="buttonAtualizar" disabled={disableBtn || isLoading} type="submit">
-                          {isLoading ? 'Loading...' : 'Concluir'}
-                      </button>
-                  </div>
-              </form>
-              <Modal
-                  fecharModal={fecharModal}
-                  setFecharModal={setFecharModal}
-                  alert={alert}
-                  message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        <form onSubmit={handleSubmit}>
+          <div className="inputsContainer">
+            <div className="inputContainer">
+              <div className="inputTitleContainer">
+                <label htmlFor="password" className="inputTitle">
+                  Palavra-passe atual
+                </label>
+              </div>
+              <Input
+                placeholder="Palavra-passe"
+                value={password}
+                onChange={handlePasswordInput}
+                type={shown.password ? 'text' : 'password'}
+                shown={shown.password}
+                isPassword={true}
+                toggleEyeHandle={() => toggleEyeHandle('password')}
+                passAtual={true}
               />
-          </EditProfileStyle>
-      </>
+            </div>
+            <div className="inputContainer">
+              <div className="inputTitleContainer">
+                <label htmlFor="newPassword" className="inputTitle">
+                  Nova Palavra-passe
+                </label>
+              </div>
+              <Input
+                placeholder="Nova Palavra-passe"
+                value={newPassword}
+                onChange={handleNewPasswordInput}
+                type={shown.newPassword ? 'text' : 'password'}
+                shown={shown.newPassword}
+                isPassword={true}
+                matchPassword={matchPassword}
+                toggleEyeHandle={() => toggleEyeHandle('newPassword')}
+              />
+            </div>
+            <div className="inputContainer">
+              <div className="inputTitleContainer">
+                <label htmlFor="repeatPassword" className="inputTitle">
+                  Repita a Nova Palavra-passe
+                </label>
+              </div>
+              <Input
+                placeholder="Repita a Nova Palavra-passe"
+                value={repeatPassword}
+                onChange={handleRepeatPasswordInput}
+                type={shown.repeatPassword ? 'text' : 'password'}
+                shown={shown.repeatPassword}
+                isPassword={true}
+                matchPassword={matchPassword}
+                toggleEyeHandle={() => toggleEyeHandle('repeatPassword')}
+              />
+            </div>
+          </div>
+
+          <div className="btnAtualizarDados">
+            <button className="buttonAtualizar" disabled={disableBtn || isLoading} type="submit">
+              {isLoading ? <Loader><CircularProgress color="inherit" size={24} /></Loader> : 'Concluir'}
+            </button>
+          </div>
+        </form>
+        <Modal
+          fecharModal={fecharModal}
+          setFecharModal={setFecharModal}
+          alert={alert}
+          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        />
+      </EditProfileStyle>
+    </>
   );
 };
 
@@ -296,6 +296,19 @@ const EditProfileStyle = styled.div`
     .inputTitle {
       font-size: 16px;
     }
+  }
+`;
+
+const Loader = styled.div`
+  .loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
   }
 `;
 

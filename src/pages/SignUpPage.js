@@ -10,11 +10,11 @@ import ButtonForOpenBottomSheetSignUp from "../components/ButtonForOpenBottomShe
 // import Button from '../components/Button';
 import BottomSheetGender from '../components/BottomSheets/BottomSheetGender';
 import { useRegisterUserMutation } from '../redux/usersAPI';
+import { CircularProgress } from "@mui/material";
 
 const SignUpPage = () => {
   const [inputNomeValue, setInputNomeValue] = useState('');
   const [inputApelidoValue, setInputApelidoValue] = useState('');
-  // const [disableBtn, setDisableBtn] = useState(true);
   const [inputEmailValue, setInputEmailValue] = useState('');
   const [inputNomeUtilizadorValue, setInputNomeUtilizadorValue] = useState('');
   const [inputPassValue, setInputPassValue] = useState('');
@@ -60,8 +60,7 @@ const SignUpPage = () => {
     if (e.target.value !== inputRepetirPassValue) {
       setMatchPassword(false);
       setErroObrigatorio(true);
-    }
-    else {
+    } else {
       setMatchPassword(true);
       setErroObrigatorio(false);
     }
@@ -70,12 +69,10 @@ const SignUpPage = () => {
 
   const handleRepetirPassChange = (e) => {
     setInputRepetirPassValue(e.target.value);
-
     if (inputPassValue !== e.target.value) {
       setMatchPassword(false);
       setErroObrigatorio(true);
-    }
-    else {
+    } else {
       setMatchPassword(true);
       setErroObrigatorio(false);
     }
@@ -84,19 +81,13 @@ const SignUpPage = () => {
 
   const alertHandler = () => {
     alert ? setFecharModal(false) : navigate(-1);
-  }
+  };
 
   const handleToggleBottomSheet = () => {
     setBottomSheetOpen(!bottomSheetOpen);
-  }
-
-  // const handleEntrarClick = () => {
-  //   navigate('/');
-  // }
-
+  };
 
   useEffect(() => {
-    // Verifica se todos os campos estão preenchidos
     const camposPreenchidos =
       inputNomeValue.trim() !== '' &&
       inputApelidoValue.trim() !== '' &&
@@ -104,8 +95,6 @@ const SignUpPage = () => {
       inputNomeUtilizadorValue.trim() !== '' &&
       inputPassValue.trim() !== '' &&
       inputRepetirPassValue.trim() !== '';
-
-    // Atualiza o estado de todosCamposPreenchidos
     setTodosCamposPreenchidos(camposPreenchidos);
   }, [
     inputNomeValue,
@@ -124,16 +113,16 @@ const SignUpPage = () => {
     setBtnGeneroName(option);
     setBottomSheetOpen(false);
     setAlert(true);
-    setOpcaoSelecionada(true); // Definir como true quando uma opção é selecionada
-  }
+    setOpcaoSelecionada(true);
+  };
 
   const handleClickDrag = () => {
     setBottomSheetOpen(false);
-  }
+  };
 
   const toggleEyeHandle = (id) => {
     setShown((prevShown) => ({ ...prevShown, [id]: !prevShown[id] }));
-  }
+  };
 
   const handleRegisterClick = async (e) => {
     e.preventDefault();
@@ -147,7 +136,7 @@ const SignUpPage = () => {
           password: inputPassValue,
         });
         if (response.error) {
-          setErrorMessages(response.error.message); 
+          setErrorMessages(response.error.message);
         } else {
           navigate('/');
         }
@@ -157,7 +146,7 @@ const SignUpPage = () => {
       }
     }
   };
-  
+
   return (
     <RegistarStyle>
       <Header name="Criar conta" alertHandler={alertHandler} />
@@ -168,28 +157,24 @@ const SignUpPage = () => {
           value={inputNomeValue}
           onChange={handleNomeChange}
         />
-
         <Input
           obrigatorio={true}
           placeholder="Apelido"
           value={inputApelidoValue}
           onChange={handleApelidoChange}
         />
-
         <Input
           obrigatorio={true}
           placeholder="E-mail"
           value={inputEmailValue}
           onChange={handleEmailChange}
         />
-
         <Input
           obrigatorio={true}
           placeholder="Nome de utilizador"
           value={inputNomeUtilizadorValue}
           onChange={handleNomeUtilizadorChange}
         />
-
         {bottomSheetOpen && <Draggable
           cancel=".no-drag"
           onStop={() => setBottomSheetOpen(false)}
@@ -200,7 +185,6 @@ const SignUpPage = () => {
             onSelectOption={handleOptionSelect}
             handleClickDrag={handleClickDrag}
           />
-
         </Draggable>}
         <ButtonForOpenBottomSheetSignUp
           btnName={btnGeneroName}
@@ -208,7 +192,6 @@ const SignUpPage = () => {
           type="button"
           className={opcaoSelecionada ? "opcaoSelecionada" : ""}
         />
-
         <Input
           obrigatorio={false}
           placeholder="Palavra-passe"
@@ -218,9 +201,8 @@ const SignUpPage = () => {
           shown={shown.password}
           isPassword={true}
           matchPassword={matchPassword}
-          toggleEyeHandle={() => toggleEyeHandle("password")} // Passa o id correspondente
+          toggleEyeHandle={() => toggleEyeHandle("password")}
         />
-
         <Input
           obrigatorio={false}
           placeholder="Repetir Palavra-passe"
@@ -231,9 +213,8 @@ const SignUpPage = () => {
           matchPassword={matchPassword}
           erroObrigatorio={erroObrigatorio}
           isPassword={true}
-          toggleEyeHandle={() => toggleEyeHandle("repeatPassword")} // Passa o id correspondente
+          toggleEyeHandle={() => toggleEyeHandle("repeatPassword")}
         />
-
         <div className="termsContainer">
           <input type="checkbox" id="terms" name="terms" onChange={handleTermosChange} />
           <label className="termos" htmlFor='terms'> Aceito os <Link>termos</Link> e a <Link>política de privacidade</Link></label>
@@ -241,56 +222,38 @@ const SignUpPage = () => {
         <div
           className='campoObrigatorio'
           style={
-            todosCamposPreenchidos   //a modal aparece e desaparece caso a variavel fecharModal seja false e true, respetivamente
+            todosCamposPreenchidos
               ? { visibility: "hidden" }
               : { visibility: "visbile" }
           }>
           <span className="colourGreenAsterisk">*</span> Campo Obrigatório
         </div>
-        
-{errorMessages && errorMessages.length > 0 && (
-  <div className="error-messages">
-    {errorMessages.map((error, index) => (
-      <p key={index}>{error}</p>
-    ))}
-  </div>
-)}
+        {errorMessages && errorMessages.length > 0 && (
+          <div className="error-messages">
+            {errorMessages.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
+        )}
         <div className='btnAtualizarDados'>
-  <button 
-    className='buttonAtualizar'
-    disabled={!todosCamposPreenchidos || !termosAceitos || !matchPassword|| isLoading}
-    onClick={handleRegisterClick}
-    type="submit"
-  >
-     {isLoading ? 'Registando...' : 'Concluir'}
-  </button>
-</div>
-
-        {/* <Button
-        type="submit"
-        onClick={handleEntrarClick}
-        text="Concluir"
-        disable={!todosCamposPreenchidos || !termosAceitos}
-      >
-      </Button> */}
-      </form>
-
-      {/* <div>
-        <div className='dragHandleContainer' onClick={dragClickHandle}>
-          <div className='dragHandle' />
+          <button
+            className='buttonAtualizar'
+            disabled={!todosCamposPreenchidos || !termosAceitos || !matchPassword || isLoading}
+            onClick={handleRegisterClick}
+            type="submit"
+          >
+            {isLoading ? <Loader><CircularProgress color="inherit" size={24} /></Loader> : 'Concluir'}
+          </button>
         </div>
-      </div> */}
-
+      </form>
       <Modal
         fecharModal={fecharModal}
-        setFecharModal={setFecharModal}
         alert={alert}
-        message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        setFecharModal={setFecharModal}
       />
-
-    </RegistarStyle >
-  )
-}
+    </RegistarStyle>
+  );
+};
 
 const RegistarStyle = styled.div`
   flex-direction: column;
@@ -407,5 +370,18 @@ const RegistarStyle = styled.div`
   }
 `;
 
+
+const Loader = styled.div`
+  .loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+  }
+`;
 
 export default SignUpPage

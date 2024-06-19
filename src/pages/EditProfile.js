@@ -8,6 +8,7 @@ import EditarInputIcon from '../assets/icons/editarInput.svg';
 import Header from '../components/Header/Header';
 import Modal from '../components/Modal';
 import Input from '../components/Input';
+import { CircularProgress } from "@mui/material";
 import { useSeeUserQuery, useEditUserMutation } from "../redux/usersAPI";
 
 const EditProfile = () => {
@@ -22,6 +23,7 @@ const EditProfile = () => {
   const [fecharModal, setFecharModal] = useState(true);
   const [alert, setAlert] = useState(false);
   const [username, setUsername] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // States to store original values
   const [originalUsername, setOriginalUsername] = useState("");
@@ -51,13 +53,13 @@ const EditProfile = () => {
   };
 
   const handleEditUsernameInput = (e) => {
-    e.preventDefault();  // Evitar a submissão do formulário
+    e.preventDefault();
     setDisableUsername(false);
     setAlert(true);
   };
 
   const handleEditBiografiaInput = (e) => {
-    e.preventDefault();  // Evitar a submissão do formulário
+    e.preventDefault();
     setDisableBiografia(false);
     setAlert(true);
   };
@@ -69,16 +71,9 @@ const EditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const newBio = biografia !== userData.bio ? biografia : userData.bio;
-
-      // console.log("Dados a serem enviados para edição:", {
-      //   bio: newBio,
-      //   username,
-      //   name: userData.name,
-      //   email: userData.email,
-      //   gender: userData.gender
-      // });
 
       await editUser({
         bio: newBio,
@@ -88,9 +83,10 @@ const EditProfile = () => {
         gender: userData.gender
       });
       navigate('/profile-page');
-      console.log("Perfil editado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar perfil:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -116,6 +112,14 @@ const EditProfile = () => {
   const alertHandler = () => {
     alert ? setFecharModal(false) : navigate(-1);
   };
+
+  if (isLoading) {
+    return (
+      <Loader>
+        <CircularProgress className="loader" color="success" />
+      </Loader>
+    );
+  }
 
   return (
     <>
@@ -179,12 +183,10 @@ const EditProfile = () => {
           </div>
 
           <div className='btnAtualizarDados'>
-            <button className='buttonAtualizar'
-              disabled={disableBtn}
-              type="submit"
-            >Atualizar perfil</button>
+            <button className='buttonAtualizar' disabled={disableBtn || isSubmitting} type="submit">
+              {isSubmitting ? <CircularProgress color="inherit" size={24} /> : 'Atualizar perfil'}
+            </button>
           </div>
-
         </form>
         <Modal
           fecharModal={fecharModal}
@@ -202,6 +204,7 @@ const EditProfileStyle = styled.div`
           margin: auto; 
           display: flex;
           max-width: 600px;
+          justify-content: center;
 
         .imagemPerfil {
           width: 84px;
@@ -328,6 +331,19 @@ const EditProfileStyle = styled.div`
             font-size: 16px;
         }
       }
-`
+`;
+
+const Loader = styled.div`
+  .loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+  }
+`;
 
 export default EditProfile;

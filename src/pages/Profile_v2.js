@@ -29,7 +29,7 @@ const Profile = () => {
       await logoutUser().unwrap();
       localStorage.removeItem("login");
       document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error('Falha no logout:', error);
     }
