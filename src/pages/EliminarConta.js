@@ -4,6 +4,7 @@ import Header from '../components/Header/Header'
 import Modal from '../components/Modal';
 import styled from "styled-components";
 import Input from '../components/Input';
+import { CircularProgress } from "@mui/material";
 import {useDeleteUserMutation} from "../redux/usersAPI"
 
 const EliminarConta = () => {
@@ -104,7 +105,7 @@ const EliminarConta = () => {
 
                     <div className="btnAtualizarDados">
                         <button className="buttonAtualizar" disabled={!password || !repeatPassword || isLoading} type="submit">
-                            {isLoading ? 'Loading...' : 'Concluir'}
+                            {isLoading ? <CircularProgress color="inherit" size={24} />: 'Concluir'}
                         </button>
                     </div>
                 </form>
