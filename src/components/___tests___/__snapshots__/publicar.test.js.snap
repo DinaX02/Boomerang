@@ -23,33 +23,6 @@ exports[`snapshot da página Publicar 1`] = `
       </h1>
     </header>
     <div
-      class="sc-bcXGCL igpRmy fundoModal"
-      style="display: none;"
-    >
-      <div
-        class="modalContent"
-      >
-        <p
-          class="textoModal"
-        >
-          Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?
-        </p>
-        <button
-          class="btnOK alert"
-        >
-          Não
-        </button>
-        <div
-          class="vl"
-        />
-        <button
-          class="btnOK alert sim"
-        >
-          Sim
-        </button>
-      </div>
-    </div>
-    <div
       class="MuiStack-root css-6kchnu-MuiStack-root"
     >
       <div
@@ -197,10 +170,10 @@ exports[`snapshot da página Publicar 1`] = `
       </div>
     </div>
     <div
-      class="sc-hLBatu kzsZRx"
+      class="sc-hLBatu ljyBqZ"
     >
       <div
-        class="sc-csuRvn hDMiPI"
+        class="sc-csuRvn bnaTEu"
         for="images"
       >
         <label
@@ -227,7 +200,7 @@ exports[`snapshot da página Publicar 1`] = `
           type="file"
         />
         <p
-          class="sc-ipEzrc dqzeBJ"
+          class="sc-ipEzrc cpTUfa"
         >
           Adiciona até 5 fotografias
         </p>
@@ -247,7 +220,7 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <textarea
-        class="sc-eDVOW GgVhu productFormInput"
+        class="sc-eDVOW fUnRDC productFormInput"
         id="title"
         placeholder="Ex: Casaco de Pele Preto"
         style="font-size: 15px;"
@@ -279,7 +252,6 @@ exports[`snapshot da página Publicar 1`] = `
       />
       <label
         class="sc-eDvShL dRYxAC"
-        for="description"
       >
         <span
           class="colourGreenAsterisk"
@@ -289,10 +261,10 @@ exports[`snapshot da página Publicar 1`] = `
          Campo Obrigatório
       </label>
       <div
-        class="sc-jrcSHq UJMpq"
+        class="sc-jrcSHq dvhzlq"
       >
         <button
-          class="sc-dkrGBB eiKdDW btnComponent"
+          class="sc-dkrGBB ggWpQT btnComponent"
           disabled=""
           style="background-color: rgb(202, 202, 202);"
           type="button"

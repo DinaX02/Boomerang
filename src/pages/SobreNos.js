@@ -8,6 +8,7 @@ import MargaridaFto from "../assets/sobrenos/margarida 1.png";
 import CerqueiraFto from "../assets/sobrenos/cerqueira 1.png";
 import TiegoFto from "../assets/sobrenos/tiego.png";
 import ImgHero from "../assets/sobrenos/img_hero.png";
+import colors from './../assets/colors';
 
 const ContainerInfo = styled.div`
 
@@ -27,7 +28,7 @@ h5{
 }
 
 .tags_boomerang{
-    background-color: #343541;
+    background-color: ${colors.cinzaEscuro};
     /* border: 2px solid #5D5D67; */
     color: #00C17C;
     padding-top: 0.3em;
@@ -41,7 +42,7 @@ h5{
   }
 
   .tags_boomerang_big{
-    background-color: #343541;
+    background-color: ${colors.cinzaEscuro};
     /* border: 2px solid #5D5D67; */
     color: #00C17C;
     padding-top: 0.3em;
@@ -55,7 +56,7 @@ h5{
   }
 
   .tags_boomerang_extra{
-    background-color: #343541;
+    background-color: ${colors.cinzaEscuro};
     /* border: 2px solid #5D5D67; */
     color: #00C17C;
     padding-top: 0.3em;
@@ -77,7 +78,7 @@ h5{
 
 const ContainerTeam = styled.div`
 margin-top: 2em;
-background-color: #343541;
+background-color: ${colors.cinzaEscuro};
 display: flex;
 flex-direction: column;
 padding-left: 1.4em;

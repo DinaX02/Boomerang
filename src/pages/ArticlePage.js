@@ -36,7 +36,7 @@ import { MenuList } from "@mui/material";
 import denunciarIcon from "../assets/icons/denunciar.svg";
 // import notificarIcon from "../assets/icons/notificar-me.svg";
 import { useFetchProductQuery } from '../redux/productAPI';
-// import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import { CircularProgress } from "@mui/material";
 import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
 import { useSeeUserQuery } from "../redux/usersAPI";
@@ -49,10 +49,10 @@ const ArticlePage = (props) => {
   const [fecharModal, setFecharModal] = useState(true);
   const message1 = "<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>"
   const [modalMessage, setModalMessage] = useState(message1);
-  const { data: productsData, isLoading, error } = useFetchProductQuery({ id: parseInt(id) });
+  const { data: productsData, isLoading } = useFetchProductQuery({ id: parseInt(id) });
   const [item, setItem] = useState({});
   const { data: userData } = useSeeUserQuery();
-  const { data: productUserData, isLoading: isUserLoading, error: userError } = useSeeUserQuery(productsData ? productsData[0].UserId : null);
+  const { data: productUserData} = useSeeUserQuery(productsData ? productsData[0].UserId : null);
   const [fillFavorite, setFillFavorite] = useState('#00A167');
   const [strokeFavorite, setStrokeFavorite] = useState('#25252580');
   const [addFavorite] = useAddFavoriteMutation();
@@ -175,7 +175,6 @@ const ArticlePage = (props) => {
     }
   }
 
-  const measurementDefault = {cintura: 67};
   return (
     <ArticlePageStyle>
       <Modal
@@ -293,14 +292,14 @@ const ArticlePage = (props) => {
         </div>
       }
       {!isLoading && !productsData[0].images &&
-        // <img
-        //   src={imageDefaultProduct}
-        //   style={{ height: `${imgHeight}` }}
-        //   alt={`${productsData[0].title}`}
-        // />
-        <ImagemIndisponivel>
-          <p>Imagem indisponível</p>
-        </ImagemIndisponivel>
+        <img
+          src={imageDefaultProduct}
+          style={{ width: `100%`, marginTop: `67px` }}
+          alt={`${productsData[0].title}`}
+        />
+        // <ImagemIndisponivel>
+        //   <p>Imagem indisponível</p>
+        // </ImagemIndisponivel>
       }
 
       <div className={'articleHeader'}>
@@ -347,25 +346,25 @@ const ArticlePage = (props) => {
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Tamanho</div>
-        <div>{productsData[0].Size.name}</div>
+        <div>{productsData[0].Size?.name ?? "Não disponível"}</div>
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Cor</div>
-        <div className={'articleColor'}><img src={colorImages[productsData[0].Color.name]} alt='cor da imagem' />{productsData[0].Color.name}</div>
+        <div className={'articleColor'}>{productsData[0].Color?.name && <img src={colorImages[productsData[0].Color?.name]} alt='cor da imagem' />}{productsData[0].Color?.name ?? "Não disponível"}</div>
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Categoria</div>
-        <div>{productsData[0].ProductType.name}</div>
+        <div>{productsData[0].ProductType?.name ?? "Não disponível"}</div>
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Marca</div>
-        <div>{productsData[0].brand!=='' ?productsData[0].brand: "Sem marca"}</div>
+        <div>{productsData[0].brand!=='' ? productsData[0].brand : "Sem marca"}</div>
       </div>}
       {!isLoading && <div className={'articleSection'}>
         <div className={'title'}>Estado <button onClick={() => { handleIconClick(2) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button></div>
-        <div>{productsData[0].Grade.name}</div>
+        <div>{productsData[0].Grade?.name  ?? "Não disponível"}</div>
       </div>}
-      {!isLoading && productsData[0].measurements && <div className={'articleSection'}>
+      {!isLoading && productsData[0].measurements?.length > 0 && <div className={'articleSection'}>
         {productsData[0].measurements && <div className={'title'}>Medidas da Peça <button onClick={() => { handleIconClick(3) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button>
         </div>
         }

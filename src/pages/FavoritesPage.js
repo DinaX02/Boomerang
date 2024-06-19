@@ -218,7 +218,7 @@ const VerTudo = () => {
                         return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} width={singleColumnGrid ? '100%' : '120px'}/>;
                     })} */}
                     {dataFavorite.map((artigo) => {
-                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
+                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
                         })}
                 </div>}
             </div>

@@ -54,6 +54,7 @@ const ProgressPublish5 = () => {
   const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
   const [showOverlayFinal, setShowOverlayFinal] = useState(false);
   const [publishProduct] = useCreateProductMutation();
+  const [erroPublicar, setErroPublicar] = useState(false);
 
   const progressPublish1 = useSelector((state) => state.Publicar1.progressPublish1);
 
@@ -74,31 +75,74 @@ const ProgressPublish5 = () => {
     navigate("/progressPublish-4");
   };
 
-  const handleNextStepPublish = () => {
-    setShowOverlayFinal(true);
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, { type: mime });
+  }
+
+  const handleNextStepPublish = async () => {
+    // setShowOverlayFinal(true);
     setTimeout(async () => {
       localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
-      // console.log(progressPublish1);
-      const { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId } = progressPublish1;
-      console.log("MEASURE:", measurements);
+
+      const { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId, productImage } = progressPublish1;
+
+      // Convertendo base64 de volta para arquivos
+      const files = productImage.map((base64Image, index) => {
+        return dataURLtoFile(base64Image, `image_${index}.png`);
+      });
+
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('measurements', measurements);
+      formData.append('value', value);
+      formData.append('price_day', price_day);
+      formData.append('brand', brand);
+      formData.append('SizeId', SizeId);
+      formData.append('ProductTypeId', ProductTypeId);
+      formData.append('ColorId', ColorId);
+      formData.append('GradeId', GradeId);
+
+      // Adicionar arquivos ao FormData
+      files.forEach((file, index) => {
+        formData.append(`file${index}`, file);
+      });
+
+      // Log de todos os valores adicionados ao FormData
+      // for (var pair of formData.entries()) {
+      //   console.log(pair[0] + ', ' + pair[1]);
+      // }
 
       try {
-        await publishProduct({ title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId }).unwrap();
+        await publishProduct(formData).unwrap();
         dispatch(resetProgressPublish1());
-        setShowOverlayFinal(false);
-        // navigate("/");
+        setShowOverlayFinal(true);
+        navigate("/");
       } catch (error) {
+        setErroPublicar(true);
         console.log('Error publishing product:', error);
         setShowOverlayFinal(false); // Hide overlay if there's an error
       }
     }, 3000);
   };
 
+
+
   const alertHandler = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
   };
 
-  const handleChangeStepInProgressBar = (newStep) => {};
+  const handleChangeStepInProgressBar = (newStep) => { };
 
   return (
     <div>
@@ -124,6 +168,7 @@ const ProgressPublish5 = () => {
             </ParagraphIntroAdress>
           </Container>
           <ChooseAdressComponent onAddressSelect={handleAddressSelect} />
+          {erroPublicar && <p style={{ marginTop: "1em", color: "#C80000" }}>Erro ao publicar por causa do upload de imagens</p>}
           <ContainerDoisBtn>
             <Button text="Anterior" onClick={handleGoBackStepPublish} />
             <Button text="Publicar" onClick={handleNextStepPublish} disable={!BtnPublicarEnabled} />

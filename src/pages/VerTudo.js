@@ -8,7 +8,7 @@ import Grow from '@mui/material/Grow';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import { MenuList } from "@mui/material";
-import artigosJSON from "../data/artigos.json";
+// import artigosJSON from "../data/artigos.json";
 import Article from "../components/Article"; // Import the component
 import Header from '../components/Header/Header';
 import mosaicoIcon from "../assets/icons/mosaico.svg";
@@ -32,7 +32,7 @@ const VerTudo = () => {
         orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
         orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
     });
-    console.log(productsData);
+    // console.log(productsData);
 
     useEffect(() => {
         // dar reset ao scroll quando se entrar aqui :)
@@ -79,19 +79,19 @@ const VerTudo = () => {
         }
     };
 
-    const sortArtigos = () => {
-        if (sortingCriteria === 'lowToHigh') {
-            return artigosJSON.slice(0, 10).sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
-        } else if (sortingCriteria === 'highToLow') {
-            return artigosJSON.slice(0, 10).sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
-        } else if (sortingCriteria === 'mostRecent') {
-            return artigosJSON.slice(0, 10).sort((a, b) => a.id - b.id);
-        } else if (sortingCriteria === 'oldest') {
-            return artigosJSON.slice(0, 10).sort((a, b) => b.id - a.id);
-        } else {
-            return artigosJSON;
-        }
-    };
+    // const sortArtigos = () => {
+    //     if (sortingCriteria === 'lowToHigh') {
+    //         return artigosJSON.slice(0, 10).sort((a, b) => a.dailyRentalPrice - b.dailyRentalPrice);
+    //     } else if (sortingCriteria === 'highToLow') {
+    //         return artigosJSON.slice(0, 10).sort((a, b) => b.dailyRentalPrice - a.dailyRentalPrice);
+    //     } else if (sortingCriteria === 'mostRecent') {
+    //         return artigosJSON.slice(0, 10).sort((a, b) => a.id - b.id);
+    //     } else if (sortingCriteria === 'oldest') {
+    //         return artigosJSON.slice(0, 10).sort((a, b) => b.id - a.id);
+    //     } else {
+    //         return artigosJSON;
+    //     }
+    // };
 
     const getViewIcon = () => {
         switch (viewOption) {
@@ -216,7 +216,7 @@ const VerTudo = () => {
                         return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} width={singleColumnGrid ? '100%' : '120px'}/>;
                     })} */}
                     {productsData.map((artigo) => {
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
+                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
                     })}
                 </div>}
             </div>
@@ -234,7 +234,7 @@ const ResultsStyle = styled.div`
       padding-top: 25px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-around;
+      justify-content: left;
       gap: 25px 25px;
       flex-direction: row;
     }

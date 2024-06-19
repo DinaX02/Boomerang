@@ -3,6 +3,7 @@ import { animated, useSpring } from "react-spring";
 import styled from "styled-components";
 import Draggable from "react-draggable";
 import { FocusOn } from 'react-focus-on';
+import colors from '../../assets/colors';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -27,7 +28,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 padding-top: 10px;
-background-color: #343541;
+background-color: ${colors.cinzaEscuro};
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
 height: 30px;
