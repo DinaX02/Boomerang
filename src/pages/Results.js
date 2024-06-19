@@ -1,4 +1,4 @@
-import articlesJSON from '../data/artigos.json';
+// import articlesJSON from '../data/artigos.json';
 // import usersJSON from '../data/users.json';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -29,7 +29,7 @@ const Results = () => {
     const navigate = useNavigate();
     const [queryParams, setQueryParams] = useSearchParams();
     const [singleColumnGrid, setSingleColumnGrid] = useState(false);
-    const [articles, setArticles] = useState(articlesJSON);
+    // const [articles, setArticles] = useState(articlesJSON);
     const type = queryParams.get('type') || '';
     // const sortingCriteria = queryParams.get('sorting') || 'mostRecent';
     const [sortingCriteria, setSortingCriteria] = useState('mostRecent'); // Estado para armazenar o critério de ordenação
@@ -79,11 +79,15 @@ const Results = () => {
     useEffect(() => {
         // setIsLoading(true);
         // Filter articles based on search query and parameters
-        const query = queryParams.get('query') || '';
+        // const query = queryParams.get('query') || '';
         const size = queryParams.get('size') || '';
         const category = queryParams.get('category') || '';
         const color = queryParams.get('color') || '';
         const brand = queryParams.get('brand') || '';
+        console.log(color);
+        setSizeFilter(size);
+        setColorFilter(color);
+        setCategoryFilter(category);
 
         if (type === 'articles') {
 
@@ -120,22 +124,23 @@ const Results = () => {
             // setFilteredUsers(filteredUsers);
         }
         // setIsLoading(false);
-    }, [queryParams, type, usersData, articles, sortingCriteria]);
+    }, [queryParams, type, usersData]);
 
     const addFilters = (filterObj) => {
         const newParams = new URLSearchParams(currentParams);
 
         // loop through the object and add filters that are not null
         for (const [filterType, value] of Object.entries(filterObj)) {
-            if (filterType === 'size') {
-                setSizeFilter(value);
-            }
-            if (filterType === 'color') {
-                setColorFilter(value);
-            }
-            if (filterType === 'category') {
-                setCategoryFilter(value);
-            }
+            // if (filterType === 'size') {
+            //     setSizeFilter(value);
+            // }
+            // if (filterType === 'color') {
+            //     console.log(value);
+            //     setColorFilter(value);
+            // }
+            // if (filterType === 'category') {
+            //     setCategoryFilter(value);
+            // }
 
             if (value !== null) {
                 newParams.set(filterType, value);
@@ -348,7 +353,7 @@ const Results = () => {
                 {productsData.length !== 0 ? (
                     <div className={'resultsArticles'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
                         {productsData.map((artigo) => {
-                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
+                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
                         })}
                     </div>
                 ) : (

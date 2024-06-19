@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import InfoIconMesures from "../assets/icons/infoIcon.svg";
 import Modal from "./Modal";
-import ImgMesuresModal from "../assets/icons/overlay_dress_mesures.svg"
+import ImgMesuresModal from "../assets/icons/overlay_dress_mesures.svg";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProgressPublish1 } from '../redux/publicarSlice';
+import { updateMeasurements } from '../redux/publicarSlice';
 
 const Container = styled.div`
   display: flex;
@@ -21,7 +21,6 @@ const ButtonWrapper = styled.div`
   margin-bottom: 24px;
 `;
 
-
 const InfoIconContainer = styled.span`
   display: flex;
   align-items: center;
@@ -35,7 +34,8 @@ const InfoIconContainer = styled.span`
 const InfoSvg = styled.img`
 width: 18px;
 margin-right:8px;
-`
+`;
+
 const ImgModalDress = styled.img`
   margin-top: 1em;
   text-align: center;
@@ -75,8 +75,8 @@ const ContainerMesures = styled.div`
 
     span {
       margin-left: 5px; 
+    }
   }
-}
 `;
 
 const StyledInput = styled.input`
@@ -109,25 +109,21 @@ const Divisor = styled.div`
   margin: 0 40px;
 `;
 
-
 const InputMeasuresNotMandatory = (props) => {
   const dispatch = useDispatch();
 
-  const measureBusto = useSelector((state) => state.Publicar1.progressPublish1.measureBusto);
-  const measureCintura = useSelector((state) => state.Publicar1.progressPublish1.measureCintura);
-  const measureQuadril = useSelector((state) => state.Publicar1.progressPublish1.measureQuadril);
-  const measureComprimento = useSelector((state) => state.Publicar1.progressPublish1.measureComprimento);
+  const measurements = useSelector((state) => state.Publicar1.progressPublish1.measurements);
 
   const [fecharModal, setFecharModal] = useState(true);
 
   const handleIconClick = () => {
-    // console.log("abrir modal pls");
     setFecharModal(false);
   };
 
   const handleInputChange = (field, value) => {
     // Atualizar o redux ao modificar qualquer valor dos inputs
-    dispatch(updateProgressPublish1({ [field]: value }));
+    const numericValue = parseFloat(value) || 0;
+    dispatch(updateMeasurements({ [field]: numericValue  }));
   };
 
   return (
@@ -147,8 +143,8 @@ const InputMeasuresNotMandatory = (props) => {
           <div>
             <StyledInput placeholder="Ex: 84"
               type="number"
-              value={measureBusto}
-              onChange={(e) => handleInputChange("measureBusto", e.target.value)} />
+              value={measurements.Busto || ""}
+              onChange={(e) => handleInputChange("Busto", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
@@ -159,8 +155,8 @@ const InputMeasuresNotMandatory = (props) => {
           <div>
             <StyledInput placeholder="Ex: 87"
               type="number"
-              value={measureCintura}
-              onChange={(e) => handleInputChange("measureCintura", e.target.value)} />
+              value={measurements.Cintura || ""}
+              onChange={(e) => handleInputChange("Cintura", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
@@ -171,8 +167,8 @@ const InputMeasuresNotMandatory = (props) => {
           <div>
             <StyledInput placeholder="Ex: 90"
               type="number"
-              value={measureQuadril}
-              onChange={(e) => handleInputChange("measureQuadril", e.target.value)} />
+              value={measurements.Quadril || ""}
+              onChange={(e) => handleInputChange("Quadril", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>
@@ -183,8 +179,8 @@ const InputMeasuresNotMandatory = (props) => {
           <div>
             <StyledInput placeholder="Ex: 130"
               type="number"
-              value={measureComprimento}
-              onChange={(e) => handleInputChange("measureComprimento", e.target.value)} />
+              value={measurements.Comprimento || ""}
+              onChange={(e) => handleInputChange("Comprimento", e.target.value)} />
             <span>cm</span>
           </div>
         </ContainerMesures>

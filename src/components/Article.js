@@ -79,12 +79,12 @@ const Article = (props) => {
       </Link>
       {props.description && <div style={{ display: props.description ? "block" : "none" }} className={'description'}>
         <div className={'priceRow'}>
-          <div>{props.price}€ / dia</div>
+          {props.price && <div>{props.price}€ / dia</div>}
           {/* <div><FavoriteBorderIcon style={{color: "lightgray", scale: '0.7'}}/></div> */}
           {userData && <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />}
         </div>
         <p>{props.brand ? props.brand : "Sem marca"}</p>
-        <p>Tamanho {props.size}</p>
+        {props.size && <p>Tamanho {props.size}</p>}
       </div>}
     </ArticleStyled>
   )

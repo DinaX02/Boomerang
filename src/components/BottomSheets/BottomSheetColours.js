@@ -10,6 +10,7 @@ import VerdeSvg from "../../assets/cores/verde.svg";
 import AzulSvg from "../../assets/cores/azul.svg";
 import AmareloSvg from "../../assets/cores/amarelo.svg";
 import { FocusOn } from 'react-focus-on';
+import colors from '../../assets/colors';
 
 const ModalContainer = styled(animated.div)`
   position: fixed;
@@ -39,7 +40,7 @@ const DragContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding-top: 10px;
-  background-color: #343541;
+  background-color: ${colors.cinzaEscuro};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: 30px;
