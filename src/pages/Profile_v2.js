@@ -13,6 +13,7 @@ import SettingsOutlinedIcon from '../assets/icons/profile/settings.svg';
 import DescriptionOutlinedIcon from '../assets/icons/profile/termos.svg';
 import PrivacyTipOutlinedIcon from '../assets/icons/profile/privacidade.svg';
 import CardGiftcardIcon from '../assets/icons/profile/gift.svg';
+import CookiesIcon from '../assets/icons/cookies_icon.svg';
 import Sobrenos from '../assets/icons/sobrenos.svg';
 import Logout from '../assets/icons/logout.svg';
 import { useLogoutUserMutation } from "../redux/usersAPI";
@@ -29,7 +30,7 @@ const Profile = () => {
       await logoutUser().unwrap();
       localStorage.removeItem("login");
       document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.error('Falha no logout:', error);
     }
@@ -138,6 +139,7 @@ const Profile = () => {
             </div>
           </Link>
           <hr />
+          <Link to={"/termos-condicoes-page"}>
           <div className="iconitem">
             <img src={DescriptionOutlinedIcon} alt="termos e condições" className="icon" />
             <div className="profiletext">
@@ -145,7 +147,9 @@ const Profile = () => {
             </div>
             <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
+          </Link>
           <hr />
+          <Link to={"/politica-privacidade-page"}>
           <div className="iconitem">
             <img src={PrivacyTipOutlinedIcon} alt="política de privacidade" className="icon" />
             <div className="profiletext">
@@ -153,6 +157,17 @@ const Profile = () => {
             </div>
             <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
+          </Link>
+          <hr />
+          <Link to={"/politica-cookies-page"}>
+          <div className="iconitem">
+            <img src={CookiesIcon} alt="política de privacidade" className="icon" />
+            <div className="profiletext">
+              <p>Política de Cookies</p>
+            </div>
+            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
+          </div>
+          </Link>
           <hr />
           <Link to={"/sobre-nos"}>
             <div className="iconitem">
