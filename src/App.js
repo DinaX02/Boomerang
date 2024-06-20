@@ -42,6 +42,9 @@ import SobreNos from "./pages/SobreNos.js";
 import HomepageGeral from "./pages/HomepageGeral.js";
 import EliminarConta from "./pages/EliminarConta.js";
 import FavoritesPage from "./pages/FavoritesPage"
+import TermoseCondicoes from "./pages/TermoseCondicoes.js";
+import PoliticadePrivacidade from "./pages/PoliticadePrivacidade.js";
+import PoliticadeCookies from "./pages/PoliticadeCookies.js";
 
 function App() {
 
@@ -92,6 +95,9 @@ function App() {
         <Route path="/sobre-nos" element={<SobreNos/>}></Route>
         <Route path="/apagar-conta" element={<EliminarConta/>}></Route>
         <Route path="/favorites-page" element={<FavoritesPage/>}></Route>
+        <Route path="/termos-condicoes-page" element={<TermoseCondicoes/>}></Route>
+        <Route path="/politica-privacidade-page" element={<PoliticadePrivacidade/>}></Route>
+        <Route path="/politica-cookies-page" element={<PoliticadeCookies/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>
