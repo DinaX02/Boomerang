@@ -82,9 +82,9 @@ const Results = () => {
         // const query = queryParams.get('query') || '';
         const size = queryParams.get('size') || '';
         const category = queryParams.get('category') || '';
+        const name = queryParams.get('name') || '';
         const color = queryParams.get('color') || '';
         const brand = queryParams.get('brand') || '';
-        console.log(color);
         setSizeFilter(size);
         setColorFilter(color);
         setCategoryFilter(category);
@@ -95,6 +95,7 @@ const Results = () => {
                 size: size,
                 color: color,
                 category: category,
+                name: name,
                 brand: brand,
             })
 
@@ -156,7 +157,6 @@ const Results = () => {
     const deleteFilter = (key) => {
         activeFilters[key] = '';
         addFilters(activeFilters);
-        console.log('delete')
     };
 
     const handleSort = (criteria) => {

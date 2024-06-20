@@ -6,7 +6,6 @@ import MenuMobile from "../components/MenuMobile";
 import ProfileLink from "../components/ProfileLink";
 import Chip from '../components/chip';
 import LoginRegistar from '../components/LoginRegistar';
-// import artigosJSON from '../data/artigos.json';
 import mockupprofile from '../assets/icons/user_unknown.svg';
 import usersJSON from '../data/users.json';
 import { useFetchProductSearchQuery } from '../redux/productAPI';
@@ -15,38 +14,24 @@ import { CircularProgress } from "@mui/material";
 import PopupHomepage from '../components/HomepagePopUp';
 import { useFetchFavoriteQuery } from '../redux/favoriteAPI';
 import { useSeeUserQuery } from "../redux/usersAPI";
+import { useFetchPopularCategoryQuery } from "../redux/popularAPI";
 
 const Homepage = () => {
   const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
-  const { data: dataFavorite, isLoading: isLoadingFavorite, error, refetch: refetchFav } = useFetchFavoriteQuery();
+  const { data: dataFavorite, isLoading: isLoadingFavorite, refetch: refetchFav } = useFetchFavoriteQuery();
   const { data: userData, refetch } = useSeeUserQuery();
-
-  useEffect(() => {
-    console.log("Loading state:", isLoadingFavorite);
-
-    console.log("Error state:", error);
-    if (!isLoadingFavorite) {
-      console.log("Data favorite:", dataFavorite);
-    }
-  }, [isLoadingFavorite, dataFavorite, error]);
+  const { data: fetchPopularCategoryData } = useFetchPopularCategoryQuery();
 
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [moreFav, setMoreFav] = useState(false);
-  // const [isReloaded, setIsReloaded] = useState(false); // Estado para controlar a recarga
 
   useEffect(() => {
-    // if (!localStorage.getItem('reloaded')) {
-    //   localStorage.setItem('reloaded', 'true');
-    //   window.location.reload();
-    // } else {
-    //   localStorage.removeItem('reloaded');
-    // }
-
     window.scrollTo(0, 0);
-    refetch();
-    refetchFav();
-
+    if (userData) {
+      refetch();
+      refetchFav();
+    }
     if (window.innerWidth < 600) {
       if (localStorage.getItem("redirect")) {
         return;
@@ -94,11 +79,10 @@ const Homepage = () => {
           </div>
           <div>
             <h3 className={'sectionTitle'}><span>Categorias Populares</span></h3>
-            <div className={'articles'}>
-              <Chip category={'Homem'} />
-              <Chip category={'Mulher'} />
-              <Chip category={'Gala'} />
-              <Chip category={'Cerimónia'} />
+            <div className={'articlesPromotors'}>
+              {fetchPopularCategoryData?.slice(0, 6).map((category, index) => (
+                <Chip key={index} category={`${category.name}`} />
+              ))}
             </div>
           </div>
           <div>
@@ -183,6 +167,17 @@ const HomepageStyle = styled.div`
     display: flex;
     gap: 15px;
     overflow: scroll;
+    * {
+      flex-shrink: 0;
+    }
+  }
+  .articlesPromotors {
+    margin: 5px 0;
+    padding: 10px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    /* overflow: scroll; */
     * {
       flex-shrink: 0;
     }

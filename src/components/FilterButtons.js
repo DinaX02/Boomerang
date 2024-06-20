@@ -8,9 +8,11 @@ import { useLocation } from "react-router-dom";
 import { useFetchProductFormQuery } from '../redux/productAPI';
 import { CircularProgress } from "@mui/material";
 import styled from "styled-components";
+import { useFetchPopularCategoryQuery } from "../redux/popularAPI";
 
 const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
     const { data, isLoading } = useFetchProductFormQuery();
+    const { data: fetchPopularCategoryData, isLoading: isLoadingPopularCategory} = useFetchPopularCategoryQuery();
 
     const { search } = useLocation();
     const queryParams = new URLSearchParams(search);
@@ -26,18 +28,21 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
         size: '',
         color: '',
         category: '',
+        name: '',
         brand: '',
     });
 
     const toggleFiltersOn = () => {
         const size = queryParams.get('size') || '';
         const category = queryParams.get('category') || '';
+        const name = queryParams.get('name') || '';
         const color = queryParams.get('color') || '';
         const brand = queryParams.get('brand') || '';
         setSelectedFilters({
             size: size,
             color: color,
             category: category,
+            name: name,
             brand: brand,
         });
         //toggle every accordion
@@ -71,11 +76,11 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
         });
     };
 
-    const getUniqueCategories = (categories) => {
+    const getUniqueCategories = (categories, key) => {
         const seen = new Set();
         return categories.filter(item => {
-            const isDuplicate = seen.has(item.category);
-            seen.add(item.category);
+            const isDuplicate = seen.has(item[key]);
+            seen.add(item[key]);
             return !isDuplicate;
         });
     };
@@ -141,16 +146,23 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                             </div>
                             {accordion.category && (
                                 <div className="panel">
-                                    {getUniqueCategories(data.productTypes).map((elem) => {
+                                    {getUniqueCategories(data.productTypes, 'category').map((elem) => {
                                         return <label key={elem.id}>
                                             <input type="radio" className="radioInput" name="category" value={elem.name} onChange={() => handleSelectFilter('category', elem.category)} checked={selectedFilters['category'] === elem.category} />
                                             {elem.category}
                                         </label>
                                     })}
+                                    <hr></hr>
+                                    {getUniqueCategories(fetchPopularCategoryData, 'name').map((elem) => {
+                                        return <label key={elem.id}>
+                                            <input type="radio" className="radioInput" name="name" value={elem.name} onChange={() => handleSelectFilter('name', elem.name)} checked={selectedFilters['name'] === elem.name} />
+                                            {elem.name}
+                                        </label>
+                                    })}
                                 </div>
                             )}
 
-                            <hr></hr>
+                            {/* <hr></hr>
                             <div className="accordionSeparador">
                                 <button className="accordion" onClick={() => toggleAccordion('brand')}>
                                     Marca
@@ -168,7 +180,7 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
                                         Marca 2
                                     </label>
                                 </div>
-                            )}
+                            )} */}
                         </div>
                     </div>
                     <div className="filtroAplicar">
