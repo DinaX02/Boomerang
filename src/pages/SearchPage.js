@@ -5,20 +5,13 @@ import Chip from '../components/chip';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuMobile from "../components/MenuMobile";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useFetchPopularCategoryQuery } from "../redux/popularAPI";
+import { CircularProgress } from "@mui/material";
 
 const SearchPage = () => {
     const navigate = useNavigate(); // Use useNavigate hook
     const [searchInput, setSearchInput] = useState('');
-
-    const categories = [
-        'Calças', 'Casacos', 'Sapatos', 'Acessórios', 'Saias', 'Bonés', 'Camisas',
-        'Vestidos',
-    ];
-
-    const brands = [
-        'Nike', 'Gucci', 'H&M', 'Tommy Hilfiger', 'Calvin Klein', 'Versace',
-        'Ralph Lauren', 'Chanel', 'Vans', 'Balenciaga', 'Louis Vuitton', 'Converse',
-    ];
+    const { data: fetchPopularCategoryData, isLoading} = useFetchPopularCategoryQuery();
 
     const inputRefs = useRef({
         category: null,
@@ -58,18 +51,20 @@ const SearchPage = () => {
                                     onChange={(e) => setSearchInput(e.target.value)}
                                 />
                             </form>
-                            <div className={'sectionTitle'}>Categorias Populares</div>
-                            <div className={'chips'}>
-                                {categories.map((category, index) => (
-                                    <Chip key={index} category={category} />
+                            {isLoading && <CircularProgress className={'loader'} color="success" />}
+
+                            {!isLoading && <div className={'sectionTitle'}>Categorias Populares</div>}
+                            {!isLoading && <div className={'chips'}>
+                                {fetchPopularCategoryData?.map((category, index) => (
+                                    <Chip key={index} category={category.name} />
                                 ))}
-                            </div>
-                            <div className={'sectionTitle'}>Marcas Populares</div>
+                            </div>}
+                            {/* <div className={'sectionTitle'}>Marcas Populares</div>
                             <div className={'chips'}>
                                 {brands.map((brand, index) => (
                                     <Chip key={index} brand={brand} />
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     }
                     title2={'Membros'}
@@ -93,6 +88,16 @@ const SearchPage = () => {
 };
 
 const SearchStyle = styled.div`
+  .loader {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+  }
   .sectionTitle {
     margin: 25px 0;
     display: flex;

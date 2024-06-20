@@ -84,7 +84,7 @@ const Article = (props) => {
           {userData && <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />}
         </div>
         <p>{props.brand ? props.brand : "Sem marca"}</p>
-        {props.size && <p>Tamanho {props.size}</p>}
+        <p>{props.size ? "Tamanho " + props.size : "Sem tamanho"}</p>
       </div>}
     </ArticleStyled>
   )
