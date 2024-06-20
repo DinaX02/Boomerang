@@ -64,6 +64,17 @@ const ArticlePage = (props) => {
   //   console.log("Mensagem de erro:" + error.message);
   // }
 
+  useEffect(() => {
+    if (userData === undefined) {
+      return;
+    }
+
+    const isUserDefined = userData !== undefined;
+    const isDisabled = !isUserDefined;
+
+  }, [userData]);
+
+
   const messages = [
     (<span>O <strong>valor estimado</strong> traduz a avaliação pessoal que o utilizador atribui à sua peça.</span>),
 
@@ -318,8 +329,8 @@ const ArticlePage = (props) => {
           </div>
         </div>
         <div className={'articleButtons'}>
-          <Button text="Alugar" onClick={() => navigate(`/rentdate-page/${item.id}`)}></Button>
-          <Button text="Chat" onClick={() => navigate(`/chat`)}></Button>
+          <Button text="Alugar" onClick={() => navigate(`/rentdate-page/${item.id}`)} disable={!userData} ></Button>
+          <Button text="Chat" onClick={() => navigate(`/chat`)} disable={!userData}></Button>
         </div>
       </div>
       {!isLoading && <div className={'articleSection'}>
@@ -477,6 +488,11 @@ const ArticlePageStyle = styled.div`
           background-color: #00C17C !important;
           color: white;
         }
+       &[disabled] {
+      background-color: #ccc !important;
+      color: #999;
+      cursor: not-allowed;
+    }
       }
     }
   }

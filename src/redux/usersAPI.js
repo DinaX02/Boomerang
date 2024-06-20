@@ -54,10 +54,10 @@ export const myUserAPI = createApi({
     }),
 
     editUser: builder.mutation({
-      query: ({ bio, username, name, email, gender }) => ({
+      query: ({ bio, username, name, email, gender, profileImage}) => ({
         url: "user",
         method: "PUT",
-        body: { bio, username, name, email, gender },
+        body: { bio, username, name, email, gender, profileImage},
       }),
     }),
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProgressPublish1 } from "../redux/publicarSlice";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CustomizedSteppers from "../components/ProgressBar";
 import ModalAlertaForPublish from "../components/ProgressPublish/ModalAlertaForPublish";
 import HeaderPublish from "../components/Header/HeaderPublicar";
+import { useSeeUserQuery } from "../redux/usersAPI";
 import EliminarImage from "../assets/icons/eliminar.svg";
 import Button from "../components/Button";
 
@@ -116,6 +117,20 @@ const ProductFormInput2 = styled.textarea`
 const Publicar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { data: userData, refetch, isLoading } = useSeeUserQuery();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
+    if (!isLoading && (!userData || !userData.id)) {
+      console.log('Utilizador não realizou login --> Redirecionado para a homepage...');
+      localStorage.removeItem("login");
+      navigate("/", { state: { showLoginRegister: true } });
+    }
+  }, [userData, isLoading, navigate]);
+
   const [activeStep, setActiveStep] = useState(0);
 
   // Dados da store relativos a etapa 1 de publicar
