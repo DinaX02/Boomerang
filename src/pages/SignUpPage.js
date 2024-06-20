@@ -11,6 +11,7 @@ import ButtonForOpenBottomSheetSignUp from "../components/ButtonForOpenBottomShe
 import BottomSheetGender from '../components/BottomSheets/BottomSheetGender';
 import { useRegisterUserMutation } from '../redux/usersAPI';
 import { CircularProgress } from "@mui/material";
+import ModalTermos from '../components/ModalTermos';
 
 const SignUpPage = () => {
   const [inputNomeValue, setInputNomeValue] = useState('');
@@ -30,6 +31,7 @@ const SignUpPage = () => {
   const [matchPassword, setMatchPassword] = useState(false);
   const [erroObrigatorio, setErroObrigatorio] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
+  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const bottomSheetRef = useRef(null);
 
   const navigate = useNavigate();
@@ -147,6 +149,14 @@ const SignUpPage = () => {
     }
   };
 
+  const handleOpenTermsModal = () => {
+    setIsTermsModalOpen(true);
+  };
+
+  const handleCloseTermsModal = () => {
+    setIsTermsModalOpen(false);
+  };
+
   return (
     <RegistarStyle>
       <Header name="Criar conta" alertHandler={alertHandler} />
@@ -217,7 +227,7 @@ const SignUpPage = () => {
         />
         <div className="termsContainer">
           <input type="checkbox" id="terms" name="terms" onChange={handleTermosChange} />
-          <label className="termos" htmlFor='terms'> Aceito os <Link>termos</Link> e a <Link>política de privacidade</Link></label>
+          <label className="termos" htmlFor='terms'>  Aceito os <button className='btnOpenTermosModal' onClick={handleOpenTermsModal}>termos e condições</button></label>
         </div>
         <div
           className='campoObrigatorio'
@@ -251,6 +261,9 @@ const SignUpPage = () => {
         alert={alert}
         setFecharModal={setFecharModal}
       />
+       {isTermsModalOpen && (
+        <ModalTermos isOpen={isTermsModalOpen} onClose={handleCloseTermsModal} />
+      )}
     </RegistarStyle>
   );
 };
@@ -283,6 +296,13 @@ const RegistarStyle = styled.div`
       text-decoration: underline;
       color: #484954;
     }
+  }
+
+  .btnOpenTermosModal{
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
   }
 
   .campoObrigatorio {

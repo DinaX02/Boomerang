@@ -28,6 +28,7 @@ const EliminarConta = () => {
                 const response = await deleteUser({ password }).unwrap();
                 console.log('API Response:', response);
                 navigate('/');
+                window.location.reload();
             } catch (err) {
                 console.error('Failed to delete account:', err);
             }
