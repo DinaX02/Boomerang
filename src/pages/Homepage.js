@@ -18,7 +18,7 @@ import { useSeeUserQuery } from "../redux/usersAPI";
 
 const Homepage = () => {
   const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
-  const { data: dataFavorite, isLoading: isLoadingFavorite, error } = useFetchFavoriteQuery();
+  const { data: dataFavorite, isLoading: isLoadingFavorite, error, refetch: refetchFav } = useFetchFavoriteQuery();
   const { data: userData, refetch } = useSeeUserQuery();
 
   useEffect(() => {
@@ -36,15 +36,16 @@ const Homepage = () => {
   // const [isReloaded, setIsReloaded] = useState(false); // Estado para controlar a recarga
 
   useEffect(() => {
-    if (!localStorage.getItem('reloaded')) {
-      localStorage.setItem('reloaded', 'true');
-      window.location.reload();
-    } else {
-      localStorage.removeItem('reloaded');
-    }
+    // if (!localStorage.getItem('reloaded')) {
+    //   localStorage.setItem('reloaded', 'true');
+    //   window.location.reload();
+    // } else {
+    //   localStorage.removeItem('reloaded');
+    // }
 
     window.scrollTo(0, 0);
     refetch();
+    refetchFav();
 
     if (window.innerWidth < 600) {
       if (localStorage.getItem("redirect")) {
@@ -59,7 +60,7 @@ const Homepage = () => {
       setShowPopup(true);
       localStorage.removeItem('firstLogin');
     }
-  }, [navigate, refetch]);
+  }, [navigate, refetch, refetchFav]);
 
   const handleClosePopup = () => {
     setShowPopup(false);
