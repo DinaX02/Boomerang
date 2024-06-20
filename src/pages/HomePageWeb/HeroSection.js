@@ -15,15 +15,16 @@ const HeroWrapper = styled.div`
 
 const ContainerHeroo = styled.div`
 .paraghDescription{
-  width: 70%;
+  width: 65%;
   margin-top: 1em;
   margin-bottom: 1em;
   font-size: 18px;
 }
 
 .imgBoomerang{
-  max-width: 500px;
+  max-width: 450px;
   height: auto;
+  margin-top: 1em;
 }
 
 @media (min-width: 768px) {
@@ -97,6 +98,11 @@ const ContainerHeroo = styled.div`
 @media (max-width: 1090px) {
   .title_boomerang_hero{
     font-size: 6vw;
+  }
+
+  .paraghDescription{
+  font-size: 16px;
+  width: 75%;
   }
 }
 
@@ -173,7 +179,7 @@ const HeroSection = () => {
               <div className="tags_boomerang"><span>E-commerce</span></div>
               <div className="tags_boomerang_big"><span>Comunidade online</span></div>
             </div>
-            <p className="paraghDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lorem nibh, ullamcorper eget felis eget, commodo pellentesque velit. Pellentesque a congue libero. Nullam non ipsum sit amet nisi consectetur suscipit eu varius felis. Nam ullamcorper, neque ac vehicula cursus, velit leo ullamcorper libero, vel ornare ante nisl et purus. </p>
+            <p className="paraghDescription">A plataforma Boomerang está atualmente disponível apenas para dispositivos móveis. Para saber mais sobre o que é a Boomerang e como funciona, clica no botão "Saber Mais" para seres redirecionado para o nosso website informativo.</p>
             <DownloadButton
               href="" //isto não está a reencaminhar o botão para o link
               target="_blank"
@@ -181,7 +187,7 @@ const HeroSection = () => {
             >
               Saiba mais
             </DownloadButton>
-          </div>
+          </div>  
         </div>
       </ContainerHeroo>
     </HeroWrapper>
