@@ -58,7 +58,7 @@ const ArticlePage = (props) => {
   const [addFavorite] = useAddFavoriteMutation();
   const [removeFavorite] = useRemoveFavoriteMutation();
   const [isFavorite, setIsFavorite] = useState(false);
-  const { data: favorites } = useFetchFavoriteQuery();
+  const { data: favorites, refetch } = useFetchFavoriteQuery();
 
   // if (error) {
   //   console.log("Mensagem de erro:" + error.message);
@@ -131,13 +131,14 @@ const ArticlePage = (props) => {
   };
 
   useEffect(() => {
+    refetch();
     artigosJSON.forEach(artigo => {
       if (artigo.id === parseInt(id)) {
         setItem(artigo);
         // setTimeout(() => { console.log('Image Path:', colorImages[item.color]) }, 1000)
       }
     });
-  }, [item, id])
+  }, [item, id, refetch])
 
   const handleIconClick = (index) => {
     setFecharModal(false);
