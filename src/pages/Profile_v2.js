@@ -80,6 +80,7 @@ const Profile = () => {
             </div>
           </Link>
           <hr />
+          <Link to={"/armario-page"}>
           <div className="iconitem">
             <img src={CheckroomOutlinedIcon} alt="armário" className="icon" />
             <div className="profiletext">
@@ -87,6 +88,7 @@ const Profile = () => {
             </div>
             <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
+          </Link>
           <hr />
           <Link to={"/favorites-page"}>
             <div className="iconitem">

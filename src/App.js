@@ -45,6 +45,7 @@ import FavoritesPage from "./pages/FavoritesPage"
 import TermoseCondicoes from "./pages/TermoseCondicoes.js";
 import PoliticadePrivacidade from "./pages/PoliticadePrivacidade.js";
 import PoliticadeCookies from "./pages/PoliticadeCookies.js";
+import ArmarioUtilizador from "./pages/ArmarioUtilizadorPage.js";
 
 function App() {
 
@@ -98,6 +99,7 @@ function App() {
         <Route path="/termos-condicoes-page" element={<TermoseCondicoes/>}></Route>
         <Route path="/politica-privacidade-page" element={<PoliticadePrivacidade/>}></Route>
         <Route path="/politica-cookies-page" element={<PoliticadeCookies/>}></Route>
+        <Route path="/armario-page" element={<ArmarioUtilizador/>}></Route>
       </Routes>
 </BrowserRouter>
     </div>
