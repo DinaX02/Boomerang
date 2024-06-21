@@ -45,12 +45,14 @@ const Results = () => {
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
     const [sizeFilter, setSizeFilter] = useState('');
     const [colorFilter, setColorFilter] = useState('');
-    const [categoryFilter, setCategoryFilter] = useState('');
+    const [genderFilter, setGenderFilter] = useState('');
+    const [categoryFilter, setCatgoryFilter] = useState('');
 
     const { data: productsData, isLoading } = useFetchProductSearchQuery({
         name: searchInput,
         size: sizeFilter,
         color: colorFilter,
+        gender: genderFilter,
         category: categoryFilter,
         orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
         orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
@@ -81,21 +83,22 @@ const Results = () => {
         // Filter articles based on search query and parameters
         // const query = queryParams.get('query') || '';
         const size = queryParams.get('size') || '';
+        const gender = queryParams.get('gender') || '';
         const category = queryParams.get('category') || '';
-        const name = queryParams.get('name') || '';
         const color = queryParams.get('color') || '';
         const brand = queryParams.get('brand') || '';
         setSizeFilter(size);
         setColorFilter(color);
-        setCategoryFilter(category);
+        setGenderFilter(gender);
+        setCatgoryFilter(category);
 
         if (type === 'articles') {
 
             setActiveFilters({
                 size: size,
                 color: color,
+                gender: gender,
                 category: category,
-                name: name,
                 brand: brand,
             })
 
@@ -140,7 +143,7 @@ const Results = () => {
             //     setColorFilter(value);
             // }
             // if (filterType === 'category') {
-            //     setCategoryFilter(value);
+            //     setGenderFilter(value);
             // }
 
             if (value !== null) {

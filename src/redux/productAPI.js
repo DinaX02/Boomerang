@@ -46,8 +46,8 @@ export const myAPI = createApi({
            
         }),
         fetchProductSearch: builder.query({
-            query: ({name = '', id = '', size = '', color = '', category = '', orderBy = '', orderDirection}) => ({
-                url: `product/search?name=${name}&id=${id}&size=${size}&color=${color}&category=${category}&orderBy=${orderBy}&orderDirection=${orderDirection}`,
+            query: ({name = '', id = '', size = '', color = '', gender = '', category = '', orderBy = '', orderDirection}) => ({
+                url: `product/search?name=${name}&id=${id}&size=${size}&color=${color}&gender=${gender}&category=${category}&orderBy=${orderBy}&orderDirection=${orderDirection}`,
                 method: "GET",
               }),
         }),
