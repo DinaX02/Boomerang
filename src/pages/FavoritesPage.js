@@ -33,13 +33,14 @@ const VerTudo = () => {
         orderBy: sortingCriteria === 'mostRecent' ? 'createdAt' : sortingCriteria === 'oldest' ? 'createdAt' : sortingCriteria === 'lowToHigh' ? 'price_day' : 'price_day',
         orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
     });
-    const { data: dataFavorite, isLoading: isLoadingFavorite } = useFetchFavoriteQuery();
+    const { data: dataFavorite, isLoading: isLoadingFavorite, refetch } = useFetchFavoriteQuery();
     console.log(productsData);
 
     useEffect(() => {
         // dar reset ao scroll quando se entrar aqui :)
+        refetch();
         window.scrollTo(0, 0);
-    }, []);
+    }, [refetch]);
 
     const handleClick = (event) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);

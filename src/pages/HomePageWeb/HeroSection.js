@@ -181,7 +181,7 @@ const HeroSection = () => {
             </div>
             <p className="paraghDescription">A plataforma Boomerang está atualmente disponível apenas para dispositivos móveis. Para saber mais sobre o que é a Boomerang e como funciona, clica no botão "Saber Mais" para seres redirecionado para o nosso website informativo.</p>
             <DownloadButton
-              href="" //isto não está a reencaminhar o botão para o link
+              href="https://guileless-bienenstitch-7518c4.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
             >
