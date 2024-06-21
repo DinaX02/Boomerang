@@ -20,29 +20,29 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
     const [accordion, setAccordion] = useState({
         size: false,
         color: false,
-        category: false,
+        gender: false,
         brand: false,
     });
 
     const [selectedFilters, setSelectedFilters] = useState({
         size: '',
         color: '',
+        gender: '',
         category: '',
-        name: '',
         brand: '',
     });
 
     const toggleFiltersOn = () => {
         const size = queryParams.get('size') || '';
+        const gender = queryParams.get('gender') || '';
         const category = queryParams.get('category') || '';
-        const name = queryParams.get('name') || '';
         const color = queryParams.get('color') || '';
         const brand = queryParams.get('brand') || '';
         setSelectedFilters({
             size: size,
             color: color,
+            gender: gender,
             category: category,
-            name: name,
             brand: brand,
         });
         //toggle every accordion
@@ -139,23 +139,23 @@ const FilterButtons = ({ applyFilters, handleActiveFilters }) => {
 
                             <hr></hr>
                             <div className="accordionSeparador">
-                                <button className="accordion" onClick={() => toggleAccordion('category')}>
+                                <button className="accordion" onClick={() => toggleAccordion('gender')}>
                                     Categoria
                                 </button>
-                                <img src={accordion.category ? menosFilter : maisFilter} alt="toggle"></img>
+                                <img src={accordion.gender ? menosFilter : maisFilter} alt="toggle"></img>
                             </div>
-                            {accordion.category && (
+                            {accordion.gender && (
                                 <div className="panel">
                                     {getUniqueCategories(data.productTypes, 'category').map((elem) => {
                                         return <label key={elem.id}>
-                                            <input type="radio" className="radioInput" name="category" value={elem.name} onChange={() => handleSelectFilter('category', elem.category)} checked={selectedFilters['category'] === elem.category} />
+                                            <input type="radio" className="radioInput" name="gender" value={elem.name} onChange={() => handleSelectFilter('gender', elem.category)} checked={selectedFilters['gender'] === elem.category} />
                                             {elem.category}
                                         </label>
                                     })}
                                     <hr></hr>
                                     {getUniqueCategories(fetchPopularCategoryData, 'name').map((elem) => {
                                         return <label key={elem.id}>
-                                            <input type="radio" className="radioInput" name="name" value={elem.name} onChange={() => handleSelectFilter('name', elem.name)} checked={selectedFilters['name'] === elem.name} />
+                                            <input type="radio" className="radioInput" name="category" value={elem.name} onChange={() => handleSelectFilter('category', elem.name)} checked={selectedFilters['category'] === elem.name} />
                                             {elem.name}
                                         </label>
                                     })}
