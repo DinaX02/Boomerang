@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const myPopularAPI = createApi({
-    reducerPath: 'popularAPI',
+export const myExtraAPI = createApi({
+    reducerPath: 'extraAPI',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:3000/',
         prepareHeaders: (headers) => {
@@ -12,21 +12,15 @@ export const myPopularAPI = createApi({
     }),
 
     endpoints: (builder) => ({
-        fetchPopularCategory: builder.query({
+        fetchExtra: builder.query({
             query: () => ({
-                url: `popular/categories`,
-                method: "GET",
-              }),
-        }),
-        fetchPopularPromoter: builder.query({
-            query: () => ({
-                url: `popular/promoters`,
+                url: `extra`,
                 method: "GET",
               }),
         }),
     }),
 });
 
-export const { useFetchPopularCategoryQuery, useFetchPopularPromoterQuery  } = myPopularAPI;
+export const { useFetchExtraQuery } = myExtraAPI;
 
-export default myPopularAPI;
+export default myExtraAPI;

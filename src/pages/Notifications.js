@@ -7,7 +7,7 @@ import TabsComponent from "../components/TabsComponent";
 import ChatLink from "../components/ChatLink";
 import { useSelector } from "react-redux";
 import nothingimg from "../assets/icons/zeroNotifications.svg"
-import artigosJSON from "../data/artigos.json"
+// import artigosJSON from "../data/artigos.json"
 
 const Notifications = () => {
   const list = useSelector((state) => state.Rent.progressRentList);
@@ -18,23 +18,32 @@ const Notifications = () => {
         <TabsComponent
           title1={"Notificações"}
           firstComponent={
-            list != "" ?
+            list !== "" ?
               <div>
                 <Link className={"vouchers"} to={"/rentdetails-page"}>
-                  <Notification
+                  {/* <Notification
                     image={artigosJSON[list.article_id - 1].images[0]}
                     title={"Alugou o seu primeiro item!"}
                     sub={"Estamos a espera que seja confirmado."}
-                  ></Notification>
+                  ></Notification> */}
                 </Link>
 
-                <Link className={"vouchers expirado"} to={"/vouchers-page"}>
+                {/* <Link className={"vouchers expirado"} to={"/vouchers-page"}>
                   <Notification
                     discount={"7%"}
                     title={"Desconto Expirado"}
                     sub={"Validade até: 10/01/2024"}
                   ></Notification>
-                </Link>
+                </Link> */}
+
+                <Notification
+                  discount={"Foto"}
+                  title={"mariacarmo"}
+                  sub={"aceitou o teu pedido de aluguer do Vestido Preto"}
+                  finishRent={true}
+                  confirm={"Finalizar"}
+                  reject={"Cancelar"}
+                ></Notification>
               </div>
 
 

@@ -92,7 +92,7 @@ const ProgressPublish5 = () => {
   const handleNextStepPublish = async () => {
     // setShowOverlayFinal(true);
     setTimeout(async () => {
-      localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
+      // localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
 
       const { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId, productImage } = progressPublish1;
 
@@ -100,6 +100,7 @@ const ProgressPublish5 = () => {
       const files = productImage.map((base64Image, index) => {
         return dataURLtoFile(base64Image, `image_${index}.png`);
       });
+      console.log("files", files);
 
       const formData = new FormData();
       formData.append('title', title);

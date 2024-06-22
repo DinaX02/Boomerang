@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom';
 
 const Notification = (props) => {
+  const navigate = useNavigate();
 
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
 
@@ -11,7 +13,7 @@ const Notification = (props) => {
       setMaxDescriptionLength(18);
     } else if (window.innerWidth <= 800) {
       setMaxDescriptionLength(50);
-    } else{
+    } else {
       setMaxDescriptionLength(90);
     }
   };
@@ -28,40 +30,76 @@ const Notification = (props) => {
   }, []);
 
   const descriptionSizeControl = (text) => {
-    return text.length > maxDescriptionLength
+    return (text.length > maxDescriptionLength) && !props.finishRent
       ? `${text.substring(0, maxDescriptionLength)}...`
       : text;
   };
 
+  const confirmHandle = () => {
+    if(props.finishRent){
+      navigate("/alugar-detalhes");
+    }
+
+  }
   return (
-    <NotificationDiv>
+    <NotificationDiv style={props.finishRent ? {height: "125px"} : {height: "105px"}}>
       <NotificationImg alt='notificação' style={{ background: props.image ? `url(${props.image})` : '#2e2e2e' }}>{props.discount}</NotificationImg>
       <div>
-      <p><b>{descriptionSizeControl(props.title)}</b></p>
-      <p>{descriptionSizeControl(props.sub)}</p>
+        <div>
+          <p><b>{descriptionSizeControl(props.title)}</b></p>
+          <p>{descriptionSizeControl(props.sub)}</p>
+        </div>
+        {props.finishRent && <div className='buttonsNotification'>
+          <button className='confirm' onClick={confirmHandle} >{props.confirm}</button>
+          <button className='reject'>{props.reject}</button>
+        </div>}
       </div>
-       
-    </NotificationDiv> 
+
+    </NotificationDiv>
   )
 }
 
 const NotificationDiv = styled.div`
+padding-right: 15px;
 border-radius: 5px;
 background: #fff;
 box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.09);
-height: 105px;
+/* height: 105px; */
 display: flex;
 flex-direction: row;
 align-items: center;
-font-size: 0.9rem;
+font-size: 13px;
 margin-top: 25px;
 width: 90vw !important;
 p{
   margin-bottom: 5px;
 }
+
+.buttonsNotification{
+  display: flex;
+  justify-content: left;
+  margin-top: 10px;
+}
+.buttonsNotification button {
+  border: none;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.confirm{
+background-color: #00C17C;
+margin-right: 10px;
+}
+.reject{
+  background-color: #c80000;
+  margin-left: 10px;
+}
 `
 
-const NotificationImg =styled.div`
+const NotificationImg = styled.div`
 width: 70px;
 height: 70px;
 min-width: 70px;
