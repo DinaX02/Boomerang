@@ -62,7 +62,7 @@ const ProfileOthersViewPage = () => {
                                     id={product.id}
                                     description={product.description}
                                     image={product.productImage[0]?.url || imageDefaultProduct}
-                                    price={product.dailyRentalPrice}
+                                    price={product.price_day}
                                     brand={product.brand}
                                     size={product.size}
                                     title={product.title}
