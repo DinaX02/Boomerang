@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MenuMobile from "../components/MenuMobile";
 import CircularProgress from '@mui/material/CircularProgress';
 import Header from '../components/Header/Header';
-import Article from "../components/Article"; // Import the component
+import Article from "../components/Article";
 import mosaicoIcon from "../assets/icons/mosaico.svg";
 // import ordenarIcon from "../assets/icons/ordenar.svg";
 import galeriaIcon from "../assets/icons/galeria.svg";
@@ -16,7 +16,7 @@ const ArmarioUtilizador = () => {
     const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
     const { data: userData, isLoading: isLoadingUser } = useSeeUserQuery();
 
-    console.log(userData);
+    // console.log(userData);
 
     useEffect(() => {
         // dar reset ao scroll quando se entrar aqui :)
@@ -76,7 +76,7 @@ const ArmarioUtilizador = () => {
                                     image={product.productImage[0]?.url || imageDefaultProduct}
                                     price={product.price_day}
                                     brand={product.brand}
-                                    size={product.Size?.name}
+                                    size={product.SizeId}
                                     scale={1.25}
                                     width={singleColumnGrid ? '100%' : '120px'}
                                 />

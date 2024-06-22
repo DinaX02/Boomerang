@@ -125,7 +125,7 @@ const Homepage = () => {
             <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/favorites-page'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
             <div className={'articles'}>
               {!isLoadingFavorite && dataFavorite.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} title={artigo.title} />
               ))}
               <Article more={moreFav} ariaLabel={"Ver Todos os teus favoritos"} favorite={true} />
             </div>
