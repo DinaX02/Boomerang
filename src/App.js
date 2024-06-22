@@ -48,6 +48,7 @@ import PoliticadeCookies from "./pages/PoliticadeCookies.js";
 import AlugarValorTotalBeforeAccept from "./pages/AlugarValorTotalBeforeAccept.js";
 import WaitAcceptRent from "./pages/WaitAcceptRent.js";
 import AluguerComSucesso from "./pages/AluguerComSucesso.js";
+import ArmarioUtilizador from "./pages/ArmarioUtilizadorPage.js";
 
 function App() {
 
@@ -104,6 +105,7 @@ function App() {
           <Route path="/politica-privacidade-page" element={<PoliticadePrivacidade />}></Route>
           <Route path="/politica-cookies-page" element={<PoliticadeCookies />}></Route>
           <Route path="/transaction-success" element={<AluguerComSucesso />}></Route>
+          <Route path="/armario-page" element={<ArmarioUtilizador/>}></Route>
 
         </Routes>
       </BrowserRouter>

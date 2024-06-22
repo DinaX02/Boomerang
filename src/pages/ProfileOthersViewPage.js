@@ -6,17 +6,18 @@ import mockupprofile from '../assets/icons/user_unknown.svg';
 import Article from '../components/Article';
 import { useSeeUserQuery } from '../redux/usersAPI';
 import starIcon from '../assets/icons/start.svg';
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
 
 const ProfileOthersViewPage = () => {
     const { id } = useParams();
-    // console.log('Requisição à API:', { id: parseInt(id) });
-const { data: user, isLoading } = useSeeUserQuery({ id: parseInt(id) });
-// console.log('Resposta da API:', user); 
-    const [articles, setArticles] = useState([]);
+    const { data: user, isLoading } = useSeeUserQuery({ id: parseInt(id) });
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        if (!isLoading && user) {
-            setArticles(user.articles);
+        if (!isLoading && user && Array.isArray(user.products)) {
+            console.log('User data:', user); // Debug statement
+            setProducts(user.products);
         }
     }, [isLoading, user]);
 
@@ -25,7 +26,7 @@ const { data: user, isLoading } = useSeeUserQuery({ id: parseInt(id) });
             <Header name={user ? `Perfil de ${user.name.split(' ')[0]}` : 'Perfil'} share={true} />
             <div className="headerProfile"></div>
             <img
-                src={user?.avatar || mockupprofile}
+                src={user?.profileImage || mockupprofile}
                 alt={`Imagem de perfil de ${user?.name}`}
                 className="profileLink"
             />
@@ -52,19 +53,30 @@ const { data: user, isLoading } = useSeeUserQuery({ id: parseInt(id) });
             </div>
             <div className="armarioSection">
                 <h5 className="armarioTitle">Armário de {user?.name.split(' ')[0]}</h5>
-                {articles && articles.map((artigo) => (
-    <Article
-        key={artigo.id}
-        id={artigo.id}
-        description={artigo.description}
-        image={artigo.images[0]}
-        price={artigo.dailyRentalPrice}
-        brand={artigo.brand}
-        size={artigo.size}
-        title={artigo.title}
-        width={'160px'}
-    />
-))}
+                {!isLoading && (
+                    <div className="articles">
+                        {products.length > 0 ? (
+                            products.map((product) => (
+                                <Article
+                                    key={product.id}
+                                    id={product.id}
+                                    description={product.description}
+                                    image={product.productImage[0]?.url || imageDefaultProduct}
+                                    price={product.dailyRentalPrice}
+                                    brand={product.brand}
+                                    size={product.size}
+                                    title={product.title}
+                                    width={'160px'}
+                                />
+                            ))
+                        ) : (
+                            <NoProductsMessage>
+                                <img src={CheckroomOutlinedIcon} alt="No products" />
+                                <p>Ainda não publicou nenhuma peça!</p>
+                            </NoProductsMessage>
+                        )}
+                    </div>
+                )}
             </div>
         </ProfileOthersViewStyle>
     );
@@ -84,10 +96,6 @@ const ProfileOthersViewStyle = styled.div`
         width: 78px;
         border-radius: 100%;
         border: 1px #343541 solid;
-        /* background-image: url(${mockupprofile});
-        background-size: 100%;
-        background-repeat: no-repeat;
-        background-position: bottom center; */
         z-index: 10;
     }
     .infoPerfil {
@@ -106,7 +114,7 @@ const ProfileOthersViewStyle = styled.div`
         margin: 0 0 12px 0;
         color: black;
     }
-    .titulo{
+    .titulo {
         font-size: 13px;
         font-weight: 600;
     }
@@ -119,13 +127,31 @@ const ProfileOthersViewStyle = styled.div`
     .armarioSection {
         padding: 0 24px;
     }
-    .articles{
+    .articles {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         gap: 25px 25px;
         flex-direction: row;
-  }
-`
+    }
+`;
 
-export default ProfileOthersViewPage
+const NoProductsMessage = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 24px;
+    color: #555;
+    img {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 16px;
+    }
+    p {
+        font-size: 14px;
+        font-weight: 500;
+    }
+`;
+
+export default ProfileOthersViewPage;
