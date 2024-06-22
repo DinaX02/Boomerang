@@ -42,12 +42,8 @@ const Profile = () => {
   }, [refetch]);
 
   useEffect(() => {
-    // console.log('Verificando  a userData...');
-    // console.log('userData:', userData);
-    // console.log('isLoading:', isLoading);
-
     if (!isLoading && (!userData || !userData.id)) {
-      console.log('Utilizador foi realizou login não --> Redirecionado para a homepage...');
+      console.log('Utilizador não realizou login --> Redirecionado para a homepage...');
       localStorage.removeItem("login");
       navigate("/", { state: { showLoginRegister: true } });
     }
@@ -55,12 +51,20 @@ const Profile = () => {
 
   if (isLoading) return <Loader><CircularProgress className={'loader'} color="success" /></Loader>
 
-
   return (
     <div>
       <ProfileStyle>
         <Link className="namediv" to={"/edit-profile-page"}>
-          <div className="profileimg"></div>
+          <div>
+            <img
+              className="profileimg"
+              src={userData?.profileImage?.length > 0 ? userData.profileImage : mariacarmo}
+              onError={(e) => {
+                e.target.src = '../assets/icons/user_unknown.svg';
+              }}
+              alt="Imagem de perfil"
+            />
+          </div>
           <div className="profiletext fontsizeadjust">
             <h1 className="username">{userData?.username || 'Utilizador da Boomerang'}</h1>
             <p>{userData?.bio || "-".substring(0, 22) + "..."}</p>
@@ -68,7 +72,6 @@ const Profile = () => {
           <ArrowForwardIosRoundedIcon className="setaprofile" />
         </Link>
         <p className="title">Atividade</p>
-
         <div className="icondiv">
           <Link to={"/convidar-amigos"}>
             <div className="iconitem">
@@ -81,13 +84,13 @@ const Profile = () => {
           </Link>
           <hr />
           <Link to={"/armario-page"}>
-          <div className="iconitem">
-            <img src={CheckroomOutlinedIcon} alt="armário" className="icon" />
-            <div className="profiletext">
-              <p>Armário</p>
+            <div className="iconitem">
+              <img src={CheckroomOutlinedIcon} alt="armário" className="icon" />
+              <div className="profiletext">
+                <p>Armário</p>
+              </div>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
-            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
-          </div>
           </Link>
           <hr />
           <Link to={"/favorites-page"}>
@@ -129,7 +132,6 @@ const Profile = () => {
           </Link>
         </div>
         <p className="title">Definições</p>
-
         <div className="icondiv">
           <Link to={"/settings-page"}>
             <div className="iconitem">
@@ -142,33 +144,33 @@ const Profile = () => {
           </Link>
           <hr />
           <Link to={"/termos-condicoes-page"}>
-          <div className="iconitem">
-            <img src={DescriptionOutlinedIcon} alt="termos e condições" className="icon" />
-            <div className="profiletext">
-              <p>Termos e Condições</p>
+            <div className="iconitem">
+              <img src={DescriptionOutlinedIcon} alt="termos e condições" className="icon" />
+              <div className="profiletext">
+                <p>Termos e Condições</p>
+              </div>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
-            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
-          </div>
           </Link>
           <hr />
           <Link to={"/politica-privacidade-page"}>
-          <div className="iconitem">
-            <img src={PrivacyTipOutlinedIcon} alt="política de privacidade" className="icon" />
-            <div className="profiletext">
-              <p>Política de Privacidade</p>
+            <div className="iconitem">
+              <img src={PrivacyTipOutlinedIcon} alt="política de privacidade" className="icon" />
+              <div className="profiletext">
+                <p>Política de Privacidade</p>
+              </div>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
-            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
-          </div>
           </Link>
           <hr />
           <Link to={"/politica-cookies-page"}>
-          <div className="iconitem">
-            <img src={CookiesIcon} alt="política de privacidade" className="icon" />
-            <div className="profiletext">
-              <p>Política de Cookies</p>
+            <div className="iconitem">
+              <img src={CookiesIcon} alt="política de cookies" className="icon" />
+              <div className="profiletext">
+                <p>Política de Cookies</p>
+              </div>
+              <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
-            <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
-          </div>
           </Link>
           <hr />
           <Link to={"/sobre-nos"}>
@@ -269,10 +271,10 @@ margin-right: 24px;
   width: 50px;
   border-radius: 100%;
   border: 1px black solid;
-  background-image: url(${mariacarmo});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
+  // background-image: url(${mariacarmo});
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-position: top center;
   margin-right: 18px;
   margin-left: 15px;
 }

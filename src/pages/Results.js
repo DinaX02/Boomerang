@@ -23,7 +23,7 @@ import ProfileLink from "../components/ProfileLink";
 import { useSearchUserQuery } from '../redux/usersAPI';
 import { useFetchProductSearchQuery } from '../redux/productAPI';
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
-
+import imageDefaultUser from "../assets/icons/user_unknown.svg";
 
 const Results = () => {
     const navigate = useNavigate();
@@ -352,40 +352,47 @@ const Results = () => {
 
             {isLoading && <CircularProgress className={'loader'} color="success" />}
 
-            {!isLoading && type === 'articles' && <div className={'resultsContent'}>
-                {productsData.length !== 0 ? (
-                    <div className={'resultsArticles'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {productsData.map((artigo) => {
-                            return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
-                        })}
-                    </div>
-                ) : (
-                    <div className='zeroResults'>
-                        <img src={noResultsIcon} alt="search icon for no results" />
-                        <p>Nenhum resultado encontrado</p>
-                    </div>
-                )}
+          {!isLoading && type === 'articles' && (
+    <div className={'resultsContent'}>
+        {productsData.length !== 0 ? (
+            <div className={'resultsArticles'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                {productsData.map((artigo) => (
+                    <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />
+                ))}
+            </div>
+        ) : (
+            <div className='zeroResults'>
+                <img src={noResultsIcon} alt="search icon for no results" />
+                <p>Nenhum resultado encontrado</p>
+            </div>
+        )}
+    </div>
+)}
 
-            </div>}
-
-            {!isLoading && type === 'members' && <div className={'resultsContent'}>
-                {usersData ? (
-                    <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {usersData.map((user) => {
-                            return <div key={user.id} className={'userRow'}>
-                                <ProfileLink image={user.avatarUrl} key={user.id} zoom={0.7} id={user.id} /> {/* Note a mudança para user.avatarUrl */}
-                                <div>{user.username}</div>
-                                {/*<div style={{marginLeft: 'auto',opacity: 0.6, display: 'flex', alignItems: 'center'}}>{user.rating} <StarIcon/></div>*/}
-                            </div>
-                        })}
+{!isLoading && type === 'members' && (
+    <div className={'resultsContent'}>
+        {usersData && usersData.length !== 0 ? (
+            <div className={'resultsUsers'} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                {usersData.map((user) => (
+                    <div key={user.id} className={'userRow'}>
+                           <ProfileLink
+                            image={user.profileImage?.length>0 ? user.profileImage : imageDefaultUser}
+                            key={user.id}
+                            zoom={0.7}
+                            id={user.id}
+                        />
+                        <div>{user.username}</div>
                     </div>
-                ) : (
-                    <div className='zeroResults'>
-                        <img src={noResultsIcon} alt="search icon for no results" />
-                        <p>Nenhum resultado encontrado</p>
-                    </div>
-                )}
-            </div>}
+                ))}
+            </div>
+        ) : (
+            <div className='zeroResults'>
+                <img src={noResultsIcon} alt="search icon for no results" />
+                <p>Nenhum resultado encontrado</p>
+            </div>
+        )}
+    </div>
+)}
 
 
             <MenuMobile />
@@ -417,7 +424,7 @@ const ResultsStyle = styled.div`
       justify-items: center; */
       display: flex;
       flex-wrap: wrap;
-      justify-content: left;
+      justify-content: space-evenly;
       gap: 25px 25px;
       flex-direction: row;
       .description {
