@@ -150,7 +150,7 @@ const NoProductsMessage = styled.div`
   justify-content: center;
   height: 300px;
   img {
-    width: 100px;
+    width: 50px;
     margin-bottom: 20px;
   }
   p {
