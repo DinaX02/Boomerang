@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 // import { useLocation } from 'react-router-dom';
 import MenuMobile from "../components/MenuMobile";
-import Paper from '@mui/material/Paper';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import { MenuList } from "@mui/material";
-import artigosJSON from "../data/artigos.json";
+// import Paper from '@mui/material/Paper';
+// import ClickAwayListener from '@mui/material/ClickAwayListener';
+// import Grow from '@mui/material/Grow';
+// import Popper from '@mui/material/Popper';
+// import MenuItem from '@mui/material/MenuItem';
+// import { MenuList } from "@mui/material";
+// import artigosJSON from "../data/artigos.json";
 import Article from "../components/Article"; // Import the component
 import Header from '../components/Header/Header';
 import mosaicoIcon from "../assets/icons/mosaico.svg";
-import ordenarIcon from "../assets/icons/ordenar.svg";
+// import ordenarIcon from "../assets/icons/ordenar.svg";
 import galeriaIcon from "../assets/icons/galeria.svg";
+import noFavoriteIcon from "../assets/icons/favoritos.svg";
 // import listaIcon from "../assets/icons/lista.svg";
 import { CircularProgress } from "@mui/material";
 import { useFetchProductSearchQuery } from '../redux/productAPI';
@@ -214,14 +215,20 @@ const VerTudo = () => {
                 {isLoading && <CircularProgress className={'loader'} color="success" />}
 
 
-                {!isLoading && <div className={`resultsArticles`} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                    {/* {sortArtigos().slice(0, 10).map((artigo) => {
-                        return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.images[0]} price={artigo.dailyRentalPrice} brand={artigo.brand} size={artigo.size} scale={1.25} width={singleColumnGrid ? '100%' : '120px'}/>;
-                    })} */}
-                    {dataFavorite.map((artigo) => {
-                         return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
-                        })}
-                </div>}
+                {!isLoading && (
+                    <div className={`resultsArticles`} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
+                        {dataFavorite.length > 0 ? (
+                            dataFavorite.map((artigo) => {
+                                return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
+                            })
+                        ) : (
+                            <NoProductsMessage>
+                                <img src={noFavoriteIcon} alt="No favorites icon" />
+                                <p>Ainda não tem nenhum favorito</p>
+                            </NoProductsMessage>
+                        )}
+                    </div>
+                )}
             </div>
             <MenuMobile />
         </ResultsStyle>
@@ -237,7 +244,7 @@ const ResultsStyle = styled.div`
       padding-top: 25px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: left;
+      justify-content: space-evenly;
       gap: 25px 25px;
       flex-direction: row;
     }
@@ -275,6 +282,22 @@ const ResultsStyle = styled.div`
     margin:auto;
     width: 40px;
     height: 40px;
+  }
+`;
+
+const NoProductsMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  img {
+    width: 50px;
+    margin-bottom: 20px;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 500;
   }
 `;
 
