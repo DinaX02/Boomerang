@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import addPagamentoIcon from '../assets/icons/icon_AddMorada.svg';
 import iconPagamentoSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
@@ -10,6 +10,8 @@ import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
+import OverlayFinalPublish from "../components/OverlayFinalPublish";
+import iconOverlay from "../assets/icons/tick_iconOverlayFInal.svg";
 
 const MainContainer = styled.div`
   width: 100%;
@@ -17,7 +19,7 @@ const MainContainer = styled.div`
   padding: 25px;
 `;
 
-  
+
 
 const PagamentoSelecionado = styled.div`
   background-color: ${props => (props.selecionada ? '#343541' : '#ffffff')};
@@ -84,6 +86,8 @@ const MetodoPagamento = () => {
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
     const [buttonDisable, setButtonDisable] = useState(false);
+    const [showOverlayFinal, setShowOverlayFinal] = useState(false);
+
 
     const navigate = useNavigate();
 
@@ -108,15 +112,19 @@ const MetodoPagamento = () => {
     };
 
     const handleNextStep = () => {
-        dispatch(updateProgressRent({ index: 0, updatedData: {pagamento: pagamentoSelecionado} }));
-        const rentals= localStorage.getItem("rentals");
-        if(rentals){
-            localStorage.setItem("rentals", {rentals, ...list})
-        }else{
-            localStorage.setItem("rentals", list)
-        }
-        navigate("/alugar-progresso");
-      };
+        setShowOverlayFinal(true);
+        setTimeout(() => {
+
+            dispatch(updateProgressRent({ index: 0, updatedData: { pagamento: pagamentoSelecionado } }));
+            const rentals = localStorage.getItem("rentals");
+            if (rentals) {
+                localStorage.setItem("rentals", { rentals, ...list })
+            } else {
+                localStorage.setItem("rentals", list)
+            }
+            navigate("/");
+        }, 3000);
+    };
 
 
     return (
@@ -124,31 +132,31 @@ const MetodoPagamento = () => {
             <NavbarWeb />
             <Header name="Método de pagamento" />
             <MainContainer>
-            <PreviewCard id={list.article_id} valor={list.total}/>
-                <div style={{paddingTop: '25px'}}>
+                <PreviewCard id={list.article_id} valor={list.total} />
+                <div style={{ paddingTop: '25px' }}>
 
-                {pagamentos.map((pagamento, index) => (
-                    <PagamentoSelecionado
-                        key={index}
-                        selecionada={pagamento === pagamentoSelecionado}
-                        onClick={() => {setPagamentoSelecionado(pagamento); ; setButtonDisable(true)}}
-                    >
-                        <ConteudoPagamento>
-                            <IconPagamentoSelect
-                                src={iconPagamentoSelect}
-                                alt="icon"
-                                selecionada={pagamento === pagamentoSelecionado}
-                            />
-                            <p style={{margin:"0"}}>Visa({formatarPagamento(pagamento)})</p>
-                        </ConteudoPagamento>
-                        <BotaoRemover
-                            onClick={() => handleRemoverPagamento(index)}
+                    {pagamentos.map((pagamento, index) => (
+                        <PagamentoSelecionado
+                            key={index}
                             selecionada={pagamento === pagamentoSelecionado}
+                            onClick={() => { setPagamentoSelecionado(pagamento);; setButtonDisable(true) }}
                         >
-                            X
-                        </BotaoRemover>
-                    </PagamentoSelecionado>
-                ))}
+                            <ConteudoPagamento>
+                                <IconPagamentoSelect
+                                    src={iconPagamentoSelect}
+                                    alt="icon"
+                                    selecionada={pagamento === pagamentoSelecionado}
+                                />
+                                <p style={{ margin: "0" }}>Visa({formatarPagamento(pagamento)})</p>
+                            </ConteudoPagamento>
+                            <BotaoRemover
+                                onClick={() => handleRemoverPagamento(index)}
+                                selecionada={pagamento === pagamentoSelecionado}
+                            >
+                                X
+                            </BotaoRemover>
+                        </PagamentoSelecionado>
+                    ))}
                 </div>
 
 
@@ -172,8 +180,14 @@ const MetodoPagamento = () => {
                     </SelecionarPagamento>
                 </Link>
                 <ConfirmButton>
-                <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar"/>
+                    <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar" />
                 </ConfirmButton>
+                {showOverlayFinal && (
+                    <OverlayFinalPublish>
+                        <img style={{ marginTop: "1em" }} src={iconOverlay} alt="Icone de Aluguer acabado" />
+                        <p style={{ marginTop: "1em", color: "white" }}>Aluguer efetuado com sucesso!</p>
+                    </OverlayFinalPublish>
+                )}
 
             </MainContainer>
         </div>

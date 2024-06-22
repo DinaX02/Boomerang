@@ -13,8 +13,8 @@ import Button from '../components/Button';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { useParams } from 'react-router-dom';
-import artigosJSON from '../data/artigos.json'
-import mockupprofile from '../assets/perfil/user_mockup_image.jpg'
+// import artigosJSON from '../data/artigos.json'
+import mockupprofile from '../assets/icons/user_unknown.svg';
 import InfoIconTaxa from "../assets/icons/infoIcon.svg"
 import Modal from "../components/Modal"
 import Vermelho from "../assets/cores/vermelho.svg";
@@ -50,7 +50,7 @@ const ArticlePage = (props) => {
   const message1 = "<span>Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.</span>"
   const [modalMessage, setModalMessage] = useState(message1);
   const { data: productsData, isLoading } = useFetchProductQuery({ id: parseInt(id) });
-  const [item, setItem] = useState({});
+  // const [item, setItem] = useState({});
   const { data: userData } = useSeeUserQuery();
   const { data: productUserData} = useSeeUserQuery(productsData ? productsData[0].UserId : null);
   const [fillFavorite, setFillFavorite] = useState('#00A167');
@@ -132,13 +132,13 @@ const ArticlePage = (props) => {
 
   useEffect(() => {
     refetch();
-    artigosJSON.forEach(artigo => {
-      if (artigo.id === parseInt(id)) {
-        setItem(artigo);
-        // setTimeout(() => { console.log('Image Path:', colorImages[item.color]) }, 1000)
-      }
-    });
-  }, [item, id, refetch])
+    // artigosJSON.forEach(artigo => {
+    //   if (artigo.id === parseInt(id)) {
+    //     setItem(artigo);
+    //     // setTimeout(() => { console.log('Image Path:', colorImages[item.color]) }, 1000)
+    //   }
+    // });
+  }, [refetch])
 
   const handleIconClick = (index) => {
     setFecharModal(false);
@@ -186,6 +186,26 @@ const ArticlePage = (props) => {
       }
     }
   }
+  const parseMeasurements = (measurements) => {
+    try {
+      // console.log('Original measurements string:', measurements);
+  
+      // Convert the string to a valid JSON format
+      const validJsonString = measurements.replace(/(\w+):/g, '"$1":');
+      
+      // console.log('Formatted JSON string:', validJsonString);
+  
+      // Parse the formatted string
+      return JSON.parse(validJsonString);
+    } catch (error) {
+      console.error('Failed to parse measurements:', error);
+      return null;
+    }
+  };
+  
+  const handleImageError = (event) => {
+    event.target.src = imageDefaultProduct;
+  };
 
   return (
     <ArticlePageStyle>
@@ -266,14 +286,14 @@ const ArticlePage = (props) => {
       </div>
       {isLoading && <CircularProgress className={'loader'} color="success" />}
 
-      {!isLoading && productsData[0].images && productsData[0].images.length > 0 &&
+      {!isLoading && productsData[0].productImage && productsData[0].productImage.length > 0 &&
         <div className={'carousel'}>
           <Carousel
             showStatus={false}
             showThumbs={false}
             showArrows={false}
           >
-            {item.images.map((image, index) => (<div key={index} style={{ position: 'relative', zIndex: '-1', height: '40vh' }}>
+            {productsData[0].productImage.map((image, index) => (<div key={index} style={{ position: 'relative', zIndex: '-1', height: '40vh' }}>
               <div
                 style={{
                   position: 'absolute',
@@ -297,13 +317,14 @@ const ArticlePage = (props) => {
                 }}
                 src={image}
                 alt={`imagem do artigo ${index}`}
+                onError={handleImageError}
               />
             </div>
             ))}
           </Carousel>
         </div>
       }
-      {!isLoading && !productsData[0].images &&
+      {!isLoading && productsData[0].productImage.length <= 0 &&
         <img
           src={imageDefaultProduct}
           style={{ width: `100%`, marginTop: `67px` }}
@@ -316,7 +337,7 @@ const ArticlePage = (props) => {
 
       <div className={'articleHeader'}>
         <div className={'user'}>
-          <ProfileLink zoom={1.1} image={mockupprofile} id={productUserData?.id} />
+          <ProfileLink zoom={1.1} image={productUserData?.profileImage?.length > 0 ? productUserData.profileImage : mockupprofile} id={productUserData?.id} />
           <div>
             <div>{productUserData && productUserData.username}</div>
             <div className={'stars'}>
@@ -329,7 +350,7 @@ const ArticlePage = (props) => {
           </div>
         </div>
         <div className={'articleButtons'}>
-          <Button text="Alugar" onClick={() => navigate(`/rentdate-page/${item.id}`)} disable={!userData} ></Button>
+          <Button text="Alugar" onClick={() => navigate(`/rentdate-page/${productsData[0].id}`)} disable={!userData} ></Button>
           <Button text="Chat" onClick={() => navigate(`/chat`)} disable={!userData}></Button>
         </div>
       </div>
@@ -380,7 +401,7 @@ const ArticlePage = (props) => {
         {productsData[0].measurements && <div className={'title'}>Medidas da Peça <button onClick={() => { handleIconClick(3) }} className='buttonInfo'><img style={{ marginLeft: "0.5em", marginBottom: "5px" }} src={InfoIconTaxa} alt='icone de informação' /></button>
         </div>
         }
-        {productsData[0].measurements && Object.entries(productsData[0].measurements).map(([propertyName, propertyValue]) => (
+        {productsData[0].measurements && Object.entries(parseMeasurements(productsData[0].measurements)).map(([propertyName, propertyValue]) => (
           <div key={propertyName}>
             {propertyName}: {propertyValue}cm
           </div>

@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
 import Modal from '../components/Modal';
+import colors from './../assets/colors';
+import { useFetchExtraQuery } from '../redux/extraAPI';
+import { CircularProgress } from "@mui/material";
 
 const MainContainer = styled.div`
   padding: 25px;
@@ -25,7 +28,7 @@ const ConfirmButton = styled.div`
 `;
 
 const LavagemSelecionada = styled.button`
-  background-color: ${props => (props.selected ? '#343541' : '#ffffff')};
+  background-color: ${props => (props.selected ? `${colors.cinzaEscuro}` : '#ffffff')};
   border-radius: 5px;
   width: 90%;
   height: 40px;
@@ -78,8 +81,18 @@ const ValorLavagem = styled.div`
 
 const IconFolha = styled.img`
   width: 12px;
-  //visibility: ${props => (props.valorCincoEuros ? 'visible' : 'hidden')};
   margin: 0px 10px 0px 5px;
+`;
+
+const Loader = styled(CircularProgress)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
 `;
 
 const AlugarDetalhes = () => {
@@ -90,9 +103,9 @@ const AlugarDetalhes = () => {
     const [fecharModal3, setFecharModal3] = useState(true);
     const [fecharModal4, setFecharModal4] = useState(true);
     const [total, setTotal] = useState(0); // Estado para armazenar o total
+    const { data: extraData, isLoading } = useFetchExtraQuery();
 
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
 
@@ -140,34 +153,37 @@ const AlugarDetalhes = () => {
         }
     };
 
+    // Verifica se extraData existe e tem pelo menos 2 elementos
+    if (isLoading || !extraData || extraData.length < 2) {
+        return <Loader color="success" />;
+    }
+
     const lavagens = [
-        { nome: 'Lavandaria Sustentável', valor: 5, modalIndex: 0 },
+        { nome: extraData[0].name, valor: 5, modalIndex: 0, idExtra: extraData[0].id },
         { nome: 'Lavagem feita pelo utilizador', valor: 0, modalIndex: 1 },
     ];
 
     const transportes = [
-        { nome: 'Transportadora Eco-Friendly', valor: 5, modalIndex: 2 },
+        { nome: extraData[1].name, valor: 5, modalIndex: 2, idExtra: extraData[0].id },
         { nome: 'Transporte a cargo do utilizador', valor: 0, modalIndex: 3 },
     ];
 
     const handleLavagemClick = index => {
         if (lavagemSelecionada !== null && lavagens[lavagemSelecionada].valor > 0) {
-            // Se uma opção paga foi desselecionada, subtrai o valor dela
             setTotal(prevTotal => prevTotal - lavagens[lavagemSelecionada].valor);
         }
         setLavagemSelecionada(index);
-        if (lavagens[index].nome === 'Lavandaria Sustentável') {
+        if (lavagens[index].valor > 0) {
             setTotal(prevTotal => prevTotal + lavagens[index].valor);
         }
     };
 
     const handleTransporteClick = index => {
         if (transporteSelecionado !== null && transportes[transporteSelecionado].valor > 0) {
-            // Se uma opção paga foi desselecionada, subtrai o valor dela
             setTotal(prevTotal => prevTotal - transportes[transporteSelecionado].valor);
         }
         setTransporteSelecionado(index);
-        if (transportes[index].nome === 'Transportadora Eco-Friendly') {
+        if (transportes[index].valor > 0) {
             setTotal(prevTotal => prevTotal + transportes[index].valor);
         }
     };
@@ -176,7 +192,15 @@ const AlugarDetalhes = () => {
 
     const handleNextStep = () => {
         const detalhes = { detalhes: [lavagemSelecionada, transporteSelecionado] };
-        dispatch(updateProgressRent({ index: 0, updatedData: detalhes }));
+        const extras = [];
+        if (lavagemSelecionada === 0) {
+            extras.push(extraData[0].id);
+        }
+        if (transporteSelecionado === 0) {
+            extras.push(extraData[1].id);
+        }
+        console.log(extras);
+        dispatch(updateProgressRent({ index: 0, updatedData: detalhes, extras: extras }));
         navigate("/valor-total");
     };
 
@@ -204,19 +228,19 @@ const AlugarDetalhes = () => {
                     setFecharModal={setFecharModal4}
                     message={modalMessages[3]}
                 />
-                <PreviewCard id={list.article_id} valor={list.total+total} />
+                <PreviewCard id={list.article_id} valor={list.total + total} />
                 <div style={{ paddingTop: "25px" }}>
                     {lavagens.map((lavagem, index) => (
                         <MainSelection key={index}>
                             <LavagemSelecionada
                                 selected={lavagemSelecionada === index}
                                 onClick={() => handleLavagemClick(index)}
-                                name={lavagens.nome}
+                                name={lavagem.nome}
                             >
                                 <ConteudoLavagem>
-                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selected={lavagemSelecionada === index}/>
+                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selected={lavagemSelecionada === index} />
                                     {lavagem.nome}
-                                    {lavagem.nome==="Lavandaria Sustentável" && <IconFolha src={iconFolha} alt="icone de sustentabilidade" />}
+                                    {lavagem.nome === "Lavandaria Sustentável" && <IconFolha src={iconFolha} alt="icone de sustentabilidade" />}
                                     {lavagem.valor !== 0 && <ValorLavagem >{lavagem.valor} €</ValorLavagem>}
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
@@ -240,14 +264,14 @@ const AlugarDetalhes = () => {
                     {transportes.map((transporte, index) => (
                         <MainSelection key={index}>
                             <LavagemSelecionada
-                            selected={transporteSelecionado === index}
+                                selected={transporteSelecionado === index}
                                 onClick={() => handleTransporteClick(index)}
                                 name={transporte.nome}
                             >
                                 <ConteudoLavagem>
-                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selected={transporteSelecionado === index}/>
+                                    <IconLavagemSelect src={iconMoradaSelect} alt="icone opção selecionada" selected={transporteSelecionado === index} />
                                     {transporte.nome}
-                                    {transporte.nome==="Transportadora Eco-Friendly" && <IconFolha src={iconFolha} alt="icone de sustentabilidade"/>}
+                                    {transporte.nome === "Transportadora Eco-Friendly" && <IconFolha src={iconFolha} alt="icone de sustentabilidade" />}
                                     {transporte.valor !== 0 && <ValorLavagem>{transporte.valor} €</ValorLavagem>}
                                 </ConteudoLavagem>
                             </LavagemSelecionada>
@@ -271,7 +295,7 @@ const AlugarDetalhes = () => {
                         disabled={isContinuarDisabled}
                         onClick={handleNextStep}
                         style={{
-                            backgroundColor: isContinuarDisabled ? '#999999' : '#343541',
+                            backgroundColor: isContinuarDisabled ? '#999999' : `${colors.cinzaEscuro}`,
                             color: 'white',
                             border: 'none',
                             width: '144px',

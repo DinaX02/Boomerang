@@ -5,13 +5,22 @@ import StarIcon from '@mui/icons-material/Star';
 import mockupprofile from '../assets/icons/user_unknown.svg';
 
 const ProfileLink = (props) => {
+  const maxUsernameLength = 8;
+  const usernameSizeControl = (text) => {
+    return text.length > maxUsernameLength
+      ? `${text.substring(0, maxUsernameLength)}...`
+      : text;
+  };
+
+  const handleImageError = (event) => {
+    event.target.src = mockupprofile;
+  };
+
     return (
-
-
         <ProfileLinkStyle to={`/profile-view-page/${props.id}`} style={{zoom: props.zoom}}>
-            {props.image ? <img src={props.image} className={'profileLink'} alt='profile'/> : <img src={mockupprofile} className={'profileLink'} alt='profile'/>}
+            {props.image?.length > 0 ? <img src={props.image} className={'profileLink'} alt='profile' onError={handleImageError} /> : <img src={mockupprofile} className={'profileLink'} alt='profile'/>}
             {props.name && <div className={'description'}>
-                {props.name}
+                {usernameSizeControl(props.name)}
             </div>}
             {props.rating && <div>
                 {props.rating} <StarIcon/>
