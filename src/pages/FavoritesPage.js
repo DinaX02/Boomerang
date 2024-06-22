@@ -34,7 +34,7 @@ const VerTudo = () => {
         orderDirection: sortingCriteria === 'mostRecent' ? 'DESC' : sortingCriteria === 'oldest' ? 'ASC' : sortingCriteria === 'lowToHigh' ? 'ASC' : 'DESC'
     });
     const { data: dataFavorite, isLoading: isLoadingFavorite, refetch } = useFetchFavoriteQuery();
-    console.log(productsData);
+    // console.log(productsData);
 
     useEffect(() => {
         // dar reset ao scroll quando se entrar aqui :)
