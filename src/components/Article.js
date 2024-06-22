@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
 import { useAddFavoriteMutation, useRemoveFavoriteMutation, useFetchFavoriteQuery } from '../redux/favoriteAPI';
 import { useSeeUserQuery } from "../redux/usersAPI";
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 
 const Article = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -64,6 +65,10 @@ const Article = (props) => {
   const height = `${(208 / 120) * parseInt(props.width)}px`;
   const imgHeight = `${(144 / 120) * parseInt(props.width)}px`;
 
+  const handleImageError = (event) => {
+    event.target.src = imageDefaultProduct;
+  };
+
   return (
     //TODO: alterar o link para o link do artigo//
     //TODO: alterar imagens e informações para o artigo//
@@ -75,6 +80,7 @@ const Article = (props) => {
           src={props.image}
           style={{ height: `${imgHeight}` }}
           alt={`${props.title}`}
+          onError={handleImageError}
         />}
       </Link>
       {props.description && <div style={{ display: props.description ? "block" : "none" }} className={'description'}>

@@ -45,61 +45,68 @@ import FavoritesPage from "./pages/FavoritesPage"
 import TermoseCondicoes from "./pages/TermoseCondicoes.js";
 import PoliticadePrivacidade from "./pages/PoliticadePrivacidade.js";
 import PoliticadeCookies from "./pages/PoliticadeCookies.js";
+import AlugarValorTotalBeforeAccept from "./pages/AlugarValorTotalBeforeAccept.js";
+import WaitAcceptRent from "./pages/WaitAcceptRent.js";
+import AluguerComSucesso from "./pages/AluguerComSucesso.js";
 
 function App() {
 
 
-  
+
   return (
     <div className="App">
-<BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomepageGeral/>}></Route>
-        <Route path="/onBoarding" element={<OnBoarding/>}></Route>
-        <Route path="/sign-up-page" element={<SignUpPage/>}></Route>
-        <Route path="/search-page" element={<SearchPage/>}></Route>
-        <Route path="/publicar-page" element={<Publicar/>}></Route>
-        <Route path="/profile-page" element={<Profile/>}></Route>
-        <Route path="/profile-view-page/:id" element={<ProfileOthersViewPage/>}></Route>
-        <Route path="/article/:id" element={<ArticlePage/>}></Route>
-        <Route path="/chat" element={<Chat/>}></Route>
-        <Route path="/results" element={<Results />} />
-        <Route path="/settings-page" element={<Settings/>}></Route>
-        <Route path="/edit-profile-page" element={<EditProfile/>}></Route>
-        <Route path="/edit-email-page" element={<EditEmail/>}></Route>
-        <Route path="/edit-password-page" element={<EditPassword/>}></Route>
-        <Route path="/progressPublish-2" element={<ProgressPublish2/>}></Route>
-        <Route path="/progressPublish-3" element={<ProgressPublish3/>}></Route>
-        <Route path="/progressPublish-4" element={<ProgressPublish4/>}></Route>
-        <Route path="/progressPublish-5" element={<ProgressPublish5/>}></Route>
-        <Route path="/notifications-page" element={<Notifications/>}></Route>
-        <Route path="/rentdate-page/:id" element={<RentDate/>}></Route>
-        <Route path="/vouchers-page" element={<Vouchers/>}></Route>
-        <Route path="/alugar-morada" element={<AlugarMorada/>}></Route>
-        <Route path="/adicionar-morada" element={<AdicionarMorada/>}></Route>
-        <Route path="/rentdetails-page" element={<RentDetails/>}></Route>
-        <Route path="/add-adress-publish" element={<ChooseAdressComponent/>}></Route>
-        <Route path="/adress-publish" element={<AddAdressComponent/>}></Route>
-        <Route path="/alugar-detalhes" element={<AlugarDetalhes/>}></Route>
-        <Route path="/download-page" element={<DownloadPage/>}></Route>
-        <Route path="/valor-total" element={<AlugarValorTotal/>}></Route>
-        <Route path="/metodo-pagamento" element={<MetodoPagamento/>}></Route>
-        <Route path="/adicionar-pagamento" element={<AddMetPagamento/>}></Route>
-        <Route path="/alugar-progresso" element={<AlugarProgresso/>}></Route>
-        <Route path="/ver-tudo" element={<VerTudo/>}></Route>
-        <Route path="/recompensas" element={<RecompensasParaAddAmigos/>}></Route>
-        <Route path="/convidar-amigos" element={<ConvidarAmigosPage/>}></Route>
-        <Route path="/avaliar-aluguer" element={<AvaliarAluguerPage/>}></Route>
-        <Route path="/faq-perguntas-frequentes" element={<FAQ/>}></Route>
-        <Route path="/contactar-suporte" element={<ContactarSuporte/>}></Route>
-        <Route path="/sobre-nos" element={<SobreNos/>}></Route>
-        <Route path="/apagar-conta" element={<EliminarConta/>}></Route>
-        <Route path="/favorites-page" element={<FavoritesPage/>}></Route>
-        <Route path="/termos-condicoes-page" element={<TermoseCondicoes/>}></Route>
-        <Route path="/politica-privacidade-page" element={<PoliticadePrivacidade/>}></Route>
-        <Route path="/politica-cookies-page" element={<PoliticadeCookies/>}></Route>
-      </Routes>
-</BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomepageGeral />}></Route>
+          <Route path="/onBoarding" element={<OnBoarding />}></Route>
+          <Route path="/sign-up-page" element={<SignUpPage />}></Route>
+          <Route path="/search-page" element={<SearchPage />}></Route>
+          <Route path="/publicar-page" element={<Publicar />}></Route>
+          <Route path="/profile-page" element={<Profile />}></Route>
+          <Route path="/profile-view-page/:id" element={<ProfileOthersViewPage />}></Route>
+          <Route path="/article/:id" element={<ArticlePage />}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
+          <Route path="/results" element={<Results />} />
+          <Route path="/settings-page" element={<Settings />}></Route>
+          <Route path="/edit-profile-page" element={<EditProfile />}></Route>
+          <Route path="/edit-email-page" element={<EditEmail />}></Route>
+          <Route path="/edit-password-page" element={<EditPassword />}></Route>
+          <Route path="/progressPublish-2" element={<ProgressPublish2 />}></Route>
+          <Route path="/progressPublish-3" element={<ProgressPublish3 />}></Route>
+          <Route path="/progressPublish-4" element={<ProgressPublish4 />}></Route>
+          <Route path="/progressPublish-5" element={<ProgressPublish5 />}></Route>
+          <Route path="/notifications-page" element={<Notifications />}></Route>
+          <Route path="/rentdate-page/:id" element={<RentDate />}></Route>
+          <Route path="/vouchers-page" element={<Vouchers />}></Route>
+          <Route path="/alugar-morada" element={<AlugarMorada />}></Route>
+          <Route path="/adicionar-morada" element={<AdicionarMorada />}></Route>
+          <Route path="/rentdetails-page" element={<RentDetails />}></Route>
+          <Route path="/add-adress-publish" element={<ChooseAdressComponent />}></Route>
+          <Route path="/adress-publish" element={<AddAdressComponent />}></Route>
+          <Route path="/alugar-detalhes" element={<AlugarDetalhes />}></Route>
+          <Route path="/download-page" element={<DownloadPage />}></Route>
+          <Route path="/valor-total" element={<AlugarValorTotal />}></Route>
+          <Route path="/valor-total-before-accept" element={<AlugarValorTotalBeforeAccept />}></Route>
+          <Route path="/wait-accept-rent" element={<WaitAcceptRent />}></Route>
+          <Route path="/metodo-pagamento" element={<MetodoPagamento />}></Route>
+          <Route path="/adicionar-pagamento" element={<AddMetPagamento />}></Route>
+          <Route path="/alugar-progresso" element={<AlugarProgresso />}></Route>
+          <Route path="/ver-tudo" element={<VerTudo />}></Route>
+          <Route path="/recompensas" element={<RecompensasParaAddAmigos />}></Route>
+          <Route path="/convidar-amigos" element={<ConvidarAmigosPage />}></Route>
+          <Route path="/avaliar-aluguer" element={<AvaliarAluguerPage />}></Route>
+          <Route path="/faq-perguntas-frequentes" element={<FAQ />}></Route>
+          <Route path="/contactar-suporte" element={<ContactarSuporte />}></Route>
+          <Route path="/sobre-nos" element={<SobreNos />}></Route>
+          <Route path="/apagar-conta" element={<EliminarConta />}></Route>
+          <Route path="/favorites-page" element={<FavoritesPage />}></Route>
+          <Route path="/termos-condicoes-page" element={<TermoseCondicoes />}></Route>
+          <Route path="/politica-privacidade-page" element={<PoliticadePrivacidade />}></Route>
+          <Route path="/politica-cookies-page" element={<PoliticadeCookies />}></Route>
+          <Route path="/transaction-success" element={<AluguerComSucesso />}></Route>
+
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

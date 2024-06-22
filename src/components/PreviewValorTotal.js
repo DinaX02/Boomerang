@@ -6,12 +6,17 @@ import iconInfo from '../assets/icons/infoIcon.svg';
 import { useNavigate } from 'react-router-dom';
 import Modal from "./Modal";
 // import { useSelector } from "react-redux";
+import { useFetchProductQuery } from '../redux/productAPI';
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+import { CircularProgress } from "@mui/material";
 
 const PreviewValorTotal = (props) => {
     const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
     const navigate = useNavigate();
     // const list = useSelector((state) => state.Rent.progressRentList);
     const [fecharModal, setFecharModal] = useState(true);
+    const { data: productsData, isLoading } = useFetchProductQuery({ id: props.id });
+    const product = productsData && productsData.length > 0 ? productsData[0] : null;
 
     const handleIconClick = () => {
         setFecharModal(false);
@@ -47,76 +52,79 @@ const PreviewValorTotal = (props) => {
         navigate("/vouchers-page");
     }
 
-    const imageArtigo = !artigosJSON.images
-        ? artigosJSON[props.id - 1].images[0]
-        : imgDefaultPreview;
-
+    // const imageArtigo = !artigosJSON.images
+    //     ? artigosJSON[props.id - 1].images[0]
+    //     : imgDefaultPreview;
 
     return (
-        <MainContainer>
-            <Modal
-                fecharModal={fecharModal}
-                setFecharModal={setFecharModal}
-                message={
-                    <ParagraphMessageModal1p>
-                        Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 25€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.
-                    </ParagraphMessageModal1p>
-                }
-            />
-            <FirstContainer>
-                <div className='imgCardPreview' style={{ backgroundImage: `url(${imageArtigo})` }}>
-                </div>
+        <>
+            {isLoading && <Loader className={'loader'} color="success" />}
+            {!isLoading && <MainContainer>
+                <Modal
+                    fecharModal={fecharModal}
+                    setFecharModal={setFecharModal}
+                    message={
+                        <ParagraphMessageModal1p>
+                            Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>) é <strong>obrigatória</strong> e permite que <strong>todos os danos até 15€</strong> causados à peça durante o período de aluguer sejam <strong>cobertos pela Boomerang</strong>.
+                        </ParagraphMessageModal1p>
+                    }
+                />
+                <FirstContainer>
+                    <div className='imgCardPreview' style={{ backgroundImage: `url(${product.productImage.length > 0 ? product.productImage : imageDefaultProduct})` }}>
 
-                <div className="textContainerPreview">
-                    <h2 className="titlePreview">{artigosJSON[props.id - 1].title}</h2>
-                    <p className="descriptionPreview">
-                        {descriptionSizeControl(artigosJSON[props.id - 1].description)}
-                    </p>
-                </div>
-            </FirstContainer>
-            <SecondContainer>
-                <ServiceConatiner>
-                    <TextInner>
-                        <p aria-label='Parcela preço diário' style={{ margin: "2px 0px", fontWeight: "bold" }}>Preço diário</p>
-                        <p aria-label='Cálculo' style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ / dia x {props.days} dias</p>
-                    </TextInner>
-                    <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "600" }} aria-label='Preço diário total'>{props.valor}€</p>
-                    </PriceInner>
-                </ServiceConatiner>
-                <ServiceConatiner>
-                    <TextInner>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <p aria-label='Parcela taxa de proteção' style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><button onClick={handleIconClick} className='buttonInfo'><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icone de informação"/></button>
-                        </div>
-                        <p aria-label='Cálculo' style={{ margin: "0"}} className='detalhe'>{artigosJSON[props.id - 1].dailyRentalPrice}€ x 5% + 2€</p>
-                    </TextInner>
-                    <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "600" }} aria-label='Valor total da taxa de proteção'>{props.taxa}€</p>
-                    </PriceInner>
-                </ServiceConatiner>
-                <ServiceConatiner>
-                    <TextInner>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                            <p style={{ margin: "2px 0px", fontWeight: "bold" }} aria-label='Parcela extras'>Extras</p>
-                        </div>
-                        {props.OpExtras.map((option) => (
-                                <p style={{ margin: "0"}} className='detalhe' aria-label='opção'>•{"\u00A0\u00A0"}{option}</p>
-                        ))}
-                    </TextInner>
-                    <PriceInner>
-                        <p style={{ margin: "0", fontWeight: "600" }} aria-label='Valor total dos extras'>{props.extras}€</p>
-                    </PriceInner>
-                </ServiceConatiner>
-                <div style={{ textAlign: "center" }}>
-                    <button className='btncupao' onClick={vouchers}aria-label='Para inserir cupão'>+ Inserir cupão</button>
-                    <p style={{ margin: "5px 0 0 0", fontWeight: "600" }}>Total:</p>
-                    <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }} aria-label='Valor total do aluguer a pagar'>{props.total}€</p>
-                </div>
+                    </div>
+
+                    <div className="textContainerPreview">
+                        <h2 className="titlePreview">{product.title}</h2>
+                        <p className="descriptionPreview">
+                            {descriptionSizeControl(product.description)}
+                        </p>
+                    </div>
+                </FirstContainer>
+                <SecondContainer>
+                    <ServiceConatiner>
+                        <TextInner>
+                            <p aria-label='Parcela preço diário' style={{ margin: "2px 0px", fontWeight: "bold" }}>Preço diário</p>
+                            <p aria-label='Cálculo' style={{ margin: "0" }} className='detalhe'>{product.price_day}€ / dia x {props.days} dias</p>
+                        </TextInner>
+                        <PriceInner>
+                            <p style={{ margin: "0", fontWeight: "600" }} aria-label='Preço diário total'>{props.valor}€</p>
+                        </PriceInner>
+                    </ServiceConatiner>
+                    <ServiceConatiner>
+                        <TextInner>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <p aria-label='Parcela taxa de proteção' style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p><button onClick={handleIconClick} className='buttonInfo'><img style={{ width: "16px", height: "16px", marginLeft: "3px" }} src={iconInfo} alt="icone de informação" /></button>
+                            </div>
+                            <p aria-label='Cálculo' style={{ margin: "0" }} className='detalhe'>{props.valor}€ x 5% + 2€</p>
+                        </TextInner>
+                        <PriceInner>
+                            <p style={{ margin: "0", fontWeight: "600" }} aria-label='Valor total da taxa de proteção'>{props.taxa}€</p>
+                        </PriceInner>
+                    </ServiceConatiner>
+                    {props.extras && props.OpExtras && <ServiceConatiner>
+                        <TextInner>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                <p style={{ margin: "2px 0px", fontWeight: "bold" }} aria-label='Parcela extras'>Extras</p>
+                            </div>
+                            {props.OpExtras.map((option) => (
+                                <p style={{ margin: "0" }} className='detalhe' aria-label='opção'>•{"\u00A0\u00A0"}{option}</p>
+                            ))}
+                        </TextInner>
+                        <PriceInner>
+                            <p style={{ margin: "0", fontWeight: "600" }} aria-label='Valor total dos extras'>{props.extras}€</p>
+                        </PriceInner>
+                    </ServiceConatiner>}
+                    <div style={{ textAlign: "center" }}>
+                        {/* <button className='btncupao' onClick={vouchers} aria-label='Para inserir cupão'>+ Inserir cupão</button> */}
+                        <p style={{ margin: "5px 0 0 0", fontWeight: "600" }}>Total:</p>
+                        <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }} aria-label='Valor total do aluguer a pagar'>{props.total}€</p>
+                    </div>
 
 
-            </SecondContainer>
-        </MainContainer>
+                </SecondContainer>
+            </MainContainer>}
+        </>
     );
 };
 
@@ -180,9 +188,15 @@ const PriceInner = styled.div`
   align-items: center;
 `;
 
-
-
-
-
+const Loader = styled(CircularProgress)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+`;
 
 export default PreviewValorTotal;

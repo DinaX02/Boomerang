@@ -7,7 +7,7 @@ import ProfileLink from "../components/ProfileLink";
 import Chip from '../components/chip';
 import LoginRegistar from '../components/LoginRegistar';
 import mockupprofile from '../assets/icons/user_unknown.svg';
-import usersJSON from '../data/users.json';
+// import usersJSON from '../data/users.json';
 import { useFetchProductSearchQuery } from '../redux/productAPI';
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import { CircularProgress } from "@mui/material";
@@ -15,12 +15,19 @@ import PopupHomepage from '../components/HomepagePopUp';
 import { useFetchFavoriteQuery } from '../redux/favoriteAPI';
 import { useSeeUserQuery } from "../redux/usersAPI";
 import { useFetchPopularCategoryQuery } from "../redux/popularAPI";
+import { useFetchPopularPromoterQuery } from "../redux/popularAPI";
+
+// import { loadStripe } from '@stripe/stripe-js';
+
+// const stripePromise = loadStripe('pk_test_51PJCQdFBiJETLeRnD0PIPUcMRSjBIXRDpvghcG7ADbVchELMUjIZ2XJ5dBnTBLeTVoRFMtn14xCdqBpOeq8nu1dS005Mv6Qbyy');
 
 const Homepage = () => {
   const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
   const { data: dataFavorite, isLoading: isLoadingFavorite, refetch: refetchFav } = useFetchFavoriteQuery();
   const { data: userData, refetch } = useSeeUserQuery();
   const { data: fetchPopularCategoryData } = useFetchPopularCategoryQuery();
+  const { data: fetchPopularPromoterData } = useFetchPopularPromoterQuery();
+  console.log("popular promoter",fetchPopularPromoterData);
 
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
@@ -59,6 +66,24 @@ const Homepage = () => {
 
   return (
     <Loader>
+      {/* <button
+        onClick={async () => {
+          const transactionId = 18;
+          const response = await fetch(
+            'http://localhost:3000/transaction/create-checkout-session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ transactionId: transactionId, renterUserAddress: 'sgfhsgfhsgdfhfd' }),
+          }
+          );
+          const session = await response.json();
+          const stripe = await stripePromise;
+
+          await stripe.redirectToCheckout({ sessionId: session.id });
+
+        }} className="productButton">Buy this Shrek</button> */}
       {isLoading && <CircularProgress className={'loader'} color="success" />}
       {!isLoading && (
         <HomepageStyle>
@@ -87,12 +112,12 @@ const Homepage = () => {
           </div>
           <div>
             <h3 className={'sectionTitle'}><span>Promotores Populares</span></h3>
-            <div className={'articles'}>
-              {usersJSON
-                .sort((a, b) => b.rating - a.rating)
-                .slice(0, 5)
+            <div className={'articles profiles'}>
+              {fetchPopularPromoterData && fetchPopularPromoterData
+                // .sort((a, b) => b.rating - a.rating)
+                .slice(0, 6)
                 .map((user) => (
-                  <ProfileLink key={user.id} className={'profileLink'} name={user.username} image={user.avatar} id={user.id} />
+                  <ProfileLink key={user.id} className={'profileLink'} name={user.username} image={user.profileImage ? user.profileImage : mockupprofile} id={user.id} />
                 ))}
             </div>
           </div>
@@ -100,7 +125,7 @@ const Homepage = () => {
             <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/favorites-page'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
             <div className={'articles'}>
               {!isLoadingFavorite && dataFavorite.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
               ))}
               <Article more={moreFav} ariaLabel={"Ver Todos os teus favoritos"} favorite={true} />
             </div>
@@ -109,7 +134,7 @@ const Homepage = () => {
             <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Tudo das novidades">Ver tudo</Link></div>
             <div className={'articles'}>
               {!isLoading && data.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.image ? artigo.image : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
+                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
               ))}
               <Article more={true} ariaLabel={"Ver Todas as novidades"} />
             </div>
@@ -170,6 +195,9 @@ const HomepageStyle = styled.div`
     * {
       flex-shrink: 0;
     }
+  }
+  .articles.profiles {
+    gap: 20px;
   }
   .articlesPromotors {
     margin: 5px 0;

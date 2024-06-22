@@ -12,7 +12,7 @@ import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
-
+import ChooseAdressComponent from '../components/ChooseAdressComponent';
 
 const MainContainer = styled.div`
   padding: 25px;
@@ -94,7 +94,7 @@ const AlugarMorada = () => {
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
     const [buttonDisable, setButtonDisable] = useState(false);
-
+    const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -116,6 +116,10 @@ const AlugarMorada = () => {
         navigate("/metodo-pagamento");
     };
 
+    const handleAddressSelect = () => {
+        setBtnPublicarEnabled(true);
+      };
+
 
     return (
         <div>
@@ -123,7 +127,9 @@ const AlugarMorada = () => {
             <Header name="Morada" />
             <MainContainer>
                 <PreviewCard id={list.article_id} valor={list.total} />
-                <div style={{ paddingTop: '25px' }}>
+                <ChooseAdressComponent onAddressSelect={handleAddressSelect} />
+
+                {/* <div style={{ paddingTop: '25px' }}>
 
 
                     {moradas.map((morada, index) => (
@@ -194,9 +200,9 @@ const AlugarMorada = () => {
                         marginTop: "9px",
 
                     }} src={dropPontoRecolha} alt="Adicionar Morada"></img>
-                </PontoRecolha>
+                </PontoRecolha> */}
                 <ConfirmButton>
-                    <Button onClick={handleNextStep} disable={!buttonDisable} text="Confirmar" />
+                    <Button onClick={handleNextStep} disable={!BtnPublicarEnabled} text="Confirmar" />
                 </ConfirmButton>
 
             </MainContainer>
