@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-// import Button from '../components/Button';
 import UserUnknownIcon from '../assets/icons/user_unknown.svg';
 import EditarPerfilIcon from '../assets/icons/editar_perfil.svg';
 import EditarInputIcon from '../assets/icons/editarInput.svg';
@@ -19,7 +18,8 @@ const EditProfile = () => {
   const [disableBtn, setDisableBtn] = useState(true);
   const [biografia, setBiografia] = useState("");
   const [countChar, setCountChar] = useState(0);
-  const [imagePerfil, setImagePerfil] = useState([]);
+  const [imagePerfil, setImagePerfil] = useState(null);
+  const [previewImage, setPreviewImage] = useState("");
   const [fecharModal, setFecharModal] = useState(true);
   const [alert, setAlert] = useState(false);
   const [username, setUsername] = useState("");
@@ -38,6 +38,9 @@ const EditProfile = () => {
     if (userData && userData.username) {
       setUsername(userData.username);
       setOriginalUsername(userData.username);
+    }
+    if (userData && userData.profileImage) {
+      setPreviewImage(userData.profileImage);
     }
   }, [userData]);
 
@@ -69,15 +72,50 @@ const EditProfile = () => {
     setDisableBtn(e.target.value === originalUsername && biografia === originalBiografia);
   };
 
+  const uploadProfileImage = async (image) => {
+    const formData = new FormData();
+    formData.append('profileImage', image);
+    
+    try {
+      console.log("Uploading image to: http://localhost:3000/user");
+      const response = await fetch('http://localhost:3000/user', {
+        method: 'PUT',
+        body: formData,
+        headers: {
+          // Adicione headers se necessário, mas evite 'Content-Type' pois o fetch irá setar automaticamente
+        }
+      });
+  
+      if (!response.ok) {
+        console.error('Response not OK:', response);
+        throw new Error('Erro ao fazer upload da imagem de perfil');
+      }
+  
+      const data = await response.json();
+      console.log('Upload successful:', data);
+      return data.profileImage;
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      let profileImageUrl = userData.profileImage;
+
+      if (imagePerfil) {
+        profileImageUrl = await uploadProfileImage(imagePerfil);
+      }
+
       const newBio = biografia !== userData.bio ? biografia : userData.bio;
 
       await editUser({
         bio: newBio,
         username,
+        profileImage: profileImageUrl,
         name: userData.name,
         email: userData.email,
         gender: userData.gender
@@ -91,18 +129,18 @@ const EditProfile = () => {
   };
 
   const handleImageChange = (e) => {
-    const newImages = e.target.files;
-    setImagePerfil([...imagePerfil, ...newImages]);
+    const newImage = e.target.files[0];
+    setImagePerfil(newImage);
+    setPreviewImage(URL.createObjectURL(newImage)); // Pré-visualização da imagem
     setDisableBtn(false);
     setAlert(true);
   };
 
   const renderImage = () => {
-    const firstImage = imagePerfil.length > 0 ? imagePerfil[0] : null;
     return (
       <img
         className='imagemPerfil'
-        src={firstImage ? URL.createObjectURL(firstImage) : UserUnknownIcon}
+        src={previewImage || UserUnknownIcon}
         alt="imagem de perfil"
         style={{ border: '1px solid #343541' }}
       />
@@ -200,137 +238,136 @@ const EditProfile = () => {
 };
 
 const EditProfileStyle = styled.div`
-          /* padding: 0 24px; */
-          margin: auto; 
-          display: flex;
-          max-width: 600px;
-          justify-content: center;
+  /* padding: 0 24px; */
+  margin: auto;
+  display: flex;
+  max-width: 600px;
+  justify-content: center;
 
-        .imagemPerfil {
-          width: 84px;
-          height: 84px;
-          object-fit: cover;
-          border-radius: 50%;
-          // border: 2px solid #343541;
-}
+  .imagemPerfil {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 50%;
+    // border: 2px solid #343541;
+  }
 
-        .containerUserEdit {
-          text-align: center;
-        margin-top: 48px;
-}
+  .containerUserEdit {
+    text-align: center;
+    margin-top: 48px;
+  }
 
-        .containerUserEditContent {
-          display: inline-block;
-        position: relative;
-}
-        .editarPerfilIcon {
-          position: absolute;
-        right: 0;
-        width: 18px;
+  .containerUserEditContent {
+    display: inline-block;
+    position: relative;
+  }
+  .editarPerfilIcon {
+    position: absolute;
+    right: 0;
+    width: 18px;
+  }
 
-}
+  .input {
+    padding: 0.5rem;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-family: Montserrat;
+    font-size: 14px;
+    width: 100%;
+  }
+  .inputTitle {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .inputTitleContainer {
+    padding: 0 24px;
+    margin-top: 1rem;
+    display: block;
+  }
 
-        .input {
-        padding: 0.5rem;
-        box-shadow: 0 7px 20px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        outline: none;
-        border: none;
-        font-family: Montserrat;
-        font-size: 14px;
-        width: 100%;
- }
-        .inputTitle {
-          font-size: 13px;
-        font-weight: 500;
- }
-        .inputTitleContainer {
-          padding: 0 24px;
-          margin-top: 1rem;
-          display: block;
-        }
+  .editarInputIcon {
+    position: relative;
+    bottom: 3px;
+    margin-left: 9px;
+  }
 
-        .editarInputIcon{
-          position: relative;
-          bottom: 3px;
-          margin-left: 9px;
-        }
+  .inputsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    // width: calc(100% - 48px);
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-        .inputsContainer {
-          display: flex;
-        flex-wrap: wrap;
-        // width: calc(100% - 48px);
-        width: 100%;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
- }
+  .inputContainer {
+    width: 100%;
+  }
 
-        .inputContainer {
-          width: 100%;
- }
+  .btnAtualizarDados {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .biografiaInput {
+    border: none;
+    width: calc(100% - 48px);
+    margin-left: 24px;
+    font-size: 14px;
+    padding-bottom: 0.5rem;
+    height: 110px;
+  }
+  .countCharBiografia {
+    font-size: 12px;
+    color: #888;
+    margin-left: 9px;
+  }
 
-        .btnAtualizarDados {
-          margin-top: 48px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
- }
-        .biografiaInput {
-          border: none;
-          width: calc(100% - 48px);
-          margin-left: 24px;
-          font-size: 14px;
-          padding-bottom: 0.5rem;
-          height: 110px;
-      }
-      .countCharBiografia{
-        font-size: 12px;
-        color: #888;
-        margin-left: 9px;
-      }
+  .textErroObrigatorio {
+    margin-bottom: 0;
+  }
 
-      .textErroObrigatorio{
-        margin-bottom: 0;
-      }
+  .buttonEdit {
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+  }
 
-      .buttonEdit{
-        border: none;
-        margin: 0;
-        padding:0;
-        background-color: transparent;
-      }
+  .buttonAtualizar {
+    background-color: #343541;
+    color: white !important;
+    font-weight: bold;
+    font-size: 15px;
+    width: 144px;
+    height: 36px;
+    border-radius: 5px;
+    border: 1px transparent;
+    font-family: Montserrat;
+    cursor: pointer;
+  }
 
-      .buttonAtualizar{
-        background-color: #343541;
-        color: white !important;
-        font-weight: bold;
-        font-size: 15px;
-        width: 144px;
-        height: 36px;
-        border-radius: 5px;
-        border: 1px transparent;
-        font-family: Montserrat;
-        cursor: pointer;
-      }
+  .buttonAtualizar:disabled {
+    background-color: rgb(202, 202, 202);
+    cursor: not-allowed;
+  }
 
-      .buttonAtualizar:disabled {
-        background-color: rgb(202, 202, 202);
-        cursor: not-allowed;
-      }
+  .buttonAtualizar:not(:disabled):active {
+    background-color: #00c17c;
+  }
 
-      .buttonAtualizar:not(:disabled):active {
-        background-color: #00C17C;
-      }
-      
-      @media only screen and (min-width: 600px) {
-        .input {
-          font-size: 17px;
-        }
-          .inputTitle {
-            font-size: 16px;
-        }
-      }
+  @media only screen and (min-width: 600px) {
+    .input {
+      font-size: 17px;
+    }
+    .inputTitle {
+      font-size: 16px;
+    }
+  }
 `;
 
 const Loader = styled.div`

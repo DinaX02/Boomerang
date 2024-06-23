@@ -34,6 +34,8 @@ import Grow from '@mui/material/Grow';
 import Popper from '@mui/material/Popper';
 import { MenuList } from "@mui/material";
 import denunciarIcon from "../assets/icons/denunciar.svg";
+import IconLixo from "../assets/icons/lixo_preto.svg";
+import IconEditar from "../assets/icons/editar_artigo_preto.svg";
 // import notificarIcon from "../assets/icons/notificar-me.svg";
 import { useFetchProductQuery } from '../redux/productAPI';
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
@@ -41,6 +43,8 @@ import { CircularProgress } from "@mui/material";
 import { ReactComponent as FavoriteIcon } from '../assets/icons/favoriteIcon.svg';
 import { useSeeUserQuery } from "../redux/usersAPI";
 import { useAddFavoriteMutation, useRemoveFavoriteMutation, useFetchFavoriteQuery } from '../redux/favoriteAPI';
+import ModalAlertaForPublish from '../components/ProgressPublish/ModalAlertaForPublish';
+import {useDeleteProductMutation} from '../redux/productAPI';
 
 const ArticlePage = (props) => {
   const navigate = useNavigate();
@@ -59,6 +63,9 @@ const ArticlePage = (props) => {
   const [removeFavorite] = useRemoveFavoriteMutation();
   const [isFavorite, setIsFavorite] = useState(false);
   const { data: favorites, refetch } = useFetchFavoriteQuery();
+  const isOwner = userData && productsData && userData.id === productsData[0].UserId;
+  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
+  const [fecharModalAlert, setFecharModalAlert] = useState(true);
 
   // if (error) {
   //   console.log("Mensagem de erro:" + error.message);
@@ -202,10 +209,32 @@ const ArticlePage = (props) => {
       return null;
     }
   };
+
+
+  const handleDeleteClick = () => {
+    setFecharModalAlert(false);
+  };
+
+  const handleDeleteConfirmed = async () => {
+    try {
+      await deleteProduct(id);
+      navigate("/");
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+    } finally {
+      setFecharModal(true);
+    }
+  };
   
   const handleImageError = (event) => {
     event.target.src = imageDefaultProduct;
   };
+
+  const handleEdit = () => {
+    // Lógica para editar o produto
+  };
+
+
 
   return (
     <ArticlePageStyle>
@@ -213,6 +242,13 @@ const ArticlePage = (props) => {
         fecharModal={fecharModal}
         setFecharModal={setFecharModal}
         message={modalMessage}
+      />
+      <ModalAlertaForPublish
+        fecharModal={fecharModalAlert}
+        setFecharModal={setFecharModalAlert}
+        alert={true}
+        message="Tens a certeza que queres eliminar o teu produto?"
+        handleSimClick={handleDeleteConfirmed}
       />
       <div className={'headerBoomerang'}>
         <div onClick={() => { navigate(-1) }} className={'back'}>
@@ -276,6 +312,12 @@ const ArticlePage = (props) => {
                       {/* <MenuItem onClick={handleClose}><img src={notificarIcon} alt="ícone de notificar-me" style={{margin: "0 10px 0 0", padding: 0}}/>Notificar-me</MenuItem>
                       <hr style={{margin: "5px 0", color: "#CACACA"}}/> */}
                       <MenuItem onClick={handleClose}><img src={denunciarIcon} alt="ícone de denunciar" style={{ margin: "0 10px 0 0", padding: 0 }} />Denunciar</MenuItem>
+                      {isOwner && (
+            <>
+              <MenuItem onClick={handleDeleteClick}><img src={IconLixo} alt="ícone de apagar" style={{ margin: "0 10px 0 0", padding: 0 }} />Apagar</MenuItem>
+              <MenuItem onClick={handleEdit}><img src={IconEditar} alt="ícone de editar" style={{ margin: "0 10px 0 0", padding: 0 }} />Editar</MenuItem>
+            </>
+          )}
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>

@@ -10,6 +10,7 @@ const ModalAlertaForPublish = (props) => {
     const handleSimClick = () => {
         dispatch(resetProgressPublish1()); // limpar os dados do redux quando o utilizador clicar no "sim" do modal alert
         navigate("/");
+        props.handleSimClick(); 
     };
 
     return (
