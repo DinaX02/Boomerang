@@ -42,7 +42,7 @@ const AlugarValorTotal = () => {
   const { data: productsData, isLoading } = useFetchProductQuery({ id: list.article_id });
   const product = productsData && productsData.length > 0 ? productsData[0] : null;
 
-console.log(list);
+  console.log("list", list);
   // const dateFormat = "DD/MM/YYYY";
 
   const date1 = new Date(list.date[0].replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
@@ -73,7 +73,7 @@ console.log(list);
       {isLoading && <Loader className={'loader'} color="success" />}
 
       {!isLoading && <MainContainer>
-        <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras!==0 ? extras : null} OpExtras={OpExtras} />
+        <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras !== 0 ? extras : null} OpExtras={OpExtras} />
 
         <ConfButton>
           <Button onClick={handleNextStep} text="Continuar" />

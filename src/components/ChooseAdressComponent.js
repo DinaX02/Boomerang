@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { useFetchLocationQuery, useDeleteLocationMutation } from '../redux/locationAPI';
 import { CircularProgress } from "@mui/material";
 import colors from './../assets/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProgressRent } from "../redux/rentSlice";
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -88,12 +90,15 @@ const Loader = styled(CircularProgress)`
   height: 40px;
 `;
 
-const ChooseAdressComponent = ({ onAddressSelect }) => {
+const ChooseAdressComponent = ({ onAddressSelect }, props) => {
     const [moradas, setMoradas] = useState([]);
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
     const { data: locations, isLoading, refetch } = useFetchLocationQuery();
     const [deleteLocationMutation] = useDeleteLocationMutation();
     const [remove, setRemove] = useState(false);
+    const list = useSelector((state) => state.Rent.progressRentList);
+    const dispatch = useDispatch();
+    console.log("list", list.extras);
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -137,6 +142,7 @@ const ChooseAdressComponent = ({ onAddressSelect }) => {
         if (morada.id === moradaSelecionada.id) {
             setMoradaSelecionada('');
         } else {
+            dispatch(updateProgressRent({ index: 0, updatedData: { morada: morada } }));
             setMoradaSelecionada(morada);
         }
         onAddressSelect();
