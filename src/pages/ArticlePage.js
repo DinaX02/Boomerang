@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from "styled-components";
 import ProfileLink from "../components/ProfileLink";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import arrowBack from "../assets/icons/back_arrow.svg";
 import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
@@ -139,12 +139,6 @@ const ArticlePage = (props) => {
 
   useEffect(() => {
     refetch();
-    // artigosJSON.forEach(artigo => {
-    //   if (artigo.id === parseInt(id)) {
-    //     setItem(artigo);
-    //     // setTimeout(() => { console.log('Image Path:', colorImages[item.color]) }, 1000)
-    //   }
-    // });
   }, [refetch])
 
   const handleIconClick = (index) => {
@@ -195,14 +189,7 @@ const ArticlePage = (props) => {
   }
   const parseMeasurements = (measurements) => {
     try {
-      // console.log('Original measurements string:', measurements);
-  
-      // Convert the string to a valid JSON format
       const validJsonString = measurements.replace(/(\w+):/g, '"$1":');
-      
-      // console.log('Formatted JSON string:', validJsonString);
-  
-      // Parse the formatted string
       return JSON.parse(validJsonString);
     } catch (error) {
       console.error('Failed to parse measurements:', error);
@@ -218,7 +205,7 @@ const ArticlePage = (props) => {
   const handleDeleteConfirmed = async () => {
     try {
       await deleteProduct(id);
-      navigate("/");
+      navigate("/profile-page");
     } catch (error) {
       console.error("Failed to delete product:", error);
     } finally {
@@ -229,12 +216,6 @@ const ArticlePage = (props) => {
   const handleImageError = (event) => {
     event.target.src = imageDefaultProduct;
   };
-
-  const handleEdit = () => {
-    // Lógica para editar o produto
-  };
-
-
 
   return (
     <ArticlePageStyle>
@@ -268,23 +249,6 @@ const ArticlePage = (props) => {
           >
             <MoreVertIcon style={{ color: "white" }} />
           </IconButton>
-          {/* <Menu
-            className={'articleDropdown'}
-            id="article-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-          >
-            <MenuItem style={{ fontSize: 14 }} onClick={handleClose}>Denunciar</MenuItem>
-          </Menu> */}
           <Popper
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
@@ -311,11 +275,11 @@ const ArticlePage = (props) => {
                     >
                       {/* <MenuItem onClick={handleClose}><img src={notificarIcon} alt="ícone de notificar-me" style={{margin: "0 10px 0 0", padding: 0}}/>Notificar-me</MenuItem>
                       <hr style={{margin: "5px 0", color: "#CACACA"}}/> */}
-                      <MenuItem onClick={handleClose}><img src={denunciarIcon} alt="ícone de denunciar" style={{ margin: "0 10px 0 0", padding: 0 }} />Denunciar</MenuItem>
+                      <MenuItem onClick={handleClose}><img src={denunciarIcon} alt="ícone de denunciar" style={{ margin: "0 10px 0 0", padding: 0 }} /><Link to="/contactar-suporte" style={{textDecoration:"none", color:"black"}}>Denunciar</Link></MenuItem>
                       {isOwner && (
             <>
               <MenuItem onClick={handleDeleteClick}><img src={IconLixo} alt="ícone de apagar" style={{ margin: "0 10px 0 0", padding: 0 }} />Apagar</MenuItem>
-              <MenuItem onClick={handleEdit}><img src={IconEditar} alt="ícone de editar" style={{ margin: "0 10px 0 0", padding: 0 }} />Editar</MenuItem>
+              {/* <MenuItem onClick={handleEdit}><img src={IconEditar} alt="ícone de editar" style={{ margin: "0 10px 0 0", padding: 0 }} /><Link to={`/editar-produto/${id}`} style={{textDecoration:"none", color:"black"}}>Editar</Link></MenuItem> */}
             </>
           )}
                     </MenuList>
@@ -372,9 +336,6 @@ const ArticlePage = (props) => {
           style={{ width: `100%`, marginTop: `67px` }}
           alt={`${productsData[0].title}`}
         />
-        // <ImagemIndisponivel>
-        //   <p>Imagem indisponível</p>
-        // </ImagemIndisponivel>
       }
 
       <div className={'articleHeader'}>

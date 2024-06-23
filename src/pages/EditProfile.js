@@ -75,43 +75,37 @@ const EditProfile = () => {
   const uploadProfileImage = async (image) => {
     const formData = new FormData();
     formData.append('profileImage', image);
-    
+  
     try {
-      console.log("Uploading image to: http://localhost:3000/user");
       const response = await fetch('http://localhost:3000/user', {
         method: 'PUT',
-        body: formData,
-        headers: {
-          // Adicione headers se necessário, mas evite 'Content-Type' pois o fetch irá setar automaticamente
-        }
+        body: formData
       });
   
       if (!response.ok) {
-        console.error('Response not OK:', response);
         throw new Error('Erro ao fazer upload da imagem de perfil');
       }
   
       const data = await response.json();
-      console.log('Upload successful:', data);
-      return data.profileImage;
+      return data.imageUrl;
     } catch (error) {
       console.error('Erro ao fazer upload da imagem:', error);
       throw error;
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
       let profileImageUrl = userData.profileImage;
-
+  
       if (imagePerfil) {
         profileImageUrl = await uploadProfileImage(imagePerfil);
       }
-
+  
       const newBio = biografia !== userData.bio ? biografia : userData.bio;
-
+  
       await editUser({
         bio: newBio,
         username,
@@ -131,7 +125,7 @@ const EditProfile = () => {
   const handleImageChange = (e) => {
     const newImage = e.target.files[0];
     setImagePerfil(newImage);
-    setPreviewImage(URL.createObjectURL(newImage)); // Pré-visualização da imagem
+    setPreviewImage(URL.createObjectURL(newImage));
     setDisableBtn(false);
     setAlert(true);
   };
