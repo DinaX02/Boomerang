@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import imgDefaultPreview from '../assets/icons/img_default_card_preview.svg';
-// import artigosJSON from "../data/artigos.json";
 import { useFetchProductQuery } from '../redux/productAPI';
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import styled from 'styled-components';
@@ -12,7 +10,6 @@ const PreviewCard = (props) => {
   const product = productsData && productsData.length > 0 ? productsData[0] : null;
 
   const handleResize = () => {
-
     if (window.innerWidth <= 450) {
       setMaxDescriptionLength(40);
     } else {
@@ -21,13 +18,8 @@ const PreviewCard = (props) => {
   };
 
   useEffect(() => {
-
-
-
     window.addEventListener('resize', handleResize);
-
     handleResize();
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -39,29 +31,35 @@ const PreviewCard = (props) => {
       : text;
   };
 
-  // const imageArtigo = artigosJSON[props.id - 1].images.length > 0
-  //   ? artigosJSON[props.id - 1].images[0]
-  //   : imgDefaultPreview;
-
   return (
     <>
       {isLoading && <Loader className={'loader'} color="success" />}
 
-      {!isLoading && <div className="containerPreview">
-        <div className='imgCardPreview' style={{ backgroundImage: `url(${product.productImage && product.productImage.length > 0 ? product.productImage : imageDefaultProduct})` }}>
+      {!isLoading && product && (
+        <div className="containerPreview">
+          <div
+            className='imgCardPreview'
+            style={{
+              backgroundImage: `url(${product.productImage && product.productImage.length > 0 ? product.productImage : imageDefaultProduct})`
+            }}
+          ></div>
+          <div className="textContainerPreview">
+            <h2 className="titlePreview">{product.title}</h2>
+            <p className="descriptionPreview">
+              {descriptionSizeControl(product.description)}
+            </p>
+          </div>
+          <div className="priceContainerPreview">
+            <p className="priceLabelPreview">{product.price_day}€ / dia</p>
+            <p className="totalPreview">Total:</p>
+            <p className="totalPricePreview">{props.valor}€</p>
+          </div>
         </div>
-        <div className="textContainerPreview">
-          <h2 className="titlePreview">{product.title}</h2>
-          <p className="descriptionPreview">
-            {descriptionSizeControl(product.description)}
-          </p>
-        </div>
-        <div className="priceContainerPreview">
-          <p className="priceLabelPreview">{product.price_day}€ / dia</p>
-          <p className="totalPreview">Total:</p>
-          <p className="totalPricePreview">{props.valor}€</p>
-        </div>
-      </div>}
+      )}
+
+      {!isLoading && !product && (
+        <div>No product found</div>
+      )}
     </>
   );
 };

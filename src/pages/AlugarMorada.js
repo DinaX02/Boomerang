@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header/Header';
 import NavbarWeb from '../components/NavbarWeb';
-import { Link } from 'react-router-dom';
-import addMoradaIcon from '../assets/icons/icon_AddMorada.svg';
-import iconPontoRecolho from '../assets/icons/icon_PontoRecolha.png';
-import dropPontoRecolha from '../assets/icons/drop_PontoRecolha.png';
-import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
+// import { Link } from 'react-router-dom';
+// import addMoradaIcon from '../assets/icons/icon_AddMorada.svg';
+// import iconPontoRecolho from '../assets/icons/icon_PontoRecolha.png';
+// import dropPontoRecolha from '../assets/icons/drop_PontoRecolha.png';
+// import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProgressRent } from '../redux/rentSlice';
 import ChooseAdressComponent from '../components/ChooseAdressComponent';
+import { useCreateCheckOutSessionMutation } from '../redux/transactionAPI';
 
 const MainContainer = styled.div`
   padding: 25px;
@@ -93,8 +94,10 @@ const AlugarMorada = () => {
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
-    const [buttonDisable, setButtonDisable] = useState(false);
+    // const [buttonDisable, setButtonDisable] = useState(false);
     const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
+    const [createCheckOutSession] = useCreateCheckOutSessionMutation();
+    console.log("morada", list.morada);
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -102,23 +105,25 @@ const AlugarMorada = () => {
     }, []);
 
 
-    const handleRemoverMorada = (index) => {
-        const novasMoradas = [...moradas];
-        novasMoradas.splice(index, 1);
-        setMoradas(novasMoradas);
-        localStorage.setItem('moradas', JSON.stringify(novasMoradas));
-    };
+    // const handleRemoverMorada = (index) => {
+    //     const novasMoradas = [...moradas];
+    //     novasMoradas.splice(index, 1);
+    //     setMoradas(novasMoradas);
+    //     localStorage.setItem('moradas', JSON.stringify(novasMoradas));
+    // };
 
     const navigate = useNavigate();
 
     const handleNextStep = () => {
         dispatch(updateProgressRent({ index: 0, updatedData: { morada: moradaSelecionada } }));
+        // createCheckOutSession(selectedExtras: list.extras, morada: list.morada);
+
         navigate("/metodo-pagamento");
     };
 
     const handleAddressSelect = () => {
         setBtnPublicarEnabled(true);
-      };
+    };
 
 
     return (
@@ -127,7 +132,7 @@ const AlugarMorada = () => {
             <Header name="Morada" />
             <MainContainer>
                 <PreviewCard id={list.article_id} valor={list.total} />
-                <ChooseAdressComponent onAddressSelect={handleAddressSelect} />
+                <ChooseAdressComponent onAddressSelect={handleAddressSelect}/>
 
                 {/* <div style={{ paddingTop: '25px' }}>
 

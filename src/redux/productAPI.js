@@ -19,10 +19,10 @@ export const myAPI = createApi({
               }),
         }),
         createProduct: builder.mutation({
-            query: ({ title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId, productImage }) => ({
+            query: (formData) => ({
                 url: 'product/',
                 method: 'POST',
-                body: { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId, productImage },
+                body: { formData },
             }),
         }),
         deleteProduct: builder.mutation({
