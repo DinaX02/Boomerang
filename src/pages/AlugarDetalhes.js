@@ -200,7 +200,7 @@ const AlugarDetalhes = () => {
             extras.push(extraData[1].id);
         }
         console.log(extras);
-        dispatch(updateProgressRent({ index: 0, updatedData: detalhes, extras: extras }));
+        dispatch(updateProgressRent({ index: 0, updatedData: {detalhes, extras}}));
         navigate("/valor-total");
     };
 

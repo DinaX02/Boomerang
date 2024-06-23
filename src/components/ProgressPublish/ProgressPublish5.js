@@ -85,21 +85,21 @@ const ProgressPublish5 = () => {
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n);
     }
-
+    const file = new File([u8arr], filename, { type: mime });
+    console.log(`Converted file: ${filename}, type: ${mime}, size: ${file.size}`);
     return new File([u8arr], filename, { type: mime });
   }
 
   const handleNextStepPublish = async () => {
-    // setShowOverlayFinal(true);
     setTimeout(async () => {
-      // localStorage.setItem('progressPublishData', JSON.stringify(progressPublish1));
-
       const { title, description, measurements, value, price_day, brand, SizeId, ProductTypeId, ColorId, GradeId, productImage } = progressPublish1;
 
       // Convertendo base64 de volta para arquivos
       const files = productImage.map((base64Image, index) => {
+        console.log("base64Image", base64Image);
         return dataURLtoFile(base64Image, `image_${index}.png`);
       });
+
       console.log("files", files);
 
       const formData = new FormData();
@@ -120,9 +120,9 @@ const ProgressPublish5 = () => {
       });
 
       // Log de todos os valores adicionados ao FormData
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]);
-      // }
+      for (var pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1] instanceof File ? pair[1].name : pair[1]}`);
+      }
 
       try {
         await publishProduct(formData).unwrap();
@@ -132,10 +132,11 @@ const ProgressPublish5 = () => {
       } catch (error) {
         setErroPublicar(true);
         console.log('Error publishing product:', error);
-        setShowOverlayFinal(false); // Hide overlay if there's an error
+        setShowOverlayFinal(false);
       }
     }, 3000);
   };
+
 
 
 
