@@ -15,7 +15,6 @@ const ArmarioUtilizador = () => {
     const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
     const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
     const { data: userData, isLoading: isLoadingUser } = useSeeUserQuery();
-
     // console.log(userData);
 
     useEffect(() => {
@@ -45,7 +44,7 @@ const ArmarioUtilizador = () => {
     };
 
     const userProducts = userData?.products || [];
-
+    console.log(userProducts);
     return (
         <ResultsStyle>
             <Header name="Armário" />
@@ -76,7 +75,7 @@ const ArmarioUtilizador = () => {
                                     image={product.productImage[0]?.url || imageDefaultProduct}
                                     price={product.price_day}
                                     brand={product.brand}
-                                    size={product.SizeId}
+                                    size={product.Size?.name}
                                     scale={1.25}
                                     width={singleColumnGrid ? '100%' : '120px'}
                                 />
