@@ -211,7 +211,7 @@ const Homepage = () => {
             <div className={"articles"}>
               {!isLoading &&
                 data
-                  .slice(0, 4)
+                  ?.slice(0, 4)
                   .map((artigo) => (
                     <Article
                       key={artigo.id}
