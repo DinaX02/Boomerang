@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const myTransactionAPI = createApi({
-  reducerPath: "transactionAPI",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/",
-    // baseUrl: "https://boomerang-4hhtobs79-boomerangs-projects.vercel.app/",
+    reducerPath: 'transactionAPI',
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'http://localhost:3000/',
+        // baseUrl: "https://boomerang-4hhtobs79-boomerangs-projects.vercel.app/",
 
-    prepareHeaders: (headers) => {
-      headers.set("Content-Type", "application/json");
-      return headers;
-    },
-    credentials: "include",
-  }),
+        prepareHeaders: (headers) => {
+            headers.set('Content-Type', 'application/json')
+            return headers
+        },
+        credentials: 'include'
+    }),
 
     endpoints: (builder) => ({
         fetchTransaction: builder.query({
