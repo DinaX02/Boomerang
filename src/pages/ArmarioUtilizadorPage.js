@@ -1,98 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
-import CircularProgress from '@mui/material/CircularProgress';
-import Header from '../components/Header/Header';
+import CircularProgress from "@mui/material/CircularProgress";
+import Header from "../components/Header/Header";
 import Article from "../components/Article";
 import mosaicoIcon from "../assets/icons/mosaico.svg";
 // import ordenarIcon from "../assets/icons/ordenar.svg";
 import galeriaIcon from "../assets/icons/galeria.svg";
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
-import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
-import { useSeeUserQuery } from '../redux/usersAPI';
+import CheckroomOutlinedIcon from "../assets/icons/profile/closet.svg";
+import { useSeeUserQuery } from "../redux/usersAPI";
 
 const ArmarioUtilizador = () => {
-    const [viewOption, setViewOption] = useState('mosaico'); // Estado para armazenar a opção selecionada
-    const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
-    const { data: userData, isLoading: isLoadingUser } = useSeeUserQuery();
+  const [viewOption, setViewOption] = useState("mosaico"); // Estado para armazenar a opção selecionada
+  const [singleColumnGrid, setSingleColumnGrid] = useState(false); // Estado para controlar se a grelha é de uma só coluna
+  const { data: userData, isLoading: isLoadingUser } = useSeeUserQuery();
+  // console.log(userData);
 
-    // console.log(userData);
+  useEffect(() => {
+    // dar reset ao scroll quando se entrar aqui :)
+    window.scrollTo(0, 0);
+  }, []);
 
-    useEffect(() => {
-        // dar reset ao scroll quando se entrar aqui :)
-        window.scrollTo(0, 0);
-    }, []);
+  const handleViewOption = () => {
+    if (viewOption === "mosaico") {
+      setSingleColumnGrid(true);
+      setViewOption("galeria");
+    } else {
+      setSingleColumnGrid(false);
+      setViewOption("mosaico");
+    }
+  };
 
-    const handleViewOption = () => {
-        if (viewOption === 'mosaico') {
-            setSingleColumnGrid(true);
-            setViewOption('galeria');
-        } else {
-            setSingleColumnGrid(false);
-            setViewOption('mosaico');
-        }
-    };
+  const getViewIcon = () => {
+    switch (viewOption) {
+      case "galeria":
+        return galeriaIcon;
+      case "mosaico":
+        return mosaicoIcon;
+      default:
+        return mosaicoIcon;
+    }
+  };
 
-    const getViewIcon = () => {
-        switch (viewOption) {
-            case 'galeria':
-                return galeriaIcon;
-            case 'mosaico':
-                return mosaicoIcon;
-            default:
-                return mosaicoIcon;
-        }
-    };
+  const userProducts = userData?.products || [];
+  return (
+    <ResultsStyle>
+      <Header name="Armário" />
+      <div className={"resultsContent"}>
+        <div className={"sectionTitle"}>
+          <div>
+            <button className="buttonForKeyboard">
+              <img
+                src={getViewIcon()}
+                alt="view icon"
+                onClick={handleViewOption}
+                style={{ cursor: "pointer", width: "18px", display: "flex" }}
+              />
+            </button>
+          </div>
+        </div>
 
-    const userProducts = userData?.products || [];
+        {isLoadingUser && (
+          <CircularProgress className={"loader"} color="success" />
+        )}
 
-    return (
-        <ResultsStyle>
-            <Header name="Armário" />
-            <div className={'resultsContent'}>
-                <div className={'sectionTitle'}>
-                    <div>
-                        <button className='buttonForKeyboard'>
-                            <img
-                                src={getViewIcon()}
-                                alt="view icon"
-                                onClick={handleViewOption}
-                                style={{ cursor: 'pointer', width: '18px', display: 'flex' }}
-                            />
-                        </button>
-                    </div>
-                </div>
-
-                {isLoadingUser && <CircularProgress className={'loader'} color="success" />}
-
-                {!isLoadingUser && (
-                    <div className={`resultsArticles`} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {userProducts.length > 0 ? (
-                            userProducts.map((product) => (
-                                <Article
-                                    key={product.id}
-                                    id={product.id}
-                                    description={product.description}
-                                    image={product.productImage[0]?.url || imageDefaultProduct}
-                                    price={product.price_day}
-                                    brand={product.brand}
-                                    size={product.SizeId}
-                                    scale={1.25}
-                                    width={singleColumnGrid ? '100%' : '120px'}
-                                />
-                            ))
-                        ) : (
-                            <NoProductsMessage>
-                                <img src={CheckroomOutlinedIcon} alt="No products" />
-                                <p>Ainda não publicou nenhuma peça!</p>
-                            </NoProductsMessage>
-                        )}
-                    </div>
-                )}
-            </div>
-            <MenuMobile />
-        </ResultsStyle>
-    );
+        {!isLoadingUser && (
+          <div
+            className={`resultsArticles`}
+            style={{ flexDirection: singleColumnGrid ? "column" : "row" }}
+          >
+            {userProducts.length > 0 ? (
+              userProducts.map((product) => (
+                <Article
+                  key={product.id}
+                  id={product.id}
+                  description={product.description}
+                  image={product.productImage[0] || imageDefaultProduct}
+                  price={product.price_day}
+                  brand={product.brand}
+                  size={product.Size?.name}
+                  scale={1.25}
+                  width={singleColumnGrid ? "100%" : "120px"}
+                />
+              ))
+            ) : (
+              <NoProductsMessage>
+                <img src={CheckroomOutlinedIcon} alt="No products" />
+                <p>Ainda não publicou nenhuma peça!</p>
+              </NoProductsMessage>
+            )}
+          </div>
+        )}
+      </div>
+      <MenuMobile />
+    </ResultsStyle>
+  );
 };
 
 const ResultsStyle = styled.div`

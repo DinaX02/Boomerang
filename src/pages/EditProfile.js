@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import UserUnknownIcon from '../assets/icons/user_unknown.svg';
-import EditarPerfilIcon from '../assets/icons/editar_perfil.svg';
-import EditarInputIcon from '../assets/icons/editarInput.svg';
-import Header from '../components/Header/Header';
-import Modal from '../components/Modal';
-import Input from '../components/Input';
+import UserUnknownIcon from "../assets/icons/user_unknown.svg";
+import EditarPerfilIcon from "../assets/icons/editar_perfil.svg";
+import EditarInputIcon from "../assets/icons/editarInput.svg";
+import Header from "../components/Header/Header";
+import Modal from "../components/Modal";
+import Input from "../components/Input";
 import { CircularProgress } from "@mui/material";
 import { useSeeUserQuery, useEditUserMutation } from "../redux/usersAPI";
 
@@ -24,6 +24,7 @@ const EditProfile = () => {
   const [alert, setAlert] = useState(false);
   const [username, setUsername] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editUser] = useEditUserMutation();
 
   // States to store original values
   const [originalUsername, setOriginalUsername] = useState("");
@@ -44,14 +45,14 @@ const EditProfile = () => {
     }
   }, [userData]);
 
-  const [editUser] = useEditUserMutation();
-
   const handleBiografiaChange = (e) => {
     const inputBiografia = e.target.value;
     if (inputBiografia.length <= 150) {
       setBiografia(inputBiografia);
       setCountChar(inputBiografia.length);
-      setDisableBtn(inputBiografia === originalBiografia && username === originalUsername);
+      setDisableBtn(
+        inputBiografia === originalBiografia && username === originalUsername
+      );
     }
   };
 
@@ -69,80 +70,116 @@ const EditProfile = () => {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    setDisableBtn(e.target.value === originalUsername && biografia === originalBiografia);
+    setDisableBtn(
+      e.target.value === originalUsername && biografia === originalBiografia
+    );
   };
 
-  const uploadProfileImage = async (image) => {
-    const formData = new FormData();
-    formData.append('profileImage', image);
-    
-    try {
-      console.log("Uploading image to: http://localhost:3000/user");
-      const response = await fetch('http://localhost:3000/user', {
-        method: 'PUT',
-        body: formData,
-        headers: {
-          // Adicione headers se necessário, mas evite 'Content-Type' pois o fetch irá setar automaticamente
-        }
-      });
-  
-      if (!response.ok) {
-        console.error('Response not OK:', response);
-        throw new Error('Erro ao fazer upload da imagem de perfil');
-      }
-  
-      const data = await response.json();
-      console.log('Upload successful:', data);
-      return data.profileImage;
-    } catch (error) {
-      console.error('Erro ao fazer upload da imagem:', error);
-      throw error;
-    }
-  };
-  
+  // const uploadProfileImage = async (image) => {
+  //   const formData = new FormData();
+  //   formData.append("profileImage", image);
+
+  //   try {
+  //     const response = await fetch("http://localhost:3000/user", {
+  //       method: "PUT",
+  //       body: formData,
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Erro ao fazer upload da imagem de perfil");
+  //     }
+
+  //     const data = await response.json();
+  //     return data.imageUrl;
+  //   } catch (error) {
+  //     console.error("Erro ao fazer upload da imagem:", error);
+  //     throw error;
+  //   }
+  // };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("username", username);
+  //     formData.append("bio", biografia);
+
+  //     if (imagePerfil) {
+  //       formData.append("profileImage", imagePerfil);
+  //     }
+
+  //     console.log("Username:", username);
+  //     console.log("Biografia:", biografia);
+  //     console.log("Profile Image:", imagePerfil);
+  //     console.log("Form data:", formData);
+
+  //     const response = await editUser(formData);
+  //     console.log("User updated successfully:", response);
+  //     navigate("/profile-page");
+  //   } catch (error) {
+  //     console.error("Error editing user:", error);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     try {
-      let profileImageUrl = userData.profileImage;
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("bio", biografia);
 
       if (imagePerfil) {
-        profileImageUrl = await uploadProfileImage(imagePerfil);
+        formData.append("profileImage", imagePerfil);
       }
 
-      const newBio = biografia !== userData.bio ? biografia : userData.bio;
+      console.log("Form data:", formData);
 
-      await editUser({
-        bio: newBio,
-        username,
-        profileImage: profileImageUrl,
-        name: userData.name,
-        email: userData.email,
-        gender: userData.gender
-      });
-      navigate('/profile-page');
+      const response = await editUser(formData).unwrap();
+      console.log("User updated successfully:", response);
+      navigate("/profile-page");
     } catch (error) {
-      console.error("Erro ao editar perfil:", error);
+      console.error("Error editing user:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // const handleImageChange = (e) => {
+  //   const newImage = e.target.files[0];
+  //   console.log("New image selected:", newImage);
+  //   setImagePerfil(newImage); // This sets the state correctly
+
+  //   // Update preview image
+  //   setPreviewImage(URL.createObjectURL(newImage));
+
+  //   // Enable submit button and set alert
+  //   setDisableBtn(false);
+  //   setAlert(true);
+  // };
+
   const handleImageChange = (e) => {
-    const newImage = e.target.files[0];
-    setImagePerfil(newImage);
-    setPreviewImage(URL.createObjectURL(newImage)); // Pré-visualização da imagem
-    setDisableBtn(false);
-    setAlert(true);
+    const file = e.target.files[0];
+    if (file) {
+      setImagePerfil(file);
+      setPreviewImage(URL.createObjectURL(file));
+      setDisableBtn(false);
+      setAlert(true);
+    }
   };
 
   const renderImage = () => {
     return (
       <img
-        className='imagemPerfil'
+        className="imagemPerfil"
         src={previewImage || UserUnknownIcon}
         alt="imagem de perfil"
-        style={{ border: '1px solid #343541' }}
+        style={{ border: "1px solid #343541" }}
       />
     );
   };
@@ -166,9 +203,13 @@ const EditProfile = () => {
         <form onSubmit={handleSubmit}>
           <div className="containerUserEdit">
             <label htmlFor="images">
-              <div className='containerUserEditContent'>
+              <div className="containerUserEditContent">
                 {renderImage()}
-                <img className="editarPerfilIcon" src={EditarPerfilIcon} alt="icon_editar_perfil" />
+                <img
+                  className="editarPerfilIcon"
+                  src={EditarPerfilIcon}
+                  alt="icon_editar_perfil"
+                />
               </div>
             </label>
           </div>
@@ -177,16 +218,31 @@ const EditProfile = () => {
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            style={{ opacity: 0, position: "absolute", display: "block", zIndex: -1, maxWidth: "600px", width: "90%" }}
+            style={{
+              opacity: 0,
+              position: "absolute",
+              display: "block",
+              zIndex: -1,
+              maxWidth: "600px",
+              width: "90%",
+            }}
           />
-          <div className='inputsContainer'>
-            <div className='inputContainer'>
-              <div className='inputTitleContainer'>
-                <label htmlFor="username" className='inputTitle'>
+          <div className="inputsContainer">
+            <div className="inputContainer">
+              <div className="inputTitleContainer">
+                <label htmlFor="username" className="inputTitle">
                   Nome de utilizador
                 </label>
-                <button className="buttonEdit" type="button" onClick={handleEditUsernameInput}>
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" />
+                <button
+                  className="buttonEdit"
+                  type="button"
+                  onClick={handleEditUsernameInput}
+                >
+                  <img
+                    className="editarInputIcon"
+                    src={EditarInputIcon}
+                    alt="icon_editar_input"
+                  />
                 </button>
               </div>
               <Input
@@ -197,18 +253,24 @@ const EditProfile = () => {
                 onChange={handleUsernameChange}
               />
             </div>
-            
-            <div className='inputContainer'>
-              <div className='inputTitleContainer' style={{ marginTop: "0" }}>
-                <label htmlFor="biografia" className='inputTitle'>
+            <div className="inputContainer">
+              <div className="inputTitleContainer" style={{ marginTop: "0" }}>
+                <label htmlFor="biografia" className="inputTitle">
                   Biografia
                 </label>
-                <button className="buttonEdit" type="button" onClick={handleEditBiografiaInput} >
-                  <img className="editarInputIcon" src={EditarInputIcon} alt="icon_editar_input" />
+                <button
+                  className="buttonEdit"
+                  type="button"
+                  onClick={handleEditBiografiaInput}
+                >
+                  <img
+                    className="editarInputIcon"
+                    src={EditarInputIcon}
+                    alt="icon_editar_input"
+                  />
                 </button>
                 <span className="countCharBiografia">{countChar}/150</span>
               </div>
-
               <textarea
                 className="biografiaInput input"
                 id="biografia"
@@ -219,13 +281,21 @@ const EditProfile = () => {
               />
             </div>
           </div>
-
-          <div className='btnAtualizarDados'>
-            <button className='buttonAtualizar' disabled={disableBtn || isSubmitting} type="submit">
-              {isSubmitting ? <CircularProgress color="inherit" size={24} /> : 'Atualizar perfil'}
+          <div className="btnAtualizarDados">
+            <button
+              className="buttonAtualizar"
+              disabled={disableBtn || isSubmitting}
+              type="submit"
+            >
+              {isSubmitting ? (
+                <CircularProgress color="inherit" size={24} />
+              ) : (
+                "Atualizar perfil"
+              )}
             </button>
           </div>
         </form>
+
         <Modal
           fecharModal={fecharModal}
           setFecharModal={setFecharModal}

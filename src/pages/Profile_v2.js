@@ -7,7 +7,7 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import PersonAddOutlinedIcon from '../assets/icons/profile/invite.svg';
 import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
 import FavoriteBorderOutlinedIcon from '../assets/icons/profile/favorite.svg';
-import ShoppingBasketOutlinedIcon from '../assets/icons/profile/encomendas.svg';
+// import ShoppingBasketOutlinedIcon from '../assets/icons/profile/encomendas.svg';
 import LocalOfferOutlinedIcon from '../assets/icons/profile/cupoes.svg';
 import SettingsOutlinedIcon from '../assets/icons/profile/settings.svg';
 import DescriptionOutlinedIcon from '../assets/icons/profile/termos.svg';
@@ -19,6 +19,7 @@ import Logout from '../assets/icons/logout.svg';
 import { useLogoutUserMutation } from "../redux/usersAPI";
 import { useSeeUserQuery } from "../redux/usersAPI";
 import { CircularProgress } from "@mui/material";
+import Cookies from "js-cookie";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ const Profile = () => {
     try {
       await logoutUser().unwrap();
       localStorage.removeItem("login");
-      document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      // document.cookie = "cookieName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      Cookies.remove('connect.sid', { path: '/' });
       window.location.reload();
     } catch (error) {
       console.error('Falha no logout:', error);
@@ -103,14 +105,14 @@ const Profile = () => {
             </div>
           </Link>
           <hr />
-          <div className="iconitem">
+          {/* <div className="iconitem">
             <img src={ShoppingBasketOutlinedIcon} alt="histórico de encomendas" className="icon" />
             <div className="profiletext">
               <p>Histórico de encomendas</p>
             </div>
             <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
           </div>
-          <hr />
+          <hr /> 
           <Link to={"/vouchers-page"}>
             <div className="iconitem">
               <img src={LocalOfferOutlinedIcon} alt="cupões" className="icon" />
@@ -120,7 +122,7 @@ const Profile = () => {
               <ArrowForwardIosRoundedIcon alt="avançar" className="seta" />
             </div>
           </Link>
-          <hr />
+          <hr />*/}
           <Link to={"/recompensas"}>
             <div className="iconitem">
               <img src={CardGiftcardIcon} alt="recompensas" className="icon" />
