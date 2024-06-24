@@ -6,8 +6,8 @@ import dropPontoRecolha from "../assets/icons/drop_PontoRecolha.png";
 import iconMoradaSelect from "../assets/icons/selectedAdress.svg";
 import styled from "styled-components";
 import {
-  useFetchLocationQuery,
-  useDeleteLocationMutation,
+    useFetchLocationQuery,
+    useDeleteLocationMutation,
 } from "../redux/locationAPI";
 import { CircularProgress } from "@mui/material";
 import colors from "./../assets/colors";
@@ -22,7 +22,7 @@ const MainContainer = styled.div`
 
 const MoradaSelecionada = styled.div`
   background-color: ${(props) =>
-    props.selecionada ? `${colors.cinzaEscuro}` : "#ffffff"};
+        props.selecionada ? `${colors.cinzaEscuro}` : "#ffffff"};
   border-radius: 5px;
   width: 100%;
   height: 45px;
@@ -95,154 +95,154 @@ const Loader = styled(CircularProgress)`
 `;
 
 const ChooseAdressComponent = ({ onAddressSelect }, props) => {
-  const [moradas, setMoradas] = useState([]);
-  const [moradaSelecionada, setMoradaSelecionada] = useState("");
-  const { data: locations, isLoading, refetch } = useFetchLocationQuery();
-  const [deleteLocationMutation] = useDeleteLocationMutation();
-  const [remove, setRemove] = useState(false);
-  const list = useSelector((state) => state.Rent.progressRentList);
-  const dispatch = useDispatch();
+    const [moradas, setMoradas] = useState([]);
+    const [moradaSelecionada, setMoradaSelecionada] = useState("");
+    const { data: locations, isLoading, refetch } = useFetchLocationQuery();
+    const [deleteLocationMutation] = useDeleteLocationMutation();
+    const [remove, setRemove] = useState(false);
+    const list = useSelector((state) => state.Rent.progressRentList);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    const storedMoradas = JSON.parse(localStorage.getItem("moradas")) || [];
-    setMoradas(storedMoradas);
-  }, []);
+    useEffect(() => {
+        const storedMoradas = JSON.parse(localStorage.getItem("moradas")) || [];
+        setMoradas(storedMoradas);
+    }, []);
 
-  // Atualiza moradas sempre que locations mudar
-  useEffect(() => {
-    refetch();
-    if (locations) {
-      setMoradas(locations);
-      localStorage.setItem("moradas", JSON.stringify(locations));
-    }
-  }, [locations, refetch]);
+    // Atualiza moradas sempre que locations mudar
+    useEffect(() => {
+        refetch();
+        if (locations) {
+            setMoradas(locations);
+            localStorage.setItem("moradas", JSON.stringify(locations));
+        }
+    }, [locations, refetch]);
 
-  const handleRemoverMorada = async (id) => {
-    setRemove(true);
-    try {
-      // Chamar a função de mutação para deletar a localização
-      await deleteLocationMutation(id);
+    const handleRemoverMorada = async (id) => {
+        setRemove(true);
+        try {
+            // Chamar a função de mutação para deletar a localização
+            await deleteLocationMutation(id);
 
-      // Atualizar a lista de moradas após a remoção
-      const novasMoradas = moradas.filter((morada) => morada.id !== id);
-      setMoradas(novasMoradas);
-      localStorage.setItem("moradas", JSON.stringify(novasMoradas));
+            // Atualizar a lista de moradas após a remoção
+            const novasMoradas = moradas.filter((morada) => morada.id !== id);
+            setMoradas(novasMoradas);
+            localStorage.setItem("moradas", JSON.stringify(novasMoradas));
 
-      // Limpar a morada selecionada se ela for removida
-      if (moradaSelecionada && moradaSelecionada.id === id) {
-        setMoradaSelecionada("");
-      }
+            // Limpar a morada selecionada se ela for removida
+            if (moradaSelecionada && moradaSelecionada.id === id) {
+                setMoradaSelecionada("");
+            }
 
-      // Invocar a função callback para atualizar o estado do endereço selecionado
-      onAddressSelect();
-    } catch (error) {
-      console.error("Erro ao remover localização:", error);
-      // Tratar o erro conforme necessário (ex: exibir mensagem para o usuário)
-    }
-  };
+            // Invocar a função callback para atualizar o estado do endereço selecionado
+            onAddressSelect();
+        } catch (error) {
+            console.error("Erro ao remover localização:", error);
+            // Tratar o erro conforme necessário (ex: exibir mensagem para o usuário)
+        }
+    };
 
-  const handleToggleMorada = (morada) => {
-    if (morada.id === moradaSelecionada.id) {
-      setMoradaSelecionada("");
-    } else {
-      dispatch(
-        updateProgressRent({ index: 0, updatedData: { morada: morada } })
-      );
-      setMoradaSelecionada(morada);
-    }
-    onAddressSelect();
-  };
+    const handleToggleMorada = (morada) => {
+        if (morada.id === moradaSelecionada.id) {
+            setMoradaSelecionada("");
+        } else {
+            dispatch(
+                updateProgressRent({ index: 0, updatedData: { morada: morada } })
+            );
+            setMoradaSelecionada(morada);
+        }
+        onAddressSelect();
+    };
 
-  return (
-    <div>
-      {isLoading && <Loader className={"loader"} color="success" />}
+    return (
+        <div>
+            {isLoading && <Loader className={"loader"} color="success" />}
 
-      {!isLoading && (
-        <MainContainer>
-          {!isLoading &&
-            moradas.map((morada, index) => (
-              <MoradaSelecionada
-                key={index}
-                selecionada={morada.id === moradaSelecionada.id && !remove}
-                onClick={() => handleToggleMorada(morada)}
-              >
-                <ConteudoMorada>
-                  <IconMoradaSelect
-                    src={iconMoradaSelect}
-                    alt="icon"
-                    selecionada={morada.id === moradaSelecionada.id && !remove}
-                  />
-                  {morada.address}
-                </ConteudoMorada>
-                <BotaoRemover
-                  onClick={() => handleRemoverMorada(morada.id)}
-                  selecionada={morada.id === moradaSelecionada.id && !remove}
-                >
-                  X
-                </BotaoRemover>
-              </MoradaSelecionada>
-            ))}
+            {!isLoading && (
+                <MainContainer>
+                    {!isLoading &&
+                        moradas.map((morada, index) => (
+                            <MoradaSelecionada
+                                key={index}
+                                selecionada={morada.id === moradaSelecionada.id && !remove}
+                                onClick={() => handleToggleMorada(morada)}
+                            >
+                                <ConteudoMorada>
+                                    <IconMoradaSelect
+                                        src={iconMoradaSelect}
+                                        alt="icon"
+                                        selecionada={morada.id === moradaSelecionada.id && !remove}
+                                    />
+                                    {morada.address}
+                                </ConteudoMorada>
+                                <BotaoRemover
+                                    onClick={() => handleRemoverMorada(morada.id)}
+                                    selecionada={morada.id === moradaSelecionada.id && !remove}
+                                >
+                                    X
+                                </BotaoRemover>
+                            </MoradaSelecionada>
+                        ))}
 
-          <Link to={"/adress-publish"}>
-            <SelecionarMorada>
-              <button
-                style={{
-                  backgroundColor: "transparent",
-                  border: "none",
-                  width: "90%",
-                  textAlign: "left",
-                  fontSize: "16px",
-                  fontWeight: "500",
-                }}
-              >
-                Adicionar Morada
-              </button>
-              <img
-                style={{
-                  width: "20px",
-                }}
-                src={addMoradaIcon}
-                alt="Adicionar Morada"
-              />
-            </SelecionarMorada>
-          </Link>
-          <hr></hr>
-          <PontoRecolha>
-            <button
-              style={{
-                backgroundColor: "transparent",
-                border: "none",
-                color: "#cbcbcb",
-                textAlign: "left",
-                fontSize: "16px",
-                fontWeight: "500",
-              }}
-            >
-              Ponto de Recolha
-            </button>
-            <img
-              style={{
-                width: "18px",
-                marginBottom: "1px",
-              }}
-              src={iconPontoRecolho}
-              alt="icon"
-            />
-            <img
-              style={{
-                width: "25px",
-                float: "right",
-                marginTop: "9px",
-              }}
-              src={dropPontoRecolha}
-              alt="Adicioanr Morada"
-            />
-          </PontoRecolha>
-          <ConfirmButton></ConfirmButton>
-        </MainContainer>
-      )}
-    </div>
-  );
+                    <Link to={"/adress-publish"}>
+                        <SelecionarMorada>
+                            <button
+                                style={{
+                                    backgroundColor: "transparent",
+                                    border: "none",
+                                    width: "90%",
+                                    textAlign: "left",
+                                    fontSize: "16px",
+                                    fontWeight: "500",
+                                }}
+                            >
+                                Adicionar Morada
+                            </button>
+                            <img
+                                style={{
+                                    width: "20px",
+                                }}
+                                src={addMoradaIcon}
+                                alt="Adicionar Morada"
+                            />
+                        </SelecionarMorada>
+                    </Link>
+                    <hr></hr>
+                    <PontoRecolha>
+                        <button
+                            style={{
+                                backgroundColor: "transparent",
+                                border: "none",
+                                color: "#cbcbcb",
+                                textAlign: "left",
+                                fontSize: "16px",
+                                fontWeight: "500",
+                            }}
+                        >
+                            Ponto de Recolha
+                        </button>
+                        <img
+                            style={{
+                                width: "18px",
+                                marginBottom: "1px",
+                            }}
+                            src={iconPontoRecolho}
+                            alt="icon"
+                        />
+                        <img
+                            style={{
+                                width: "25px",
+                                float: "right",
+                                marginTop: "9px",
+                            }}
+                            src={dropPontoRecolha}
+                            alt="Adicioanr Morada"
+                        />
+                    </PontoRecolha>
+                    <ConfirmButton></ConfirmButton>
+                </MainContainer>
+            )}
+        </div>
+    );
 };
 
 export default ChooseAdressComponent;

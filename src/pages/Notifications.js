@@ -1,16 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MenuMobile from "../components/MenuMobile.js";
 import Notification from "../components/Notification.js";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TabsComponent from "../components/TabsComponent";
 import ChatLink from "../components/ChatLink";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+// import { updateProgressRent } from '../redux/rentSlice'
 import nothingimg from "../assets/icons/zeroNotifications.svg"
 // import artigosJSON from "../data/artigos.json"
+import { useFetchNotificationQuery } from '../redux/notificationAPI.js';
+import imageDefaultProduct from "../assets/icons/image_default_product.svg";
+import { addProgressRent } from "../redux/rentSecondSlice";
 
 const Notifications = () => {
+  const dispatch = useDispatch();
   const list = useSelector((state) => state.Rent.progressRentList);
+  const { data: notifications, isLoading, refetch } = useFetchNotificationQuery();
+
+  const handleNotificationClick = (notification) => {
+    if (notification?.type === "transaction") {
+      const daysDifference = (new Date(notification.transaction.date_end) - new Date(notification.transaction.date_start)) / (1000 * 3600 * 24); // calcular total de dias
+      const valor = notification.transaction.price_day * daysDifference;
+      const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2));
+      const total = valor + taxa;
+
+      const rentSecondData = {
+        article_id: notification.product.id,
+        daysDifference: daysDifference,
+        total: total,
+      };
+      dispatch(addProgressRent(rentSecondData));
+    }
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <div>
@@ -18,7 +44,7 @@ const Notifications = () => {
         <TabsComponent
           title1={"Notificações"}
           firstComponent={
-            list !== "" ?
+            notifications ?
               <div>
                 <Link className={"vouchers"} to={"/rentdetails-page"}>
                   {/* <Notification
@@ -35,15 +61,22 @@ const Notifications = () => {
                     sub={"Validade até: 10/01/2024"}
                   ></Notification>
                 </Link> */}
+                {!isLoading && notifications && [...notifications].reverse().map((notification) => (
+                  <Notification
+                    key={notification.id}
+                    image={notification?.product?.productImage?.lenght > 0 ? notification.product.productImage : imageDefaultProduct}
+                    title={notification?.title}
+                    sub={notification?.message}
+                    type={notification?.type}
+                    productId={notification?.product?.id}
+                    TransactionId={notification?.TransactionId}
+                    read={notification?.read}
+                    ownerUserId={notification?.transaction?.ownerUserId}
+                    article_id={notification?.product?.id}
+                    onNotificationClick={() => handleNotificationClick(notification)}
+                  ></Notification>
+                ))}
 
-                <Notification
-                  discount={"Foto"}
-                  title={"mariacarmo"}
-                  sub={"aceitou o teu pedido de aluguer do Vestido Preto"}
-                  finishRent={true}
-                  confirm={"Finalizar"}
-                  reject={"Cancelar"}
-                ></Notification>
               </div>
 
 

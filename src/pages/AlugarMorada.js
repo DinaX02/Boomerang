@@ -9,11 +9,13 @@ import NavbarWeb from '../components/NavbarWeb';
 import styled from "styled-components";
 import PreviewCard from '../components/PreviewCard';
 import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProgressRent } from '../redux/rentSlice';
+// import { updateProgressRent } from '../redux/rentSlice';
 import ChooseAdressComponent from '../components/ChooseAdressComponent';
-import { useCreateCheckOutSessionMutation } from '../redux/transactionAPI';
+import { useCreateCheckOutSessionMutation, useApprovedTransactionMutation } from '../redux/transactionAPI';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_51PJCQdFBiJETLeRnD0PIPUcMRSjBIXRDpvghcG7ADbVchELMUjIZ2XJ5dBnTBLeTVoRFMtn14xCdqBpOeq8nu1dS005Mv6Qbyy');
 
 const MainContainer = styled.div`
   padding: 25px;
@@ -87,17 +89,33 @@ const ConfirmButton = styled.div`
     margin-top: 60px;
 `;
 
+const Container = styled.div`
+  display: flex;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+const ParagraphIntroAdress = styled.p`
+  color: rgb(84, 84, 84);
 
+  @media (max-width: 500px) {
+    font-size: 14px;
+  }
+`;
 
 const AlugarMorada = () => {
     const [moradas, setMoradas] = useState([]);
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
     const dispatch = useDispatch();
-    const list = useSelector((state) => state.Rent.progressRentList);
+    const list = useSelector((state) => state.RentSecond.progressRentList);
     // const [buttonDisable, setButtonDisable] = useState(false);
     const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
     const [createCheckOutSession] = useCreateCheckOutSessionMutation();
-    console.log("morada", list.morada);
+    const [approvedTransaction] = useApprovedTransactionMutation();
+    const { search } = useLocation();
+    const query = new URLSearchParams(search);
+    const transactionId = query.get('transactionId');
+    const state = query.get('state');
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -114,12 +132,48 @@ const AlugarMorada = () => {
 
     const navigate = useNavigate();
 
-    const handleNextStep = () => {
-        dispatch(updateProgressRent({ index: 0, updatedData: { morada: moradaSelecionada } }));
-        // createCheckOutSession(selectedExtras: list.extras, morada: list.morada);
+    const handleNextStep = async () => {
+        if (state === "pending") {
+            console.log("pedido ENDPOINT Approved");
+            try {
+                const response = await approvedTransaction({ transactionId: transactionId, ownerUserAddress: list.morada });
+                navigate("/notifications-page");
+                // Check if the response has a data property
 
-        navigate("/metodo-pagamento");
+                console.log("Approved successfully");
+            }
+            catch (error) {
+                console.error("Error Approved:", error);
+            }
+
+        }
+        else {
+            try {
+                // Dispatch the update if necessary
+                // dispatch(updateProgressRent({ index: 0, updatedData: { morada: moradaSelecionada } }));
+
+                console.log("extras", list.extras);
+                console.log("morada", list.morada);
+
+                // Make the API call
+                const response = await createCheckOutSession({ transactionId: 1, selectedExtras: list.extras, renterUserAddress: list.morada });
+
+                // Check if the response has a data property
+                const session = response.data || response;
+
+                console.log("CheckOut Session created successfully:", session);
+
+                const stripe = await stripePromise;
+
+                // Redirect to the Stripe Checkout page
+                await stripe.redirectToCheckout({ sessionId: session.id });
+
+            } catch (error) {
+                console.error("Error creating CheckOut Session:", error);
+            }
+        }
     };
+
 
     const handleAddressSelect = () => {
         setBtnPublicarEnabled(true);
@@ -131,8 +185,15 @@ const AlugarMorada = () => {
             <NavbarWeb />
             <Header name="Morada" />
             <MainContainer>
-                <PreviewCard id={list.article_id} valor={list.total} />
-                <ChooseAdressComponent onAddressSelect={handleAddressSelect}/>
+                {!transactionId
+                    ? <PreviewCard id={list.article_id} valor={list.total} />
+                    : <Container>
+                        <ParagraphIntroAdress>
+                            Escolhe a Morada de Retorno para garantir uma recuperação simples
+                            e eficiente da tua peça após o período de aluguer.
+                        </ParagraphIntroAdress>
+                    </Container>}
+                <ChooseAdressComponent onAddressSelect={handleAddressSelect} />
 
                 {/* <div style={{ paddingTop: '25px' }}>
 

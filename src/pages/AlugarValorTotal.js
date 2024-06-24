@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import PreviewValorTotal from '../components/PreviewValorTotal';
-import artigosJSON from "../data/artigos.json";
 import { updateProgressRent } from "../redux/rentSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchProductQuery } from '../redux/productAPI';
@@ -16,7 +15,6 @@ const MainContainer = styled.div`
   height: 80vh;
   padding: 25px;
 `;
-
 
 const ConfButton = styled.div`
   width: 100%;
@@ -37,33 +35,30 @@ const Loader = styled(CircularProgress)`
 `;
 
 const AlugarValorTotal = () => {
-  const list = useSelector((state) => state.Rent.progressRentList);
+  const list = useSelector((state) => state.RentSecond.progressRentList);
+  console.log("List", list);
   const dispatch = useDispatch();
   const { data: productsData, isLoading } = useFetchProductQuery({ id: list.article_id });
   const product = productsData && productsData.length > 0 ? productsData[0] : null;
 
-  console.log("list", list);
-  // const dateFormat = "DD/MM/YYYY";
-
-  const date1 = new Date(list.date[0].replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
-  const date2 = new Date(list.date[1].replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
-
-  const difference = Math.abs(date2 - date1);
-  const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
-
+  // Cálculo dos valores
+  const daysDifference = list.daysDifference;
   const valor = product.price_day * daysDifference;
   const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2));
   const extras = (list.detalhes[0] + list.detalhes[1]) === 1 ? 5 : (list.detalhes[0] + list.detalhes[1]) === 2 ? 0 : 10;
   const OpExtras = (((list.detalhes[0]) === 1) && (list.detalhes[1]) === 0) ? ["Transportadora Eco-friendly"] : (((((list.detalhes[0]) === 0) && (list.detalhes[1]) === 1)) ? ["Lavandaria Sustentável"] : (((((list.detalhes[0]) === 1) && (list.detalhes[1]) === 1)) ? [] : ["Transportadora Eco-friendly", "Lavandaria Sustentável"]))
   const total = valor + taxa + extras;
 
-  // console.log("lista updated",list)
-
+  console.log("extras", extras);
 
   const navigate = useNavigate();
 
   const handleNextStep = () => {
-    dispatch(updateProgressRent({ index: 0, updatedData: { total: total } }));
+    // Enviar os valores atualizados ao rentSecondSlice
+    dispatch(updateProgressRent({ index: 0, updatedData: { total: total, extras: extras } }));
+    
+    console.log("LIST", list);
+
     navigate("/alugar-morada");
   };
 
@@ -73,14 +68,10 @@ const AlugarValorTotal = () => {
       {isLoading && <Loader className={'loader'} color="success" />}
 
       {!isLoading && <MainContainer>
-        <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras !== 0 ? extras : null} OpExtras={OpExtras} />
-
+        <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras} OpExtras={OpExtras} />
         <ConfButton>
           <Button onClick={handleNextStep} text="Continuar" />
         </ConfButton>
-
-
-
       </MainContainer>}
     </div>
   );
