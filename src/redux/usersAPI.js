@@ -3,12 +3,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const myUserAPI = createApi({
   reducerPath: "userAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/",
+    // baseUrl: "http://localhost:3000/",
+    baseUrl: "https://boomerang-4hhtobs79-boomerangs-projects.vercel.app/api/",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       return headers;
     },
-    credentials: 'include',
+    credentials: "include",
   }),
 
   endpoints: (builder) => ({
@@ -47,18 +48,45 @@ export const myUserAPI = createApi({
     }),
 
     seeUser: builder.query({
-      query: ({ id } = {}) => ({
-        url: `user${id ? `?id=${id}` : ''}`, 
+      query: (id) => ({
+        url: `user${id ? `?id=${id}` : ""}`,
         method: "GET",
       }),
+      transformResponse: (response) => {
+        if (response.profileImage) {
+          response.profileImage = response.profileImage.replace(
+            "http://localhost:3000/profile/",
+            ""
+          );
+        }
+        if (Array.isArray(response.products)) {
+          response.products.forEach((product) => {
+            if (Array.isArray(product.productImage)) {
+              product.productImage = product.productImage.map((image) =>
+                image.replace("http://localhost:3000/", "")
+              );
+            }
+          });
+        }
+        return response;
+      },
     }),
 
     editUser: builder.mutation({
-      query: ({ bio, username, name, email, gender, profileImage}) => ({
+      query: (formData) => ({
         url: "user",
         method: "PUT",
-        body: { bio, username, name, email, gender, profileImage},
+        body: formData,
       }),
+      onQueryStarted: (args, { queryFulfilled }) => {
+        queryFulfilled
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error("Error editing user:", error);
+          });
+      },
     }),
 
     editPassword: builder.mutation({

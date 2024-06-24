@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Article from "../components/Article";
 import styled from "styled-components";
 import MenuMobile from "../components/MenuMobile";
 import ProfileLink from "../components/ProfileLink";
-import Chip from '../components/chip';
-import LoginRegistar from '../components/LoginRegistar';
-import mockupprofile from '../assets/icons/user_unknown.svg';
+import Chip from "../components/chip";
+import LoginRegistar from "../components/LoginRegistar";
+import mockupprofile from "../assets/icons/user_unknown.svg";
 // import usersJSON from '../data/users.json';
-import { useFetchProductSearchQuery } from '../redux/productAPI';
+import { useFetchProductSearchQuery } from "../redux/productAPI";
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import { CircularProgress } from "@mui/material";
-import PopupHomepage from '../components/HomepagePopUp';
-import { useFetchFavoriteQuery } from '../redux/favoriteAPI';
+import PopupHomepage from "../components/HomepagePopUp";
+import { useFetchFavoriteQuery } from "../redux/favoriteAPI";
 import { useSeeUserQuery } from "../redux/usersAPI";
 import { useFetchPopularCategoryQuery } from "../redux/popularAPI";
 import { useFetchPopularPromoterQuery } from "../redux/popularAPI";
@@ -22,12 +22,15 @@ import { useFetchPopularPromoterQuery } from "../redux/popularAPI";
 // const stripePromise = loadStripe('pk_test_51PJCQdFBiJETLeRnD0PIPUcMRSjBIXRDpvghcG7ADbVchELMUjIZ2XJ5dBnTBLeTVoRFMtn14xCdqBpOeq8nu1dS005Mv6Qbyy');
 
 const Homepage = () => {
-  const { data, isLoading } = useFetchProductSearchQuery({ title: '' });
-  const { data: dataFavorite, isLoading: isLoadingFavorite, refetch: refetchFav } = useFetchFavoriteQuery();
+  const { data, isLoading } = useFetchProductSearchQuery({ title: "" });
+  const {
+    data: dataFavorite,
+    isLoading: isLoadingFavorite,
+    refetch: refetchFav,
+  } = useFetchFavoriteQuery();
   const { data: userData, refetch } = useSeeUserQuery();
   const { data: fetchPopularCategoryData } = useFetchPopularCategoryQuery();
   const { data: fetchPopularPromoterData } = useFetchPopularPromoterQuery();
-  console.log("popular promoter",fetchPopularPromoterData);
 
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
@@ -48,11 +51,11 @@ const Homepage = () => {
       }
     }
 
-    if (localStorage.getItem('firstLogin') === 'true') {
+    if (localStorage.getItem("firstLogin") === "true") {
       setShowPopup(true);
-      localStorage.removeItem('firstLogin');
+      localStorage.removeItem("firstLogin");
     }
-  }, [navigate, refetch, refetchFav]);
+  }, [navigate, refetch, refetchFav, userData]);
 
   const handleClosePopup = () => {
     setShowPopup(false);
@@ -84,7 +87,7 @@ const Homepage = () => {
           await stripe.redirectToCheckout({ sessionId: session.id });
 
         }} className="productButton">Buy this Shrek</button> */}
-      {isLoading && <CircularProgress className={'loader'} color="success" />}
+      {isLoading && <CircularProgress className={"loader"} color="success" />}
       {!isLoading && (
         <HomepageStyle>
           {showPopup && (
@@ -93,49 +96,138 @@ const Homepage = () => {
               onClose={handleClosePopup}
             />
           )}
-          <div className={'top'}>
+          <div className={"top"}>
             <div>
-              <h1 style={{ fontSize: "12px", fontWeight: "600", marginBottom: "5px" }}>Bem-Vindo</h1>
-              <h2 style={{ fontSize: "20px", fontWeight: "800" }}>O teu guarda-roupa ilimitado começa aqui</h2>
+              <h1
+                style={{
+                  fontSize: "12px",
+                  fontWeight: "600",
+                  marginBottom: "5px",
+                }}
+              >
+                Bem-Vindo
+              </h1>
+              <h2 style={{ fontSize: "20px", fontWeight: "800" }}>
+                O teu guarda-roupa ilimitado começa aqui
+              </h2>
             </div>
-            <Link to={"/profile-page"} aria-label="Link para visitares o teu perfil">
-              <div className={'profileLink'} ></div>
+            <Link
+              to={"/profile-page"}
+              aria-label="Link para visitares o teu perfil"
+            >
+              <img
+                src={
+                  userData && userData.profileImage
+                    ? userData.profileImage
+                    : mockupprofile
+                }
+                className={"profileImage"}
+                alt={
+                  userData && userData.username
+                    ? userData.username
+                    : "Profile Image"
+                }
+              ></img>
             </Link>
           </div>
           <div>
-            <h3 className={'sectionTitle'}><span>Categorias Populares</span></h3>
-            <div className={'articlesPromotors'}>
+            <h3 className={"sectionTitle"}>
+              <span>Categorias Populares</span>
+            </h3>
+            <div className={"articlesPromotors"}>
               {fetchPopularCategoryData?.slice(0, 6).map((category, index) => (
                 <Chip key={index} category={`${category.name}`} />
               ))}
             </div>
           </div>
           <div>
-            <h3 className={'sectionTitle'}><span>Promotores Populares</span></h3>
-            <div className={'articles profiles'}>
-              {fetchPopularPromoterData && fetchPopularPromoterData
-                // .sort((a, b) => b.rating - a.rating)
-                .slice(0, 6)
-                .map((user) => (
-                  <ProfileLink key={user.id} className={'profileLink'} name={user.username} image={user.profileImage ? user.profileImage : mockupprofile} id={user.id} />
-                ))}
+            <h3 className={"sectionTitle"}>
+              <span>Promotores Populares</span>
+            </h3>
+            <div className={"articles profiles"}>
+              {fetchPopularPromoterData &&
+                fetchPopularPromoterData
+                  // .sort((a, b) => b.rating - a.rating)
+                  .slice(0, 6)
+                  .map((user) => (
+                    <ProfileLink
+                      key={user.id}
+                      className={"profileLink"}
+                      name={user.username}
+                      image={
+                        user.profileImage ? user.profileImage : mockupprofile
+                      }
+                      id={user.id}
+                    />
+                  ))}
             </div>
           </div>
-          {userData && dataFavorite && dataFavorite.length > 0 && <div>
-            <h3 className={'sectionTitle'}><span>Os teus favoritos</span><Link to={'/favorites-page'} aria-label="Ver Tudo dos favoritos">Ver tudo</Link></h3>
-            <div className={'articles'}>
-              {!isLoadingFavorite && dataFavorite.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} title={artigo.title} />
-              ))}
-              <Article more={moreFav} ariaLabel={"Ver Todos os teus favoritos"} favorite={true} />
+          {userData && dataFavorite && dataFavorite.length > 0 && (
+            <div>
+              <h3 className={"sectionTitle"}>
+                <span>Os teus favoritos</span>
+                <Link
+                  to={"/favorites-page"}
+                  aria-label="Ver Tudo dos favoritos"
+                >
+                  Ver tudo
+                </Link>
+              </h3>
+              <div className={"articles"}>
+                {!isLoadingFavorite &&
+                  dataFavorite
+                    .slice(0, 4)
+                    .map((artigo) => (
+                      <Article
+                        key={artigo.id}
+                        id={artigo.id}
+                        description={artigo.description}
+                        image={
+                          artigo.productImage?.length > 0
+                            ? artigo.productImage
+                            : imageDefaultProduct
+                        }
+                        price={artigo.price_day}
+                        brand={artigo.brand}
+                        size={artigo.Size?.name}
+                        title={artigo.title}
+                      />
+                    ))}
+                <Article
+                  more={moreFav}
+                  ariaLabel={"Ver Todos os teus favoritos"}
+                  favorite={true}
+                />
+              </div>
             </div>
-          </div>}
+          )}
           <div>
-            <div className={'sectionTitle'}><span>Novidades</span><Link to={'/ver-tudo'} aria-label="Ver Tudo das novidades">Ver tudo</Link></div>
-            <div className={'articles'}>
-              {!isLoading && data.slice(0, 4).map((artigo) => (
-                <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size.name} title={artigo.title} />
-              ))}
+            <div className={"sectionTitle"}>
+              <span>Novidades</span>
+              <Link to={"/ver-tudo"} aria-label="Ver Tudo das novidades">
+                Ver tudo
+              </Link>
+            </div>
+            <div className={"articles"}>
+              {!isLoading &&
+                data
+                  .slice(0, 4)
+                  .map((artigo) => (
+                    <Article
+                      key={artigo.id}
+                      id={artigo.id}
+                      description={artigo.description}
+                      image={
+                        artigo.productImage?.length > 0
+                          ? artigo.productImage
+                          : imageDefaultProduct
+                      }
+                      price={artigo.price_day}
+                      brand={artigo.brand}
+                      size={artigo.Size.name}
+                      title={artigo.title}
+                    />
+                  ))}
               <Article more={true} ariaLabel={"Ver Todas as novidades"} />
             </div>
           </div>
@@ -145,7 +237,7 @@ const Homepage = () => {
       )}
     </Loader>
   );
-}
+};
 
 const HomepageStyle = styled.div`
   padding-bottom: 115px;
@@ -173,14 +265,13 @@ const HomepageStyle = styled.div`
         margin-bottom: 5px;
       }
     }
-    .profileLink {
+    .profileImage {
       margin-left: 10px;
       margin-top: 10px;
       height: 50px;
       width: 50px;
       border-radius: 100%;
       border: 1px black solid;
-      background-image: url(${mockupprofile});
       background-size: auto;
       background-repeat: no-repeat;
       background-position: bottom center;
@@ -223,7 +314,7 @@ const HomepageStyle = styled.div`
       color: #008052;
     }
   }
-`
+`;
 
 const Loader = styled.div`
   .loader {
@@ -236,6 +327,6 @@ const Loader = styled.div`
     width: 40px;
     height: 40px;
   }
-`
+`;
 
 export default Homepage;
