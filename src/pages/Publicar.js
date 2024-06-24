@@ -1,10 +1,9 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { updateProgressPublish1 } from "../redux/publicarSlice";
 import { useNavigate } from "react-router-dom";
 import CustomizedSteppers from "../components/ProgressBar";
-import ModalAlertaForPublish from "../components/ProgressPublish/ModalAlertaForPublish";
 import HeaderPublish from "../components/Header/HeaderPublicar";
 import { useSeeUserQuery } from "../redux/usersAPI";
 import EliminarImage from "../assets/icons/eliminar.svg";
@@ -125,7 +124,9 @@ const Publicar = () => {
 
   useEffect(() => {
     if (!isLoading && (!userData || !userData.id)) {
-      console.log('Utilizador não realizou login --> Redirecionado para a homepage...');
+      console.log(
+        "Utilizador não realizou login --> Redirecionado para a homepage..."
+      );
       localStorage.removeItem("login");
       navigate("/", { state: { showLoginRegister: true } });
     }
@@ -133,10 +134,13 @@ const Publicar = () => {
 
   const [activeStep, setActiveStep] = useState(0);
 
+  const handleStepChange = (newStep) => {
+    setActiveStep(newStep);
+  };
+
   // Dados da store relativos a etapa 1 de publicar
-  const { title, description, productImage, productImageURL, countChar } = useSelector(
-    (state) => state.Publicar1.progressPublish1
-  );
+  const { title, description, productImage, productImageURL, countChar } =
+    useSelector((state) => state.Publicar1.progressPublish1);
 
   const handleGoToProgress2 = () => {
     dispatch(
@@ -151,15 +155,11 @@ const Publicar = () => {
     navigate("/progressPublish-2");
   };
 
-  const handleStepChange = (newStep) => {
-    setActiveStep(newStep);
-  };
-
   const limitImages = 5; // define o limite de img uploaded
 
   const isButtonDisabled = !title || !description || productImage.length === 0;
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const newImages = Array.from(e.target.files);
 
     // verifica se o upload das img nao excede o limite definido
@@ -169,38 +169,37 @@ const Publicar = () => {
     }
 
     // converter as novas imagens para base64 e URLs de objeto
-    const imagePromises = newImages.map((image) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onload = () => {
-          const base64 = reader.result;
-          resolve({ base64, objectURL: URL.createObjectURL(image) });
-        };
-        reader.onerror = (error) => reject(error);
+    try {
+      const imagePromises = newImages.map((image) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(image);
+          reader.onload = () => {
+            const base64 = reader.result;
+            resolve({ base64, objectURL: URL.createObjectURL(image) });
+          };
+          reader.onerror = (error) => reject(error);
+        });
       });
-    });
 
-    // após todas as imagens serem convertidas para base64 e URLs de objeto
-    Promise.all(imagePromises)
-      .then((results) => {
-        // extrair base64 e objectURL de cada imagem
-        const base64Images = results.map((result) => result.base64);
-        const objectURLs = results.map((result) => result.objectURL);
+      const results = await Promise.all(imagePromises);
 
-        // atualizar a store redux com as novas imagens em base64 e URLs de objeto
-        dispatch(
-          updateProgressPublish1({
-            productImage: [...productImage, ...base64Images],
-            productImageURL: [...productImageURL, ...objectURLs],
-          })
-        );
-        console.log('Novo productImage:', [...productImage, ...base64Images]);
-        console.log('Novo productImageURL:', [...productImageURL, ...objectURLs]);
-      })
-      .catch((error) => {
-        console.error("Erro ao converter imagens para base64 e URLs de objeto:", error);
-      });
+      const base64Images = results.map((result) => result.base64);
+      const objectURLs = results.map((result) => result.objectURL);
+
+      // atualizar a store redux com as novas imagens em base64 e URLs de objeto
+      dispatch(
+        updateProgressPublish1({
+          productImage: [...productImage, ...base64Images],
+          productImageURL: [...productImageURL, ...objectURLs],
+        })
+      );
+    } catch (error) {
+      console.error(
+        "Erro ao converter imagens para base64 e URLs de objeto:",
+        error
+      );
+    }
   };
 
   const handleRemoveImage = (index) => {
