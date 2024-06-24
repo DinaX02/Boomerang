@@ -4,7 +4,7 @@ export const myLocationAPI = createApi({
   reducerPath: "locationAPI",
   baseQuery: fetchBaseQuery({
     // baseUrl: 'http://localhost:3000/',
-    baseUrl: "https://boomerang-4hhtobs79-boomerangs-projects.vercel.app/api/",
+    baseUrl: "https://boomerang-4hhtobs79-boomerangs-projects.vercel.app/",
 
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
