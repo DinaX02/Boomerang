@@ -11,12 +11,14 @@ import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
 
 const ProfileOthersViewPage = () => {
     const { id } = useParams();
-    const { data: user, isLoading } = useSeeUserQuery({ id: parseInt(id) });
+    const userId = parseInt(id, 10);
+
+    const { data: user, isLoading } = useSeeUserQuery({ id: userId });
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
         if (!isLoading && user && Array.isArray(user.products)) {
-            console.log('User data:', user); // Debug statement
+            console.log('User data:', user);
             setProducts(user.products);
         }
     }, [isLoading, user]);
@@ -61,7 +63,7 @@ const ProfileOthersViewPage = () => {
                                     key={product.id}
                                     id={product.id}
                                     description={product.description}
-                                    image={product.productImage[0]?.url || imageDefaultProduct}
+                                    image={product.productImage?.[0]?.url || imageDefaultProduct}
                                     price={product.price_day}
                                     brand={product.brand}
                                     size={product.size}
@@ -81,7 +83,6 @@ const ProfileOthersViewPage = () => {
         </ProfileOthersViewStyle>
     );
 };
-
 const ProfileOthersViewStyle = styled.div`
     margin-bottom: 24px;
     .headerProfile {
@@ -130,7 +131,7 @@ const ProfileOthersViewStyle = styled.div`
     .articles {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-evenly;
         gap: 25px 25px;
         flex-direction: row;
     }
