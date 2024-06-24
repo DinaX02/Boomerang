@@ -7,7 +7,7 @@ exports[`snapshot da página Publicar 1`] = `
       class="headerBoomerang"
     >
       <button
-        class="sc-gswONk krdUba"
+        class="sc-bcXGCL hrulFW"
       >
         <img
           alt="seta para voltar à página anterior"
@@ -170,14 +170,14 @@ exports[`snapshot da página Publicar 1`] = `
       </div>
     </div>
     <div
-      class="sc-hLBatu ljyBqZ"
+      class="sc-dkrGBB bVGMXl"
     >
       <div
-        class="sc-csuRvn bnaTEu"
+        class="sc-ipEzrc bMkbfq"
         for="images"
       >
         <label
-          class="sc-kDvuXt jWTMV addImgInputPublish"
+          class="sc-jrcSHq ihVdvs addImgInputPublish"
           for="images"
         >
           <span
@@ -200,16 +200,16 @@ exports[`snapshot da página Publicar 1`] = `
           type="file"
         />
         <p
-          class="sc-ipEzrc cpTUfa"
+          class="sc-kDvuXt jfnFRh"
         >
           Adiciona até 5 fotografias
         </p>
         <div
-          class="sc-gKPSgB enKMZP"
+          class="sc-jSVask xghpD"
         />
       </div>
       <label
-        class="sc-eDvShL dRYxAC"
+        class="sc-hLBatu dmVqSI"
         for="title"
       >
         Título 
@@ -220,14 +220,14 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <textarea
-        class="sc-eDVOW fUnRDC productFormInput"
+        class="sc-csuRvn kAZIXC productFormInput"
         id="title"
         placeholder="Ex: Casaco de Pele Preto"
         style="font-size: 15px;"
         type="text"
       />
       <label
-        class="sc-eDvShL dRYxAC"
+        class="sc-hLBatu dmVqSI"
         for="description"
       >
         Descrição 
@@ -243,7 +243,7 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <input
-        class="sc-jSVask hgNVEH productFormInput"
+        class="sc-eDvShL iYuXLl productFormInput"
         data-testid="description-input"
         id="description"
         placeholder="Ex: Casaco de Pele em bom estado."
@@ -251,7 +251,7 @@ exports[`snapshot da página Publicar 1`] = `
         value="Test Description"
       />
       <label
-        class="sc-eDvShL dRYxAC"
+        class="sc-hLBatu dmVqSI"
       >
         <span
           class="colourGreenAsterisk"
@@ -261,10 +261,10 @@ exports[`snapshot da página Publicar 1`] = `
          Campo Obrigatório
       </label>
       <div
-        class="sc-jrcSHq dvhzlq"
+        class="sc-pyeOL lcmwYA"
       >
         <button
-          class="sc-dkrGBB ggWpQT btnComponent"
+          class="sc-gswONk gFXeoE btnComponent"
           disabled=""
           style="background-color: rgb(202, 202, 202);"
           type="button"
