@@ -13,8 +13,8 @@ export const myTransactionAPI = createApi({
 
     endpoints: (builder) => ({
         fetchTransaction: builder.query({
-            query: () => ({
-                url: `transaction`,
+            query: (transactionId) => ({
+                url: `transaction/${transactionId}`,
                 method: "GET",
             }),
         }),
@@ -26,15 +26,34 @@ export const myTransactionAPI = createApi({
             }),
         }),
         createCheckOutSession: builder.mutation({
-            query: ({ transactionId, selectedExtras }) => ({
-                url: '/create-checkout-session',
+            query: ({ transactionId, selectedExtras, renterUserAddress }) => ({
+                url: 'transaction/create-checkout-session',
                 method: 'POST',
-                body: { transactionId, selectedExtras },
+                body: { transactionId, selectedExtras, renterUserAddress },
+            }),
+        }),
+        approvedTransaction: builder.mutation({
+            query: ({ transactionId, ownerUserAddress }) => ({
+                url: `/transaction/${transactionId}/approved`,
+                method: 'PUT',
+                body: { ownerUserAddress },
+            }),
+        }),
+        rejectedTransaction: builder.mutation({
+            query: ({ transactionId }) => ({
+                url: `/transaction/${transactionId}/rejected`,
+                method: 'PUT',
+            }),
+        }),
+        cancelledTransaction: builder.mutation({
+            query: ({ transactionId }) => ({
+                url: `/transaction/${transactionId}/cancelled`,
+                method: 'PUT',
             }),
         }),
     }),
 });
 
-export const { useFetchTransactionQuery, useCreateTransactionMutation, useCreateCheckOutSessionMutation } = myTransactionAPI;
+export const { useFetchTransactionQuery, useCreateTransactionMutation, useCreateCheckOutSessionMutation, useApprovedTransactionMutation, useRejectedTransactionMutation, useCancelledTransactionMutation } = myTransactionAPI;
 
 export default myTransactionAPI;

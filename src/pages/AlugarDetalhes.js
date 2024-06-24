@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import PreviewCard from '../components/PreviewCard';
 import iconFolha from '../assets/icons/fa-solid_leaf.svg';
 import iconInfo from '../assets/icons/infoIcon.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProgressRent } from '../redux/rentSlice';
+import { updateProgressRent } from '../redux/rentSecondSlice';
 import Modal from '../components/Modal';
 import colors from './../assets/colors';
 import { useFetchExtraQuery } from '../redux/extraAPI';
@@ -108,6 +108,11 @@ const AlugarDetalhes = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const list = useSelector((state) => state.Rent.progressRentList);
+    const listSecond = useSelector((state) => state.RentSecond.progressRentList);
+    // console.log("listSecond", listSecond);
+    const { search } = useLocation();
+    const query = new URLSearchParams(search);
+    const article_id = Number(query.get('article_id'));
 
     const modalMessages = [
         (
@@ -191,7 +196,7 @@ const AlugarDetalhes = () => {
     const isContinuarDisabled = lavagemSelecionada === null || transporteSelecionado === null;
 
     const handleNextStep = () => {
-        const detalhes = { detalhes: [lavagemSelecionada, transporteSelecionado] };
+        const detalhes = [lavagemSelecionada, transporteSelecionado] ;
         const extras = [];
         if (lavagemSelecionada === 0) {
             extras.push(extraData[0].id);
@@ -199,11 +204,11 @@ const AlugarDetalhes = () => {
         if (transporteSelecionado === 0) {
             extras.push(extraData[1].id);
         }
-        console.log(extras);
-        dispatch(updateProgressRent({ index: 0, updatedData: {detalhes, extras}}));
+        // console.log(extras);
+        dispatch(updateProgressRent({ index: 0, updatedData: { detalhes, extras } }));
         navigate("/valor-total");
     };
-
+    // console.log("list", list);
     return (
         <div>
             <Header name="Detalhes de Aluguer" />
@@ -228,7 +233,7 @@ const AlugarDetalhes = () => {
                     setFecharModal={setFecharModal4}
                     message={modalMessages[3]}
                 />
-                <PreviewCard id={list.article_id} valor={list.total + total} />
+                <PreviewCard id={listSecond.article_id} valor={listSecond.total + total} />
                 <div style={{ paddingTop: "25px" }}>
                     {lavagens.map((lavagem, index) => (
                         <MainSelection key={index}>

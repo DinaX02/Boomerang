@@ -49,7 +49,12 @@ const Modal = (props) => {
                         {props.alert && <button
                             className="btnOK alert sim"
                             onClick={() => {
-                                navigate(-1); // voltar para trás
+                                if (props.transaction) {
+                                    props.onClick();
+                                }
+                                else {
+                                    navigate(-1); // voltar para trás
+                                }
                             }}
                         >Sim</button>}
                     </div>

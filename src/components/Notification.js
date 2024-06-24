@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 const Notification = (props) => {
   const navigate = useNavigate();
 
+  // dispatch(updateProgressRent({ updatedData: { TransactionId: props.TransactionId } }));
+  // const list = useSelector((state) => state.Rent.progressRentList);
+
+  // console.log("TransactionId", list.TransactionId);
+
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
 
   const handleResize = () => {
@@ -30,29 +35,35 @@ const Notification = (props) => {
   }, []);
 
   const descriptionSizeControl = (text) => {
-    return (text.length > maxDescriptionLength) && !props.finishRent
+    return (text.length > maxDescriptionLength) && props.type !== "transaction"
       ? `${text.substring(0, maxDescriptionLength)}...`
       : text;
   };
 
-  const confirmHandle = () => {
-    if(props.finishRent){
-      navigate("/alugar-detalhes");
+  const confirmHandle = (id) => {
+    props.onNotificationClick();
+    if (props.type === "transaction") {
+      navigate(`/aluguer-aceitar-rejeitar?transactionId=${props.TransactionId}&ownerUserId=${props.ownerUserId}&article_id=${props.article_id}`);
     }
-
+    if (props.type === "favorite") {
+      navigate("/article/" + id);
+    }
   }
   return (
-    <NotificationDiv style={props.finishRent ? {height: "125px"} : {height: "105px"}}>
+    <NotificationDiv style={{
+      height: props.type === "transaction" ? "145px" : "105px",
+      ...(props.read ? null : { background: "#00C17C20" })
+    }} onClick={() => confirmHandle(props.productId)}>
       <NotificationImg alt='notificação' style={{ background: props.image ? `url(${props.image})` : '#2e2e2e' }}>{props.discount}</NotificationImg>
       <div>
         <div>
           <p><b>{descriptionSizeControl(props.title)}</b></p>
           <p>{descriptionSizeControl(props.sub)}</p>
         </div>
-        {props.finishRent && <div className='buttonsNotification'>
+        {/* {props.finishRent && <div className='buttonsNotification'>
           <button className='confirm' onClick={confirmHandle} >{props.confirm}</button>
           <button className='reject'>{props.reject}</button>
-        </div>}
+        </div>} */}
       </div>
 
     </NotificationDiv>
@@ -70,7 +81,7 @@ flex-direction: row;
 align-items: center;
 font-size: 13px;
 margin-top: 25px;
-width: 90vw !important;
+/* width: 90vw !important; */
 p{
   margin-bottom: 5px;
 }

@@ -8,11 +8,14 @@ import myLocationAPI from "./locationAPI";
 import myPopularAPI from "./popularAPI";
 import myTransactionAPI from "./transactionAPI";
 import myExtraAPI from "./extraAPI";
+import myNotificationsnAPI from "./notificationAPI";
+import RentSecondSlice from "./rentSecondSlice";
 
 const store = configureStore({
   reducer: {
     Publicar1: PublishSlice,
     Rent: RentSlice,
+    RentSecond: RentSecondSlice,
     [myAPI.reducerPath]: myAPI.reducer,
     [myUserAPI.reducerPath]: myUserAPI.reducer,
     [myFavoriteAPI.reducerPath]: myFavoriteAPI.reducer,
@@ -20,10 +23,10 @@ const store = configureStore({
     [myPopularAPI.reducerPath]: myPopularAPI.reducer,
     [myTransactionAPI.reducerPath]: myTransactionAPI.reducer,
     [myExtraAPI.reducerPath]: myExtraAPI.reducer,
-
+    [myNotificationsnAPI.reducerPath]: myNotificationsnAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(myAPI.middleware, myUserAPI.middleware, myFavoriteAPI.middleware, myLocationAPI.middleware, myPopularAPI.middleware, myTransactionAPI.middleware, myExtraAPI.middleware),
+    getDefaultMiddleware().concat(myAPI.middleware, myUserAPI.middleware, myFavoriteAPI.middleware, myLocationAPI.middleware, myPopularAPI.middleware, myTransactionAPI.middleware, myExtraAPI.middleware, myNotificationsnAPI.middleware),
 });
 
 export default store;

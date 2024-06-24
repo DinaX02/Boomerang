@@ -98,7 +98,6 @@ const ChooseAdressComponent = ({ onAddressSelect }, props) => {
     const [remove, setRemove] = useState(false);
     const list = useSelector((state) => state.Rent.progressRentList);
     const dispatch = useDispatch();
-    console.log("list", list.extras);
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
