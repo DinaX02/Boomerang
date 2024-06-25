@@ -12,77 +12,79 @@ import CheckroomOutlinedIcon from '../assets/icons/profile/closet.svg';
 const ProfileOthersViewPage = () => {
     const { id } = useParams();
     const userId = parseInt(id, 10);
-
-    const { data: user, isLoading } = useSeeUserQuery({ id: userId });
+    // console.log('Raw ID from URL:', id); 
+    // console.log('Parsed User ID:', userId); 
+    const { data: user, isLoading } = useSeeUserQuery(userId);
+    // console.log(user);
     const [products, setProducts] = useState([]);
-
+  
     useEffect(() => {
-        if (!isLoading && user && Array.isArray(user.products)) {
-            console.log('User data:', user);
-            setProducts(user.products);
-        }
+      if (!isLoading && user && Array.isArray(user.products)) {
+        // console.log('User data:', user);
+        setProducts(user.products);
+      }
     }, [isLoading, user]);
-
+  
     return (
-        <ProfileOthersViewStyle>
-            <Header name={user ? `Perfil de ${user.name.split(' ')[0]}` : 'Perfil'} share={true} />
-            <div className="headerProfile"></div>
-            <img
-                src={user?.profileImage || mockupprofile}
-                alt={`Imagem de perfil de ${user?.name}`}
-                className="profileLink"
-            />
-            <div className="infoPerfil">
-                <div>
-                    <h6 style={{ fontSize: '14px', fontWeight: 700, display: 'inline-block', color: 'black' }}>
-                        {user?.name || 'Utilizador da Boomerang'}
-                    </h6>
-                    <div style={{ display: 'inline-block', position: 'absolute', right: 0, marginRight: '24px' }}>
-                        {[...Array(5)].map((_, index) => (
-                            <img key={index} src={starIcon} alt="Star Icon" />
-                        ))}
-                    </div>
-                </div>
-                <p className="info">{user?.username || '-'}</p>
-                <hr className="divisor" />
-                <p className="titulo">Biografia</p>
-                <p className="info">{user?.bio || '-'}</p>
-                <hr className="divisor" />
-                <p className="titulo">Membro da Boomerang desde</p>
-                <p className="info" style={{ marginBottom: 0 }}>
-                    {user ? new Date(user.createdAt).toLocaleDateString() : '-'}
-                </p>
+      <ProfileOthersViewStyle>
+        <Header name={user ? `Perfil de ${user.name.split(' ')[0]}` : 'Perfil'} share={true} />
+        <div className="headerProfile"></div>
+        <img
+          src={user?.profileImage || mockupprofile}
+          alt={`Imagem de perfil de ${user?.name}`}
+          className="profileLink"
+        />
+        <div className="infoPerfil">
+          <div>
+            <h6 style={{ fontSize: '14px', fontWeight: 700, display: 'inline-block', color: 'black' }}>
+              {user?.name || 'Utilizador da Boomerang'}
+            </h6>
+            <div style={{ display: 'inline-block', position: 'absolute', right: 0, marginRight: '24px' }}>
+              {[...Array(5)].map((_, index) => (
+                <img key={index} src={starIcon} alt="Star Icon" />
+              ))}
             </div>
-            <div className="armarioSection">
-                <h5 className="armarioTitle">Armário de {user?.name.split(' ')[0]}</h5>
-                {!isLoading && (
-                    <div className="articles">
-                        {products.length > 0 ? (
-                            products.map((product) => (
-                                <Article
-                                    key={product.id}
-                                    id={product.id}
-                                    description={product.description}
-                                    image={product.productImage?.[0]?.url || imageDefaultProduct}
-                                    price={product.price_day}
-                                    brand={product.brand}
-                                    size={product.size}
-                                    title={product.title}
-                                    width={'160px'}
-                                />
-                            ))
-                        ) : (
-                            <NoProductsMessage>
-                                <img src={CheckroomOutlinedIcon} alt="No products" />
-                                <p>Ainda não publicou nenhuma peça!</p>
-                            </NoProductsMessage>
-                        )}
-                    </div>
-                )}
+          </div>
+          <p className="info">{user?.username || '-'}</p>
+          <hr className="divisor" />
+          <p className="titulo">Biografia</p>
+          <p className="info">{user?.bio || '-'}</p>
+          <hr className="divisor" />
+          <p className="titulo">Membro da Boomerang desde</p>
+          <p className="info" style={{ marginBottom: 0 }}>
+            {user ? new Date(user.createdAt).toLocaleDateString() : '-'}
+          </p>
+        </div>
+        <div className="armarioSection">
+          <h5 className="armarioTitle">Armário de {user?.name.split(' ')[0]}</h5>
+          {!isLoading && (
+            <div className="articles" >
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <Article
+                    key={product.id}
+                    id={product.id}
+                    description={product.description}
+                    image={product.productImage[0] || imageDefaultProduct}
+                    price={product.price_day}
+                    brand={product.brand}
+                    size={product.size}
+                    title={product.title}
+                    scale={1.25}
+                  />
+                ))
+              ) : (
+                <NoProductsMessage>
+                  <img src={CheckroomOutlinedIcon} alt="No products" />
+                  <p>Ainda não publicou nenhuma peça!</p>
+                </NoProductsMessage>
+              )}
             </div>
-        </ProfileOthersViewStyle>
+          )}
+        </div>
+      </ProfileOthersViewStyle>
     );
-};
+  };
 const ProfileOthersViewStyle = styled.div`
     margin-bottom: 24px;
     .headerProfile {

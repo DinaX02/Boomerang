@@ -46,7 +46,7 @@ import {
   useRemoveFavoriteMutation,
   useFetchFavoriteQuery,
 } from "../redux/favoriteAPI";
-import ModalAlertaForPublish from "../components/ProgressPublish/ModalAlertaForPublish";
+import ModalAlertaForDeleteProduct from "../components/ProgressPublish/ModalAlertaForDeleteProduct";
 import { useDeleteProductMutation } from "../redux/productAPI";
 
 const ArticlePage = (props) => {
@@ -231,7 +231,7 @@ const ArticlePage = (props) => {
         setFecharModal={setFecharModal}
         message={modalMessage}
       />
-      <ModalAlertaForPublish
+      <ModalAlertaForDeleteProduct
         fecharModal={fecharModalAlert}
         setFecharModal={setFecharModalAlert}
         alert={true}

@@ -32,6 +32,7 @@ const SignUpPage = () => {
   const [erroObrigatorio, setErroObrigatorio] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [passwordTooShort, setPasswordTooShort] = useState(false); 
   const bottomSheetRef = useRef(null);
 
   const navigate = useNavigate();
@@ -58,25 +59,42 @@ const SignUpPage = () => {
   };
 
   const handlePassChange = (e) => {
-    setInputPassValue(e.target.value);
-    if (e.target.value !== inputRepetirPassValue) {
+    const value = e.target.value;
+    setInputPassValue(value);
+
+    if (value.length < 6) {
+      setPasswordTooShort(true);
       setMatchPassword(false);
       setErroObrigatorio(true);
     } else {
-      setMatchPassword(true);
+      setPasswordTooShort(false);
       setErroObrigatorio(false);
+      if (value === inputRepetirPassValue) {
+        setMatchPassword(true);
+      } else {
+        setMatchPassword(false);
+      }
     }
     setAlert(true);
   };
 
   const handleRepetirPassChange = (e) => {
-    setInputRepetirPassValue(e.target.value);
-    if (inputPassValue !== e.target.value) {
+    const value = e.target.value;
+    setInputRepetirPassValue(value);
+
+    if (value.length < 6 || inputPassValue.length < 6) {
+      setPasswordTooShort(true);
       setMatchPassword(false);
       setErroObrigatorio(true);
     } else {
-      setMatchPassword(true);
-      setErroObrigatorio(false);
+      setPasswordTooShort(false);
+      if (value === inputPassValue) {
+        setMatchPassword(true);
+        setErroObrigatorio(false);
+      } else {
+        setMatchPassword(false);
+        setErroObrigatorio(true);
+      }
     }
     setAlert(true);
   };
@@ -225,6 +243,7 @@ const SignUpPage = () => {
           isPassword={true}
           toggleEyeHandle={() => toggleEyeHandle("repeatPassword")}
         />
+        <div className="infopasse">Palavras-passes devem conter no mínimo 6 digitos</div>
         <div className="termsContainer">
           <input type="checkbox" id="terms" name="terms" onChange={handleTermosChange} />
           <label className="termos" htmlFor='terms'>  Aceito os <button className='btnOpenTermosModal' onClick={handleOpenTermsModal}>termos e condições</button></label>
@@ -259,6 +278,7 @@ const SignUpPage = () => {
       <Modal
         fecharModal={fecharModal}
         alert={alert}
+        message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
         setFecharModal={setFecharModal}
       />
        {isTermsModalOpen && (
@@ -287,6 +307,14 @@ const RegistarStyle = styled.div`
     display: flex;
     align-items: start;
     margin-bottom: 12px;
+  }
+    
+  .infopasse {
+    width: calc(100% - 48px);
+    display: flex;
+    align-items: start;
+    font-size: 12px;
+    margin-bottom: 20px;
   }
 
   .termos {
