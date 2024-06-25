@@ -23,6 +23,33 @@ exports[`snapshot da página Publicar 1`] = `
       </h1>
     </header>
     <div
+      class="sc-dkrGBB djJPBh fundoModal"
+      style="display: none;"
+    >
+      <div
+        class="modalContent"
+      >
+        <p
+          class="textoModal"
+        >
+          Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?
+        </p>
+        <button
+          class="btnOK alert"
+        >
+          Não
+        </button>
+        <div
+          class="vl"
+        />
+        <button
+          class="btnOK alert sim"
+        >
+          Sim
+        </button>
+      </div>
+    </div>
+    <div
       class="MuiStack-root css-6kchnu-MuiStack-root"
     >
       <div
@@ -170,14 +197,14 @@ exports[`snapshot da página Publicar 1`] = `
       </div>
     </div>
     <div
-      class="sc-dkrGBB bVGMXl"
+      class="sc-hLBatu ljyBqZ"
     >
       <div
-        class="sc-ipEzrc bMkbfq"
+        class="sc-csuRvn bnaTEu"
         for="images"
       >
         <label
-          class="sc-jrcSHq ihVdvs addImgInputPublish"
+          class="sc-kDvuXt jWTMV addImgInputPublish"
           for="images"
         >
           <span
@@ -200,16 +227,16 @@ exports[`snapshot da página Publicar 1`] = `
           type="file"
         />
         <p
-          class="sc-kDvuXt jfnFRh"
+          class="sc-ipEzrc cpTUfa"
         >
           Adiciona até 5 fotografias
         </p>
         <div
-          class="sc-jSVask xghpD"
+          class="sc-gKPSgB enKMZP"
         />
       </div>
       <label
-        class="sc-hLBatu dmVqSI"
+        class="sc-eDvShL dRYxAC"
         for="title"
       >
         Título 
@@ -220,14 +247,14 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <textarea
-        class="sc-csuRvn kAZIXC productFormInput"
+        class="sc-eDVOW fUnRDC productFormInput"
         id="title"
         placeholder="Ex: Casaco de Pele Preto"
         style="font-size: 15px;"
         type="text"
       />
       <label
-        class="sc-hLBatu dmVqSI"
+        class="sc-eDvShL dRYxAC"
         for="description"
       >
         Descrição 
@@ -243,7 +270,7 @@ exports[`snapshot da página Publicar 1`] = `
         </span>
       </label>
       <input
-        class="sc-eDvShL iYuXLl productFormInput"
+        class="sc-jSVask hgNVEH productFormInput"
         data-testid="description-input"
         id="description"
         placeholder="Ex: Casaco de Pele em bom estado."
@@ -251,7 +278,7 @@ exports[`snapshot da página Publicar 1`] = `
         value="Test Description"
       />
       <label
-        class="sc-hLBatu dmVqSI"
+        class="sc-eDvShL dRYxAC"
       >
         <span
           class="colourGreenAsterisk"
@@ -261,7 +288,7 @@ exports[`snapshot da página Publicar 1`] = `
          Campo Obrigatório
       </label>
       <div
-        class="sc-pyeOL lcmwYA"
+        class="sc-jrcSHq dvhzlq"
       >
         <button
           class="sc-gswONk gFXeoE btnComponent"

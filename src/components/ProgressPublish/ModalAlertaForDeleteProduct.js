@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { resetProgressPublish1 } from "../../redux/publicarSlice";
-const ModalAlertaForPublish = (props) => {
+const ModalAlertaForDeleteProduct = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSimClick = () => {
         dispatch(resetProgressPublish1()); // limpar os dados do redux quando o utilizador clicar no "sim" do modal alert
         navigate("/");
+        props.handleSimClick(); 
     };
 
     return (
@@ -134,4 +135,4 @@ hr.divisorModal {
   }
 `
 
-export default ModalAlertaForPublish
+export default ModalAlertaForDeleteProduct

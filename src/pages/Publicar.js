@@ -8,6 +8,7 @@ import HeaderPublish from "../components/Header/HeaderPublicar";
 import { useSeeUserQuery } from "../redux/usersAPI";
 import EliminarImage from "../assets/icons/eliminar.svg";
 import Button from "../components/Button";
+import ModalAlertaForPublish from "../components/ProgressPublish/ModalAlertaForPublish";
 
 const ProductForm = styled.div`
   display: flex;
@@ -239,6 +240,12 @@ const Publicar = () => {
   return (
     <div>
       <HeaderPublish name="Publicar" alertHandler={alertHandler} />
+      <ModalAlertaForPublish
+          fecharModal={fecharModal}
+          setFecharModal={setFecharModal}
+          alert={alert}
+          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+        />
       <CustomizedSteppers
         activeStep={activeStep}
         onStepChange={handleStepChange}
