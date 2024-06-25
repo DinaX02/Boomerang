@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const myExtraAPI = createApi({
   reducerPath: "extraAPI",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "http://localhost:3000/",
-    baseUrl: "https://boomerang-api-nu.vercel.app/",
+    baseUrl: "http://localhost:3000/",
+    // baseUrl: "https://boomerang-api-nu.vercel.app/",
 
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
