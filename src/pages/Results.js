@@ -427,8 +427,8 @@ const Results = () => {
                   id={artigo.id}
                   description={artigo.description}
                   image={
-                    artigo.productImage
-                      ? artigo.productImage
+                    artigo.productImage[0]
+                      ? artigo.productImage[0]
                       : imageDefaultProduct
                   }
                   price={artigo.price_day}
