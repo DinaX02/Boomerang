@@ -234,7 +234,7 @@ const ResultsStyle = styled.div`
       padding-top: 25px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: left;
+      justify-content: space-evenly;
       gap: 25px 25px;
       flex-direction: row;
     }
