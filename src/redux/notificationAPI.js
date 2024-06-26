@@ -18,6 +18,19 @@ export const myNotificationsnAPI = createApi({
         url: `notification`,
         method: "GET",
       }),
+      transformResponse: (response) => {
+        // console.log(response);
+        response.forEach((item) => {
+          if (item.product && Array.isArray(item.product.productImage)) {
+            item.product.productImage = item.product.productImage.map(
+              (imageUrl) => {
+                return imageUrl.replace("http://localhost:3000/", "");
+              }
+            );
+          }
+        });
+        return response;
+      },
     }),
   }),
 });
