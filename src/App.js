@@ -50,6 +50,7 @@ import WaitAcceptRent from "./pages/WaitAcceptRent.js";
 import AluguerComSucesso from "./pages/AluguerComSucesso.js";
 import ArmarioUtilizador from "./pages/ArmarioUtilizadorPage.js";
 import AluguerAceitarRejeitar from "./pages/AluguerAceitarRejeitar.js";
+import ErroPagamento from "./pages/ErroPagamento.js";
 
 function App() {
 
@@ -108,6 +109,7 @@ function App() {
           <Route path="/transaction-success" element={<AluguerComSucesso />}></Route>
           <Route path="/armario-page" element={<ArmarioUtilizador/>}></Route>
           <Route path="/aluguer-aceitar-rejeitar" element={<AluguerAceitarRejeitar/>}></Route>
+          <Route path="/transaction-error" element={<ErroPagamento/>}></Route>
 
         </Routes>
       </BrowserRouter>

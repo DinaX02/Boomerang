@@ -68,7 +68,7 @@ const Notifications = () => {
                 {!isLoading && notifications && [...notifications].reverse().map((notification) => (
                   <Notification
                     key={notification.id}
-                    image={notification?.product?.productImage?.lenght > 0 ? notification.product.productImage : imageDefaultProduct}
+                    image={notification?.product?.productImage?.lenght > 0 ? notification.product.productImage[0] : imageDefaultProduct}
                     title={notification?.title}
                     sub={notification?.message}
                     type={notification?.type}
