@@ -10,16 +10,28 @@ import { CircularProgress } from "@mui/material";
 import { format, differenceInDays } from 'date-fns'; // Importe 'format' e 'differenceInDays' do date-fns
 import ptBR from 'date-fns/locale/pt-BR'; // Importe a localidade desejada
 import { useSeeUserQuery } from "../redux/usersAPI";
+import { useFetchProductQuery } from '../redux/productAPI';
+import { useSelector } from 'react-redux';
+import InfoIconTaxa from "../assets/icons/infoIcon.svg";
 
 const AceitarRejeitar = (props) => {
   const [maxDescriptionLength, setMaxDescriptionLength] = useState(90);
   const navigate = useNavigate();
   const [fecharModal, setFecharModal] = useState(true);
+  const [fecharModalTaxa, setFecharModalTaxa] = useState(true);
+  
   const { data: transactionData, isLoading: isLoadingTransaction } = useFetchTransactionQuery(props.transactionId);
+  const { data: productsData } = useFetchProductQuery({ id: transactionData?.Product?.id });
+  const product = productsData && productsData.length > 0 ? productsData[0] : null;
+  // console.log("transactionData", transactionData);
+  // console.log("transactionProductImage", transactionData?.Product?.productImage);
+  // console.log("productImage", product?.productImage);
   const [rejectedTransaction] = useRejectedTransactionMutation();
   const [cancelledTransaction] = useCancelledTransactionMutation();
   const { data: userData } = useSeeUserQuery();
   const ownerUserId = Number(props.ownerUserId);
+  const listSecond = useSelector((state) => state.RentSecond.progressRentList);
+  // console.log(listSecond);
   // Função para formatar a data
   const formatDate = (date) => {
     return format(new Date(date), 'd MMM yyyy', { locale: ptBR }); // Ajuste 'ptBR' para a localidade desejada
@@ -75,7 +87,7 @@ const AceitarRejeitar = (props) => {
         const response = await rejectedTransaction({ transactionId: props.transactionId });
       }
       catch (error) {
-        console.error("Error Rejected:", error);
+        // console.error("Error Rejected:", error);
       }
     }
     if (transactionData.state === "approved") {
@@ -84,7 +96,7 @@ const AceitarRejeitar = (props) => {
         const response = await cancelledTransaction({ transactionId: props.transactionId });
       }
       catch (error) {
-        console.error("Error Cancelled:", error);
+        // console.error("Error Cancelled:", error);
       }
     }
     navigate("/notifications-page");
@@ -94,6 +106,22 @@ const AceitarRejeitar = (props) => {
   // const vouchers = () => {
   //     navigate("/vouchers-page");
   // };
+  const messages = [
+    <span>
+      Esta taxa de proteção (<strong>2€ + 5% do valor total do aluguer</strong>)
+      é <strong>obrigatória</strong> e permite que{" "}
+      <strong>todos os danos até 15€</strong> causados à peça durante o período
+      de aluguer sejam <strong>cobertos pela Boomerang</strong>.
+    </span>
+  ]
+
+  const [modalMessage, setModalMessage] = useState(messages[0]);
+
+  const handleIconClick = (index) => {
+    setFecharModalTaxa(false);
+    setModalMessage(messages[index]);
+  };
+
   return (
     <>
       <Modal
@@ -107,7 +135,7 @@ const AceitarRejeitar = (props) => {
       {isLoadingTransaction && <Loader className={'loader'} color="success" />}
       {!isLoadingTransaction && transactionData && <MainContainer>
         <FirstContainer>
-          <div className='imgCardPreview' style={{ backgroundImage: `url(${transactionData?.Product?.productImage?.length > 0 ? transactionData?.Product?.productImage : imageDefaultProduct})` }}></div>
+          <div className='imgCardPreview' style={{ backgroundImage: `url(${product?.productImage && product?.productImage.length > 0 ? product.productImage : imageDefaultProduct})` }}></div>
           <div className="textContainerPreview">
             <h2 className="titlePreview">{transactionData.Product?.title}</h2>
             <p className="descriptionPreview">{descriptionSizeControl(transactionData.Product?.description)}</p>
@@ -128,9 +156,29 @@ const AceitarRejeitar = (props) => {
               <p style={{ margin: "0" }} className='detalhe'>{transactionData.Product?.price_day}€ /dia x {calculateDaysDifference(transactionData.date_start, transactionData.date_end)} dias</p>
             </TextInner>
           </ServiceConatiner>
+          <Modal
+            fecharModal={fecharModalTaxa}
+            setFecharModal={setFecharModalTaxa}
+            message={modalMessage}
+          />
+          <ServiceConatiner>
+            <TextInner>
+              <div style={{ display: "inline-block" }} onClick={() => {
+                handleIconClick(0);
+              }}>
+                <p style={{ margin: "2px 0px", fontWeight: "bold" }}>Taxa de proteção</p>
+              </div>
+              <img
+                style={{ marginLeft: "0.5em", marginBottom: "5px" }}
+                src={InfoIconTaxa}
+                alt="icone de informação"
+              />
+              <p style={{ margin: "0" }} className='detalhe'>{listSecond.taxa}€</p>
+            </TextInner>
+          </ServiceConatiner>
           <div style={{ textAlign: "center" }}>
             <p style={{ margin: "5px 0 0 0", fontWeight: "600" }}>Total:</p>
-            <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }}>{total}€</p>
+            <p style={{ margin: "0", fontWeight: "bold", color: "#00c17c", fontSize: "20px" }}>{listSecond.total}€</p>
           </div>
         </SecondContainer>
         {transactionData.state === "cancelled" || transactionData.state === "rejected"

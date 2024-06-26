@@ -13,11 +13,12 @@ import { CircularProgress } from "@mui/material";
 import colors from "./../assets/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProgressRent } from "../redux/rentSlice";
+import { updateProgressRent as updateProgressRentSecond} from "../redux/rentSecondSlice";
 
 const MainContainer = styled.div`
   margin: 0 auto;
   width: 100%;
-  padding: 25px 30px;
+  padding-top: 25px;
 `;
 
 const MoradaSelecionada = styled.div`
@@ -40,6 +41,8 @@ const ConteudoMorada = styled.div`
   align-items: center;
   width: 100%;
   overflow: hidden !important;
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 const BotaoRemover = styled.button`
@@ -62,7 +65,7 @@ const SelecionarMorada = styled.div`
   width: 100%;
   height: 45px;
   padding: 10px 0px 10px 30px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 `;
 
 const PontoRecolha = styled.div`
@@ -80,7 +83,7 @@ const ConfirmButton = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 `;
 
 const Loader = styled(CircularProgress)`
@@ -93,6 +96,7 @@ const Loader = styled(CircularProgress)`
   width: 40px;
   height: 40px;
 `;
+
 
 const ChooseAdressComponent = ({ onAddressSelect }, props) => {
     const [moradas, setMoradas] = useState([]);
@@ -134,7 +138,8 @@ const ChooseAdressComponent = ({ onAddressSelect }, props) => {
             }
 
             // Invocar a função callback para atualizar o estado do endereço selecionado
-            onAddressSelect();
+            onAddressSelect(isLoading);
+            setRemove(false);
         } catch (error) {
             console.error("Erro ao remover localização:", error);
             // Tratar o erro conforme necessário (ex: exibir mensagem para o usuário)
@@ -148,10 +153,15 @@ const ChooseAdressComponent = ({ onAddressSelect }, props) => {
             dispatch(
                 updateProgressRent({ index: 0, updatedData: { morada: morada } })
             );
+            dispatch(
+                updateProgressRentSecond({ index: 0, updatedData: { morada: morada } })
+            );
             setMoradaSelecionada(morada);
         }
         onAddressSelect();
     };
+
+
 
     return (
         <div>
@@ -191,7 +201,7 @@ const ChooseAdressComponent = ({ onAddressSelect }, props) => {
                                     border: "none",
                                     width: "90%",
                                     textAlign: "left",
-                                    fontSize: "16px",
+                                    fontSize: "13px",
                                     fontWeight: "500",
                                 }}
                             >
@@ -206,7 +216,7 @@ const ChooseAdressComponent = ({ onAddressSelect }, props) => {
                             />
                         </SelecionarMorada>
                     </Link>
-                    <hr></hr>
+                    {/* <hr></hr>
                     <PontoRecolha>
                         <button
                             style={{
@@ -237,8 +247,7 @@ const ChooseAdressComponent = ({ onAddressSelect }, props) => {
                             src={dropPontoRecolha}
                             alt="Adicioanr Morada"
                         />
-                    </PontoRecolha>
-                    <ConfirmButton></ConfirmButton>
+                    </PontoRecolha> */}
                 </MainContainer>
             )}
         </div>

@@ -24,6 +24,8 @@ import { useSearchUserQuery } from "../redux/usersAPI";
 import { useFetchProductSearchQuery } from "../redux/productAPI";
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 import imageDefaultUser from "../assets/icons/user_unknown.svg";
+import { Link } from "react-router-dom";
+
 
 const Results = () => {
   const navigate = useNavigate();
@@ -456,7 +458,7 @@ const Results = () => {
               style={{ flexDirection: singleColumnGrid ? "column" : "row" }}
             >
               {usersData.map((user) => (
-                <div key={user.id} className={"userRow"}>
+                <Link key={user.id} className={"userRow"} to={`/profile-view-page/${user.id}`}>
                   <ProfileLink
                     image={
                       user.profileImage?.length > 0
@@ -468,7 +470,7 @@ const Results = () => {
                     id={user.id}
                   />
                   <div>{user.username}</div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (
@@ -516,11 +518,14 @@ const ResultsStyle = styled.div`
       }
     }
     .resultsUsers {
+      text-decoration: none;
       font-size: 14px;
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
       .userRow {
+        text-decoration: none;
+        color: black;
         gap: 15px;
         padding: 10px;
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);

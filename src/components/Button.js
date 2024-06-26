@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
 import colors from './../assets/colors';
+import { CircularProgress } from "@mui/material";
 
 //Componente reutilizavel - Botao
 const Button = (props) => {
@@ -43,7 +44,11 @@ const Button = (props) => {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
         >
-            {props.text}
+            {props.isLoading ? (
+                <CircularProgress color="inherit" size={24} />
+              ) : (
+                props.text
+              )}
         </ButtonStyle>
     )
 }

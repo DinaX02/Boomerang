@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import styled from 'styled-components';
 import { useAddLocationMutation } from '../redux/locationAPI';
+import Button from '../components/Button';
 
 const MainContainer = styled.div`
   margin: 0 auto;
@@ -36,13 +37,15 @@ const AddAdressComponent = () => {
     const [cidade, setCidade] = useState('');
     const [codigoPostal, setCodigoPostal] = useState('');
     const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [disableBtn, setDisableBtn] = useState(true);
 
     // Obtendo a função de mutação do hook useAddLocationMutation
     const [addLocation] = useAddLocationMutation();
 
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
-
+    const handleFormSubmit = async () => {
+        // event.preventDefault();
+        setIsSubmitting(true);
         if (!morada || !localidade || !cidade || !codigoPostal) {
             return;
         }
@@ -50,20 +53,21 @@ const AddAdressComponent = () => {
         try {
             // Chamar a função de mutação para adicionar a localização
             await addLocation({ address: morada, locationName: localidade, postalCode: codigoPostal });
-
             // Navegar para a próxima página após adicionar com sucesso
-            navigate('/progressPublish-5');
+            navigate(-1);
         } catch (error) {
             console.error('Erro ao adicionar localização:', error);
             // Tratar o erro conforme necessário (ex: exibir mensagem para o usuário)
-        }
+        } finally {
+            setIsSubmitting(false);
+          }
     };
 
     return (
         <div>
             <Header name="Adicionar Morada" />
             <MainContainer>
-                <form onSubmit={handleFormSubmit} style={{ marginTop: "100px" }}>
+                <form style={{ marginTop: "100px" }}>
                     <AddMorada>
                         <input type="text" name="Morada" value={morada} onChange={(e) => setMorada(e.target.value)}
                             placeholder="Adicionar Morada"
@@ -118,8 +122,8 @@ const AddAdressComponent = () => {
                     </AddMorada>
                     <h6 style={{ fontSize: "14px", fontWeight: "500" }}><span style={{ color: "#65d9b0" }}>*</span> Campo Obrigatório</h6>
                     <ConfButton>
-                        <input type="submit" value="Guardar" style={{
-                            backgroundColor: "#343541",
+                        {/* <input type="submit" value="Guardar" style={{
+                            backgroundColor: `${colors.cinzaEscuro}`,
                             width: "144px",
                             height: "36px",
                             border: "none",
@@ -128,7 +132,9 @@ const AddAdressComponent = () => {
                             fontSize: "15px",
                             fontWeight: "bold",
                             outline: "none",
-                        }} />
+                        }} /> */}
+                        <Button text="Guardar" type="submit" onClick={handleFormSubmit} isLoading={isSubmitting} disable={false || isSubmitting}/>
+
                     </ConfButton>
                 </form>
             </MainContainer>

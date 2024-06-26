@@ -18,7 +18,7 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_51PJCQdFBiJETLeRnD0PIPUcMRSjBIXRDpvghcG7ADbVchELMUjIZ2XJ5dBnTBLeTVoRFMtn14xCdqBpOeq8nu1dS005Mv6Qbyy');
 
 const MainContainer = styled.div`
-  padding: 25px;
+  padding: 24px;
   width: 100%;
   height: 80vh;
 `;
@@ -108,6 +108,7 @@ const AlugarMorada = () => {
     const [moradaSelecionada, setMoradaSelecionada] = useState('');
     const dispatch = useDispatch();
     const list = useSelector((state) => state.RentSecond.progressRentList);
+    const listRentAccept = useSelector((state) => state.Rent.progressRentList);
     // const [buttonDisable, setButtonDisable] = useState(false);
     const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
     const [createCheckOutSession] = useCreateCheckOutSessionMutation();
@@ -116,6 +117,8 @@ const AlugarMorada = () => {
     const query = new URLSearchParams(search);
     const transactionId = query.get('transactionId');
     const state = query.get('state');
+    const [isLoading, setIsLoading] = useState(false); // Adicionar estado isLoading
+    const [isConfirming, setIsConfirming] = useState(false);
 
     useEffect(() => {
         const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
@@ -134,16 +137,16 @@ const AlugarMorada = () => {
 
     const handleNextStep = async () => {
         if (state === "pending") {
-            console.log("pedido ENDPOINT Approved");
+            // console.log("pedido ENDPOINT Approved");
             try {
-                const response = await approvedTransaction({ transactionId: transactionId, ownerUserAddress: list.morada });
+                await approvedTransaction({ transactionId: transactionId, ownerUserAddress: listRentAccept.morada });
                 navigate("/notifications-page");
                 // Check if the response has a data property
 
-                console.log("Approved successfully");
+                // console.log("Approved successfully");
             }
             catch (error) {
-                console.error("Error Approved:", error);
+                // console.error("Error Approved:", error);
             }
 
         }
@@ -152,31 +155,41 @@ const AlugarMorada = () => {
                 // Dispatch the update if necessary
                 // dispatch(updateProgressRent({ index: 0, updatedData: { morada: moradaSelecionada } }));
 
-                console.log("extras", list.extras);
-                console.log("morada", list.morada);
+                // console.log("extras", list.extras);
+                // console.log("type of extras", typeof list.extras);
+                // console.log("is extras an array?", Array.isArray(list.extras));
+
+                // console.log("morada", list.morada);
+                // console.log("type of morada", typeof list.morada);
+                // console.log("is morada an array?", Array.isArray(list.morada));
+                // console.log("transactionId", list.transactionId);
 
                 // Make the API call
-                const response = await createCheckOutSession({ transactionId: 1, selectedExtras: list.extras, renterUserAddress: list.morada });
+                const response = await createCheckOutSession({ transactionId: list.transactionId, selectedExtras: list.extras, renterUserAddress: list.morada });
 
                 // Check if the response has a data property
                 const session = response.data || response;
 
-                console.log("CheckOut Session created successfully:", session);
+                // console.log("CheckOut Session created successfully:", session);
 
                 const stripe = await stripePromise;
-
+                setIsConfirming(true);
                 // Redirect to the Stripe Checkout page
                 await stripe.redirectToCheckout({ sessionId: session.id });
 
             } catch (error) {
-                console.error("Error creating CheckOut Session:", error);
+                // console.error("Error creating CheckOut Session:", error);
+            }
+            finally {
+                setIsConfirming(true);
             }
         }
     };
 
 
-    const handleAddressSelect = () => {
+    const handleAddressSelect = (isLoading) => {
         setBtnPublicarEnabled(true);
+        setIsLoading(isLoading); // Atualizar estado isLoading
     };
 
 
@@ -184,7 +197,7 @@ const AlugarMorada = () => {
         <div>
             <NavbarWeb />
             <Header name="Morada" />
-            <MainContainer>
+            {!isLoading && <MainContainer>
                 {!transactionId
                     ? <PreviewCard id={list.article_id} valor={list.total} />
                     : <Container>
@@ -268,10 +281,10 @@ const AlugarMorada = () => {
                     }} src={dropPontoRecolha} alt="Adicionar Morada"></img>
                 </PontoRecolha> */}
                 <ConfirmButton>
-                    <Button onClick={handleNextStep} disable={!BtnPublicarEnabled} text="Confirmar" />
+                    <Button onClick={handleNextStep} disable={!BtnPublicarEnabled || isConfirming} text="Confirmar" isLoading={isConfirming} />
                 </ConfirmButton>
 
-            </MainContainer>
+            </MainContainer>}
         </div>
     )
 }

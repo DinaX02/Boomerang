@@ -12,6 +12,7 @@ import Modal from '../components/Modal';
 import colors from './../assets/colors';
 import { useFetchExtraQuery } from '../redux/extraAPI';
 import { CircularProgress } from "@mui/material";
+import Button from '../components/Button';
 
 const MainContainer = styled.div`
   padding: 25px;
@@ -196,7 +197,7 @@ const AlugarDetalhes = () => {
     const isContinuarDisabled = lavagemSelecionada === null || transporteSelecionado === null;
 
     const handleNextStep = () => {
-        const detalhes = [lavagemSelecionada, transporteSelecionado] ;
+        const detalhes = [lavagemSelecionada, transporteSelecionado];
         const extras = [];
         if (lavagemSelecionada === 0) {
             extras.push(extraData[0].id);
@@ -296,7 +297,9 @@ const AlugarDetalhes = () => {
                     ))}
                 </div>
                 <ConfirmButton>
-                    <button
+                    <Button text="Continuar" type="submit" onClick={handleNextStep} disable={isContinuarDisabled} />
+
+                    {/* <button
                         disabled={isContinuarDisabled}
                         onClick={handleNextStep}
                         style={{
@@ -313,7 +316,7 @@ const AlugarDetalhes = () => {
                         }}
                     >
                         Continuar
-                    </button>
+                    </button> */}
                 </ConfirmButton>
             </MainContainer>
         </div>

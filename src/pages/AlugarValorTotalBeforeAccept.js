@@ -31,7 +31,7 @@ const AlugarValorTotal = () => {
   const date2 = new Date(list.date[1].replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3"));
 
   const difference = Math.abs(date2 - date1);
-  const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24)) + 1;
+  const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
   const valor = list.total;
   const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2));
