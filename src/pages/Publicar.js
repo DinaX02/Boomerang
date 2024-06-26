@@ -241,11 +241,11 @@ const Publicar = () => {
     <div>
       <HeaderPublish name="Publicar" alertHandler={alertHandler} />
       <ModalAlertaForPublish
-          fecharModal={fecharModal}
-          setFecharModal={setFecharModal}
-          alert={alert}
-          message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
-        />
+        fecharModal={fecharModal}
+        setFecharModal={setFecharModal}
+        alert={alert}
+        message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
+      />
       <CustomizedSteppers
         activeStep={activeStep}
         onStepChange={handleStepChange}
@@ -270,8 +270,9 @@ const Publicar = () => {
               width: "90%",
             }}
           />
-          <DescriptionAddImage>Adiciona até 5 fotografias</DescriptionAddImage>
-
+          <DescriptionAddImage>
+            Adiciona até 5 fotografias (max.4.5MB)
+          </DescriptionAddImage>
           <ImagePreviewContainer>
             {productImageURL.map((imageUrl, index) => (
               <ImagePreview key={index} className="imagePreview">
