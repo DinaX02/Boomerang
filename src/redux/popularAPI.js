@@ -4,7 +4,7 @@ export const myPopularAPI = createApi({
   reducerPath: "popularAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/",
-    // baseUrl: "https://boomerang-4hhtobs79-boomerangs-projects.vercel.app/",
+    // baseUrl: "https://boomerang-api-nu.vercel.app/",
 
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");

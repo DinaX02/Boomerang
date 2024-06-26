@@ -33,16 +33,16 @@ jobs:
       - run: npm test
       - run: npm run lint
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/master'
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
 
-  #   needs: [setup-inicial, test]
+    needs: [setup-inicial, test]
 
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Build e Deploy
-  #       uses: actions/setup-node@v3
-  #     - run: npm install #instala dependências
-  #     - run: npm run build #build
-  #     - run: npx netlify-cli deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod #deploy para netlify
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build e Deploy
+        uses: actions/setup-node@v3
+      - run: npm install #instala dependências
+      - run: npm run build #build
+      - run: npx netlify-cli deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod #deploy para netlify
