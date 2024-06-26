@@ -19,7 +19,7 @@ export const myNotificationsnAPI = createApi({
         method: "GET",
       }),
       transformResponse: (response) => {
-        console.log(response);
+        // console.log(response);
         response.forEach((item) => {
           if (item.product && Array.isArray(item.product.productImage)) {
             item.product.productImage = item.product.productImage.map(
