@@ -43,7 +43,7 @@ const Notification = (props) => {
   const confirmHandle = (id) => {
     props.onNotificationClick();
     if (props.type === "transaction") {
-      navigate(`/aluguer-aceitar-rejeitar?transactionId=${props.TransactionId}&ownerUserId=${props.ownerUserId}&article_id=${props.article_id}`);
+      navigate(`/aluguer-aceitar-rejeitar`);
     }
     if (props.type === "favorite") {
       navigate("/article/" + id);

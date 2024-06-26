@@ -8,6 +8,7 @@ import Modal from '../components/Modal';
 import Input from '../components/Input';
 import { CircularProgress } from "@mui/material";
 import { useSeeUserQuery, useEditUserMutation } from '../redux/usersAPI';
+import colors from "./../assets/colors";
 
 const EditEmail = () => {
   const { data: userData, refetch, isLoading, error } = useSeeUserQuery();
@@ -214,7 +215,7 @@ const EditProfileStyle = styled.div`
   }
 
   .buttonAtualizar {
-    background-color: #343541;
+    background-color: ${colors.cinzaEscuro};
     color: white !important;
     font-weight: bold;
     font-size: 15px;

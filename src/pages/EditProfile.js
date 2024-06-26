@@ -9,6 +9,7 @@ import Modal from "../components/Modal";
 import Input from "../components/Input";
 import { CircularProgress } from "@mui/material";
 import { useSeeUserQuery, useEditUserMutation } from "../redux/usersAPI";
+import colors from "./../assets/colors";
 
 const EditProfile = () => {
   const { data: userData, isLoading } = useSeeUserQuery();
@@ -179,7 +180,7 @@ const EditProfile = () => {
         className="imagemPerfil"
         src={previewImage || UserUnknownIcon}
         alt="imagem de perfil"
-        style={{ border: "1px solid #343541" }}
+        style={{ border: `1px solid ${colors.cinzaEscuro}` }}
       />
     );
   };
@@ -409,7 +410,7 @@ const EditProfileStyle = styled.div`
   }
 
   .buttonAtualizar {
-    background-color: #343541;
+    background-color: ${colors.cinzaEscuro};
     color: white !important;
     font-weight: bold;
     font-size: 15px;

@@ -11,6 +11,7 @@ import iconOverlay from "../../assets/icons/tick_iconOverlayFInal.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { resetProgressPublish1 } from "../../redux/publicarSlice";
 import { useCreateProductMutation } from "../../redux/productAPI";
+import { CircularProgress } from "@mui/material";
 
 const ContainerCentered = styled.div`
   display: flex;
@@ -49,12 +50,24 @@ const ParagraphIntroAdress = styled.p`
   }
 `;
 
+const Loader = styled(CircularProgress)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+`;
+
 const ProgressPublish5 = () => {
   const [fecharModal, setFecharModal] = useState(true);
   const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
   const [showOverlayFinal, setShowOverlayFinal] = useState(false);
   const [publishProduct] = useCreateProductMutation();
   const [erroPublicar, setErroPublicar] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const progressPublish1 = useSelector(
     (state) => state.Publicar1.progressPublish1
@@ -87,68 +100,76 @@ const ProgressPublish5 = () => {
   }
 
   const handleNextStepPublish = async () => {
-    setTimeout(async () => {
-      const {
-        title,
-        description,
-        measurements,
-        value,
-        price_day,
-        brand,
-        SizeId,
-        ProductTypeId,
-        ColorId,
-        GradeId,
-        productImage,
-      } = progressPublish1;
+    // setTimeout(async () => {
+    const {
+      title,
+      description,
+      measurements,
+      value,
+      price_day,
+      brand,
+      SizeId,
+      ProductTypeId,
+      ColorId,
+      GradeId,
+      productImage,
+    } = progressPublish1;
 
-      // Check if required fields are present
-      if (!title || !description) {
-        setErroPublicar(true);
-        setShowOverlayFinal(false);
-        return;
-      }
+    // Check if required fields are present
+    if (!title || !description) {
+      setErroPublicar(true);
+      setShowOverlayFinal(false);
+      return;
+    }
 
-      // Convert base64 to files
-      const files = productImage.map((base64Image, index) => {
-        return dataURLtoFile(base64Image, `image_${index}.png`);
-      });
+    // Convert base64 to files
+    const files = productImage.map((base64Image, index) => {
+      return dataURLtoFile(base64Image, `image_${index}.png`);
+    });
 
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("description", description);
-      formData.append("measurements", JSON.stringify(measurements));
-      formData.append("value", value);
-      formData.append("price_day", price_day);
-      formData.append("brand", brand);
-      formData.append("SizeId", SizeId);
-      formData.append("ProductTypeId", ProductTypeId);
-      formData.append("ColorId", ColorId);
-      formData.append("GradeId", GradeId);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("measurements", JSON.stringify(measurements));
+    formData.append("value", value);
+    formData.append("price_day", price_day);
+    formData.append("brand", brand);
+    formData.append("SizeId", SizeId);
+    formData.append("ProductTypeId", ProductTypeId);
+    formData.append("ColorId", ColorId);
+    formData.append("GradeId", GradeId);
 
-      // Add files to FormData
-      files.forEach((file, index) => {
-        formData.append(`productImage`, file); // Ensure this matches the server's expected field name
-      });
+    // Add files to FormData
+    files.forEach((file, index) => {
+      formData.append(`productImage`, file); // Ensure this matches the server's expected field name
+    });
 
-      try {
-        await publishProduct(formData).unwrap();
-        dispatch(resetProgressPublish1());
-        setShowOverlayFinal(true);
+    try {
+      setIsLoading(true);
+      await publishProduct(formData).unwrap();
+      dispatch(resetProgressPublish1());
+      // setShowOverlayFinal(true);
+      // navigate("/");
+    } catch (error) {
+      setErroPublicar(true);
+      console.log("Error publishing product:", error);
+      setShowOverlayFinal(false);
+    }
+    finally {
+      setShowOverlayFinal(true);
+      setTimeout(async () => {
         navigate("/");
-      } catch (error) {
-        setErroPublicar(true);
-        console.log("Error publishing product:", error);
-        setShowOverlayFinal(false);
-      }
-    }, 3000);
+      }, 3000);
+      setIsLoading(false);
+    }
+    // }, 3000);
   };
 
   const alertHandler = () => {
     fecharModal ? setFecharModal(false) : navigate("/");
   };
 
-  const handleChangeStepInProgressBar = (newStep) => {};
+  const handleChangeStepInProgressBar = (newStep) => { };
 
   return (
     <div>
@@ -165,7 +186,9 @@ const ProgressPublish5 = () => {
         alert={alert}
         message="Se retrocederes agora, vais perder todas as alterações que efetuaste. Descartar edições?"
       />
-      <ContainerCentered>
+      {isLoading && <Loader className={'loader'} color="success" />}
+
+      {!isLoading && <ContainerCentered>
         <SpaceTopComponent>
           <Container>
             <ParagraphIntroAdress>
@@ -173,7 +196,7 @@ const ProgressPublish5 = () => {
               e eficiente da tua peça após o período de aluguer.
             </ParagraphIntroAdress>
           </Container>
-          <ChooseAdressComponent onAddressSelect={handleAddressSelect} />
+          <div style={{ padding: "24px" }}><ChooseAdressComponent onAddressSelect={handleAddressSelect} /></div>
           {erroPublicar && (
             <p style={{ marginTop: "1em", color: "#C80000" }}>
               Erro ao publicar por causa do upload de imagens
@@ -188,7 +211,7 @@ const ProgressPublish5 = () => {
             />
           </ContainerDoisBtn>
         </SpaceTopComponent>
-      </ContainerCentered>
+      </ContainerCentered>}
       {showOverlayFinal && (
         <OverlayFinalPublish>
           <img
@@ -196,7 +219,7 @@ const ProgressPublish5 = () => {
             src={iconOverlay}
             alt="Icone de Publicar acabado"
           />
-          <p style={{ marginTop: "1em", color: "white" }}>
+          <p style={{ marginTop: "1em", color: "white", zIndex: "10" }}>
             Publicado com sucesso!
           </p>
         </OverlayFinalPublish>

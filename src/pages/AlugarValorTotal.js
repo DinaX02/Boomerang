@@ -19,7 +19,7 @@ const MainContainer = styled.div`
 const ConfButton = styled.div`
   width: 100%;
   display: flex;
-  padding-top: 40px;
+  margin-top: 60px;
   justify-content: center;
 `;
 
@@ -43,6 +43,7 @@ const AlugarValorTotal = () => {
 
   // Cálculo dos valores
   const daysDifference = list.daysDifference;
+  console.log(daysDifference);
   const valor = product.price_day * daysDifference;
   const taxa = parseFloat(((valor * 0.05) + 2).toFixed(2));
   const extras = (list.detalhes[0] + list.detalhes[1]) === 1 ? 5 : (list.detalhes[0] + list.detalhes[1]) === 2 ? 0 : 10;
@@ -68,7 +69,7 @@ const AlugarValorTotal = () => {
       {isLoading && <Loader className={'loader'} color="success" />}
 
       {!isLoading && <MainContainer>
-        <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras} OpExtras={OpExtras} />
+        <PreviewValorTotal id={list.article_id} days={daysDifference} taxa={taxa} valor={valor} total={total} extras={extras===0 ? null : extras} OpExtras={OpExtras} />
         <ConfButton>
           <Button onClick={handleNextStep} text="Continuar" />
         </ConfButton>

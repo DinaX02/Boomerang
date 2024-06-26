@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Input from '../components/Input';
 import { CircularProgress } from "@mui/material";
 import {useDeleteUserMutation} from "../redux/usersAPI"
+import colors from "./../assets/colors";
 
 const EliminarConta = () => {
     const [disableBtn, setDisableBtn] = useState(true);
@@ -231,7 +232,7 @@ const EliminarConta = () => {
     }
   
     .buttonAtualizar {
-      background-color: #343541;
+      background-color: ${colors.cinzaEscuro};
       color: white !important;
       font-weight: bold;
       font-size: 15px;

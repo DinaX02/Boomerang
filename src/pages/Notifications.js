@@ -15,7 +15,7 @@ import { addProgressRent } from "../redux/rentSecondSlice";
 
 const Notifications = () => {
   const dispatch = useDispatch();
-  const list = useSelector((state) => state.Rent.progressRentList);
+  // const list = useSelector((state) => state.Rent.progressRentList);
   const { data: notifications, isLoading, refetch } = useFetchNotificationQuery();
 
   const handleNotificationClick = (notification) => {
@@ -26,9 +26,13 @@ const Notifications = () => {
       const total = valor + taxa;
 
       const rentSecondData = {
-        article_id: notification.product.id,
+        article_id: notification?.product?.id,
         daysDifference: daysDifference,
+        valor: valor,
+        taxa: taxa,
         total: total,
+        transactionId: notification?.TransactionId,
+        ownerUserId: notification?.transaction?.ownerUserId
       };
       dispatch(addProgressRent(rentSecondData));
     }

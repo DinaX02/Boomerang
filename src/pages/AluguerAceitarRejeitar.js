@@ -7,12 +7,12 @@ import NavbarWeb from '../components/NavbarWeb';
 // import dropPontoRecolha from '../assets/icons/drop_PontoRecolha.png';
 // import iconMoradaSelect from '../assets/icons/selectedAdress.svg';
 import styled from "styled-components";
-import Button from '../components/Button';
+// import Button from '../components/Button';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateProgressRent } from '../redux/rentSlice';
-import ChooseAdressComponent from '../components/ChooseAdressComponent';
-import { useCreateCheckOutSessionMutation } from '../redux/transactionAPI';
+import { useSelector } from 'react-redux';
+// import { updateProgressRent } from '../redux/rentSlice';
+// import ChooseAdressComponent from '../components/ChooseAdressComponent';
+// import { useCreateCheckOutSessionMutation } from '../redux/transactionAPI';
 import AceitarRejeitar from '../components/AceitarRejeitar';
 
 const MainContainer = styled.div`
@@ -91,16 +91,17 @@ const ConfirmButton = styled.div`
 
 const AluguerAceitarRejeitar = () => {
   const [moradas, setMoradas] = useState([]);
-  const [moradaSelecionada, setMoradaSelecionada] = useState('');
+  // const [moradaSelecionada, setMoradaSelecionada] = useState('');
   const list = useSelector((state) => state.Rent.progressRentList);
   // const [buttonDisable, setButtonDisable] = useState(false);
   const [BtnPublicarEnabled, setBtnPublicarEnabled] = useState(false);
-  const { search } = useLocation();
-  const query = new URLSearchParams(search);
-  const transactionId = query.get('transactionId');
-  const ownerUserId = query.get('ownerUserId');
-  const article_id = query.get('article_id');
-  
+  // const { search } = useLocation();
+  // const query = new URLSearchParams(search);
+  // const transactionId = query.get('transactionId');
+  // const ownerUserId = query.get('ownerUserId');
+  // const article_id = query.get('article_id');
+  const listSecond = useSelector((state) => state.RentSecond.progressRentList);
+
   useEffect(() => {
     const storedMoradas = JSON.parse(localStorage.getItem('moradas')) || [];
     setMoradas(storedMoradas);
@@ -130,7 +131,7 @@ const AluguerAceitarRejeitar = () => {
       <NavbarWeb />
       <Header name="Aluguer" />
       <MainContainer>
-        <AceitarRejeitar transactionId={transactionId} ownerUserId={ownerUserId} article_id={article_id}/>
+        <AceitarRejeitar transactionId={listSecond.transactionId} ownerUserId={listSecond.ownerUserId} article_id={listSecond.article_id} />
         {/* <ChooseAdressComponent onAddressSelect={handleAddressSelect} /> */}
       </MainContainer>
     </div>

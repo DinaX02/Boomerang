@@ -217,8 +217,8 @@ const VerTudo = () => {
 
                 {!isLoading && (
                     <div className={`resultsArticles`} style={{ flexDirection: singleColumnGrid ? 'column' : 'row' }}>
-                        {dataFavorite.length > 0 ? (
-                            dataFavorite.map((artigo) => {
+                        {dataFavorite?.length > 0 ? (
+                            dataFavorite?.map((artigo) => {
                                 return <Article key={artigo.id} id={artigo.id} description={artigo.description} image={artigo.productImage?.length > 0 ? artigo.productImage : imageDefaultProduct} price={artigo.price_day} brand={artigo.brand} size={artigo.Size?.name} scale={1.25} width={singleColumnGrid ? '100%' : '120px'} />;
                             })
                         ) : (
