@@ -191,6 +191,7 @@ const Homepage = () => {
                         brand={artigo.brand}
                         size={artigo.Size?.name}
                         title={artigo.title}
+                        productData={artigo}
                       />
                     ))}
                 <Article
@@ -226,6 +227,7 @@ const Homepage = () => {
                       brand={artigo.brand}
                       size={artigo.Size.name}
                       title={artigo.title}
+                      productData={artigo}
                     />
                   ))}
               <Article more={true} ariaLabel={"Ver Todas as novidades"} />

@@ -9,6 +9,7 @@ import { useSeeUserQuery } from "../redux/usersAPI";
 import imageDefaultProduct from "../assets/icons/image_default_product.svg";
 
 const Article = (props) => {
+  const { productData } = props;
   const [isFavorite, setIsFavorite] = useState(false);
   const [strokeFavorite, setStrokeFavorite] = useState('black');
   const [fillFavorite, setFillFavorite] = useState('none');
@@ -16,6 +17,7 @@ const Article = (props) => {
   const [removeFavorite] = useRemoveFavoriteMutation();
   const { data: favorites } = useFetchFavoriteQuery();
   const { data: userData } = useSeeUserQuery();
+  const isOwner = userData && productData && userData.id === productData.UserId;
 
 
 
@@ -56,7 +58,7 @@ const Article = (props) => {
   if (props.more) {
     return (
 
-      <MoreLink to={props.favorite ?`/favorites-page` :`/ver-tudo`} aria-label={"Link para página Ver Todos os teus favoritos"}>
+      <MoreLink to={props.favorite ? `/favorites-page` : `/ver-tudo`} aria-label={"Link para página Ver Todos os teus favoritos"}>
         Ver Tudo
       </MoreLink>
     )
@@ -87,7 +89,7 @@ const Article = (props) => {
         <div className={'priceRow'}>
           {props.price && <div>{props.price}€ / dia</div>}
           {/* <div><FavoriteBorderIcon style={{color: "lightgray", scale: '0.7'}}/></div> */}
-          {userData && <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />}
+          {userData && !isOwner && <FavoriteIcon fill={fillFavorite} stroke={strokeFavorite} alt='favorite icon' onClick={favoriteHandler} style={{ zoom: '1.1' }} />}
         </div>
         <p>{props.brand ? props.brand : "Sem marca"}</p>
         <p>{props.size ? "Tamanho " + props.size : "Sem tamanho"}</p>

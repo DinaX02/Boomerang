@@ -256,7 +256,7 @@ const ArticlePage = (props) => {
           <h3>Voltar</h3>
         </div>
         <div className={"icons"}>
-          {userData && (
+          {userData && !isOwner && (
             <FavoriteIcon
               fill={fillFavorite}
               stroke={strokeFavorite}
@@ -412,12 +412,12 @@ const ArticlePage = (props) => {
           <Button
             text="Alugar"
             onClick={() => navigate(`/rentdate-page/${productsData[0].id}`)}
-            disable={!userData}
+            disable={!userData || isOwner}
           ></Button>
           <Button
             text="Chat"
             onClick={() => navigate(`/chat`)}
-            disable={!userData}
+            disable={!userData || isOwner}
           ></Button>
         </div>
       </div>
