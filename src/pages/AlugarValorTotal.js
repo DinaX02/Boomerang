@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import PreviewValorTotal from '../components/PreviewValorTotal';
-import { updateProgressRent } from "../redux/rentSlice";
+import { updateProgressRent } from "../redux/rentSecondSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchProductQuery } from '../redux/productAPI';
 import { CircularProgress } from "@mui/material";
